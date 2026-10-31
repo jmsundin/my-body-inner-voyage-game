@@ -26,4 +26,10 @@ The game is a static site with no build step, so Vercel can serve the repo as is
 | `docs/design-bible.html` | The original interactive design plan (v0.3) |
 | `docs/screenshots/` | Preview images of the atlas, valves, vessel walls and lymph node |
 
+## Sources, provenance and the AnKing deck
+
+Every Codex entry and flashcard carries a **Sources** record (`PROV` in the game file): a fact id, the First Aid organ system and topic, the reference the text was written against, whether it has been verified in a primary source yet, and a status. All 71 records are currently *unverified · pending clinical review*; Jon (medical accuracy lead) ticks them off as he checks them.
+
+The AnKing Step Deck is used **only as a coverage index**: its tag paths (for example `#AK_Step1_v12::#FirstAid::07_Cardiovascular`) tell us which topics a system should cover and which resource, chapter or question to verify a fact in. No card text, cloze sentences, images, `.apkg`, CSV, JSON or SQLite exports from the deck are in this repository, its docs or its prompts, and none will be: the deck's expression is copyrighted and AnkiHub's terms forbid redistribution and derived exports. Facts enter the game only after independent verification in a primary source and written in our own words. Where a tag path is not confirmed verbatim, the record says so.
+
 The medical content is a draft still under review for accuracy.

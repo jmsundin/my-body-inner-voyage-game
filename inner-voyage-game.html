@@ -158,6 +158,10 @@ body.mobile #labels .lbl{font-size:10px}
 .tab.on{background:rgba(62,230,216,.15);border-color:rgba(62,230,216,.5);color:var(--cyan)}
 #card .body{font-size:14px;line-height:1.5}
 #card .src{margin-top:10px;font-size:11px;color:var(--faint);font-family:var(--mono)}
+.prov{margin-top:10px;font-size:11px;line-height:1.45;color:var(--faint);font-family:var(--mono);border-top:1px solid rgba(255,255,255,.08);padding-top:6px}
+.prov summary{cursor:pointer;color:var(--muted);list-style:none}.prov summary::before{content:'▸ ';color:var(--cyan)}.prov[open] summary::before{content:'▾ '}
+.prov div{margin-top:3px}.prov b{color:var(--muted);font-weight:600}.prov .tagp{color:var(--cyan);word-break:break-all}.prov .note{color:var(--faint);font-style:italic;margin-top:5px}
+#studySheet .prov{text-align:left}
 .x{position:absolute;top:8px;right:10px;background:none;border:0;color:var(--muted);font-size:18px;cursor:pointer}
 /* stethoscope */
 #steth{left:50%;bottom:96px;transform:translateX(-50%);width:min(620px,calc(100vw - 32px));padding:10px 14px;opacity:0}
@@ -1871,7 +1875,7 @@ let cardKey=null,cardLevel=3;
 function openCard(key,first){
  const c=CODEX[key];if(!c)return;cardKey=key;cardLevel=depth;$('cardCell').style.display='none';$('cardModel').style.display='none';PV.on=false;
  $('cardKind').textContent=first?'Codex · new entry':'Codex';
- $('cardTitle').textContent=c.title;$('cardTag').textContent=c.tag;$('cardSrc').textContent='Ref: '+c.src+' · draft, pending clinical review';
+ $('cardTitle').textContent=c.title;$('cardTag').textContent=c.tag;$('cardSrc').innerHTML=provHTML(key,MOBILE)||('Ref: '+c.src+' · draft, pending clinical review');
  renderCardBody();$('card').classList.add('open');
 }
 function renderCardBody(){
@@ -1899,6 +1903,51 @@ function findTarget(){
  return best;
 }
 const CODEXKEY={endosome:'transport',svesicle:'vesicle'};
+// ---- Provenance layer (AnKing handover brief, 31 Oct 2026) ----
+// Metadata only: First Aid organ-system, topic, AnKing tag path as a coverage index, the reference the
+// text was written against, and a verification status. No card text, cloze or media from any deck — ever.
+const PROV_SYS={
+ cardio:{code:'CARDIO',sys:'Cardiovascular',tag:'#AK_Step1_v12::#FirstAid::07_Cardiovascular',fa:'First Aid 2025 · Cardiovascular',outline:'Cardiovascular System'},
+ resp:{code:'RESP',sys:'Respiratory',tag:'#AK_Step1_v12::#FirstAid::Respiratory (confirm subtree path in Anki)',fa:'First Aid 2025 · Respiratory',outline:'Respiratory System'},
+ heme:{code:'HEME',sys:'Hematology and Oncology',tag:'#AK_Step1_v12::#FirstAid::Hematology_and_Oncology (confirm subtree path in Anki)',fa:'First Aid 2025 · Hematology and Oncology',outline:'Blood & Lymphoreticular System'},
+ immuno:{code:'IMM',sys:'Immunology (General Principles)',tag:'#AK_Step1_v12::#FirstAid::Immunology (confirm subtree path in Anki)',fa:'First Aid 2025 · Immunology',outline:'Immune System'},
+ micro:{code:'MICRO',sys:'Microbiology (General Principles)',tag:'#AK_Step1_v12::#FirstAid::Microbiology (confirm subtree path in Anki)',fa:'First Aid 2025 · Microbiology',outline:'Multisystem Processes & Disorders · infectious'},
+ neuro:{code:'NEURO',sys:'Neurology and Special Senses',tag:'#AK_Step1_v12::#FirstAid::Neurology_and_Special_Senses (confirm subtree path in Anki)',fa:'First Aid 2025 · Neurology and Special Senses',outline:'Nervous System & Special Senses'},
+ msk:{code:'MSK',sys:'Musculoskeletal, Skin and Connective Tissue',tag:'#AK_Step1_v12::#FirstAid::Musculoskeletal_Skin_and_Connective_Tissue (confirm subtree path in Anki)',fa:'First Aid 2025 · Musculoskeletal, Skin, and Connective Tissue',outline:'Musculoskeletal System'},
+ biochem:{code:'BIOCHEM',sys:'Biochemistry (General Principles)',tag:'#AK_Step1_v12::#FirstAid::Biochemistry (confirm subtree path in Anki)',fa:'First Aid 2025 · Biochemistry (cellular)',outline:'Biochemistry & cell biology'}
+};
+// Codex key → [system, topic, extra resource refs]. Status is 'unverified' until Jon (or the external reviewer) ticks it.
+const PROV={
+ ivc:['cardio','Venous return · vena cava'],ra:['cardio','Right atrium · cardiac cycle'],tricuspid:['cardio','Tricuspid valve · AV valve mechanics'],rv:['cardio','Right ventricle · pulmonary circuit pressures'],
+ pulmonic:['cardio','Pulmonic valve · semilunar valve mechanics'],pa:['cardio','Pulmonary artery · low-pressure circuit'],pv:['cardio','Pulmonary veins'],la:['cardio','Left atrium'],mitral:['cardio','Mitral valve · S1 and diastolic filling'],
+ lv:['cardio','Left ventricle · pressure–volume loop'],aortic:['cardio','Aortic stenosis · murmur, pulse, syncope',['2020 ACC/AHA Guideline for Valvular Heart Disease']],asc:['cardio','Ascending aorta · Windkessel'],arch:['cardio','Aortic arch · baroreceptors, great vessels'],
+ desc:['cardio','Descending aorta · pulse-wave propagation'],syscap:['cardio','Systemic capillary exchange · Starling forces'],venule:['cardio','Venules · post-capillary leukocyte exit'],
+ murmur:['cardio','Murmur physics · turbulence, grading'],bedside:['cardio','Bedside exam of aortic stenosis'],exercise:['cardio','Exercise physiology · cardiac output and fixed obstruction'],leak:['cardio','Capillary leak · oedema'],
+ endothelium:['cardio','Endothelium · NO, glycocalyx, barrier'],artwall:['cardio','Arterial wall · tunica intima, media, adventitia'],veinwall:['cardio','Venous wall · capacitance vessels'],endocard:['cardio','Endocardium · Purkinje and trabeculae'],leaflet:['cardio','Valve leaflet histology · fibrosa, spongiosa, ventricularis'],
+ carotid:['cardio','Carotid artery · cerebral inflow, baroreceptor'],
+ lungcap:['resp','Pulmonary capillary · alveolar–capillary gas exchange'],
+ rbc:['heme','Erythrocyte · deformability, haemoglobin'],wbc:['heme','Neutrophil · margination and rolling'],platelet:['heme','Platelet · primary haemostasis'],lymph:['heme','Lymphocyte · recirculation'],mono:['heme','Monocyte · macrophage precursor'],eos:['heme','Eosinophil'],
+ macro:['immuno','Macrophage · antigen processing in the node'],dc:['immuno','Dendritic cell · antigen presentation'],bact:['micro','Bacterium in lymph · filtering'],
+ chylo:['biochem','Chylomicron · lipid transport'],mito:['biochem','Mitochondrion · axonal energy supply'],vesicle:['biochem','Synaptic vesicle · SNARE release'],
+ interstitium:['immuno','Interstitial fluid · lymph formation'],lymphcap:['immuno','Initial lymphatic · button junctions'],collecting:['immuno','Collecting lymphatic · lymphangion pump'],subcap:['immuno','Lymph node · subcapsular sinus'],cortsinus:['immuno','Lymph node · cortex and follicles'],medsinus:['immuno','Lymph node · medullary sinus'],
+ efferent:['immuno','Efferent lymphatic'],cisterna:['immuno','Cisterna chyli'],thoracic:['immuno','Thoracic duct'],venangle:['immuno','Venous angle · lymph re-entry'],lymphendo:['immuno','Lymphatic endothelium'],lymwall:['immuno','Lymphatic vessel wall · intrinsic pump'],reticulum:['immuno','Lymph node reticular meshwork · conduits'],
+ bbb:['neuro','Blood–brain barrier · tight junctions, transporters'],cortex:['neuro','Cerebral cortex · neuropil and layers'],neuron:['neuro','Neuron · soma, dendrites, axon'],astro:['neuro','Astrocyte · end-feet, K+ buffering'],microglia:['neuro','Microglia · surveillance'],oligo:['neuro','Oligodendrocyte · CNS myelin'],
+ axon:['neuro','Axon · action potential propagation'],ranvier:['neuro','Node of Ranvier · saltatory conduction'],transport:['neuro','Axonal transport · kinesin, dynein'],decuss:['neuro','Pyramidal decussation · corticospinal tract'],synapse:['neuro','Chemical synapse · cleft, receptors'],soma:['neuro','Motor neuron soma · integration'],
+ pnerve:['neuro','Peripheral nerve · fascicles, epi-/peri-/endoneurium'],schwann:['neuro','Schwann cell · PNS myelin'],nmj:['neuro','Neuromuscular junction · end-plate potential'],myelin:['neuro','Myelin sheath · capacitance and resistance'],paranode:['neuro','Paranode · axo-glial junctions'],hillock:['neuro','Axon initial segment · spike initiation'],
+ ecm:['msk','Extracellular matrix · collagen, proteoglycans']
+};
+const PROV_IDS={};(()=>{const n={};for(const k in PROV){const s=PROV_SYS[PROV[k][0]];n[s.code]=(n[s.code]||0)+1;PROV_IDS[k]='IV-'+s.code+'-'+String(n[s.code]).padStart(3,'0');}})();
+function provOf(k){const p=PROV[k];if(!p)return null;const s=PROV_SYS[p[0]];const c=CODEX[k];
+ return {id:PROV_IDS[k],sys:s.sys,topic:p[1],tag:s.tag,fa:s.fa,outline:s.outline,written:c?c.src:'',refs:p[2]||[],verified:'',status:'unverified · pending clinical review'};}
+function provHTML(k,compact){const p=provOf(k);if(!p)return '';
+ const esc=t=>String(t).replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]));
+ const rows=`<div><b>Written against</b> ${esc(p.written)}${p.refs.length?' · '+esc(p.refs.join(' · ')):''}</div>
+ <div><b>Verified in a primary source</b> ${p.verified?esc(p.verified):'not yet'}</div>
+ <div><b>Coverage index</b> ${esc(p.fa)} · AnKing tag <span class="tagp">${esc(p.tag)}</span> · USMLE Step 1 outline: ${esc(p.outline)}</div>
+ <div><b>Status</b> ${esc(p.status)}</div>`;
+ return `<details class="prov"${compact?'':' open'}><summary>Sources · ${p.id} · ${esc(p.sys)} › ${esc(p.topic)}</summary>${rows}<div class="note">AnKing is used only as an index of what to cover and where to verify it; no deck content is reproduced.</div></details>`;}
+function provSummary(){const by={};let n=0,v=0;for(const k in PROV){const s=PROV_SYS[PROV[k][0]].sys;by[s]=(by[s]||0)+1;n++;}return {n,v,by};}
+
 const CELLDO={neuron:'Integrating thousands of synaptic inputs on its dendrites; its axon runs to the spinal cord.',astro:'Feeding neurons, mopping up glutamate and K⁺, and sealing the capillary with its end-feet.',microglia:'Sweeping the neuropil with its processes, checking synapses and looking for debris.',oligo:'Wrapping segments of several axons in myelin.',schwann:'Wrapping one internode of this axon in spiral layers of its membrane.',mito:'Walking outward on kinesin toward a node or the terminal, where ATP demand is highest.',vesicle:'Fast anterograde transport: new membrane and proteins heading for the terminal.',endosome:'Retrograde transport on dynein: worn-out material and trophic signals heading back to the cell body.',svesicle:'Loaded with neurotransmitter, docked at the active zone, waiting for calcium.',eos:'Cruising mid-stream. Its big granules carry major basic protein for killing parasitic worms.',macro:'Clinging to the sinus wall, swallowing anything foreign that drifts past.',dc:'Carrying pieces of bacteria from the tissue to show to T cells in the node.',bact:'Drifting with the lymph toward the node, where macrophages and lymphocytes will catch it.',chylo:'Carrying dietary fat absorbed by the gut toward the blood.',platelet:'Resting: smooth disc, not activated. It will spread and stick only if it meets exposed collagen.',wbc:'Patrolling. Selectins on the wall let it tether and roll; chemokines would make it stop and squeeze out.',lymph:'Recirculating between blood and lymph nodes, looking for its one matching antigen.',mono:'In transit (it circulates 1–3 days) before entering a tissue and becoming a macrophage.'};
 function cellFacts(t){
  const p=t.p,D=t.D,i=wrapI(Math.floor(p.s)),rg=REGIONS[REG[i]],sat=Math.round(SAT[i]);
@@ -2005,6 +2054,7 @@ function openStudy(){
  <p class="small" style="margin-top:0">Cards are written from what you have explored: recall cards for each Codex entry, “which cell is this?” with its 3D model, “what comes next downstream”, reality checks, your predictions, and Rounds questions. Grade yourself honestly; the schedule stretches what you know and brings back what you miss.</p>
  <div class="sstat"><div><b>${due.length}</b>due now</div><div><b>${Math.min(fresh.length,10)}</b>new today</div><div><b>${mastered}</b>solid</div><div><b>${deck.length}</b>in the deck</div></div>
  ${bars}
+ ${(()=>{const ps=provSummary();return `<p class="small" style="margin-top:8px;color:var(--faint)">Sources · ${ps.n} fact records, ${ps.v} verified in a primary source so far · ${Object.entries(ps.by).map(([k,v])=>k.replace(/ \(General Principles\)/,'')+' '+v).join(' · ')}. Every card and Codex entry shows its record under “Sources”.</p>`;})()}
  ${weak.length?`<h4 style="margin:14px 0 6px">Weak spots</h4>${weak.map(c=>`<div class="weak"><span>${srsTitle(c)}</span><button class="mini" data-fly="${c.k}">Fly there</button></div>`).join('')}`:''}
  <div style="margin-top:8px">${due.length+Math.min(fresh.length,10)?`<button class="btn" id="sGo">Review ${due.length+Math.min(fresh.length,10)} card${due.length+Math.min(fresh.length,10)>1?'s':''} ▸</button>`:`<button class="btn" disabled style="opacity:.5">Nothing due${when?' · next in '+when:''}</button>`} <button class="btn ghost" data-close>Keep exploring</button>${deck.length<6?'<p class="small">Explore and scan more structures (E, click cells) to grow the deck.</p>':''}</div>`;
  const sh=$('studySheet');sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
@@ -2029,18 +2079,18 @@ function renderStudyCard(){
  if(c.type==='recall'||c.type==='rc'){
   const cx=CODEX[c.k];const front=c.type==='rc'?`<div class="q"><span class="eyebrow" style="color:var(--amber)">Reality check</span><br>In the game, <b>${cx.title}</b> is simplified. Where does it bend real physics or biology?</div>`:`<div class="q"><b>${cx.title}</b> <span class="small" style="color:var(--faint)">${cx.tag}</span><br><span style="color:var(--muted)">Say out loud: what is it, what does it do, and what is the one clinical point you would be asked on Rounds?</span></div>`;
   sh.innerHTML=head+front+`<button class="btn" id="sShow">Show answer</button>`;
-  $('sShow').onclick=()=>{sh.innerHTML=head+front+`<div class="expl">${c.type==='rc'?cx.rc:cx.L[depth]+(cx.rc?'<br><br><b style="color:var(--amber)">Reality check · </b>'+cx.rc:'')}</div><p class="small">How well did you have it?</p>`+grades+`<p class="small"><button class="mini" data-fly="${c.k}">Fly there</button> to see it again in context.</p>`;
+  $('sShow').onclick=()=>{sh.innerHTML=head+front+`<div class="expl">${c.type==='rc'?cx.rc:cx.L[depth]+(cx.rc?'<br><br><b style="color:var(--amber)">Reality check · </b>'+cx.rc:'')}</div><p class="small">How well did you have it?</p>`+grades+`<p class="small"><button class="mini" data-fly="${c.k}">Fly there</button> to see it again in context.</p>`+provHTML(c.k,true);
    sh.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;if(g>=3)st.ok++;srsGrade(c.id,g);sfx(g>=3?'chime':'click');st.i++;renderStudyCard();});
    sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);};
  }else if(c.type==='cell'){
   const D=ALL.find(D=>D.kind===c.k);const pool=shuffle(CELLKINDS.filter(k=>k!==c.k&&(unlocked.has(CODEXKEY[k]||k)||SRS.cards['cell:'+k]))).slice(0,3);
   while(pool.length<3){const k=CELLKINDS[Math.floor(Math.random()*CELLKINDS.length)];if(k!==c.k&&!pool.includes(k))pool.push(k);}
   const opts=[c.k,...pool];const ck=CODEXKEY[c.k]||c.k;
-  mcq('Which cell is this? Drag the model to turn it.',opts.map(k=>CELLNAME[k]),0,`<b>${CELLNAME[c.k]}</b> · ${CELLSUB[c.k]||''} · ${CELLSIZE[c.k]||''}. ${CODEX[ck]?CODEX[ck].L[Math.min(depth,CODEX[ck].L.length-1)]:''}`,`<div id="srsModel"></div>`);
+  mcq('Which cell is this? Drag the model to turn it.',opts.map(k=>CELLNAME[k]),0,`<b>${CELLNAME[c.k]}</b> · ${CELLSUB[c.k]||''} · ${CELLSIZE[c.k]||''}. ${CODEX[ck]?CODEX[ck].L[Math.min(depth,CODEX[ck].L.length-1)]:''}`+provHTML(ck,true),`<div id="srsModel"></div>`);
   if(D)previewCell(D,SV);
  }else if(c.type==='next'){
   const seq=regionSeq(c.w).filter(r=>REGIONS[r]);const pool=shuffle(seq.filter(r=>r!==c.nx&&r!==c.k)).slice(0,3);const opts=[c.nx,...pool];
-  mcq(`You are in the <b>${REGIONS[c.k].n}</b>${c.w.nerve?' (following the signal)':c.w.lymph?' (following the lymph)':' (following the blood)'}. What comes next?`,opts.map(r=>REGIONS[r].n),0,`${REGIONS[c.k].n} → <b>${REGIONS[c.nx].n}</b>. ${REGIONS[c.nx].s||''}`);
+  mcq(`You are in the <b>${REGIONS[c.k].n}</b>${c.w.nerve?' (following the signal)':c.w.lymph?' (following the lymph)':' (following the blood)'}. What comes next?`,opts.map(r=>REGIONS[r].n),0,`${REGIONS[c.k].n} → <b>${REGIONS[c.nx].n}</b>. ${REGIONS[c.nx].s||''}`+provHTML(c.nx,true));
  }else if(c.type==='quiz'){
   mcq(c.q.q,c.q.a,0,c.q.e);
  }else if(c.type==='pred'){
@@ -3359,7 +3409,7 @@ $('go').onclick=()=>{
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
-window.__IV={addCodex,flyToKey,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={addCodex,flyToKey,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
