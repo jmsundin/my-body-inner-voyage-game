@@ -193,6 +193,8 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 .small{font-size:12px;color:var(--faint)}
 /* quiz */
 .q{font-size:16px;line-height:1.45;margin:12px 0}
+.q.anki{font-size:15px}.q.anki img{max-width:100%;height:auto;border-radius:8px;display:block;margin:6px 0}.q.anki hr{border:0;border-top:1px dashed var(--line);margin:10px 0}.cz{color:var(--cyan);font-weight:700}.cz.hole{color:var(--amber)}
+.deckgrid{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.deckgrid .mini b{color:var(--fg);margin-left:4px}#cardDeck{margin:6px 0 2px}#cardDeck .mini{font-size:11px}
 .opt{display:block;width:100%;text-align:left;margin:7px 0;padding:11px 14px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--fg);font-size:14px;cursor:pointer;line-height:1.4}
 .opt:hover:not(:disabled){border-color:var(--cyan)}
 .opt.right{border-color:var(--green);background:rgba(110,231,160,.12)}
@@ -281,6 +283,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <div class="eyebrow" id="cardKind">Codex</div>
   <h2 id="cardTitle"></h2>
   <div class="tag" id="cardTag"></div>
+  <div id="cardDeck"></div>
   <div id="cardModel"><canvas id="cellCv" width="600" height="400"></canvas><div class="cap"><span id="cellSize"></span><span>drag to turn it</span></div></div>
   <div id="cardCell"></div>
   <div class="tabs" id="cardTabs"></div>
@@ -335,6 +338,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <p><b>Valves are one-way doors with timing.</b> Tricuspid and mitral (AV) valves open in <span style="color:var(--blue)">diastole</span>, after S2. Pulmonic and aortic (semilunar) valves open in <span style="color:#ff9aa5">systole</span>, right after S1. Watch the Cycle indicator and the ECG: the QRS fires just before the ventricles squeeze.</p>
   <p><b>Bedside exam (G)</b> is the real clinical skill: you listen through the chest wall at the standard landmarks, compare spots, and call where the murmur is loudest and when it happens. Outside to hear, inside to understand.</p>
   <p><b>Inside listening (hold H)</b> steadies the probe, quiets the engine and shows a live phonocardiogram. It is what the jet sounds like at the valve, which is <i>not</i> what a clinician hears; use it to understand the cause. Diaphragm favours high-pitched sounds (S1, S2, the AS murmur); bell favours low rumbles.</p>
+  <p><b>Your own Anki deck.</b> Study (T) ▸ “Load your Anki deck” reads your .apkg or .txt export in the browser and keeps it on this device only. Cards are placed at the structure they belong to (by tag path, or by an optional AI pass with your own API key) and appear on the Codex card and in Study.</p>
   <p><b>Patient course.</b> There is no ship hull to lose. Wrong calls at the bedside or on Rounds push Mr. Reyes's care off course, and the ending shows what happens to him.</p>
   <p><b>Reality checks.</b> Some Codex cards carry an amber note where the game bends physics or biology for playability, so you know exactly what is simplified.</p>
   <p><b>Scanning (E)</b> files a layered Codex card. Hover the cursor over a red cell, white cell or platelet to see its name; click it (or press E) for its Codex card plus details on that exact cell. With nothing under the cursor, E scans the wall you are looking at: the endothelium, an artery's media, a valve cusp, myelin, a node of Ranvier, the lymph node's reticular meshwork — every surface is labelled on hover and opens its own Codex card and 3D model on click. Steer by click-dragging the view, right-dragging, or with the arrow keys.</p>
@@ -368,6 +372,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 <div class="modal" id="mQuiz"><div class="sheet" id="quizSheet"></div></div>
 <div class="modal" id="mStudy"><div class="sheet" id="studySheet"></div></div>
 <div class="modal" id="mSystems"><div class="sheet" id="sysSheet" style="max-width:860px"></div></div>
+<div class="modal" id="mDeck"><div class="sheet" id="deckSheet" style="max-width:820px"></div></div>
 
 <div class="modal" id="mExam"><div class="sheet">
   <button class="x" data-close>✕</button>
@@ -1876,6 +1881,7 @@ function openCard(key,first){
  const c=CODEX[key];if(!c)return;cardKey=key;cardLevel=depth;$('cardCell').style.display='none';$('cardModel').style.display='none';PV.on=false;
  $('cardKind').textContent=first?'Codex · new entry':'Codex';
  $('cardTitle').textContent=c.title;$('cardTag').textContent=c.tag;$('cardSrc').innerHTML=provHTML(key,MOBILE)||('Ref: '+c.src+' · draft, pending clinical review');
+ const dn=DECK.loaded?deckCardsFor(key).length:0;$('cardDeck').innerHTML=dn?`<button class="mini" id="cardDeckBtn">Your deck · ${dn} card${dn>1?'s':''} here ▸</button>`:'';if(dn)$('cardDeckBtn').onclick=()=>deckStudyKey(key);
  renderCardBody();$('card').classList.add('open');
 }
 function renderCardBody(){
@@ -1947,6 +1953,216 @@ function provHTML(k,compact){const p=provOf(k);if(!p)return '';
  <div><b>Status</b> ${esc(p.status)}</div>`;
  return `<details class="prov"${compact?'':' open'}><summary>Sources · ${p.id} · ${esc(p.sys)} › ${esc(p.topic)}</summary>${rows}<div class="note">AnKing is used only as an index of what to cover and where to verify it; no deck content is reproduced.</div></details>`;}
 function provSummary(){const by={};let n=0,v=0;for(const k in PROV){const s=PROV_SYS[PROV[k][0]].sys;by[s]=(by[s]||0)+1;n++;}return {n,v,by};}
+/* ---- Bring-your-own Anki deck (Jon, 31 Oct 2026) ----
+   The player loads their OWN .apkg (or a "Notes in Plain Text" .txt export) in the browser. Everything is parsed
+   here (zip + a small read-only SQLite reader) and kept in IndexedDB on this device. Nothing is uploaded, nothing
+   enters the repo. Cards are matched to the structure you are standing in: by AnKing/First Aid tag path first,
+   optionally by an AI pass that runs under the player's own API key. */
+// -- zip reader (stored + deflate entries; zip64 offsets) --
+async function unzip(buf){
+ const dv=new DataView(buf),u8=new Uint8Array(buf),td=new TextDecoder();
+ let e=buf.byteLength-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;if(e<0)throw new Error('This is not a zip/.apkg file.');
+ let n=dv.getUint16(e+10,true),cd=dv.getUint32(e+16,true);
+ if(n===0xffff||cd===0xffffffff){const l=e-20;if(l>=0&&dv.getUint32(l,true)===0x07064b50){const z=Number(dv.getBigUint64(l+8,true));n=Number(dv.getBigUint64(z+32,true));cd=Number(dv.getBigUint64(z+48,true));}}
+ const entries={};let p=cd;
+ for(let i=0;i<n;i++){if(dv.getUint32(p,true)!==0x02014b50)break;const method=dv.getUint16(p+10,true);let csize=dv.getUint32(p+20,true),usize=dv.getUint32(p+24,true);const nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true);let off=dv.getUint32(p+42,true);const name=td.decode(u8.subarray(p+46,p+46+nl));
+  if(csize===0xffffffff||usize===0xffffffff||off===0xffffffff){let x=p+46+nl;const xe=x+el;while(x<xe){const id=dv.getUint16(x,true),sz=dv.getUint16(x+2,true);if(id===1){let q=x+4;if(usize===0xffffffff){usize=Number(dv.getBigUint64(q,true));q+=8;}if(csize===0xffffffff){csize=Number(dv.getBigUint64(q,true));q+=8;}if(off===0xffffffff){off=Number(dv.getBigUint64(q,true));q+=8;}}x+=4+sz;}}
+  entries[name]={method,csize,usize,off};p+=46+nl+el+cl;}
+ const read=async name=>{const en=entries[name];if(!en)return null;const lh=en.off;if(dv.getUint32(lh,true)!==0x04034b50)throw new Error('zip entry header mismatch');const nl=dv.getUint16(lh+26,true),el=dv.getUint16(lh+28,true);const start=lh+30+nl+el;const data=u8.slice(start,start+en.csize);
+  if(en.method===0)return data;
+  if(en.method===8){const ds=new DecompressionStream('deflate-raw');const w=ds.writable.getWriter();w.write(data);w.close();return new Uint8Array(await new Response(ds.readable).arrayBuffer());}
+  throw new Error('Unsupported zip compression ('+en.method+').');};
+ return {entries,read};
+}
+// -- minimal read-only SQLite 3 reader: enough for Anki's legacy collection files --
+function sqliteOpen(u8){
+ const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength);
+ if(new TextDecoder().decode(u8.subarray(0,15))!=='SQLite format 3')throw new Error('Not an SQLite file.');
+ let ps=dv.getUint16(16);if(ps===1)ps=65536;const U=ps-u8[20];const enc=dv.getUint32(56);const td=new TextDecoder(enc===2?'utf-16le':enc===3?'utf-16be':'utf-8');
+ const rv=(a,p)=>{let v=0,i=0;for(;i<8;i++){const b=a[p+i];v=v*128+(b&127);if(b<128)return [v,i+1];}return [v*256+a[p+8],9];};
+ function rec(pl){const pdv=new DataView(pl.buffer,pl.byteOffset,pl.byteLength);let [hs,n]=rv(pl,0);let p=n;const types=[];while(p<hs){const [t,m]=rv(pl,p);types.push(t);p+=m;}
+  const vals=[];let q=hs;for(const t of types){if(t===0)vals.push(null);else if(t<=6){const len=[0,1,2,3,4,6,8][t];let v=0;for(let i=0;i<len;i++)v=v*256+pl[q+i];if(len&&(pl[q]&0x80))v-=2**(8*len);vals.push(v);q+=len;}
+   else if(t===7){vals.push(pdv.getFloat64(q));q+=8;}else if(t===8)vals.push(0);else if(t===9)vals.push(1);else if(t>=12){const len=(t-(t%2?13:12))/2;vals.push(t%2?td.decode(pl.subarray(q,q+len)):pl.slice(q,q+len));q+=len;}else vals.push(null);}
+  return vals;}
+ function walk(pg,cb){const off=(pg-1)*ps,h=pg===1?100:0;const type=u8[off+h];const ncell=dv.getUint16(off+h+3);
+  if(type===5){for(let i=0;i<ncell;i++){const cp=dv.getUint16(off+h+12+i*2);walk(dv.getUint32(off+cp),cb);}walk(dv.getUint32(off+h+8),cb);}
+  else if(type===13){const X=U-35,M=Math.floor((U-12)*32/255)-23;
+   for(let i=0;i<ncell;i++){let cp=off+dv.getUint16(off+h+8+i*2);const [P,n1]=rv(u8,cp);cp+=n1;const [rid,n2]=rv(u8,cp);cp+=n2;
+    let local=P;if(P>X){const K=M+((P-M)%(U-4));local=K<=X?K:M;}
+    let pl;if(local>=P)pl=u8.subarray(cp,cp+P);else{pl=new Uint8Array(P);pl.set(u8.subarray(cp,cp+local));let got=local,next=dv.getUint32(cp+local);while(next&&got<P){const po=(next-1)*ps;const nn=dv.getUint32(po);const take=Math.min(U-4,P-got);pl.set(u8.subarray(po+4,po+4+take),got);got+=take;next=nn;}}
+    cb(rid,rec(pl));}}}
+ const tables={};walk(1,(rid,v)=>{if(v[0]==='table'){const sql=v[4]||'';const inner=sql.slice(sql.indexOf('(')+1,sql.lastIndexOf(')'));const cols=[];let d=0,cur='';for(const ch of inner){if(ch==='(')d++;if(ch===')')d--;if(ch===','&&d===0){cols.push(cur);cur='';}else cur+=ch;}cols.push(cur);
+  tables[v[1]]={root:v[3],cols:cols.map(c=>c.trim().split(/\s+/)[0].replace(/["`\[\]]/g,'')).filter(c=>c&&!/^(PRIMARY|UNIQUE|CONSTRAINT|FOREIGN|CHECK)$/i.test(c))};}});
+ const rows=(name,cb)=>{const t=tables[name];if(!t)return false;walk(t.root,(rid,v)=>{const o={};t.cols.forEach((c,i)=>o[c]=v[i]);if(o.id==null)o.id=rid;cb(o);});return true;};
+ return {tables,rows};
+}
+// -- storage (IndexedDB) --
+const DECKDB={db:null,open(){if(this.db)return Promise.resolve(this.db);return new Promise((res,rej)=>{const r=indexedDB.open('iv.deck',1);r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore('notes',{keyPath:'id'});d.createObjectStore('media');d.createObjectStore('kv');};r.onsuccess=()=>{this.db=r.result;res(this.db);};r.onerror=()=>rej(r.error);});},
+ tx(store,mode,fn){return this.open().then(db=>new Promise((res,rej)=>{const t=db.transaction(store,mode);const s=t.objectStore(store);const out=fn(s);t.oncomplete=()=>res(out instanceof IDBRequest?out.result:out);t.onerror=()=>rej(t.error);}));},
+ getAll(store){return this.tx(store,'readonly',s=>s.getAll());},get(store,k){return this.tx(store,'readonly',s=>s.get(k));},
+ put(store,v,k){return this.tx(store,'readwrite',s=>k!==undefined?s.put(v,k):s.put(v));},
+ putMany(store,items,keyed){return this.tx(store,'readwrite',s=>{items.forEach(it=>keyed?s.put(it[1],it[0]):s.put(it));});},
+ clear(store){return this.tx(store,'readwrite',s=>s.clear());}};
+const DECK={notes:[],byId:new Map(),cards:[],byKey:new Map(),meta:null,tagmap:{},aimap:{},media:new Set(),urls:new Map(),loaded:false,ai:{running:false,done:0,total:0,err:''},prefs:{study:true,all:false}};
+try{Object.assign(DECK.prefs,JSON.parse(localStorage.getItem('iv.deckprefs')||'{}'));}catch(e){}
+function deckSavePrefs(){try{localStorage.setItem('iv.deckprefs',JSON.stringify(DECK.prefs));}catch(e){}}
+// -- cloze + html handling --
+const stripHTML=h=>String(h||'').replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/\s+/g,' ').trim();
+const CLOZE_RE=/\{\{c(\d+)::([\s\S]*?)(?:::([\s\S]*?))?\}\}/g;
+function clozeOrds(t){const s=new Set();let m;CLOZE_RE.lastIndex=0;while((m=CLOZE_RE.exec(t)))s.add(+m[1]);return [...s].sort((a,b)=>a-b);}
+function clozeRender(t,ord,back){return t.replace(CLOZE_RE,(m,n,ans,hint)=>+n===ord?(back?`<span class="cz">${ans}</span>`:`<span class="cz hole">[${hint||'…'}]</span>`):ans);}
+const OKTAGS=new Set(['B','I','U','BR','DIV','SPAN','P','UL','OL','LI','SUB','SUP','IMG','TABLE','TR','TD','TH','TBODY','THEAD','EM','STRONG','SMALL','H1','H2','H3','H4','HR']);
+function cleanHTML(html){const doc=new DOMParser().parseFromString('<div>'+html+'</div>','text/html');const root=doc.body.firstChild;
+ const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3)return;if(c.nodeType!==1||!OKTAGS.has(c.tagName)){const f=document.createDocumentFragment();[...c.childNodes].forEach(x=>f.appendChild(x));c.replaceWith(f);walk(n);return;}
+  const keep=c.tagName==='IMG'?['src','alt']:c.classList.contains('cz')?['class']:[];[...c.attributes].forEach(a=>{if(!keep.includes(a.name))c.removeAttribute(a.name);});
+  if(c.tagName==='IMG'){const src=c.getAttribute('src')||'';if(/^(https?:|data:|\/\/)/i.test(src)&&!/^data:image\//i.test(src))c.remove();else if(DECK.media.has(src))c.setAttribute('data-m',src);else if(!/^data:image\//i.test(src))c.replaceWith(doc.createTextNode('[image: '+src+']'));}
+  walk(c);});};
+ walk(root);return root.innerHTML;}
+async function deckHydrateImages(el){const imgs=[...el.querySelectorAll('img[data-m]')];for(const im of imgs){const name=im.getAttribute('data-m');let u=DECK.urls.get(name);if(!u){const blob=await DECKDB.get('media',name);if(!blob)continue;u=URL.createObjectURL(blob);DECK.urls.set(name,u);}im.src=u;}}
+// -- matching: game context (Codex key) ← tags / keywords --
+const DECKKW={ivc:['vena cava','venous return','ivc'],ra:['right atrium','atrial','jugular venous','jvp'],tricuspid:['tricuspid'],rv:['right ventric','rv '],pulmonic:['pulmonic','pulmonary valve','pulmonary stenosis','s2 split','splitting'],pa:['pulmonary artery','pulmonary hypertension','pulmonary embol'],
+ lungcap:['alveol','gas exchange','diffusion','v/q','ventilation','oxygen','hemoglobin dissociation','capillary'],pv:['pulmonary vein'],la:['left atrium','atrial fibrillation','mitral stenosis'],mitral:['mitral','s1','opening snap'],lv:['left ventric','pressure-volume','pv loop','contractility','ejection fraction','afterload','preload','stroke volume','cardiac output','heart failure','hypertroph'],
+ aortic:['aortic stenosis','aortic valve','aortic regurg','calcific','syncope','ejection murmur','crescendo','pulsus parvus','s4','bicuspid'],asc:['ascending aorta','windkessel','compliance','aortic dissection','pulse pressure'],arch:['aortic arch','baroreceptor','carotid sinus','brachiocephalic','subclavian'],desc:['descending aorta','coarctation','pulse wave','arterial pressure','mean arterial'],
+ syscap:['starling','capillary','interstitial','filtration','oncotic','hydrostatic','exchange'],venule:['venule','diapedesis','margination','leukocyte adhesion','selectin','integrin','extravasation'],murmur:['murmur','auscultation','heart sound','s3','turbulen','reynolds'],bedside:['physical exam','auscultat','pulse','carotid pulse','apex beat'],exercise:['exercise','exertional','cardiac output','frank-starling'],leak:['edema','oedema','capillary leak','angioedema','starling'],
+ endothelium:['endotheli','nitric oxide','glycocalyx','tight junction','vwf','von willebrand'],artwall:['tunica','media','arteriosclerosis','atherosclerosis','elastic artery','muscular artery','vasa vasorum','intima'],veinwall:['vein','varicose','venous','capacitance'],endocard:['endocard','purkinje','trabecula','endocarditis'],leaflet:['valve leaflet','chordae','papillary','valvul','rheumatic'],carotid:['carotid','stroke','cerebral blood flow','circle of willis'],
+ rbc:['erythrocyte','red blood cell','rbc','hemoglobin','haemoglobin','anemia','anaemia','spherocyt','sickle','2,3-bpg','bohr','eryth'],wbc:['neutrophil','leukocyt','pmn','chemotaxis','phagocyt','leukocytosis'],platelet:['platelet','thrombocyt','hemostasis','haemostasis','gpiib','gp iib','adp','thromboxane','bleeding time'],lymph:['lymphocyte','t cell','b cell','t-cell','b-cell','cd4','cd8','naive'],mono:['monocyte','macrophage','mononuclear'],eos:['eosinophil','ige','parasite','helminth','asthma'],
+ macro:['macrophage','antigen present','phagocyt','mhc'],dc:['dendritic cell','antigen presenting','langerhans','mhc ii','costimulat'],bact:['bacteri','opsoniz','complement','innate immun'],chylo:['chylomicron','lipoprotein','lipid absorption','apolipoprotein','apo b-48','triglyceride'],mito:['mitochondri','oxidative phosphorylation','atp','electron transport','krebs','tca'],vesicle:['synaptic vesicle','snare','botulinum','tetanus','exocytosis','neurotransmitter release'],
+ interstitium:['interstiti','lymph formation','edema','third spacing'],lymphcap:['lymphatic capillar','lacteal','initial lymphatic','lymphedema'],collecting:['lymphatic vessel','lymphangi','lymph flow'],subcap:['lymph node','subcapsular','afferent lymph','follicle','germinal cent'],cortsinus:['lymph node','cortex','paracortex','follicle','germinal','b cell zone','t cell zone','lymphadenopathy'],medsinus:['medulla','medullary cord','plasma cell','medullary sinus'],
+ efferent:['efferent','hilum','lymph node'],cisterna:['cisterna chyli','chyle','lumbar trunk'],thoracic:['thoracic duct','chylothorax','left subclavian'],venangle:['venous angle','thoracic duct','right lymphatic duct'],lymphendo:['lymphatic endotheli','lyve','vegf-c','prox1','lymphangiogenesis'],lymwall:['lymphatic vessel','lymphatic smooth muscle','lymphedema'],reticulum:['reticular','fibroblastic reticular','conduit','stroma'],
+ bbb:['blood-brain barrier','blood brain barrier','bbb','tight junction','astrocyte foot','choroid plexus','csf','cerebrospinal','vasogenic','area postrema','circumventricular'],cortex:['cerebral cortex','cortical layer','pyramidal cell','neocortex','gyrus','homunculus','motor cortex','betz'],neuron:['neuron','nissl','dendrite','perikaryon','soma','axon hillock'],astro:['astrocyte','gfap','glutamate uptake','potassium buffering'],microglia:['microglia','cns macrophage','mesoderm'],oligo:['oligodendro','cns myelin','multiple sclerosis','demyelinat','plaque'],
+ axon:['action potential','axon','conduction velocity','sodium channel','depolariz','refractory','voltage-gated','tetrodotoxin','lidocaine','local anesthetic'],ranvier:['node of ranvier','nodes of ranvier','saltatory','myelin'],transport:['axonal transport','kinesin','dynein','microtubule','retrograde','anterograde','wallerian'],decuss:['decussation','pyramid','corticospinal','upper motor neuron','lower motor neuron','umn','lmn','medulla'],
+ synapse:['synapse','synaptic cleft','neurotransmitter','postsynaptic','nmda','ampa','gaba','glutamate','acetylcholine','receptor'],soma:['motor neuron','anterior horn','alpha motor','ventral horn','poliomyelitis','als','amyotrophic','spinal muscular','renshaw'],pnerve:['peripheral nerve','epineurium','perineurium','endoneurium','fascicle','guillain','neuropathy','nerve conduction','femoral nerve'],schwann:['schwann','pns myelin','charcot-marie','schwannoma','guillain-barr'],
+ nmj:['neuromuscular junction','nmj','myasthenia','lambert-eaton','end plate','end-plate','acetylcholinesterase','nicotinic','succinylcholine','rocuronium','botulinum','motor end'],myelin:['myelin','demyelinat','multiple sclerosis','conduction velocity','length constant','time constant','capacitance'],paranode:['paranod','juxtaparanod','potassium channel','caspr','neurofascin'],hillock:['axon hillock','initial segment','spike initiation','threshold','summation'],
+ ecm:['collagen','extracellular matrix','proteoglycan','elastin','fibrillin','ehlers','marfan','fibronectin','laminin','basement membrane']};
+const DECK_SYSWORDS={cardio:['cardio','cardiac','heart'],resp:['respir','pulm','lung'],heme:['hemat','haemat','heme','onc'],immuno:['immun'],micro:['micro'],neuro:['neuro','nervous','special_senses'],msk:['musculoskeletal','msk','skin','connective'],biochem:['biochem','cell_biology','cellular']};
+function deckNorm(t){return String(t||'').toLowerCase().replace(/[_:#]+/g,' ').replace(/\s+/g,' ');}
+function deckMatchNote(n){const tags=deckNorm(n.tags.join(' '));const text=deckNorm(stripHTML(n.flds[0]||'')+' '+stripHTML(n.flds[1]||'').slice(0,600));
+ let best=null,bs=0;
+ for(const k in PROV){const sysk=PROV[k][0];const sysHit=DECK_SYSWORDS[sysk].some(w=>tags.includes(w));
+  let sc=sysHit?1:0;const kws=DECKKW[k]||[];let th=0,xh=0;
+  for(const kw of kws){if(tags.includes(kw))th+=3+kw.length/20;else if(text.includes(kw))xh+=1.5+kw.length/25;}
+  const title=deckNorm(CODEX[k].title.split(/[—·(]/)[0]);if(title.length>3&&(text.includes(title)||tags.includes(title)))xh+=1.5;
+  sc+=th+Math.min(xh,4.5);
+  if(sc>bs&&(sysHit||th>0||xh>=2.4)){bs=sc;best=k;}}
+ return bs>=2.4?best:null;}
+function deckRebuildIndex(){DECK.byKey=new Map();DECK.cards=[];
+ for(const n of DECK.notes){const k=DECK.aimap[n.id]!==undefined?DECK.aimap[n.id]:DECK.tagmap[n.id];n.key=k||null;if(!k)continue;
+  for(const ord of n.ords){const c={id:'anki:'+n.id+':'+ord,type:'anki',nid:n.id,ord,k,topic:topicOf(k)};DECK.cards.push(c);if(!DECK.byKey.has(k))DECK.byKey.set(k,[]);DECK.byKey.get(k).push(c);}}}
+function deckCardsFor(k){return DECK.byKey.get(k)||[];}
+function deckCardFront(c){const n=DECK.byId.get(c.nid);if(!n)return '';return n.cloze?clozeRender(n.flds[0],c.ord,false):n.flds[0];}
+function deckCardBack(c){const n=DECK.byId.get(c.nid);if(!n)return '';if(n.cloze)return clozeRender(n.flds[0],c.ord,true)+(n.flds[1]?'<hr>'+n.flds[1]:'');return n.flds[1]||'';}
+async function deckLoad(){try{const meta=await DECKDB.get('kv','meta');if(!meta)return;const notes=await DECKDB.getAll('notes');DECK.notes=notes;DECK.byId=new Map(notes.map(n=>[n.id,n]));DECK.meta=meta;
+  DECK.tagmap=(await DECKDB.get('kv','tagmap'))||{};DECK.aimap=(await DECKDB.get('kv','aimap'))||{};DECK.media=new Set((await DECKDB.get('kv','medialist'))||[]);
+  deckRebuildIndex();DECK.loaded=true;renderDue();}catch(e){console.warn('deck load',e);}}
+// -- import --
+function deckParseTSV(txt){const lines=txt.split(/\r?\n/);let sep='\t',html=true,tagCol=-1,ntCol=-1,deckCol=-1,guidCol=-1;const notes=[];
+ for(const line of lines){if(!line)continue;
+  if(line[0]==='#'&&line.includes(':')&&!line.includes(sep)){const [k,v]=line.slice(1).split(':');const key=k.trim().toLowerCase(),val=(v||'').trim();
+   if(key==='separator')sep=val==='tab'?'\t':val==='comma'?',':val==='semicolon'?';':val==='pipe'?'|':val==='space'?' ':val;else if(key==='html')html=val==='true';else if(key==='tags column')tagCol=+val-1;else if(key==='notetype column')ntCol=+val-1;else if(key==='deck column')deckCol=+val-1;else if(key==='guid column')guidCol=+val-1;continue;}
+  const cols=sep==='\t'?line.split('\t'):line.split(sep).map(c=>c.replace(/^"|"$/g,''));
+  let tags=[];if(tagCol>=0&&cols[tagCol]!==undefined){tags=cols[tagCol].split(/\s+/).filter(Boolean);}else if(cols.length>2&&/::|#/.test(cols[cols.length-1])&&!/<|\{\{/.test(cols[cols.length-1])){tags=cols.pop().split(/\s+/).filter(Boolean);}
+  const skip=new Set([tagCol,ntCol,deckCol,guidCol].filter(i=>i>=0));const flds=cols.filter((c,i)=>!skip.has(i)).map(c=>html?c:c.replace(/&/g,'&amp;').replace(/</g,'&lt;'));
+  if(!flds[0])continue;const model=ntCol>=0?cols[ntCol]:'';const cloze=/\{\{c\d+::/.test(flds[0])||/cloze/i.test(model);
+  notes.push({id:notes.length+1,model,tags,flds,cloze,ords:cloze?clozeOrds(flds[0]):[0]});}
+ return {notes,sched:false,media:[]};}
+async function deckParseAPKG(buf,onp){const z=await unzip(buf);
+ if(z.entries['collection.anki21b']&&!z.entries['collection.anki21']&&!z.entries['collection.anki2'])throw new Error('This .apkg uses the new compressed format. In Anki: File ▸ Export ▸ Anki Deck Package, tick “Support older Anki versions (slower/larger files)”, and export again.');
+ const name=z.entries['collection.anki21']?'collection.anki21':'collection.anki2';onp('Unpacking '+name+'…');const dbu8=await z.read(name);onp('Reading the collection…');const db=sqliteOpen(dbu8);
+ let models={};db.rows('col',r=>{try{models=JSON.parse(r.models||'{}');}catch(e){}});
+ const sched=new Map();let anySched=false;db.rows('cards',c=>{if(c.queue!==0)anySched=true;if(!sched.has(c.nid))sched.set(c.nid,[]);sched.get(c.nid).push([c.ord,c.queue]);});
+ const notes=[];let i=0;db.rows('notes',r=>{const m=models[r.mid]||{};const flds=String(r.flds||'').split('\x1f');const cloze=m.type===1||/\{\{c\d+::/.test(flds[0]);
+  let fieldNames=(m.flds||[]).map(f=>f.name);let text=flds[0],extra=flds[1]||'';
+  if(fieldNames.length){const ti=fieldNames.findIndex(n=>/^(text|front)$/i.test(n)),ei=fieldNames.findIndex(n=>/^(extra|back)$/i.test(n));if(ti>=0)text=flds[ti];if(ei>=0)extra=flds[ei];}
+  const cs=sched.get(r.id)||[];let ords=cloze?clozeOrds(text):[0];const cardMeta={};cs.forEach(([o,q])=>cardMeta[cloze?o+1:o]=q);
+  notes.push({id:r.id,model:m.name||'',tags:String(r.tags||'').trim().split(/\s+/).filter(Boolean),flds:[text,extra],cloze,ords,q:cardMeta});if(++i%2000===0)onp('Read '+i+' notes…');});
+ let media=[];const mj=await z.read('media');if(mj){try{const map=JSON.parse(new TextDecoder().decode(mj));media=Object.entries(map);}catch(e){}}
+ return {notes,sched:anySched,media,zip:z};}
+async function deckImport(file,opts,onp){const name=file.name.toLowerCase();let parsed;
+ if(/\.(txt|tsv|csv)$/.test(name))parsed=deckParseTSV(await file.text());else parsed=await deckParseAPKG(await file.arrayBuffer(),onp);
+ let notes=parsed.notes;
+ if(opts.onlyUnsuspended&&parsed.sched){notes=notes.map(n=>({...n,ords:n.ords.filter(o=>n.q[o]===undefined||n.q[o]!==-1)})).filter(n=>n.ords.length);}
+ notes=notes.filter(n=>n.flds[0]&&n.flds[0].trim());notes.forEach(n=>{delete n.q;});
+ onp('Matching '+notes.length+' notes to the game by tags…');const tagmap={};let matched=0;
+ for(let i=0;i<notes.length;i++){const k=deckMatchNote(notes[i]);if(k){tagmap[notes[i].id]=k;matched++;}if(i%1500===0)await new Promise(r=>setTimeout(r));}
+ onp('Saving on this device…');await DECKDB.clear('notes');await DECKDB.clear('media');await DECKDB.clear('kv');
+ for(let i=0;i<notes.length;i+=2000)await DECKDB.putMany('notes',notes.slice(i,i+2000));
+ const medialist=[];if(parsed.zip&&parsed.media.length&&opts.media!==false){let bytes=0;const cap=250e6;onp('Copying images…');const batch=[];
+  for(const [num,fname] of parsed.media){if(!/\.(png|jpe?g|gif|webp|svg)$/i.test(fname))continue;const en=parsed.zip.entries[num];if(!en||bytes+en.usize>cap)continue;const u8=await parsed.zip.read(num);bytes+=u8.length;batch.push([fname,new Blob([u8],{type:'image/'+(fname.split('.').pop().toLowerCase().replace('jpg','jpeg').replace('svg','svg+xml'))})]);medialist.push(fname);
+   if(batch.length>=200){await DECKDB.putMany('media',batch.splice(0),true);onp('Copying images… '+medialist.length);}}
+  if(batch.length)await DECKDB.putMany('media',batch,true);}
+ const meta={name:file.name,notes:notes.length,cards:notes.reduce((a,n)=>a+n.ords.length,0),matched,media:medialist.length,sched:parsed.sched,at:Date.now()};
+ await DECKDB.put('kv',meta,'meta');await DECKDB.put('kv',tagmap,'tagmap');await DECKDB.put('kv',{},'aimap');await DECKDB.put('kv',medialist,'medialist');
+ DECK.urls.forEach(u=>URL.revokeObjectURL(u));DECK.urls=new Map();DECK.notes=notes;DECK.byId=new Map(notes.map(n=>[n.id,n]));DECK.meta=meta;DECK.tagmap=tagmap;DECK.aimap={};DECK.media=new Set(medialist);deckRebuildIndex();DECK.loaded=true;renderDue();
+ return meta;}
+async function deckRemove(){await DECKDB.clear('notes');await DECKDB.clear('media');await DECKDB.clear('kv');DECK.urls.forEach(u=>URL.revokeObjectURL(u));Object.assign(DECK,{notes:[],byId:new Map(),cards:[],byKey:new Map(),meta:null,tagmap:{},aimap:{},media:new Set(),urls:new Map(),loaded:false});
+ Object.keys(SRS.cards).forEach(id=>{if(id.startsWith('anki:'))delete SRS.cards[id];});srsSave();renderDue();}
+// -- optional AI pass: the player's own key, straight from the browser to the API; results cached on device --
+const DECK_AI_MODEL='claude-haiku-5-5';
+function deckAIContexts(){return Object.keys(PROV).map(k=>`${k}: ${CODEX[k].title} — ${PROV[k][1]} (${PROV_SYS[PROV[k][0]].sys})`).join('\n');}
+function deckAICandidates(){const sysw=Object.values(DECK_SYSWORDS).flat();return DECK.notes.filter(n=>DECK.aimap[n.id]===undefined&&(DECK.tagmap[n.id]||sysw.some(w=>deckNorm(n.tags.join(' ')).includes(w))));}
+async function deckAIMatch(key,onp){if(DECK.ai.running)return;const cands=deckAICandidates();DECK.ai={running:true,done:0,total:cands.length,err:''};
+ const sys=`You place medical flashcards inside a 3D medical-education game. The player flies through the body and stops at anatomical structures (contexts). For each card, pick the ONE context where a student standing in that structure would most want to review that card, or null if no context fits well. Prefer physiology/anatomy/pathology directly about that structure. Contexts (key: name — topic):\n${deckAIContexts()}\nReply with a single JSON object mapping card id to context key or null. No prose.`;
+ const B=40;
+ for(let i=0;i<cands.length&&DECK.ai.running;i+=B){const batch=cands.slice(i,i+B);
+  const txt=batch.map(n=>`${n.id} | tags: ${n.tags.map(t=>t.split('::').slice(-3).join('::')).join(' ').slice(0,160)} | ${stripHTML(n.flds[0]).replace(/\{\{c\d+::([^}]*?)(::[^}]*)?\}\}/g,'$1').slice(0,260)}`).join('\n');
+  try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:DECK_AI_MODEL,max_tokens:2500,system:sys,messages:[{role:'user',content:txt}]})});
+   if(!r.ok){const t=await r.text();throw new Error('API '+r.status+': '+t.slice(0,200));}
+   const j=await r.json();const out=(j.content||[]).map(c=>c.text||'').join('');const m=out.match(/\{[\s\S]*\}/);const map=m?JSON.parse(m[0]):{};
+   batch.forEach(n=>{const k=map[n.id]||map[String(n.id)];DECK.aimap[n.id]=(k&&PROV[k])?k:null;});
+   DECK.ai.done=Math.min(cands.length,i+B);await DECKDB.put('kv',DECK.aimap,'aimap');deckRebuildIndex();onp&&onp();}
+  catch(e){DECK.ai.err=e.message;DECK.ai.running=false;onp&&onp();return;}}
+ DECK.ai.running=false;onp&&onp();}
+// -- UI --
+function openDeck(){closeModals();show('mDeck');renderDeck();}
+function renderDeck(){const sh=$('deckSheet');const m=DECK.meta;
+ const priv=`<p class="small" style="color:var(--faint)">Your deck is parsed and kept <b>on this device only</b> (browser storage). Nothing is uploaded and none of it is in the game's code. Deck content stays yours and under its own licence; the game only reads it for you.</p>`;
+ if(!m){sh.innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Your deck</div><h1 style="font-size:30px">Bring your own Anki deck</h1>
+  <p>Load your own cards (AnKing or any deck) and the game will show the ones that belong to the structure you are standing in: aortic stenosis cards at the aortic valve, node-of-Ranvier cards in the axon. They also join Study (T) with their own spaced-repetition schedule here.</p>
+  <ol class="small" style="padding-left:18px;line-height:1.6"><li>In Anki: <b>File ▸ Export</b>, format <b>Anki Deck Package (.apkg)</b>, pick the deck, tick <b>Support older Anki versions</b>. Including media is optional (images show on cards); including scheduling lets the game skip cards you keep suspended.</li><li>Or export <b>Notes in Plain Text (.txt)</b> with <b>Include tags</b> ticked (small and fast, no images).</li><li>Choose that file below.</li></ol>
+  <label class="small" style="display:block;margin:8px 0"><input type="checkbox" id="deckUnsus" checked> Only cards I've unsuspended in Anki (when scheduling info is included)</label>
+  <label class="small" style="display:block;margin:8px 0"><input type="checkbox" id="deckMedia" checked> Copy images (up to 250 MB)</label>
+  <input type="file" id="deckFile" accept=".apkg,.txt,.tsv,.csv,.zip" style="display:none"><button class="btn" id="deckPick">Choose .apkg or .txt…</button> <button class="btn ghost" data-close>Not now</button>
+  <div id="deckProg" class="small" style="margin-top:10px;color:var(--cyan)"></div>${priv}`;
+  $('deckPick').onclick=()=>$('deckFile').click();
+  $('deckFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const prog=$('deckProg');const onp=t=>{prog.textContent=t;};onp('Reading '+f.name+' ('+Math.round(f.size/1e6)+' MB)…');
+   try{const meta=await deckImport(f,{onlyUnsuspended:$('deckUnsus').checked,media:$('deckMedia').checked},onp);toast(`Deck loaded: ${meta.cards} cards, ${meta.matched} notes placed in the body`,'good');renderDeck();}
+   catch(err){console.warn(err);prog.innerHTML='<span style="color:var(--amber)">Could not read it: '+String(err.message||err).replace(/</g,'&lt;')+'</span>';}};
+ }else{
+  const placed=DECK.notes.filter(n=>n.key).length;const ai=Object.keys(DECK.aimap).length;const aiPlaced=Object.values(DECK.aimap).filter(Boolean).length;
+  const bySys={};DECK.notes.forEach(n=>{if(!n.key)return;const s=PROV_SYS[PROV[n.key][0]].sys.replace(/ \(General Principles\)/,'');bySys[s]=(bySys[s]||0)+1;});
+  const top=[...DECK.byKey.entries()].map(([k,cs])=>[k,cs.length]).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const key=localStorage.getItem('iv.aikey')||'';const a=DECK.ai;const cands=deckAICandidates().length;
+  sh.innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Your deck</div><h1 style="font-size:30px">${m.name.replace(/</g,'&lt;')}</h1>
+  <div class="sstat"><div><b>${m.notes}</b>notes</div><div><b>${m.cards}</b>cards</div><div><b>${placed}</b>placed in the body</div><div><b>${DECK.byKey.size}</b>stations with cards</div></div>
+  <p class="small">By system: ${Object.entries(bySys).sort((x,y)=>y[1]-x[1]).map(([s,n])=>s+' '+n).join(' · ')||'none yet'}. ${m.media?m.media+' images copied.':''} ${m.sched?'Suspended cards were skipped.':''}</p>
+  <div class="deckgrid">${top.map(([k,n])=>`<button class="mini" data-dk="${k}">${CODEX[k].title.split(/ — /)[0]} <b>${n}</b></button>`).join('')}</div>
+  <label class="small" style="display:block;margin:10px 0 4px"><input type="checkbox" id="deckStudy" ${DECK.prefs.study?'checked':''}> Mix these cards into Study (T)</label>
+  <label class="small" style="display:block;margin:4px 0 10px"><input type="checkbox" id="deckAll" ${DECK.prefs.all?'checked':''}> …for every placed station, not only the ones I've explored</label>
+  <h4 style="margin:14px 0 4px">AI matching <span class="small" style="color:var(--faint);font-weight:400">optional</span></h4>
+  <p class="small">Tags place cards by system and keyword. An AI pass reads each candidate card and picks the exact station it fits (${cands} candidates left). It runs from this browser to Anthropic's API with <b>your own key</b> (${DECK_AI_MODEL}); the key and the results stay on this device. Card text is sent to that API for matching, nothing else.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><input type="password" id="deckKey" placeholder="sk-ant-…" value="${key.replace(/"/g,'')}" style="flex:1;min-width:200px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--fg)">
+  ${a.running?`<button class="btn ghost" id="deckAIStop">Stop</button>`:`<button class="btn" id="deckAIGo" ${cands?'':'disabled style="opacity:.5"'}>Match with AI ▸</button>`}</div>
+  <div class="small" id="deckAIProg" style="margin-top:6px;color:var(--cyan)">${a.total?`${a.done}/${a.total} notes checked · ${aiPlaced} placed by AI`:ai?`${ai} notes checked by AI so far · ${aiPlaced} placed`:''}${a.err?`<br><span style="color:var(--amber)">${a.err.replace(/</g,'&lt;')}</span>`:''}</div>
+  <div style="margin-top:16px"><button class="btn" data-close>Keep exploring</button> <button class="btn ghost" id="deckStudyGo">Open Study ▸</button> <button class="btn ghost" id="deckRemove" style="float:right;color:var(--amber)">Remove deck from this device</button></div>${priv}`;
+  sh.querySelectorAll('[data-dk]').forEach(b=>b.onclick=()=>deckStudyKey(b.dataset.dk));
+  $('deckStudy').onchange=e=>{DECK.prefs.study=e.target.checked;deckSavePrefs();renderDue();};$('deckAll').onchange=e=>{DECK.prefs.all=e.target.checked;deckSavePrefs();renderDue();};
+  $('deckKey').onchange=e=>{try{localStorage.setItem('iv.aikey',e.target.value.trim());}catch(x){}};
+  const go=$('deckAIGo');if(go)go.onclick=()=>{const k=$('deckKey').value.trim();if(!k){toast('Paste an API key first','warn');return;}try{localStorage.setItem('iv.aikey',k);}catch(x){}deckAIMatch(k,()=>{if($('mDeck').classList.contains('show'))renderDeck();});renderDeck();};
+  const stop=$('deckAIStop');if(stop)stop.onclick=()=>{DECK.ai.running=false;renderDeck();};
+  $('deckStudyGo').onclick=openStudy;
+  $('deckRemove').onclick=async()=>{if(!confirm('Remove the imported deck from this browser? (Your Anki collection is untouched.)'))return;await deckRemove();renderDeck();};
+ }
+ sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);}
+function deckStudyKey(k){const q=shuffle(deckCardsFor(k)).slice(0,20);if(!q.length)return;closeModals();study2={q,i:0,ok:0,n:q.length,deckOnly:k};SRS.sessions++;show('mStudy');renderStudyCard();}
+function deckCardsForStudy(){if(!DECK.loaded||!DECK.prefs.study)return [];return DECK.cards.filter(c=>DECK.prefs.all||unlocked.has(c.k));}
+function renderDeckCard(c,head,grades,sh,st){const n=DECK.byId.get(c.nid);if(!n){st.i++;renderStudyCard();return;}
+ const ctx=`<div class="prog" style="margin-top:6px">From your deck · placed at <b>${CODEX[c.k].title}</b>${DECK.aimap[c.nid]?' (AI)':' (tags)'} · ${n.tags.filter(t=>t.startsWith('#')).slice(0,2).map(t=>t.split('::').slice(-2).join('::')).join(' ')}</div>`;
+ const front=`<div class="q anki">${cleanHTML(deckCardFront(c))}</div>`;
+ sh.innerHTML=head+front+ctx+`<button class="btn" id="sShow">Show answer</button>`;deckHydrateImages(sh);
+ $('sShow').onclick=()=>{sh.innerHTML=head+`<div class="q anki">${cleanHTML(deckCardBack(c))}</div>`+ctx+`<p class="small">How well did you have it?</p>`+grades+`<p class="small"><button class="mini" data-fly="${c.k}">Fly there</button> to see it in context.</p>`;deckHydrateImages(sh);
+  sh.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;if(g>=3)st.ok++;srsGrade(c.id,g);sfx(g>=3?'chime':'click');st.i++;renderStudyCard();});
+  sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);};}
+function deckHereToast(reg){if(!DECK.loaded)return;const n=deckCardsFor(reg).length;if(n)toastOnce('deck:'+reg,`${n} card${n>1?'s':''} from your deck belong here — open the Codex entry or press T`,'',600);}
 
 const CELLDO={neuron:'Integrating thousands of synaptic inputs on its dendrites; its axon runs to the spinal cord.',astro:'Feeding neurons, mopping up glutamate and K⁺, and sealing the capillary with its end-feet.',microglia:'Sweeping the neuropil with its processes, checking synapses and looking for debris.',oligo:'Wrapping segments of several axons in myelin.',schwann:'Wrapping one internode of this axon in spiral layers of its membrane.',mito:'Walking outward on kinesin toward a node or the terminal, where ATP demand is highest.',vesicle:'Fast anterograde transport: new membrane and proteins heading for the terminal.',endosome:'Retrograde transport on dynein: worn-out material and trophic signals heading back to the cell body.',svesicle:'Loaded with neurotransmitter, docked at the active zone, waiting for calcium.',eos:'Cruising mid-stream. Its big granules carry major basic protein for killing parasitic worms.',macro:'Clinging to the sinus wall, swallowing anything foreign that drifts past.',dc:'Carrying pieces of bacteria from the tissue to show to T cells in the node.',bact:'Drifting with the lymph toward the node, where macrophages and lymphocytes will catch it.',chylo:'Carrying dietary fat absorbed by the gut toward the blood.',platelet:'Resting: smooth disc, not activated. It will spread and stick only if it meets exposed collagen.',wbc:'Patrolling. Selectins on the wall let it tether and roll; chemokines would make it stop and squeeze out.',lymph:'Recirculating between blood and lymph nodes, looking for its one matching antigen.',mono:'In transit (it circulates 1–3 days) before entering a tissue and becoming a macrophage.'};
 function cellFacts(t){
@@ -2037,6 +2253,7 @@ function srsDeck(){
  [BLOOD,LYMPH,NERVE].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
  if(done.has('exam')||done.has('rounds'))QUIZ.forEach((q,i)=>deck.push({id:'quiz:'+i,type:'quiz',q,k:'aortic',topic:'heart'}));
  PREDICT.forEach(p=>{if(SRS.cards['pred:'+p.id])deck.push({id:'pred:'+p.id,type:'pred',p,k:p.k,topic:topicOf(p.k)});});
+ deckCardsForStudy().forEach(c=>deck.push(c));
  return deck;
 }
 function srsDue(deck){const now=Date.now();return deck.filter(c=>{const s=SRS.cards[c.id];return s&&s.due<=now;});}
@@ -2056,13 +2273,14 @@ function openStudy(){
  ${bars}
  ${(()=>{const ps=provSummary();return `<p class="small" style="margin-top:8px;color:var(--faint)">Sources · ${ps.n} fact records, ${ps.v} verified in a primary source so far · ${Object.entries(ps.by).map(([k,v])=>k.replace(/ \(General Principles\)/,'')+' '+v).join(' · ')}. Every card and Codex entry shows its record under “Sources”.</p>`;})()}
  ${weak.length?`<h4 style="margin:14px 0 6px">Weak spots</h4>${weak.map(c=>`<div class="weak"><span>${srsTitle(c)}</span><button class="mini" data-fly="${c.k}">Fly there</button></div>`).join('')}`:''}
- <div style="margin-top:8px">${due.length+Math.min(fresh.length,10)?`<button class="btn" id="sGo">Review ${due.length+Math.min(fresh.length,10)} card${due.length+Math.min(fresh.length,10)>1?'s':''} ▸</button>`:`<button class="btn" disabled style="opacity:.5">Nothing due${when?' · next in '+when:''}</button>`} <button class="btn ghost" data-close>Keep exploring</button>${deck.length<6?'<p class="small">Explore and scan more structures (E, click cells) to grow the deck.</p>':''}</div>`;
+ <div style="margin-top:8px">${due.length+Math.min(fresh.length,10)?`<button class="btn" id="sGo">Review ${due.length+Math.min(fresh.length,10)} card${due.length+Math.min(fresh.length,10)>1?'s':''} ▸</button>`:`<button class="btn" disabled style="opacity:.5">Nothing due${when?' · next in '+when:''}</button>`} <button class="btn ghost" data-close>Keep exploring</button> <button class="btn ghost" id="sDeck">${DECK.meta?'Your deck · '+DECK.cards.length+' placed':'Load your Anki deck'}</button>${deck.length<6?'<p class="small">Explore and scan more structures (E, click cells) to grow the deck.</p>':''}</div>`;
  const sh=$('studySheet');sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
  sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));
+ $('sDeck').onclick=openDeck;
  const go=$('sGo');if(go)go.onclick=()=>{const q=[...due.sort(()=>Math.random()-.5),...fresh.slice(0,10)];study2={q,i:0,ok:0,n:q.length};SRS.sessions++;renderStudyCard();};
  show('mStudy');renderDue();
 }
-function srsTitle(c){return c.type==='cell'?CELLNAME[c.k]+' (identify)':c.type==='next'?'After the '+REGIONS[c.k].n.toLowerCase():c.type==='quiz'?'Rounds question':c.type==='pred'?'Prediction: '+c.p.short:c.type==='rc'?'Reality check: '+CODEX[c.k].title:CODEX[c.k].title;}
+function srsTitle(c){return c.type==='anki'?'Your deck: '+CODEX[c.k].title:c.type==='cell'?CELLNAME[c.k]+' (identify)':c.type==='next'?'After the '+REGIONS[c.k].n.toLowerCase():c.type==='quiz'?'Rounds question':c.type==='pred'?'Prediction: '+c.p.short:c.type==='rc'?'Reality check: '+CODEX[c.k].title:CODEX[c.k].title;}
 function shuffle(a){return a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);}
 function renderStudyCard(){
  const st=study2;if(st.i>=st.q.length)return finishStudy();
@@ -2076,6 +2294,7 @@ function renderStudyCard(){
    srsGrade(c.id,ok?4:1);
    $('sFb').innerHTML=`<div class="expl">${ok?'✓ Correct. ':'✗ Not quite. '}${expl}</div><button class="btn" id="sNext">${st.i+1<st.n?'Next ▸':'Finish'}</button>`;$('sNext').onclick=()=>{st.i++;renderStudyCard();};});
  };
+ if(c.type==='anki'){renderDeckCard(c,head,grades,sh,st);sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);return;}
  if(c.type==='recall'||c.type==='rc'){
   const cx=CODEX[c.k];const front=c.type==='rc'?`<div class="q"><span class="eyebrow" style="color:var(--amber)">Reality check</span><br>In the game, <b>${cx.title}</b> is simplified. Where does it bend real physics or biology?</div>`:`<div class="q"><b>${cx.title}</b> <span class="small" style="color:var(--faint)">${cx.tag}</span><br><span style="color:var(--muted)">Say out loud: what is it, what does it do, and what is the one clinical point you would be asked on Rounds?</span></div>`;
   sh.innerHTML=head+front+`<button class="btn" id="sShow">Show answer</button>`;
@@ -3348,7 +3567,7 @@ function update(dt){
  if(started){
   updateAudio(st.fl,st.thrust);
   const reg=REG[S.idx];
-  if(reg!==curReg){curReg=reg;$('bName').textContent=REGIONS[reg].n;$('bSub').textContent=REGIONS[reg].s;bannerT=7;
+  if(reg!==curReg){curReg=reg;$('bName').textContent=REGIONS[reg].n;$('bSub').textContent=REGIONS[reg].s;bannerT=7;deckHereToast(reg);
    if(reg==='ra')complete('ra');
    if(reg==='syscap'&&!done.has('leak'))setTimeout(()=>toastOnce('leakHint','Plasma is leaking out between the endothelial cells here (look for the glowing gap). Press K to follow it into the tissue.','warn',30),1800);
    if(reg==='interstitium')toastOnce('intHint','Tissue space: muscle fibres, collagen and fibroblasts. K here takes you back into the capillary.','',30);
@@ -3409,7 +3628,8 @@ $('go').onclick=()=>{
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
-window.__IV={addCodex,flyToKey,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+deckLoad();
+window.__IV={addCodex,flyToKey,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
