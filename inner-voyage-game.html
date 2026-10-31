@@ -1837,20 +1837,22 @@ Object.assign(KIND,{
  cd:{f:1.4,tint:[.9,.72,.7],w:[0,0,0,1],ew:.8,el:.9,nuc:.8,str:0,cw:0},
  calyx:{f:1.6,tint:[.84,.66,.7],w:[0,0,0,0],ew:1.2,el:1.2,nuc:.6,str:0,cw:0},
 });
-/* One juxtamedullary nephron, cortex at the top (y ≈ 100) and papilla at the bottom (y ≈ 0); lengths compressed, the HUD states the real sizes. Node[6] = medullary depth 0–1 */
+/* One juxtamedullary nephron, cortex at the top (y ≈ 100) and papilla at the bottom (y ≈ 0); lengths compressed, the HUD states the real sizes. Node[6] = medullary depth 0–1.
+   The convolutions are open helices (pitch > tube diameter, turn radius > tube radius) so the tube never folds back on itself, and the loop limbs, the PCT and the DCT sit in separate depth planes. */
 const RNODES=(()=>{const n=[],add=(x,y,z,r,k,g,d)=>n.push([x,y,z,r,k,g,d===undefined?Math.max(0,Math.min(1,(70-y)/67)):d]);
- add(3000,102,26,2.3,'afferent','afferent',0);add(3000,101,16,2.2,'afferent','afferent',0);add(3000,100,8,2.1,'afferent','afferent',0);
- for(let k=0;k<7;k++){const a=k/7*Math.PI*2*1.3;add(3000+Math.sin(a)*4,100+Math.cos(a)*3.5,2-k*.8,2.2,'glom','glom',0);}                     // the tuft
- add(3007,97,-4,3.6,'bowman','bowman',0);add(3010,95,-4,3.4,'bowman','bowman',0);
- let y=94;const coil=(r,k,g,turns,yStep,x0,amp)=>{for(let t=0;t<turns;t++){const dir=t%2?-1:1;add(x0+dir*amp,y,(t%3-1)*6,r,k,g);y-=yStep*.5;add(x0+dir*amp*.3,y,t%2?5:-5,r,k,g);y-=yStep*.5;}};
- coil(2.4,'pct','pct',6,3,3014,7);                                                                                                           // proximal convolutions in the cortex
- add(3015,78,0,1.9,'pct','pct');add(3015,70,0,1.3,'thin','thin');for(let j=1;j<=6;j++)add(3015+Math.sin(j)*.4,70-j*10.5,0,1.1,'thin','thin'); // thin descending limb into the medulla
- add(3016,5,0,1.1,'thin','tip');add(3019,3,0,1.1,'thin','tip');                                                                               // the hairpin
- add(3021,8,0,1.1,'thin','thinasc');add(3021,22,0,1.1,'thin','thinasc');add(3021,36,0,1.2,'thin','thinasc');
- for(let j=0;j<=4;j++)add(3021-Math.sin(j*1.1)*.4,44+j*11,0,1.6,'tal','tal');                                                                   // thick ascending limb
- add(3014,96,3,1.6,'tal','macula');add(3008,99,6,1.6,'tal','macula');                                                                           // the macula densa, pressed against its own glomerulus
- y=96;coil(1.8,'dct','dct',4,3,2998,6);                                                                                                         // distal convolutions
- add(2991,90,0,2.4,'cd','ccd');add(2990,80,0,2.6,'cd','ccd');add(2990,68,0,2.8,'cd','ccd');                                                      // cortical collecting duct
+ const helix=(cx,cz,rad,th0,dth,y0,y1,r,k,g,step)=>{const m=Math.ceil(Math.abs(dth)/step);for(let j=1;j<=m;j++){const f=j/m,t=th0+dth*f;add(cx+rad*Math.cos(t),lerp(y0,y1,f),cz+rad*Math.sin(t),r,k,g);}};
+ add(2986,108.5,3,2.3,'afferent','afferent',0);add(2992,106.6,2.6,2.2,'afferent','afferent',0);add(2996.5,105.4,2.3,2.1,'afferent','afferent',0);   // interlobular artery → afferent arteriole, arriving tangent to the tuft
+ for(let k=0;k<=9;k++){const a=k/8*Math.PI*2*1.1;add(3000+Math.sin(a)*5,100+Math.cos(a)*5,2-k*.75,2.2,'glom','glom',0);}                      // the tuft: one wide capillary loop (turn radius > 2 tube radii), stepping back so it never meets itself
+ add(3008,101,-8,3.6,'bowman','bowman',0);add(3010,98,-9.5,3.4,'bowman','bowman',0);
+ add(3010.5,95,-11,2.4,'pct','pct');                                                                                                           // urinary pole
+ helix(3016,-12,6,Math.PI,Math.PI*3.5,94,80,2.4,'pct','pct',Math.PI/4);                                                                       // proximal convolutions: 1¾ open turns behind the glomerulus
+ add(3016,76,-4,1.9,'pct','pct');add(3016,70,-2,1.3,'thin','thin');for(let j=1;j<=6;j++)add(3016+Math.sin(j)*.4,70-j*10.5,0,1.1,'thin','thin'); // straight part, then the thin descending limb into the medulla
+ add(3017,5,0,1.1,'thin','tip');add(3020,3,0,1.1,'thin','tip');                                                                               // the hairpin
+ add(3022,8,0,1.1,'thin','thinasc');add(3022,22,0,1.1,'thin','thinasc');add(3022,36,0,1.2,'thin','thinasc');
+ for(let j=0;j<=4;j++)add(3022-Math.sin(j*1.1)*.4,44+j*11,0,1.6,'tal','tal');                                                                   // thick ascending limb
+ add(3016,94,4,1.6,'tal','macula');add(3008,99,6,1.6,'tal','macula');                                                                          // the macula densa, pressed against its own glomerulus
+ add(3005,97,11,1.8,'dct','dct');helix(3000,12,5,0,Math.PI*3,97,88,1.8,'dct','dct',Math.PI/4);                                                 // distal convolutions: 1½ open turns in front
+ add(2991,84,6,2.4,'cd','ccd');add(2990,78,2,2.6,'cd','ccd');add(2990,68,0,2.8,'cd','ccd');                                                     // cortical collecting duct
  for(let j=1;j<=6;j++)add(2990,68-j*11,0,2.8+j*.35,'cd','mcd');                                                                                 // medullary collecting duct, widening as ducts merge
  add(2990,-6,0,5.5,'cd','mcd');add(2990,-14,0,7,'calyx','calyx',1);add(2990,-22,0,8,'calyx','calyx',1);add(2990,-30,0,8,'calyx','calyx',1);
  return n;})();
@@ -2701,10 +2703,11 @@ const RNTX={afferent:'myogenic tone + tubuloglomerular feedback · renin from th
 function rnFlow(i){const r=REG[i],c=renalCalc();const k=c.uflow>2?lerp(1,2.2,Math.min(1,c.uflow/10)):1;return (r==='mcd'||r==='calyx'||r==='ccd')?k:(r==='afferent'||r==='glom')?.9+.2*Math.sin(time*.251):1;}
 // the glomerular door: the capillary does not open into Bowman's space; you cross the wall or you leave by the efferent arteriole
 const GDOOR={i:0};
-function buildRenalDoor(){GDOOR.i=RENAL.RANGE.bowman[0];GDOOR.t=gv(RENAL.T,GDOOR.i,new V3());}
+function buildRenalDoor(){GDOOR.i=RENAL.RANGE.bowman[0]-2;GDOOR.t=gv(RENAL.T,GDOOR.i,new V3());GDOOR.ask=-99;}
 function rnGates(prevS,prevPos){const a=prevS-GDOOR.i,b=S.sF-GDOOR.i;if(Math.abs(a)>40||Math.abs(b)>40)return;
  if((a<0&&b>=0)||(a>=0&&b<0)){S.pos.copy(prevPos);const vt=S.vel.dot(GDOOR.t);S.vel.addScaledVector(GDOOR.t,-vt*1.6);S.idx=nearestIdx(S.pos,S.idx);S.sF=prevS;S.bumpT=.25;sfx('bonk');
-  toastOnce('gdoor',a<0?'The capillary does not open into Bowman’s space. One fifth of the plasma crosses the wall here, through fenestrae, basement membrane and the podocyte slits. Press K to go with it (or to stay in the blood and leave by the efferent arteriole).':'Filtration is one-way: nothing returns to the capillary through the glomerular wall. Reabsorption happens downstream, across the tubule cells.','warn');}}
+  if(a<0&&!anyModal()&&time-GDOOR.ask>4){GDOOR.ask=time;S.vel.set(0,0,0);openRenalFork();return;}
+  toastOnce('gdoor',a<0?'The capillary does not open into Bowman’s space: one fifth of the plasma crosses the wall here, through fenestrae, basement membrane and podocyte slits. Press K to choose: filter with it, or stay in the blood and leave by the efferent arteriole.':'Filtration is one-way: nothing returns to the capillary through the glomerular wall. Reabsorption happens downstream, across the tubule cells.','warn');}}
 function openRenalFork(){closeModals();const c=renalCalc();$('forkSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">The glomerular wall</div><h1 style="font-size:28px">Filter, or stay in the blood</h1>
  <p class="small">Glomerular capillary pressure is ~60 mmHg, more than twice any other capillary; Bowman’s space pushes back with ~15 and plasma proteins with ~28, so a net ~17 mmHg drives ${c.gfr} mL/min of protein-free filtrate out of all two million glomeruli together: 180 L a day, of which 99% comes back. The wall is fenestrated endothelium (70 nm holes), a glomerular basement membrane and podocyte foot processes with 4 nm slit diaphragms: water, ions, glucose and small molecules pass; albumin (69 kDa, negatively charged) does not.</p>
  <div class="forkgrid"><button class="sys" id="forkFilter"><b>Go with the water</b><small>fenestra → GBM → slit diaphragm → Bowman’s space → proximal tubule</small><span>You become filtrate. 125 mL/min, 300 mOsm, no protein. Down the nephron: the brush border, the loop, the gradient, the collecting duct.</span><em>filter ▸</em></button>
@@ -2715,7 +2718,7 @@ function openRenalFork(){closeModals();const c=renalCalc();$('forkSheet').innerH
  $('forkEfferent').onclick=()=>{closeModals();warp('Out through the efferent arteriole, into the vasa recta and the peritubular capillaries, down the renal vein…',()=>{switchWorld(BLOOD,BLOOD.nodeIdx[0]+6);complete('efferent');toast('Inferior vena cava: the renal vein joins here. The blood you rode carried back 124 of the 125 mL filtered each minute.','good');});};
  show('mFork');}
 function rnDetour(){const r=REG[S.idx];
- if(r==='glom'||r==='afferent')openRenalFork();
+ if(r==='glom'||r==='afferent'||(r==='bowman'&&S.sF<GDOOR.i+4))openRenalFork();
  else if(r==='bowman')toastOnce('rk','You are filtrate: the only way back to the blood is across a tubule cell, from the proximal tubule on.','warn');
  else if(r==='calyx')toastOnce('rk','Too late: the urothelium is a seal. From the calyx the only way is the ureter.','warn');
  else{const what=r==='pct'?'with the glucose and sodium through the brush-border cell, Na⁺/K⁺-ATPase at the back, into the peritubular capillary':r==='thin'||r==='tip'?'with the water through aquaporin-1 into a descending vas rectum':r==='thinasc'||r==='tal'||r==='macula'?'with the sodium, through NKCC2 and out the basolateral side into an ascending vas rectum':r==='dct'?'with the sodium through NCC and out into the peritubular capillary':'with the water through aquaporin-2 (ADH opened it) into the vasa recta';
@@ -4846,7 +4849,7 @@ MAPCTX.renal={title:'Kidney · one pyramid in section',draw(c){
  // the route itself from the same anchors the probe moves along: arterial red to the tuft, then tubule amber, duct pale
  for(let i=0;i<RBODY2D.length-1;i++){const [x0,y0]=RBODY2D[i],[x1,y1]=RBODY2D[i+1];const kd=RNODES[i][4];c.strokeStyle=kd==='afferent'||kd==='glom'?'rgba(255,90,100,.8)':kd==='cd'||kd==='calyx'?'rgba(250,230,200,.75)':kd==='thin'?'rgba(240,190,150,.7)':'rgba(230,170,120,.75)';c.lineWidth=Math.max(1.2,RNODES[i][3]*.7);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
  c.fillStyle=ink+'.5)';c.font='7px system-ui,sans-serif';c.textAlign='left';
- [['PCT',[112,52]],['thin limb',[112,120]],['TAL',[154,118]],['DCT',[60,40]],['CCD',[36,60]],['MCD',[34,120]],['papilla',[60,178]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
+ [['PCT',[104,46]],['thin limb',[112,120]],['TAL',[158,100]],['DCT',[60,40]],['CCD',[36,60]],['MCD',[34,120]],['papilla',[60,178]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
  // the whole kidney, inset: the wedge you are flying
  c.save();c.translate(182,6);c.scale(.17,.17);c.fillStyle=ink+'.08)';c.strokeStyle=ink+'.35)';c.lineWidth=5;c.beginPath();c.moveTo(60,0);c.bezierCurveTo(110,0,110,120,60,130);c.bezierCurveTo(30,134,20,100,30,80);c.bezierCurveTo(40,60,40,50,30,40);c.bezierCurveTo(22,20,30,0,60,0);c.closePath();c.fill();c.stroke();
  c.fillStyle='rgba(230,170,120,.6)';c.beginPath();c.moveTo(85,20);c.lineTo(50,60);c.lineTo(92,70);c.closePath();c.fill();c.restore();
@@ -5129,7 +5132,7 @@ function stepShip(dt,time){
  gv(T,S.idx,_t);
  // assist: drift nose toward the flow when not steering; autopilot does it hard
  // nose drifts toward the flow only on autopilot, or when you already face downstream and have stopped steering; pointing the other way is respected
- fwd.set(0,0,-1).applyQuaternion(S.q);const assist=S.auto?2.2:(time-S.lastMouse>1.4&&fwd.dot(_t)>.55?.35:0);
+ fwd.set(0,0,-1).applyQuaternion(S.q);const assist=S.auto?2.2:W.renal?(time-S.lastMouse>.6&&fwd.dot(_t)>.05?1.6:0):(time-S.lastMouse>1.4&&fwd.dot(_t)>.55?.35:0); // the nephron coils tightly: follow its bends harder while you still face downstream
  if(assist>0){fwd.set(0,0,-1).applyQuaternion(S.q);tq.setFromUnitVectors(fwd,_t);const id=new THREE.Quaternion();id.slerp(tq,Math.min(1,assist*dt));S.q.premultiply(id);}
  // auto-level roll toward world up (no gravity inside, but keeps the horizon sane)
  fwd.set(0,0,-1).applyQuaternion(S.q);up.set(0,1,0).applyQuaternion(S.q);
