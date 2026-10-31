@@ -209,13 +209,15 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 </div>
 
 <div id="vitals" class="hud panel">
-  <div class="eyebrow" style="margin-bottom:6px">Host vitals</div>
+  <div class="eyebrow" style="margin-bottom:6px" id="vTitle">Host vitals · circulation</div>
+  <div id="vrows">
   <div class="vrow"><span>HR</span><b id="vHR">72 bpm</b></div>
   <div class="vrow"><span>BP</span><b id="vBP">—</b></div>
   <div class="vrow"><span>Local SO₂</span><b id="vSat">—</b></div>
   <div class="vrow"><span>Local PO₂</span><b id="vPO2">—</b></div>
   <div class="vrow"><span>Cycle</span><span id="phase" class="dia">DIASTOLE</span></div>
-  <canvas id="ecg" width="440" height="88"></canvas>
+  </div>
+  <canvas id="ecg" width="440" height="88"></canvas><div id="vTrace" style="font-size:10px;color:var(--faint);margin-top:-2px">ECG · lead II</div>
   <div id="caseTag">Aortic valve: STENOTIC (case)</div>
   <div class="vrow" style="margin-top:8px"><span>Patient course</span><b id="ptTxt">Stable</b></div>
   <div id="ptBar"><div id="ptFill"></div></div>
@@ -303,7 +305,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <p><b>Inside listening (hold H)</b> steadies the probe, quiets the engine and shows a live phonocardiogram. It is what the jet sounds like at the valve, which is <i>not</i> what a clinician hears; use it to understand the cause. Diaphragm favours high-pitched sounds (S1, S2, the AS murmur); bell favours low rumbles.</p>
   <p><b>Patient course.</b> There is no ship hull to lose. Wrong calls at the bedside or on Rounds push Mr. Reyes's care off course, and the ending shows what happens to him.</p>
   <p><b>Reality checks.</b> Some Codex cards carry an amber note where the game bends physics or biology for playability, so you know exactly what is simplified.</p>
-  <p><b>Scanning (E)</b> files a layered Codex card. Hover the cursor over a red cell, white cell or platelet to see its name; click it (or press E) for its Codex card plus details on that exact cell. With nothing under the cursor, E scans the structure you're in. Steer by click-dragging the view, right-dragging, or with the arrow keys.</p>
+  <p><b>Scanning (E)</b> files a layered Codex card. Hover the cursor over a red cell, white cell or platelet to see its name; click it (or press E) for its Codex card plus details on that exact cell. With nothing under the cursor, E scans the wall you are looking at: the endothelium, an artery's media, a valve cusp, myelin, a node of Ranvier, the lymph node's reticular meshwork — every surface is labelled on hover and opens its own Codex card and 3D model on click. Steer by click-dragging the view, right-dragging, or with the arrow keys.</p>
   <p><b>Valve study (Y).</b> Near any valve, press Y to stop and orbit it. The heartbeat runs in slow motion; drag to look around, O flips to the other side (from the ventricle you see the chordae and papillary muscles), and every labelled part explains itself when clicked.</p>
   <p><b>Nervous system (K in the aortic arch).</b> Take the carotid to a brain capillary, press K again to cross the blood-brain barrier into the motor cortex, then follow a pyramidal cell's axon: microtubule tracks, nodes of Ranvier and action potentials that overtake you, the pyramidal decussation, the terminal bouton and synaptic cleft, the lower motor neuron's cell body, the peripheral nerve with its Schwann cells, and the neuromuscular junction in the thigh, which drops you back into the muscle capillary.</p>
   <p><b>Lymph detour (K).</b> In the muscle capillary, plasma leaks out between the endothelial cells. Press K to go with it: drift through the tissue, slip into a blind-ended lymphatic capillary, ride the pumping collecting lymphatics (their valves open only when the segment behind you squeezes), cross a lymph node with its follicles and macrophages, then take the cisterna chyli and thoracic duct back into the blood. In the tissue space, K takes you back into the capillary instead.</p>
@@ -671,7 +673,67 @@ const CODEX={
   'Tiny bubbles that carry parcels along the nerve and hold the chemical messenger at the end.',
   'Vesicles budded from the cell body travel out along the axon carrying proteins and channel parts. At the synapse, small clear vesicles are filled with neurotransmitter and wait to be released.',
   'Small clear synaptic vesicles (~40 nm) hold glutamate, GABA, glycine or acetylcholine, loaded by vesicular transporters (VGLUT, VGAT, VAChT) using a proton gradient. Large dense-core vesicles carry neuropeptides. Endosomes return material retrogradely for lysosomal degradation.',
-  'Vesamicol blocks ACh loading; reserpine blocks VMAT (monoamines). Alpha-synuclein, which normally helps vesicle cycling, aggregates into Lewy bodies in Parkinson disease; mutations in synaptic vesicle genes (SV2A is the target of levetiracetam) relate to epilepsy.'],rc:'Vesicles are drawn hundreds of times larger relative to the axon than in life.'}
+  'Vesamicol blocks ACh loading; reserpine blocks VMAT (monoamines). Alpha-synuclein, which normally helps vesicle cycling, aggregates into Lewy bodies in Parkinson disease; mutations in synaptic vesicle genes (SV2A is the target of levetiracetam) relate to epilepsy.'],rc:'Vesicles are drawn hundreds of times larger relative to the axon than in life.'},
+ endothelium:{title:'Endothelium',tag:'Vessel lining · one cell thick · structure',src:REF.vessels,L:[
+  'The smooth inner skin of every blood vessel: a single layer of flat cells, like tiles, that the blood slides over.',
+  'Endothelial cells are long and thin, lined up with the flow. They stop blood from clotting on the wall and control what passes through.',
+  'Simple squamous epithelium on a basement membrane. It makes nitric oxide (vasodilation), prostacyclin and thrombomodulin (anti-thrombotic), and shows selectins and ICAM-1 to catch leukocytes when inflamed. Cells align with shear stress; the mosaic you see is their borders.',
+  'Endothelial dysfunction (reduced NO bioavailability, oxidised LDL uptake, adhesion-molecule expression) is the first step of atherosclerosis. Weibel-Palade bodies store vWF and P-selectin. Glycocalyx shedding in sepsis raises permeability.'],rc:"Real endothelial cells are ~0.2–0.5 µm thick except at the nucleus; the mosaic is exaggerated so you can see the junction lines."},
+ artwall:{title:'Arterial wall: intima, media, adventitia',tag:'Elastic / muscular artery · structure',src:REF.vessels,L:[
+  'Artery walls are thick and springy: they stretch with each heartbeat and recoil to keep blood moving.',
+  'Three layers: a thin lining, a thick middle of muscle and elastic fibres, and a tough outer coat.',
+  'Tunica intima (endothelium + subendothelium + internal elastic lamina), tunica media (concentric smooth muscle with elastin sheets: ~50 elastic lamellae in the aorta), tunica adventitia (collagen, vasa vasorum, nerves). Elastic arteries dampen the pulse (Windkessel); muscular arteries set resistance.',
+  'Aortic stiffening with age widens pulse pressure and raises afterload; medial degeneration underlies aneurysm and dissection (a tear in the intima lets blood split the media). The vasa vasorum supply the outer media — the inner media depends on diffusion from the lumen.'],rc:"Scale is compressed: an aortic wall is ~2 mm thick, hundreds of times the thickness of a red cell. The striations you see stand for the circumferential smooth muscle and elastic lamellae."},
+ veinwall:{title:'Venous wall',tag:'Capacitance vessel · structure',src:REF.vessels,L:[
+  'Vein walls are thin and floppy: they hold most of your blood at low pressure.',
+  'Less muscle, less elastic tissue, a wider lumen than the artery beside them; limb veins carry one-way valves.',
+  'Same three tunics but a thin media; ~65% of blood volume sits in veins at ~5–10 mmHg. Compliance is high, so venous tone (sympathetic venoconstriction) shifts volume to the heart. Valves are folds of intima.',
+  'Venous return depends on the pressure gradient to the right atrium; raised RA pressure (heart failure, tamponade) backs up into distended neck veins (JVP). Stasis in valve pockets is where deep-vein thrombi start (Virchow).'],rc:"The IVC in the game is drawn narrower than life so flow looks like flow; the real IVC is ~2 cm across."},
+ endocard:{title:'Endocardium & myocardium',tag:'Heart wall · structure',src:REF.heart,L:[
+  'The heart wall is muscle wrapped in a smooth lining; inside the pumping chambers it is ridged like a sponge.',
+  'Endocardium lines the chambers; under it, the myocardium does the squeezing. Ventricles have ridges (trabeculae) and papillary muscles.',
+  'Endocardium = endothelium + subendocardial connective tissue carrying Purkinje fibres. Myocardium = branching striated cardiomyocytes joined by intercalated discs (desmosomes + gap junctions) so the chamber contracts as a syncytium. LV wall ~10–12 mm, RV ~3–5 mm.',
+  'Pressure overload (aortic stenosis, hypertension) → concentric hypertrophy with sarcomeres added in parallel; volume overload → eccentric. Subendocardium is the most ischaemia-prone layer (highest wall stress, last perfused), hence subendocardial infarction and ST depression.'],rc:"The chamber walls are smoothed for flight; real ventricular trabeculae would make the sub's path a maze."},
+ leaflet:{title:'Valve leaflet: the tissue',tag:'Cusp histology · structure',src:REF.heart,L:[
+  'A valve flap is a thin, strong sheet of tissue, smooth on both sides, that bends thousands of times a day without tearing.',
+  'Each leaflet has layers: a stiff collagen core for strength, a spongy middle to absorb shock, and elastic tissue on the side that stretches.',
+  'Trilaminar: fibrosa (dense collagen, load-bearing, facing the outflow), spongiosa (glycosaminoglycans, cushioning), ventricularis/atrialis (elastin-rich, facing the inflow). Valve interstitial cells maintain the matrix; endothelium covers both faces. Avascular — nourished by diffusion.',
+  'Calcific AS is an active process: endothelial injury → lipid and inflammatory-cell infiltration on the aortic (fibrosa) side → interstitial cells differentiate to osteoblast-like cells → nodules of calcium stiffen the cusp. Myxomatous degeneration (MVP) expands the spongiosa; rheumatic disease fuses commissures.'],rc:"The leaflet is drawn thicker than life (~0.5 mm) so its layers can be shown."},
+ myelin:{title:'Myelin sheath: the internode',tag:'Compact myelin · structure',src:REF.neuro,L:[
+  'A fatty wrapping around the nerve fibre, like insulation on a wire, laid down in spiral layers by a glial cell.',
+  'Each wrap is a glial cell membrane wound dozens of times around the axon; between wrapped segments are tiny bare gaps.',
+  'Compact myelin: major dense line (fused cytoplasmic faces, MBP) alternating with the intraperiod line (fused outer faces; PLP in CNS, P0 in PNS), ~12 nm period. It raises membrane resistance and lowers capacitance so local current spreads far and fast. g-ratio (axon/fibre diameter) ≈ 0.6–0.7 PNS, 0.7–0.8 CNS; internode length ≈ 100 × fibre diameter.',
+  'Oligodendrocytes myelinate many internodes on many axons (no basal lamina); Schwann cells one internode each with a basal lamina, which guides PNS regeneration. Demyelination (MS, GBS) lowers the safety factor from ~5–7 toward 1: conduction slows, desynchronises, then blocks — worse when warm (Uhthoff).'],rc:"Myelin is not passive plastic: it clusters the axon's channels and feeds the axon (lactate via MCT1). The spiral here has far fewer turns than the real 20–100+."},
+ paranode:{title:'Paranode & juxtaparanode',tag:'Where myelin meets the node · structure',src:REF.neuro,L:[
+  'At each end of a myelin segment, the wrapping loosens into little loops that grip the fibre and fence off the bare gap.',
+  'The loops seal the space under the myelin so the electrical current has to flow through the gap, not leak under the wrap.',
+  'Paranodal loops (retained cytoplasm) form septate-like axo-glial junctions: Caspr1–contactin on the axon binding neurofascin-155 on the glia. Juxtaparanodal Kv1.1/1.2 channels sit under the myelin just beyond; nodal Nav1.6 is anchored by ankyrin-G and neurofascin-186.',
+  'Anti-neurofascin-155 and anti-Caspr1 antibodies define nodo-paranodopathies (a subset of CIDP) with poor IVIG response. Paranodal detachment is an early lesion in demyelination, exposing Kv channels and lowering the safety factor before myelin is lost.'],rc:"Schmidt-Lanterman incisures (PNS) and the loops are drawn larger than life; the real paranode is ~1–2 µm long."},
+ hillock:{title:'Axon hillock & initial segment',tag:'Where the spike is born · structure',src:REF.neuro,L:[
+  'The neck where the cell body narrows into the nerve fibre. This is where the neuron decides to fire.',
+  'All the signals the cell receives are added up here; if the total passes a threshold, an impulse starts and races down the axon.',
+  'The axon initial segment has the highest density of voltage-gated Na⁺ channels (Nav1.6, ankyrin-G scaffold) and the lowest threshold, so the AP initiates here and propagates forward (and back into the soma). No Nissl substance in the hillock. Summation is spatial and temporal.',
+  'The AIS is plastic: it shifts and resizes with activity. Ankyrin-G mutations and AIS disruption are implicated in epilepsy and bipolar disorder; the AIS also acts as a diffusion barrier keeping axonal and somatodendritic proteins apart.'],rc:"Threshold is where regenerative Na⁺ feedback takes over, not where the stimulus ‘pushes’ the cell."},
+ ecm:{title:'Interstitial matrix',tag:'Extracellular matrix · structure',src:REF.lymph,L:[
+  'The packing between cells: a wet gel of fibres that everything else sits in.',
+  'Collagen fibres give strength, elastic fibres give stretch, and a sugary gel holds the tissue fluid.',
+  'Fibroblasts secrete collagen I/III, elastin and proteoglycans (hyaluronan, aggrecan) whose negative charge binds water; fluid moves through it at µm/s. Interstitial pressure is slightly negative (−2 to −3 mmHg), partly because lymphatics keep draining it.',
+  'Oedema forms when filtration exceeds lymphatic drainage: raised capillary pressure (heart failure), low oncotic pressure (nephrotic syndrome), raised permeability (sepsis) or lymphatic obstruction (filariasis, node dissection). Pitting reflects the free-fluid phase; fibrosis stiffens the matrix.'],rc:"The game's interstitium is roomy; in reality cells are a few micrometres apart and the matrix would feel like swimming through jelly."},
+ lymphendo:{title:'Lymphatic capillary wall',tag:'Initial lymphatic · button junctions · structure',src:REF.lymph,L:[
+  'The wall of a lymph capillary is made of overlapping flaps that open like one-way doors to let tissue fluid in.',
+  'There is no tight seal: when the tissue swells the flaps are pulled open and fluid, proteins and even cells flow in.',
+  'Oak-leaf-shaped endothelial cells joined by discontinuous “button” junctions (VE-cadherin + PECAM-1 patches); no continuous basement membrane, no pericytes; anchoring filaments (fibrillin, emilin) tie the cells to the matrix so that swelling pulls the flaps open. LYVE-1 and podoplanin mark them.',
+  'The collecting lymphatics downstream switch to continuous “zipper” junctions and gain smooth muscle and valves. Dendritic cells enter initial lymphatics through the flaps guided by CCL21 (CCR7). Primary lymphoedema reflects defects in VEGF-C/VEGFR-3, FOXC2 or SOX18 signalling.'],rc:"Flaps are drawn thick and widely spaced; real overlaps are a few micrometres."},
+ lymwall:{title:'Lymphangion wall',tag:'Collecting lymphatic · smooth muscle pump · structure',src:REF.lymph,L:[
+  'The wall of a collecting lymph vessel has its own muscle: each segment squeezes on its own to push lymph along.',
+  'Segments between valves (lymphangions) contract one after another, like a chain of tiny hearts.',
+  'Lymphatic muscle cells show spontaneous pacemaking (Ca²⁺-activated Cl⁻ channels, HCN, L-type Ca²⁺); rate ~5–15/min, raised by filling (stretch) and NO-sensitive. Each contraction raises segment pressure a few mmHg, enough to open the downstream valve.',
+  'Intrinsic pumping drives most lymph transport at rest; extrinsic (muscle, arterial pulsation, respiration) adds with activity. Failure of the pump, not just blockage, contributes to lymphoedema; manual lymphatic drainage and compression work on these physics.'],rc:"The squeeze wave is sped up (~17/min) and exaggerated so you can see it travel."},
+ reticulum:{title:'Lymph node stroma',tag:'Reticular meshwork & sinus lining · structure',src:REF.lymph,L:[
+  'Inside a lymph node the fluid trickles through a sponge of fibres with cells sitting on them, waiting to catch anything foreign.',
+  'Fibroblastic reticular cells build a scaffold of thin fibres; macrophages hang in the channels and eat particles passing by.',
+  'Reticular fibres (collagen III) wrapped by fibroblastic reticular cells form the conduit system that carries small antigens (<70 kDa) into the paracortex; sinus-lining cells and subcapsular-sinus macrophages (CD169⁺) line the channels. FRCs secrete CCL19/21 to guide T cells and dendritic cells.',
+  'The subcapsular sinus macrophage layer is the “flypaper” that traps lymph-borne viruses and presents them to follicular B cells; metastatic tumour cells lodge first in the subcapsular sinus, which is why that is where sentinel-node sections are examined.'],rc:"Node channels are widened enormously; a real sinus is a few micrometres across."},
 };
 
 const QUIZ=[
@@ -1656,7 +1718,7 @@ function placeAt(i){
 const camPos=new V3();
 // swap the active world: its tube, valves, cells, fog and labels
 function switchWorld(w,idx){
- exitStudy();useWorld(w);
+ exitStudy();useWorld(w);if(typeof hidePredict==='function')hidePredict();
  BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;
  ALL.forEach(D=>{D.on=D.world===w.name;D.meshes.forEach(m=>m.visible=D.on);D.a.forEach(p=>{p.live=false;p.sc=0;});});
  FOG.set(w.fog);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);
@@ -1711,7 +1773,7 @@ addEventListener('blur',()=>{for(const k in keys)keys[k]=false;setSteth(false);}
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
 canvas.addEventListener('mousedown',e=>{if(!started)return;downBtn=e.button;downX=e.clientX;downY=e.clientY;dragging=e.button===2;});
 addEventListener('mouseup',e=>{if(downBtn<0)return;const click=!dragging&&downBtn===0;dragging=false;downBtn=-1;
- if(click&&e.target===canvas&&started&&!anyModal()&&target)inspect(target);});
+ if(click&&e.target===canvas&&started&&!anyModal()&&target)inspect(target);else if(click&&e.target===canvas&&started&&!anyModal()&&envT)inspectEnv(envT);});
 addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;
  if(downBtn>=0){if(!dragging&&Math.hypot(e.clientX-downX,e.clientY-downY)>5)dragging=true;if(dragging){mouseDX+=e.movementX||0;mouseDY+=e.movementY||0;}}});
 canvas.addEventListener('mouseleave',()=>{if(downBtn<0)mouseX=-1;});
@@ -1852,6 +1914,7 @@ const tRing=new THREE.Mesh(new THREE.RingGeometry(1,1.06,48),new THREE.MeshBasic
 function scan(){
  const ping=document.createElement('div');ping.className='ping';document.body.appendChild(ping);setTimeout(()=>ping.remove(),800);sfx('scan');
  if(target){inspect(target,true);return;}
+ if(envT){inspectEnv(envT);return;}
  let reg=REG[S.idx];if(reg==='aortic'&&!C.stenosis)reg='aorticN';
  addCodex(reg);
 }
@@ -1991,6 +2054,199 @@ function checkPredict(){
  el.classList.add('show');clearTimeout(predTimer);predTimer=setTimeout(hidePredict,15000);
 }
 function hidePredict(){$('predict').classList.remove('show');predNow=null;}
+
+
+/* ===== Inspectable environment: hover the wall, myelin, a node, a valve cusp, node stroma… → label; click → Codex card + 3D model ===== */
+const ENV={
+ endo:{n:'Capillary endothelium',sub:'one cell wraps the whole lumen · pericyte outside',codex:'endothelium',size:'cell ≈ 0.3 µm thick, 10–15 µm wide'},
+ artwall:{n:'Arterial wall',sub:'intima · elastic + smooth-muscle media · adventitia',codex:'artwall',size:'aortic wall ≈ 2 mm · ~50 elastic lamellae'},
+ veinwall:{n:'Venous wall',sub:'endothelium over a thin media · high compliance',codex:'veinwall',size:'IVC wall ≈ 1 mm · lumen ≈ 2 cm'},
+ endocard:{n:'Endocardium',sub:'endothelium · subendocardial Purkinje fibres · myocardium beneath',codex:'endocard',size:'LV wall ≈ 10–12 mm · RV ≈ 3–5 mm'},
+ trabec:{n:'Trabeculated myocardium',sub:'ridged ventricular wall · cardiomyocytes with intercalated discs',codex:'endocard',size:'cardiomyocyte ≈ 100 × 15 µm'},
+ leaflet_av:{n:'AV valve leaflet',sub:'fibrosa · spongiosa · atrialis · chordae tendineae',codex:'leaflet',size:'leaflet ≈ 0.5–1 mm thick · 2–3 cm long'},
+ leaflet_sl:{n:'Semilunar cusp',sub:'fibrosa · spongiosa · ventricularis · nodule of Arantius',codex:'leaflet',size:'cusp ≈ 0.3–0.6 mm thick'},
+ leaflet_calc:{n:'Calcified aortic cusp',sub:'calcium nodules on the fibrosa · stiff, poorly mobile',codex:'leaflet',size:'nodules mm-scale · cusp thickened to >1 mm'},
+ myelin:{n:'Myelin sheath · internode',sub:'compact spiral of glial membrane · ~12 nm period',codex:'myelin',size:'internode ≈ 100 × fibre Ø (0.1–2 mm) · g ≈ 0.6–0.8'},
+ node:{n:'Node of Ranvier',sub:'bare axolemma · Nav1.6 ~1,000–1,500/µm²',codex:'ranvier',size:'node ≈ 1 µm long'},
+ paranode:{n:'Paranode',sub:'glial loops · Caspr–contactin–NF155 junctions · Kv1 beyond',codex:'paranode',size:'paranode ≈ 1–2 µm · juxtaparanode ≈ 5–15 µm'},
+ neuropil:{n:'Cortical neuropil',sub:'dendrites, spines, axons, boutons, astrocyte processes — no empty space',codex:'cortex',size:'~1 synapse per µm³ · processes 0.1–2 µm'},
+ hillock:{n:'Axon hillock & initial segment',sub:'highest Na⁺ channel density · spike initiation',codex:'hillock',size:'AIS ≈ 20–60 µm long'},
+ somamem:{n:'Neuronal cytoplasm',sub:'rough ER stacks (Nissl) · ribosomes · mitochondria',codex:'soma',size:'Nissl bodies ≈ 1–3 µm · ribosome 25 nm'},
+ bbbendo:{n:'Brain capillary wall',sub:'tight junction · basement membrane · pericyte · astrocyte end-foot',codex:'bbb',size:'endothelium 0.2–0.5 µm · cleft sealed to <1 nm'},
+ ecm:{n:'Interstitial matrix',sub:'collagen · elastin · proteoglycan gel · fibroblast',codex:'ecm',size:'collagen fibril Ø 50–200 nm · bundles µm'},
+ lymphendo:{n:'Lymphatic capillary wall',sub:'oak-leaf cells · button junctions · anchoring filaments',codex:'lymphendo',size:'flap overlap ≈ 2–5 µm'},
+ lymwall:{n:'Lymphangion wall',sub:'lymphatic muscle · pacemaking · valve ahead',codex:'lymwall',size:'collector Ø 0.1–0.6 mm · wall ≈ 20 µm'},
+ lyleaflet:{n:'Lymphatic valve leaflet',sub:'bicuspid fold of intima · opens with upstream squeeze',codex:'lymwall',size:'leaflet ≈ 10–30 µm thick'},
+ reticulum:{n:'Node stroma',sub:'reticular fibres · FRC conduits · sinus macrophages',codex:'reticulum',size:'conduit ≈ 1 µm · reticular fibre 0.2–1 µm'},
+ endplate:{n:'Motor end plate',sub:'junctional folds · AChR crests ~10,000/µm² · basal lamina with AChE',codex:'nmj',size:'end plate ≈ 20–50 µm · primary cleft ≈ 50 nm'},
+ activezone:{n:'Active zone & cleft',sub:'docked vesicles · Ca²⁺ channels · adhesion-filled cleft · PSD',codex:'synapse',size:'cleft ≈ 20–30 nm · vesicle ≈ 40 nm'},
+};
+const ENVM={}; // built lazily, cached
+function part(geo,color,o={}){
+ const e=new THREE.Euler(...(o.r||[0,0,0]));geo.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(e));if(o.s)geo.scale(...(Array.isArray(o.s)?o.s:[o.s,o.s,o.s]));if(o.p)geo.translate(...o.p);
+ const material=new THREE.MeshStandardMaterial({color,roughness:o.rough===undefined?.6:o.rough,metalness:0,emissive:o.e||0x000000,transparent:!!o.o,opacity:o.o===undefined?1:o.o,side:o.side||THREE.FrontSide,flatShading:!!o.flat});
+ return {geometry:geo,material};
+}
+const R=(a,b)=>a+Math.random()*(b-a);
+function endoPlates(out,n=6,y=0,col=0xe8a8a0,long=1.7,wide=1){for(let k=0;k<n;k++){const x=(k%3-1)*2.05*long*.62,z=(Math.floor(k/3)-.5)*1.9*wide+(k%3)*.3;out.push(part(new THREE.CylinderGeometry(1.05,1.05,.16,6),col,{p:[x,y,z],s:[long*.62,1,wide*.95],r:[0,R(0,.3),0],flat:1}));out.push(part(new THREE.SphereGeometry(.42,14,10),0x8c3a4a,{p:[x,y+.16,z],s:[1.15,.5,.8]}));}}
+function cuspGeo(sl,R0=2.2){
+ const nf=28,nr=12,pos=[],idx=[];
+ for(let a=0;a<=nf;a++){const f=a/nf,th=Math.PI*f,sf=Math.sin(th);for(let b=0;b<=nr;b++){const rho=b/nr;
+  const hx=R0*Math.cos(th),hz=-R0*sf;const fx=R0*Math.cos(th)*(sl?.55:.75),fz=-R0*sf*(sl?.12:.25),H=R0*(sl?.95:1.15);
+  const x=lerp(hx,fx,rho),z=lerp(hz,fz,rho)-(sl?.55:.35)*R0*sf*Math.sin(Math.PI*rho),y=H*rho*(sl?1:Math.pow(sf,.35));pos.push(x,y,z);}}
+ for(let a=0;a<nf;a++)for(let b=0;b<nr;b++){const i=a*(nr+1)+b;idx.push(i,i+1,i+nr+1,i+1,i+nr+2,i+nr+1);}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;
+}
+const ENVBUILD={
+ endo(){const o=[];o.push(part(new THREE.CylinderGeometry(1.5,1.5,6,24,1,true),0xd99a94,{r:[0,0,Math.PI/2],side:THREE.DoubleSide,o:.95}));
+  for(let k=0;k<3;k++){o.push(part(new THREE.TorusGeometry(1.52,.025,6,40),0x7a2d3a,{p:[-2+k*2,0,0],r:[0,Math.PI/2,0]}));o.push(part(new THREE.SphereGeometry(.5,14,10),0x8c3a4a,{p:[-1+k*2,1.35,0],s:[1.3,.42,.9],r:[0,0,0]}));}
+  o.push(part(new THREE.CylinderGeometry(1.62,1.62,6.2,24,1,true),0xd8c8b8,{r:[0,0,Math.PI/2],side:THREE.BackSide,o:.35})); // basement membrane
+  o.push(part(new THREE.SphereGeometry(.6,14,10),0xa07058,{p:[.4,-1.75,.5],s:[1.6,.6,1.1]}));[[-1.6,.2],[1.9,-.3],[.3,1.2]].forEach(([dx,dz])=>o.push(part(new THREE.CylinderGeometry(.08,.05,2.4,6),0xa07058,{p:[.4+dx*.9,-1.6,.5+dz*.9],r:[Math.PI/2,0,Math.atan2(dz,dx)],s:[1,1,1]}))); // pericyte
+  return o;},
+ artwall(){const o=[];endoPlates(o,6,1.3,0xe8a8a0,1.9,.9);
+  o.push(part(new THREE.BoxGeometry(7.2,.08,4.4),0xf0e0a0,{p:[0,1.1,0],e:0x332a08})); // internal elastic lamina
+  for(let L=0;L<4;L++){for(let k=0;k<5;k++)o.push(part(new THREE.SphereGeometry(.5,12,8),0xc46a5a,{p:[-2.8+k*1.4+(L%2)*.7,.55-L*.5,0],s:[.9,.45,4.2],r:[0,0,0]}));if(L<3)o.push(part(new THREE.BoxGeometry(7.2,.05,4.4),0xf0e0a0,{p:[0,.3-L*.5,0],o:.8}));}
+  for(let k=0;k<10;k++)o.push(part(new THREE.CylinderGeometry(.07,.07,5,6),0xe9ddd0,{p:[R(-3,3),-1.6-R(0,.5),R(-2,2)],r:[Math.PI/2+R(-.4,.4),0,R(-.5,.5)]})); // adventitial collagen
+  o.push(part(new THREE.TorusGeometry(.22,.07,8,24),0xb0333a,{p:[1.8,-1.9,-1.2],r:[Math.PI/2,0,0]})); // vasa vasorum
+  return o;},
+ veinwall(){const o=[];endoPlates(o,6,.8,0xd9a0a4,1.3,1.1);o.push(part(new THREE.BoxGeometry(7.2,.06,4.4),0xf0e0a0,{p:[0,.62,0],o:.7}));
+  for(let k=0;k<5;k++)o.push(part(new THREE.SphereGeometry(.42,12,8),0xc46a5a,{p:[-2.8+k*1.4,.3,0],s:[.9,.45,4.2]}));
+  for(let k=0;k<12;k++)o.push(part(new THREE.CylinderGeometry(.07,.07,5.5,6),0xe9ddd0,{p:[R(-3,3),-.3-R(0,.6),R(-2,2)],r:[Math.PI/2+R(-.5,.5),0,R(-.6,.6)]}));
+  o.push(part(cuspGeo(false,1.2),0xe8b8b8,{p:[2.6,.95,0],r:[0,0,-Math.PI/2],s:.7,side:THREE.DoubleSide})); // valve pocket (limb vein)
+  return o;},
+ endocard(){const o=[];endoPlates(o,6,1.5,0xe8b0b0,1.2,1.1);o.push(part(new THREE.CylinderGeometry(.42,.42,6.6,10),0xf3d9b5,{p:[0,1.0,-1.2],r:[0,0,Math.PI/2]}));o.push(part(new THREE.CylinderGeometry(.22,.22,6.6,8),0xf3d9b5,{p:[0,1.0,1.4],r:[0,0,Math.PI/2]})); // Purkinje fibres
+  for(let L=0;L<3;L++)for(let k=0;k<4;k++){const x=-2.4+k*1.6+(L%2)*.8;o.push(part(new THREE.BoxGeometry(1.5,.5,.55),0xa83a3a,{p:[x,.4-L*.6,-1.5+L*1.4+(k%2)*.3]}));for(let s=0;s<6;s++)o.push(part(new THREE.BoxGeometry(.05,.52,.57),0x5a1a1f,{p:[x-.6+s*.24,.4-L*.6,-1.5+L*1.4+(k%2)*.3]}));o.push(part(new THREE.BoxGeometry(.08,.56,.6),0xffd080,{p:[x+.77,.4-L*.6,-1.5+L*1.4+(k%2)*.3]}));} // cardiomyocytes, striations, intercalated discs
+  return o;},
+ trabec(){return ENVBUILD.endocard();},
+ leaflet_av(){const o=[];o.push(part(cuspGeo(false),0xf0c8c0,{side:THREE.DoubleSide}));o.push(part(cuspGeo(false,2.12),0xf6e2d0,{p:[0,.04,.08],side:THREE.DoubleSide,o:.9}));o.push(part(cuspGeo(false,2.04),0xf8d2b8,{p:[0,.08,.16],side:THREE.DoubleSide,o:.9}));
+  for(let k=0;k<5;k++){const f=.15+k*.175,th=Math.PI*f,fx=2.2*Math.cos(th)*.75,fz=-2.2*Math.sin(th)*.25,fy=2.2*1.15*Math.pow(Math.sin(th),.35);const L=Math.hypot(fx-0,fy-(-1.6),fz-(-2.6));
+   const g=new THREE.CylinderGeometry(.035,.035,L,6);const m=part(g,0xf5efe6,{});const dir=new V3(0-fx,-1.6-fy,-2.6-fz).normalize();const q=new THREE.Quaternion().setFromUnitVectors(new V3(0,1,0),dir);g.applyQuaternion(q);g.translate((fx+0)/2,(fy-1.6)/2,(fz-2.6)/2);o.push(m);}
+  o.push(part(new THREE.SphereGeometry(.7,14,10),0xa83a3a,{p:[0,-2,-2.8],s:[1,1.6,1]}));return o;},
+ leaflet_sl(){const o=[];o.push(part(cuspGeo(true),0xf0c8c0,{side:THREE.DoubleSide}));o.push(part(cuspGeo(true,2.12),0xf6e2d0,{p:[0,.04,.08],side:THREE.DoubleSide,o:.9}));o.push(part(cuspGeo(true,2.04),0xf8d2b8,{p:[0,.08,.16],side:THREE.DoubleSide,o:.9}));
+  o.push(part(new THREE.SphereGeometry(.16,10,8),0xe8b8b0,{p:[0,2.1,-.3]}));return o;},
+ leaflet_calc(){const o=ENVBUILD.leaflet_sl();for(let k=0;k<9;k++){const f=R(.15,.85),th=Math.PI*f,rho=R(.3,.95);o.push(part(new THREE.SphereGeometry(R(.12,.32),8,6),0xf2e9c8,{p:[2.2*Math.cos(th)*lerp(1,.55,rho),2.2*.95*rho,-2.2*Math.sin(th)*lerp(1,.12,rho)-.55*2.2*Math.sin(th)*Math.sin(Math.PI*rho)-.12],flat:1}));}return o;},
+ myelin(){const o=[];o.push(part(new THREE.CylinderGeometry(.5,.5,9,20),0xe9c9a8,{r:[0,0,Math.PI/2]}));for(let k=0;k<5;k++)o.push(part(new THREE.CylinderGeometry(.03,.03,9,5),0x9a7a5a,{p:[0,.3*Math.cos(k*1.26),.3*Math.sin(k*1.26)],r:[0,0,Math.PI/2]}));
+  for(let k=0;k<8;k++)o.push(part(new THREE.CylinderGeometry(.62+k*.09,.62+k*.09,5.2,28,1,true,0,Math.PI*1.9),k%2?0xf3e4cc:0xcfae8a,{p:[-1.2,0,0],r:[k*.5,0,Math.PI/2],side:THREE.DoubleSide,rough:.85}));
+  o.push(part(new THREE.SphereGeometry(.7,14,10),0xd9b8a0,{p:[-1.2,1.65,0],s:[1.8,.6,1]}));o.push(part(new THREE.SphereGeometry(.3,12,8),0x6a3a5a,{p:[-1.2,1.75,0],s:[1.4,.5,.9]})); // Schwann cell body + nucleus
+  return o;},
+ node(){const o=[];o.push(part(new THREE.CylinderGeometry(.5,.5,9,20),0xe9c9a8,{r:[0,0,Math.PI/2]}));
+  [-1,1].forEach(s=>{for(let k=0;k<7;k++)o.push(part(new THREE.CylinderGeometry(.62+k*.09,.62+k*.09,3.4,24,1,true),k%2?0xf6ead8:0xe8d2b8,{p:[s*2.6,0,0],r:[0,0,Math.PI/2],side:THREE.DoubleSide}));
+   for(let k=0;k<4;k++)o.push(part(new THREE.TorusGeometry(.56+k*.07,.07,8,24),0xf0dcc0,{p:[s*(.9+k*.16),0,0],r:[0,Math.PI/2,0]}));}); // paranodal loops
+  for(let k=0;k<60;k++){const a=R(0,Math.PI*2);o.push(part(new THREE.SphereGeometry(.045,5,4),0x3ee6d8,{p:[R(-.45,.45),.52*Math.cos(a),.52*Math.sin(a)],e:0x0e5a55}));} // Nav clusters
+  for(let k=0;k<6;k++)o.push(part(new THREE.CylinderGeometry(.03,.03,.9,5),0xd9b8a0,{p:[0,.9*Math.cos(k),.9*Math.sin(k)],r:[Math.PI/2+k*.4,0,0]})); // Schwann microvilli / astro process
+  return o;},
+ paranode(){return ENVBUILD.node();},
+ neuropil(){const o=[];for(let k=0;k<14;k++){const pts=[];for(let j=0;j<5;j++)pts.push(new V3(R(-2.4,2.4),R(-2.2,2.2),R(-2.2,2.2)));const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),24,R(.07,.2),7,false);o.push(part(g,k%3?0xe0c0b0:0xf0d8c0,{}));
+   if(k%3===0)for(let j=0;j<6;j++){const p=pts[1+j%3].clone().lerp(pts[2+j%3],R(0,1));o.push(part(new THREE.SphereGeometry(.09,6,5),0xf0b0a0,{p:[p.x,p.y+.2,p.z]}));}} // spines
+  for(let k=0;k<6;k++){const p=[R(-2,2),R(-2,2),R(-2,2)];o.push(part(new THREE.SphereGeometry(.3,10,8),0xd8a888,{p}));for(let j=0;j<8;j++)o.push(part(new THREE.SphereGeometry(.045,5,4),0xfff0e0,{p:[p[0]+R(-.18,.18),p[1]+R(-.18,.18),p[2]+R(-.18,.18)]}));}
+  o.push(part(new THREE.SphereGeometry(1.3,12,9),0xa0c8e0,{p:[1.2,-1.4,1],s:[1.2,.35,1],o:.45}));o.push(part(new THREE.TorusGeometry(.5,.16,10,28),0xb0333a,{p:[-2.2,1.8,-1.6],r:[.4,1.1,0]})); // astro lamella, capillary
+  return o;},
+ hillock(){const o=[];o.push(part(new THREE.SphereGeometry(2.2,20,14),0xf0d8c8,{p:[-3,0,0]}));o.push(part(new THREE.ConeGeometry(1.1,2.4,16),0xf0d8c8,{p:[-.3,0,0],r:[0,0,-Math.PI/2]}));o.push(part(new THREE.CylinderGeometry(.42,.42,5,14),0xe9c9a8,{p:[3.3,0,0],r:[0,0,Math.PI/2]}));
+  for(let k=0;k<10;k++)o.push(part(new THREE.BoxGeometry(.5,.25,.4),0x7a4a8a,{p:[-3+R(-1.5,1.2),R(-1.6,1.6),R(-1.6,1.6)],r:[R(0,3),R(0,3),0]})); // Nissl — none in the hillock
+  for(let k=0;k<7;k++)o.push(part(new THREE.CylinderGeometry(.03,.03,5.2,5),0x9a7a5a,{p:[2.6,.25*Math.cos(k*.9),.25*Math.sin(k*.9)],r:[0,0,Math.PI/2]}));
+  for(let k=0;k<70;k++){const a=R(0,6.3);o.push(part(new THREE.SphereGeometry(.04,5,4),0x3ee6d8,{p:[R(1,3.2),.44*Math.cos(a),.44*Math.sin(a)],e:0x0e5a55}));} // AIS channels
+  return o;},
+ somamem(){const o=[];for(let k=0;k<6;k++){o.push(part(new THREE.BoxGeometry(3.6,.08,2.6),0xd8b0c8,{p:[-.6,-1.2+k*.42,.2],r:[0,0,.12]}));for(let j=0;j<22;j++)o.push(part(new THREE.SphereGeometry(.05,5,4),0x5a2a6a,{p:[-.6+R(-1.7,1.7),-1.1+k*.42+R(-.02,.02),.2+R(-1.2,1.2)]}));}
+  o.push(part(new THREE.SphereGeometry(1.5,18,14),0xe8d0c0,{p:[2.4,.3,-.6],o:.85}));o.push(part(new THREE.SphereGeometry(.45,12,9),0x7a3a6a,{p:[2.6,.4,-.5]}));
+  for(let k=0;k<4;k++)o.push(part(new THREE.CapsuleGeometry?new THREE.CapsuleGeometry(.18,.6,4,8):new THREE.SphereGeometry(.25,8,6),0xe09060,{p:[R(-2,1),R(1,1.8),R(-1.5,1.5)],r:[R(0,3),0,R(0,3)]}));
+  return o;},
+ bbbendo(){const o=[];o.push(part(new THREE.BoxGeometry(3,.22,4),0xe8a8a0,{p:[-1.6,0,0]}));o.push(part(new THREE.BoxGeometry(3,.22,4),0xe8a8a0,{p:[1.6,0,0]}));o.push(part(new THREE.BoxGeometry(.14,.3,4),0xffd27a,{p:[0,.02,0],e:0x4a3a10})); // tight junction strand
+  o.push(part(new THREE.SphereGeometry(.5,14,10),0x8c3a4a,{p:[-1.6,.2,.4],s:[1.4,.5,1]}));for(let k=0;k<8;k++)o.push(part(new THREE.SphereGeometry(.08,6,5),0xe09060,{p:[R(-2.8,2.8),.06,R(-1.6,1.6)]})); // nucleus, many mitochondria
+  o.push(part(new THREE.BoxGeometry(6.4,.1,4.2),0xf0e8d8,{p:[0,-.17,0],o:.9})); // basement membrane
+  o.push(part(new THREE.SphereGeometry(.55,14,10),0xa07058,{p:[1.2,-.5,-.6],s:[2.2,.55,1]}));o.push(part(new THREE.BoxGeometry(5,.14,.5),0xa07058,{p:[.4,-.42,-.6]})); // pericyte in the BM
+  o.push(part(new THREE.SphereGeometry(1,16,12),0xa0c8e0,{p:[-.4,-1.15,.6],s:[3,.45,2.1],o:.55}));for(let k=0;k<30;k++)o.push(part(new THREE.SphereGeometry(.04,5,4),0x3ee6d8,{p:[R(-3,2.2),-.72,R(-1.3,2.4)],e:0x0e5a55})); // astrocyte end-foot with AQP4
+  return o;},
+ ecm(){const o=[];for(let k=0;k<6;k++){const r=[Math.PI/2+R(-.5,.5),0,R(-.7,.7)],p=[R(-2.5,2.5),R(-2,2),R(-2,2)];o.push(part(new THREE.CylinderGeometry(.16,.16,6,8),0xf2e6d8,{p,r}));for(let j=0;j<9;j++){o.push(part(new THREE.TorusGeometry(.17,.02,5,12),0xcfbda8,{p:[p[0]+Math.sin(r[2])*(j-4)*.6,p[1],p[2]+Math.cos(r[0]-Math.PI/2)*(j-4)*.6],r:[r[0],0,r[2]]}));}}
+  for(let k=0;k<4;k++){const pts=[];for(let j=0;j<5;j++)pts.push(new V3(R(-2.6,2.6),R(-2.2,2.2),R(-2.2,2.2)));o.push(part(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),20,.05,5),0xf0d080,{}));}
+  for(let k=0;k<70;k++)o.push(part(new THREE.SphereGeometry(.07,5,4),0xa0d8c8,{p:[R(-2.8,2.8),R(-2.4,2.4),R(-2.4,2.4)],o:.45}));
+  o.push(part(new THREE.SphereGeometry(.6,12,9),0xd8b8a8,{p:[.5,-1.5,.8],s:[2.6,.5,.8],r:[0,.6,0]}));o.push(part(new THREE.SphereGeometry(.26,10,8),0x6a3a5a,{p:[.5,-1.45,.8],s:[1.6,.6,.8],r:[0,.6,0]}));
+  return o;},
+ lymphendo(){const o=[];for(let k=0;k<7;k++){const g=new THREE.CircleGeometry(1.25,9);o.push(part(g,0xe8d8b0,{p:[(k%4-1.5)*1.7,(k%2)*.12,(Math.floor(k/4)-.5)*1.9],r:[-Math.PI/2,0,R(0,6)],s:[1.3,1,.9],side:THREE.DoubleSide,flat:1}));o.push(part(new THREE.SphereGeometry(.34,12,8),0x6a4a4a,{p:[(k%4-1.5)*1.7,(k%2)*.12+.12,(Math.floor(k/4)-.5)*1.9],s:[1.3,.4,.9]}));
+   for(let j=0;j<3;j++)o.push(part(new THREE.CylinderGeometry(.025,.025,1.6,5),0xf0d080,{p:[(k%4-1.5)*1.7+R(-.8,.8),-.8,(Math.floor(k/4)-.5)*1.9+R(-.6,.6)],r:[R(-.5,.5),0,R(-.5,.5)]}));}
+  for(let k=0;k<4;k++)o.push(part(new THREE.CylinderGeometry(.14,.14,6,8),0xf2e6d8,{p:[R(-2,2),-1.8,R(-1.5,1.5)],r:[Math.PI/2,0,R(-.6,.6)]}));
+  return o;},
+ lymwall(){const o=[];o.push(part(new THREE.CylinderGeometry(1.6,1.6,6,28,1,true,0,Math.PI),0xe8d8b8,{r:[0,0,Math.PI/2],side:THREE.DoubleSide}));
+  for(let b=0;b<3;b++)for(let k=0;k<7;k++){const a=Math.PI*(k+.5)/7;o.push(part(new THREE.SphereGeometry(.3,10,8),0xc48a6a,{p:[-2+b*2,1.72*Math.cos(a),-1.72*Math.sin(a)],s:[1.3,.5,2.2],r:[a,0,0]}));}
+  o.push(part(cuspGeo(true,1.4),0xf0e4c8,{p:[2.3,0,0],r:[0,0,-Math.PI/2],s:.9,side:THREE.DoubleSide}));o.push(part(cuspGeo(true,1.4),0xf0e4c8,{p:[2.3,0,0],r:[0,Math.PI,-Math.PI/2],s:.9,side:THREE.DoubleSide}));
+  return o;},
+ lyleaflet(){return ENVBUILD.lymwall();},
+ reticulum(){const o=[];const nodes=[];for(let k=0;k<16;k++)nodes.push(new V3(R(-2.4,2.4),R(-2.2,2.2),R(-2.2,2.2)));
+  nodes.forEach((a,i)=>{for(let j=i+1;j<nodes.length;j++){const b=nodes[j];if(a.distanceTo(b)>2.4)continue;const L=a.distanceTo(b),g=new THREE.CylinderGeometry(.05,.05,L,5);g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new V3(0,1,0),b.clone().sub(a).normalize()));g.translate((a.x+b.x)/2,(a.y+b.y)/2,(a.z+b.z)/2);o.push(part(g,0xe6dccc,{}));}
+   if(i%3===0){o.push(part(new THREE.SphereGeometry(.34,10,8),0xd8c0b8,{p:[a.x,a.y,a.z],s:[1.6,.5,1]}));}});
+  o.push(part(new THREE.SphereGeometry(.8,14,10),0xcfe3d2,{p:[.6,.2,.4],flat:1}));for(let k=0;k<5;k++)o.push(part(new THREE.ConeGeometry(.22,.9,7),0xcfe3d2,{p:[.6+Math.cos(k*1.3)*1,0.2+Math.sin(k*2)*.5,.4+Math.sin(k*1.3)*1],r:[Math.sin(k)*1.5,0,Math.cos(k)*1.5+Math.PI/2]})); // macrophage
+  for(let k=0;k<6;k++)o.push(part(new THREE.SphereGeometry(.26,10,8),0xf0f0f8,{p:[R(-2,2),R(-2,2),R(-2,2)]}));
+  return o;},
+ endplate(){const o=[];o.push(part(new THREE.BoxGeometry(7,1.6,4.5),0xb05050,{p:[0,-1.3,0]}));for(let s=0;s<14;s++)o.push(part(new THREE.BoxGeometry(.06,1.62,4.52),0x6a2a2a,{p:[-3.2+s*.48,-1.3,0]}));
+  for(let k=0;k<8;k++){o.push(part(new THREE.BoxGeometry(.22,1.1,3.2),0xd07a7a,{p:[-2.1+k*.6,.05,0]}));for(let j=0;j<10;j++)o.push(part(new THREE.SphereGeometry(.05,5,4),0x3ee6d8,{p:[-2.1+k*.6+R(-.1,.1),.62,R(-1.5,1.5)],e:0x0e5a55}));}
+  o.push(part(new THREE.BoxGeometry(5.2,.05,3.3),0xf0e8d8,{p:[0,.68,0],o:.8})); // basal lamina
+  o.push(part(new THREE.SphereGeometry(2.2,20,14,0,Math.PI*2,0,Math.PI/2),0xe9c9a8,{p:[0,.78,0],s:[1.25,.75,.8]}));for(let k=0;k<46;k++)o.push(part(new THREE.SphereGeometry(.08,6,5),0xfff0e0,{p:[R(-2.2,2.2),.9+R(0,.3)*Math.random(),R(-1.3,1.3)]}));for(let k=0;k<5;k++)o.push(part(new THREE.SphereGeometry(.22,8,6),0xe09060,{p:[R(-2,2),1.6,R(-1,1)],s:[1.8,1,1]}));
+  o.push(part(new THREE.SphereGeometry(2.45,20,14,0,Math.PI*2,0,Math.PI/2),0xd9b8a0,{p:[0,.78,0],s:[1.3,.85,.85],o:.35})); // terminal Schwann cell
+  return o;},
+ activezone(){const o=[];o.push(part(new THREE.SphereGeometry(2.3,22,16),0xe9c9a8,{p:[0,1.5,0],s:[1,.9,1],o:.5}));o.push(part(new THREE.CylinderGeometry(1.5,1.5,.1,24),0xf0b060,{p:[0,.18,0],e:0x3a2a08}));
+  for(let k=0;k<70;k++){const r=Math.pow(Math.random(),.6)*1.9,a=R(0,6.3),y=.45+Math.pow(Math.random(),1.6)*2.6;o.push(part(new THREE.SphereGeometry(.14,7,6),0xfff0e0,{p:[r*Math.cos(a),y,r*Math.sin(a)]}));}
+  for(let k=0;k<7;k++){const a=k*.9;o.push(part(new THREE.SphereGeometry(.14,7,6),0xfff0e0,{p:[.9*Math.cos(a),.38,.9*Math.sin(a)]}));o.push(part(new THREE.SphereGeometry(.05,5,4),0xff7a7a,{p:[1.1*Math.cos(a+.4),.24,1.1*Math.sin(a+.4)],e:0x5a1010}));} // docked vesicles, Ca channels
+  for(let k=0;k<14;k++)o.push(part(new THREE.CylinderGeometry(.02,.02,.26,4),0xd0c0b0,{p:[R(-1.4,1.4),.0,R(-1.4,1.4)]})); // adhesion molecules bridging the cleft
+  o.push(part(new THREE.CylinderGeometry(1.6,1.6,.22,24),0x8a4a6a,{p:[0,-.24,0]}));o.push(part(new THREE.SphereGeometry(1.7,18,12,0,6.3,Math.PI/2,Math.PI/2),0xf0c8b8,{p:[0,-.2,0],s:[1,.7,1]}));o.push(part(new THREE.CylinderGeometry(.5,.6,1.6,12),0xf0c8b8,{p:[0,-1.9,0]})); // PSD, spine head, neck
+  o.push(part(new THREE.SphereGeometry(1.2,12,9),0xa0c8e0,{p:[2.4,.4,.6],s:[.5,1.4,1],o:.45})); // astrocyte process
+  return o;},
+};
+function envMeshes(key){if(!ENVM[key])ENVM[key]=ENVBUILD[key]().map(m=>Object.assign(m,{kind:key}));return ENVM[key];}
+// what the wall is made of here
+function envKeyAt(i){
+ const r=REG[i],k=i*4;
+ if(W===BLOOD){
+  for(const vl of VALVES){const d=Math.abs(wrapD(i-vl.i));if(d<5)return vl.id==='aortic'&&C.stenosis?'leaflet_calc':vl.type==='av'?'leaflet_av':'leaflet_sl';}
+  if(KW[k+3]>.5)return 'endo';if(KW[k+2]>.5)return 'artwall';if(KW[k+1]>.5)return 'trabec';if(KW[k]>.5)return 'endocard';return 'veinwall';}
+ if(W===LYMPH){if(r==='interstitium')return 'ecm';if(r==='lymphcap')return 'lymphendo';if(/sinus|subcap/.test(r))return 'reticulum';if(VALVES.some(vl=>Math.abs(i-vl.i)<4))return 'lyleaflet';if(r==='venangle')return 'veinwall';return 'lymwall';}
+ if(W===NERVE){if(r==='braincap'||r==='bbb')return 'bbbendo';if(r==='cortex')return 'neuropil';const kind=NNODES[Math.max(0,nodeIdx.findIndex(x=>x>i)-1)][4];
+  if(kind==='hillock')return 'hillock';if(r==='axon'||r==='decuss'||r==='cord'||r==='pnerve'){const f=nodeAtS(i*DS);return f>.5?'node':f>.08?'paranode':'myelin';}
+  if(r==='bouton'||r==='cleft')return 'activezone';if(r==='soma')return 'somamem';if(r==='nmj')return 'endplate';}
+ return null;
+}
+let envT=null;const _er=new V3(),_ep=new V3(),_ed=new V3();
+function findEnv(){
+ if(mouseX<0||dragging||target)return null;
+ _ed.set((mouseX/innerWidth)*2-1,-(mouseY/innerHeight)*2+1,.5).unproject(camera).sub(camPos).normalize();
+ let j=S.idx;for(let t=1.5;t<36;t+=.6){_ep.copy(camPos).addScaledVector(_ed,t);
+  for(let g=0;g<6;g++){gv(P,wrapI(j+1),_er);const d1=_er.distanceToSquared(_ep);gv(P,wrapI(j-1),_er);const d0=_er.distanceToSquared(_ep);gv(P,j,_er);const dc=_er.distanceToSquared(_ep);if(d1<dc&&d1<=d0)j=wrapI(j+1);else if(d0<dc)j=wrapI(j-1);else break;}
+  gv(P,j,_er);const rad=R0[j]*scaleAt(j);if(_er.distanceTo(_ep)>=rad*.96){const key=envKeyAt(j);return key?{key,i:j,pos:_ep.clone(),t}:null;}}
+ return null;
+}
+function updateEnvTag(){
+ const el=$('cellTag');if(target||!envT){if(!target){el.style.opacity=0;tRing.visible=false;}return;}
+ _pv.copy(envT.pos).project(camera);if(_pv.z>1){el.style.opacity=0;return;}
+ const E=ENV[envT.key];tRing.visible=true;tRing.position.copy(envT.pos);tRing.quaternion.copy(camera.quaternion);tRing.scale.setScalar(.35+envT.t*.03);
+ el.innerHTML=`<b>${E.n}</b><span>${E.sub}</span><small>click for details · the wall here</small>`;
+ el.style.left=clamp((_pv.x+1)/2*innerWidth,el.offsetWidth/2+8,innerWidth-el.offsetWidth/2-8)+'px';el.style.top=Math.max(el.offsetHeight+8,(1-_pv.y)/2*innerHeight-28)+'px';el.style.opacity=1;
+}
+function inspectEnv(e){
+ const E=ENV[e.key];sfx('scan');addCodex(E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
+ const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',rg?rg.n:'—'],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
+ $('cardKind').textContent=$('cardKind').textContent+' · wall inspected';$('cellSize').textContent=E.size;
+}
+
+/* ===== Vitals that fit the system you are in ===== */
+const VROWS={
+ blood:[['HR','vHR'],['BP','vBP'],['Local SO₂','vSat'],['Local PO₂','vPO2'],['Cycle','phase']],
+ lymph:[['Pump rate','vLyR'],['This segment','vLyPh'],['Interstitial P','vIntP'],['Lymph protein','vLyPr'],['Flow here','vLyF']],
+ nerve:[['Vm here','vVm'],['Conduction','vCV'],['Spike rate','vSpk'],['Myelin','vMy'],['GCS · reflexes','vGCS']],
+};
+const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position'};
+let vitalsWorld='';
+function setVitals(){
+ const wn=W.name;if(vitalsWorld===wn)return;vitalsWorld=wn;
+ $('vrows').innerHTML=VROWS[wn].map(([l,id])=>id==='phase'?`<div class="vrow"><span>${l}</span><span id="phase" class="dia">DIASTOLE</span></div>`:`<div class="vrow"><span>${l}</span><b id="${id}">—</b></div>`).join('');
+ $('vTitle').textContent='Host vitals · '+(wn==='blood'?'circulation':wn==='lymph'?'lymphatics':'nervous system');$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=wn==='blood'?'':'none';
+}
+function vmHere(){const [a1,a2]=apPositions(),s=S.idx*DS;let v=-70;[a1,a2].forEach(a=>{const d=a-s;v+=105*Math.exp(-Math.pow((d-.5)/2.2,2))-12*Math.exp(-Math.pow((d+7)/5,2));});return v;}
+function traceVal(){if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
+function vitalsTick(){
+ setVitals();
+ if(W===LYMPH){$('vLyR').textContent='≈17/min (sped up)';const q=lymSq(S.idx);$('vLyPh').textContent=q>0?'CONTRACTING':'FILLING';$('vLyPh').style.color=q>0?'var(--amber)':'';$('vIntP').textContent='−2 mmHg';$('vLyPr').textContent=/sinus|subcap|efferent|cisterna|thoracic|venangle/.test(REG[S.idx])?'3–4 g/dL':'≈2 g/dL';$('vLyF').textContent=(FLOW[S.idx]*flowMul(S.idx)).toFixed(1)+' units/s';}
+ else if(W===NERVE){const r=REG[S.idx],v=vmHere();$('vVm').textContent=Math.round(v)+' mV';$('vVm').style.color=v>-20?'var(--cyan)':'';
+  $('vCV').textContent=/axon|decuss|cord|pnerve/.test(r)?'Aα 80–120 m/s':r==='cortex'||r==='soma'?'graded EPSPs':r==='nmj'||r==='bouton'||r==='cleft'?'delay 0.5–1 ms':'CBF 50 mL/100g/min';
+  $('vSpk').textContent=/axon|decuss|cord|pnerve|nmj/.test(r)?'≈10 Hz drive':'—';$('vMy').textContent=/axon|decuss|cord/.test(r)?'intact · g≈0.75 (CNS)':r==='pnerve'?'intact · g≈0.65 (PNS)':'—';$('vGCS').textContent='15 · 2+';}
+}
 
 /* --- keys --- */
 function onKey(e){
@@ -2277,7 +2533,7 @@ function ecgVal(tc,T){
  return .15*g(tc,T-.17,.025)-.12*g(x,-.035,.006)+1*g(x,-.022,.007)-.25*g(x,-.008,.007)+.3*g(tc,C.sys-.11,.04);
 }
 function drawECG(){
- const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle='rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
+ const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
  for(let i=0;i<ECGN;i++){const v=ecgBuf[(ecgHead+i)%ECGN];const x=i/(ECGN-1)*w,y=h*.72-v*h*.6;i?ecgC.lineTo(x,y):ecgC.moveTo(x,y);}ecgC.stroke();
 }
 function drawPCG(pcgC=pcgC0){
@@ -2979,14 +3235,15 @@ function update(dt){
   if(steth){const av=AOV;const dA=S.pos.distanceTo(av.c);$('stethWhere').textContent=dA<30?`Aortic area · ${dA.toFixed(0)} u from the valve`:`Distance to aortic valve: ${dA.toFixed(0)} u — get closer`;
    if(dA<30&&C.stenosis){stethTime+=dt;if(stethTime>2.5&&!done.has('steth')){complete('steth');unlocked.add('murmur');scanned.add('murmur');openCard('murmur',true);renderObj();}}}
   // reticle target
-  target=steth||study?null:findTarget();canvas.classList.toggle('hov',!!target);canvas.classList.toggle('drag',dragging);$('ret').classList.toggle('lock',!!target);$('scanTip').style.opacity=target?1:0;
-  $('scanTip').style.opacity=0;updateCellTag();
+  target=steth||study?null:findTarget();envT=target||steth||study?null:findEnv();canvas.classList.toggle('hov',!!target||!!envT);canvas.classList.toggle('drag',dragging);$('ret').classList.toggle('lock',!!target);$('scanTip').style.opacity=target?1:0;
+  $('scanTip').style.opacity=0;updateCellTag();updateEnvTag();
   // phonocardiogram + ECG
   if(AC&&A.an){A.an.getFloatTimeDomainData(A.anBuf);let s=0;for(let i=0;i<A.anBuf.length;i++)s+=A.anBuf[i]*A.anBuf[i];pcgBuf[pcgHead]=Math.sqrt(s/A.anBuf.length);pcgMark[pcgHead]=0;pcgHead=(pcgHead+1)%PCGN;}
-  ecgBuf[ecgHead]=ecgVal(C.tc,C.T);ecgHead=(ecgHead+1)%ECGN;
+  ecgBuf[ecgHead]=traceVal();ecgHead=(ecgHead+1)%ECGN;
   hudT-=dt;
   if(hudT<=0){hudT=.1;
    drawECG();if(steth)drawPCG();drawRoute();if($('mAtlas').classList.contains('show'))updateAtlasMe();if(!$('body').classList.contains('hide'))drawBody();
+   vitalsTick();if(W===BLOOD){
    $('vHR').textContent=Math.round(C.hr)+' bpm';
    const sbp=C.stenosis?(C.exercise?lerp(112,94,clamp((C.hr-72)/46,0,1)):112):(C.exercise?lerp(124,158,clamp((C.hr-72)/46,0,1)):124);
    const dbp=C.stenosis?(C.exercise?70:80):(C.exercise?76:78);
@@ -2995,7 +3252,7 @@ function update(dt){
    if(!W.closed){$('vSat').textContent=W.lymph?'— (lymph)':'— (−70 mV)';$('vSat').style.color='#7fd99a';$('vPO2').textContent='—';}
    else{$('vSat').textContent=sat.toFixed(0)+'%';$('vSat').style.color=sat>90?'#ff8a8a':'#a9a4ff';
    $('vPO2').textContent=Math.round(sat>=97.5?95:sat<=75.5?40:40+55*Math.pow((sat-75)/23,2.2))+' mmHg';}
-   const ph=$('phase');const sy=isSystole();ph.textContent=sy?'SYSTOLE':'DIASTOLE';ph.className=sy?'sys':'dia';
+   const ph=$('phase');const sy=isSystole();ph.textContent=sy?'SYSTOLE':'DIASTOLE';ph.className=sy?'sys':'dia';}
   }
   if(steth&&hudT>.05)drawPCG();
   if(exam)drawPCG(exPcgC);
@@ -3015,7 +3272,7 @@ $('go').onclick=()=>{
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
-window.__IV={addCodex,flyToKey,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={addCodex,flyToKey,findEnv,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
