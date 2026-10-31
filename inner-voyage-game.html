@@ -194,6 +194,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 /* quiz */
 .q{font-size:16px;line-height:1.45;margin:12px 0}
 .q.anki{font-size:15px}.q.anki img{max-width:100%;height:auto;border-radius:8px;display:block;margin:6px 0}.q.anki hr{border:0;border-top:1px dashed var(--line);margin:10px 0}.cz{color:var(--cyan);font-weight:700}.cz.hole{color:var(--amber)}
+.forkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.exgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:12.5px;color:var(--muted);margin:8px 0;line-height:1.45}.exgrid b{color:var(--fg)}body.mobile .forkgrid,body.mobile .exgrid{grid-template-columns:1fr}
 .deckgrid{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.deckgrid .mini b{color:var(--fg);margin-left:4px}#cardDeck{margin:6px 0 2px}#cardDeck .mini{font-size:11px}
 .opt{display:block;width:100%;text-align:left;margin:7px 0;padding:11px 14px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--fg);font-size:14px;cursor:pointer;line-height:1.4}
 .opt:hover:not(:disabled){border-color:var(--cyan)}
@@ -338,6 +339,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <p><b>Valves are one-way doors with timing.</b> Tricuspid and mitral (AV) valves open in <span style="color:var(--blue)">diastole</span>, after S2. Pulmonic and aortic (semilunar) valves open in <span style="color:#ff9aa5">systole</span>, right after S1. Watch the Cycle indicator and the ECG: the QRS fires just before the ventricles squeeze.</p>
   <p><b>Bedside exam (G)</b> is the real clinical skill: you listen through the chest wall at the standard landmarks, compare spots, and call where the murmur is loudest and when it happens. Outside to hear, inside to understand.</p>
   <p><b>Inside listening (hold H)</b> steadies the probe, quiets the engine and shows a live phonocardiogram. It is what the jet sounds like at the valve, which is <i>not</i> what a clinician hears; use it to understand the cause. Diaphragm favours high-pitched sounds (S1, S2, the AS murmur); bell favours low rumbles.</p>
+  <p><b>The gut (Tab → Gastrointestinal)</b> is one open tube built to the living ~5 m: swallow waves, three sphincters that open on their real triggers, the antral grinder, a villus forest with two exits (press K at a villus: portal blood or lacteal lymph), the bacterial gradient, and Case 03 (coeliac disease; V cycles the Marsh stages on the villi).</p>
   <p><b>Your own Anki deck.</b> Study (T) ▸ “Load your Anki deck” reads your .apkg or .txt export in the browser and keeps it on this device only. Cards are placed at the structure they belong to (by tag path, or by an optional AI pass with your own API key) and appear on the Codex card and in Study.</p>
   <p><b>Patient course.</b> There is no ship hull to lose. Wrong calls at the bedside or on Rounds push Mr. Reyes's care off course, and the ending shows what happens to him.</p>
   <p><b>Reality checks.</b> Some Codex cards carry an amber note where the game bends physics or biology for playability, so you know exactly what is simplified.</p>
@@ -373,6 +375,8 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 <div class="modal" id="mStudy"><div class="sheet" id="studySheet"></div></div>
 <div class="modal" id="mSystems"><div class="sheet" id="sysSheet" style="max-width:860px"></div></div>
 <div class="modal" id="mDeck"><div class="sheet" id="deckSheet" style="max-width:820px"></div></div>
+<div class="modal" id="mFork"><div class="sheet" id="forkSheet" style="max-width:760px"></div></div>
+<div class="modal" id="mExamGI"><div class="sheet" id="examGISheet" style="max-width:820px"></div></div>
 
 <div class="modal" id="mExam"><div class="sheet">
   <button class="x" data-close>✕</button>
@@ -406,7 +410,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 <script>
 /* ---------- Learning content (draft — needs review by the medical accuracy lead) ---------- */
 const LEVEL_NAMES=['L1 Curious','L2 School','L3 Pre-med','L4 Med school'];
-const REF={heart:'OpenStax Anatomy & Physiology 2e, ch. 19 (The Heart)',vessels:'OpenStax A&P 2e, ch. 20 (Blood Vessels & Circulation)',resp:'OpenStax A&P 2e, ch. 22 (Respiratory System)',blood:'OpenStax A&P 2e, ch. 18 (Blood)',as:'2020 ACC/AHA Guideline for Valvular Heart Disease',lymph:'OpenStax A&P 2e, ch. 21 (The Lymphatic and Immune System)',neuro:'OpenStax A&P 2e, ch. 12–14 (Nervous System) & Kandel, Principles of Neural Science 6e'};
+const REF={heart:'OpenStax Anatomy & Physiology 2e, ch. 19 (The Heart)',vessels:'OpenStax A&P 2e, ch. 20 (Blood Vessels & Circulation)',resp:'OpenStax A&P 2e, ch. 22 (Respiratory System)',blood:'OpenStax A&P 2e, ch. 18 (Blood)',as:'2020 ACC/AHA Guideline for Valvular Heart Disease',lymph:'OpenStax A&P 2e, ch. 21 (The Lymphatic and Immune System)',neuro:'OpenStax A&P 2e, ch. 12–14 (Nervous System) & Kandel, Principles of Neural Science 6e',gi:'OpenStax A&P 2e, ch. 23 (Digestive System) · Boron & Boulpaep · Helander & Fändriks 2014'};
 
 const CODEX={
  ivc:{title:'Inferior vena cava',tag:'Vein · returns blood from the lower body',src:REF.vessels,L:[
@@ -711,6 +715,214 @@ const CODEX={
   'Vesicles budded from the cell body travel out along the axon carrying proteins and channel parts. At the synapse, small clear vesicles are filled with neurotransmitter and wait to be released.',
   'Small clear synaptic vesicles (~40 nm) hold glutamate, GABA, glycine or acetylcholine, loaded by vesicular transporters (VGLUT, VGAT, VAChT) using a proton gradient. Large dense-core vesicles carry neuropeptides. Endosomes return material retrogradely for lysosomal degradation.',
   'Vesamicol blocks ACh loading; reserpine blocks VMAT (monoamines). Alpha-synuclein, which normally helps vesicle cycling, aggregates into Lewy bodies in Parkinson disease; mutations in synaptic vesicle genes (SV2A is the target of levetiracetam) relate to epilepsy.'],rc:'Vesicles are drawn hundreds of times larger relative to the axon than in life.'},
+ // ---- gastrointestinal tract (from the GI research document, 31 Oct 2026; corrected numbers, see rc fields) ----
+ mouth:{title:'Mouth & salivary glands',tag:'GI · entry · chewing and saliva',src:REF.gi,L:[
+  'Where food starts: teeth break it up, the tongue mixes it with spit, and you swallow.',
+  'Saliva (1.0–1.5 L a day, pH ~6.7–7.0) wets the food, starts digesting starch with amylase, and protects the teeth.',
+  'Three paired glands (parotid: serous, amylase-rich; submandibular: mixed, most of the resting volume; sublingual: mucous). Lingual lipase begins fat digestion. The bolus is formed and swallowed by a reflex coordinated in the medulla.',
+  'Salivary secretion is parasympathetic-driven (CN VII, IX) and hypotonic at high flow because duct cells reabsorb Na⁺/Cl⁻ faster than water. Xerostomia (Sjögren, anticholinergics, radiation) impairs taste, speech and caries protection.'],
+  rc:'There is no tongue “taste map”. The sweet-tip / bitter-back diagram is a misreading of 1901 data; every taste-bud region senses all five tastes with only slight threshold differences.'},
+ oesoph:{title:'Oesophagus',tag:'GI · 25 cm muscular tube · peristalsis',src:REF.gi,L:[
+  'A muscular tube that squeezes food down to the stomach in a few seconds, even upside down.',
+  'A travelling wave of squeeze (peristalsis) moves at 3–4 cm/s; solids take 6–10 s, liquids about 1 s.',
+  'Stratified squamous lining for abrasion, not absorption. Upper third skeletal muscle, lower third smooth; primary peristalsis follows the swallow, secondary peristalsis clears what is left behind.',
+  'The myenteric plexus coordinates the wave; loss of inhibitory neurons at the LES gives achalasia (bird-beak, failed relaxation). At the Z-line, squamous meets gastric columnar mucosa; chronic reflux turns it into intestinal-type columnar (Barrett) with adenocarcinoma risk.'],
+  rc:'You ride ahead of the squeeze, not on a conveyor: between swallows the oesophagus is a collapsed, almost still tube. In the game the wave comes every ~14 s so you can catch one.'},
+ les:{title:'Lower oesophageal sphincter',tag:'GI · gate · tonic ring that relaxes for a swallow',src:REF.gi,L:[
+  'A ring of muscle that stays shut so stomach acid cannot climb back up, and opens as food arrives.',
+  'Tonically contracted at rest (~15–30 mmHg); it relaxes for a few seconds as the peristaltic wave arrives.',
+  'Relaxation is vagal via inhibitory NO/VIP neurons; the diaphragmatic crura add an external sphincter. Transient relaxations unrelated to swallowing are the main mechanism of reflux.',
+  'Pressure is raised by gastrin and cholinergic tone, lowered by progesterone, fat, chocolate, nitrates and calcium-channel blockers. Hiatus hernia uncouples the crura from the LES.'],
+  rc:'Timing is the lesson: hit the LES between waves and it is shut. Wait for the squeeze behind you, or press K to see why there is no shortcut.'},
+ stomach:{title:'Stomach · fundus & body',tag:'GI · 1–1.5 L reservoir · mixer, steriliser, gate',src:REF.gi,L:[
+  'A stretchy bag that stores a meal, churns it with acid and lets it out a little at a time.',
+  'The wall relaxes to receive food (accommodation), then mixes it with ~2–2.5 L a day of acid juice.',
+  'Rugae flatten as it fills. Glands in the gastric pits: parietal cells (HCl, intrinsic factor), chief cells (pepsinogen), mucous neck cells, enterochromaffin-like cells (histamine). Fundus and body are the reservoir; the antrum grinds.',
+  'Receptive relaxation is a vagovagal reflex (NO/VIP). Liquids empty with a half-time under 20 min with no lag; solids are held 20–30 min, then empty with a half-time of 60–120 min once ground to 1–2 mm. Vagotomy or diabetic neuropathy produce gastroparesis.'],
+  rc:'The stomach is not where most digestion happens and it absorbs almost nothing (some water, alcohol, aspirin-class drugs). It mixes, sterilises and meters; the small bowel does the chemistry at near-neutral pH.'},
+ antrum:{title:'Antrum · the grinder',tag:'GI · peristaltic mill · 3 waves a minute',src:REF.gi,L:[
+  'The bottom part of the stomach, where strong waves grind food into tiny pieces.',
+  'Three waves a minute sweep toward the exit; anything bigger than 1–2 mm is thrown back and ground again (retropulsion).',
+  'The slow wave here is set by interstitial cells of Cajal at ~3/min: the gastric pacemaker on the greater curvature. G cells in the antrum release gastrin when peptides and distension arrive; somatostatin from D cells switches it off at low pH.',
+  'Antral contraction with pyloric closure is the trituration cycle; the migrating motor complex phase III clears indigestible residue only between meals. Gastric emptying is slowed by duodenal fat and acid (CCK, secretin) — the feedback that keeps the duodenum from being overwhelmed.'],
+  rc:'Watch the particles: liquids slip past you early, solids circulate until small. That is real gastric physiology on the real clock (one wave every 20 s).'},
+ pylorus:{title:'Pyloric sphincter',tag:'GI · gate · meters particles, not volume',src:REF.gi,L:[
+  'The exit valve of the stomach, which opens just a crack with each wave.',
+  'It lets through only small particles and liquid; larger pieces bounce back for more grinding.',
+  'A thickened ring of circular muscle that closes just as the antral wave reaches it, so the wave squirts a few millilitres of fine chyme into the duodenum and retropulses the rest.',
+  'Infantile hypertrophic pyloric stenosis: non-bilious projectile vomiting at 3–6 weeks with hypochloraemic hypokalaemic metabolic alkalosis. In adults, peptic scarring or tumour gives gastric outlet obstruction and a succussion splash hours after eating.'],
+  rc:'It is not a valve that opens when “full”. It is a sieve that opens with the wave; the game opens it in step with the 3/min antral slow wave.'},
+ duodenum:{title:'Duodenum',tag:'GI · 25 cm C-loop · bile and pancreatic juice enter',src:REF.gi,L:[
+  'The first bend of the small intestine, where the stomach’s acid mush meets bile and digestive juices.',
+  'Bile (~0.5 L a day) and pancreatic juice (1–1.5 L, pH ~8) pour in through the ampulla and neutralise the acid.',
+  'Brunner glands secrete bicarbonate-rich mucus. S cells release secretin (acid → bicarbonate), I cells release CCK (fat and protein → gallbladder contraction, enzyme secretion, slowed emptying). Iron is absorbed here via DMT1 and ferroportin, gated by hepcidin.',
+  'The slow wave is fastest here (11–12/min), so duodenal contractions can never be out-paced by the stomach. Duodenal ulcers (mostly H. pylori) sit in the first part; posterior ulcers erode the gastroduodenal artery. Coeliac disease and iron deficiency meet here: Ms. Nair’s anaemia is a duodenal lesion.'],
+  rc:'The 25 cm is a post-mortem measurement. Living segment lengths are shorter and the whole living gut is ~5 m; the game is built from the living total.'},
+ jejunum:{title:'Jejunum · the absorption peak',tag:'GI · tall villi · plicae circulares',src:REF.gi,L:[
+  'The middle part of the small intestine, lined with millions of tiny fingers that soak up food.',
+  'Folds, villi and microvilli multiply the surface. Most sugars, amino acids and fats are absorbed here within a few hours.',
+  'Plicae circulares are tallest here; villi 0.5–1 mm with a villus:crypt ratio of 3–5:1. SGLT1 takes glucose and galactose with Na⁺, GLUT5 takes fructose; GLUT2 exits to the portal capillary. Long-chain fat goes a different way: micelle → enterocyte → chylomicron → lacteal.',
+  'Enterocytes live 3–5 days, migrating from Lgr5⁺ crypt stem cells to the villus tip. Folate is absorbed proximally; intraepithelial lymphocytes should be <25 per 100 enterocytes. Small-bowel transit is 3–5 h in total.'],
+  rc:'Scale: villi here are drawn about a fifth of the lumen radius so you can fly between them. Real villi (0.5–1 mm) in a 2.5–3 cm lumen are nearer a fifteenth. Shapes and ratios are true; the lumen is shrunk.'},
+ ileum:{title:'Ileum',tag:'GI · Peyer’s patches · B12 and bile-acid recovery',src:REF.gi,L:[
+  'The last part of the small intestine, with its own immune outposts in the wall.',
+  'Shorter villi, more lymphoid tissue (Peyer’s patches), and the only place that takes up vitamin B12 and recycles bile.',
+  'Terminal ileum: B12–intrinsic factor via the cubam receptor; bile acids via ASBT (≥95% recovered per pass, pool ~3 g cycling 4–12×/day). Slow wave 8–9/min. M cells over Peyer’s patches sample luminal antigen.',
+  'Ileal resection or Crohn disease → B12 deficiency and bile-acid malabsorption (watery diarrhoea, then fat malabsorption and gallstones when the pool falls). Ms. Nair’s B12 is normal, which localises her disease proximally.'],
+  rc:'Bacterial density climbs from ~10³/g in the duodenum to ~10⁷/g here, still a hundred-thousand times sparser than the colon. The game draws that gradient.'},
+ ileocaecal:{title:'Ileocaecal valve',tag:'GI · gate · one-way into the colon',src:REF.gi,L:[
+  'A valve between small and large intestine that lets chyme through in spurts and stops it coming back.',
+  'It opens with ileal waves (more after meals) and keeps colonic bacteria out of the small bowel.',
+  'Tonic contraction plus a flap-like fold; the gastroileal reflex relaxes it after a meal. Incompetence allows bacterial reflux and overgrowth.',
+  'Small-intestinal bacterial overgrowth (SIBO) follows loss of the valve, of gastric acid, or of MMC phase III: fat and B12 malabsorption with folate paradoxically high (bacterial synthesis).'],
+  rc:'Beyond this valve the clock changes by ~100×: hours become days.'},
+ colon:{title:'Colon',tag:'GI · ~1.5 m · water recovery · microbiome',src:REF.gi,L:[
+  'The large intestine: it takes back water and houses trillions of bacteria.',
+  'Receives ~1.5 L a day and absorbs water until only 100–200 mL leaves as stool; transit takes 1–2 days.',
+  'No villi: a flat surface with straight crypts dense in goblet cells; haustra formed by the taeniae coli. Bacteria ferment fibre to short-chain fatty acids; colonocytes burn bacterial butyrate for most of their energy.',
+  'Two mucus layers: an inner MUC2 layer that is essentially bacteria-free and an outer colonised layer (shown in mouse; human thicknesses unverified). Mass movements 1–3 times a day, triggered by the gastrocolic reflex. Density ~10¹¹–10¹²/g.'],
+  rc:'The bacteria are drawn where they are: in the lumen, kept off the wall by the inner mucus moat. A picture with bacteria on the epithelium is a picture of disease.'},
+ rectum:{title:'Rectum & anal canal',tag:'GI · exit · defecation reflex',src:REF.gi,L:[
+  'The end of the line: stool is stored here until it is convenient to go.',
+  'Stretching the rectal wall triggers the urge; the internal sphincter relaxes automatically, the external one is under your control.',
+  'Rectoanal inhibitory reflex (internal sphincter, smooth muscle, parasympathetic S2–S4); external sphincter is skeletal muscle via the pudendal nerve. Sampling lets the anal canal tell gas from liquid from solid.',
+  'Absence of the inhibitory reflex on manometry suggests Hirschsprung disease (aganglionic segment). Above the dentate line: columnar mucosa, portal venous drainage, visceral sensation; below: squamous, systemic drainage, somatic pain.'],
+  rc:'This is where the game lets you out. The defecation reflex is spinal, with cortical veto; nothing about it needs the brain to initiate.'},
+ // concepts
+ gutlength:{title:'The living gut’s true length',tag:'Correction · ~5 m in life, not 7–9 m',src:'Helander & Fändriks, Scand J Gastroenterol 2014',L:[
+  'Your gut is about as long as you are tall, twice over: not five times.',
+  'In a living person the whole tube from mouth to anus is about 5 metres.',
+  'Smooth-muscle tone shortens the living bowel; the familiar 7–9 m and the summed segment lengths (duodenum 25 cm, jejunum 2.5 m, ileum 3.5 m, colon 1.5 m) are cadaveric, when tone is gone.',
+  'In-vivo measurement (Helander & Fändriks 2014) supersedes summed cadaveric lengths for teaching and for scale in this game. Quote segment figures as post-mortem framing.'],
+  rc:'This world is built to the living ~5 m, compressed about 6× so a lap is flyable. Segment labels keep their anatomy, not their cadaver lengths.'},
+ gutsurface:{title:'Digestive surface area',tag:'Correction · ~32 m², not a tennis court',src:'Helander & Fändriks 2014',L:[
+  'The inside of your gut is about the size of a small flat’s floor, not a tennis court.',
+  'Folds, villi and microvilli multiply the area to about 32 m² (small intestine ~30, colon ~2).',
+  'Measured amplification: plicae ×~1.6 (not ×3), villi plus microvilli ×60–120. The classic ×600 multiplied three textbook maxima together.',
+  'Quote ~30 m² small intestine + ~2 m² colon. The older 260–300 m² figure is a derived estimate, not a measurement; absorption was never limited by area.'],
+  rc:'Older books (and many lectures) still say 260–300 m². The smaller true number still absorbs everything you eat.'},
+ villusfork:{title:'The villus fork',tag:'Core mechanic · two exits: portal blood and lacteal lymph',src:REF.gi,L:[
+  'A villus has two drains: one for watery food, one for fat.',
+  'Sugars and amino acids go into the blood; fat goes into the lymph.',
+  'Water-soluble nutrients cross the enterocyte (SGLT1, PEPT1, GLUT2) into the villus capillary → portal vein → liver first. Long-chain fat is re-esterified, packed into chylomicrons (apoB-48) and enters the central lacteal → mesenteric lymph → cisterna chyli → thoracic duct.',
+  'That is why fat-soluble vitamin deficiency and chylous effusions are lymph pathology, why portal blood carries first-pass drug metabolism, and why the cisterna chyli runs milky after a meal. Press K at any villus to take either exit.'],
+  rc:'“Villi absorb food into the blood” is half the truth. The fat half travels by lymph, which is the route you already know from the lymph world.'},
+ acid:{title:'Stomach acid & its defences',tag:'Physiology · pH 0.9 secreted, 1.5–3.5 in the lumen',src:REF.gi,L:[
+  'Your stomach makes acid stronger than lemon juice, and protects itself from it.',
+  'Parietal cells pump acid; a mucus and bicarbonate layer shields the wall.',
+  'H⁺/K⁺-ATPase; histamine, gastrin and acetylcholine potentiate one another, which is why H2 blockers and PPIs both work. Secretion is ~150 mmol/L HCl (pH ~0.9); lumen 1.5–3.5 after mixing. Parietal cells number on the order of a billion (an estimate).',
+  'Defence = mucus–bicarbonate gradient (surface pH 6–7), prostaglandins, mucosal blood flow, rapid renewal. NSAIDs break it by COX-1 inhibition; H. pylori lives in the mucus on urease-made ammonia. Ulcers are defence failures far more often than acid surges.'],
+  rc:'Acid does not “do the digestion”. It sterilises, denatures protein and activates pepsin; most chemical digestion is intestinal, at near-neutral pH.'},
+ slowwave:{title:'Slow waves & the housekeeper',tag:'Clock · interstitial cells of Cajal · MMC',src:'Deloose et al., Nat Rev Gastroenterol Hepatol 2012',L:[
+  'The gut has its own pacemaker rhythm: slow in the stomach, faster in the bowel.',
+  'Electrical waves set the beat: stomach 3/min, upper bowel ~12/min, lower bowel 8–9/min. Contractions ride on them.',
+  'Interstitial cells of Cajal generate the slow wave; it sets the maximum contraction frequency, and contractions occur when spike potentials ride the wave. Peristalsis propels; segmentation mixes (dominant in the fed small bowel).',
+  'Fasting: the migrating motor complex cycles every 90–120 min; phase III (motilin-associated) sweeps debris and bacteria aborally and stops when you eat. Loss of phase III predisposes to bacterial overgrowth; erythromycin is a motilin agonist.'],
+  rc:'The wall rhythm you see and hear runs at real speed: 20 s per wave in the stomach, 5 s in the duodenum. Peristalsis is not a constant conveyor; fed and fasting guts run different programmes.'},
+ microbiome:{title:'The microbiome at real scale',tag:'Correction · ~1:1 with your cells, mostly in the colon',src:'Sender, Fuchs & Milo, PLoS Biol 2016',L:[
+  'Your colon carries about as many bacteria as you have cells: not ten times more.',
+  'Bacteria are sparse in the small bowel and dense in the colon.',
+  '~3.8×10¹³ bacteria vs ~3.0×10¹³ human cells. Density: duodenum ~10³/g → ileum ~10⁷/g → colon 10¹¹–10¹²/g, kept that way by acid, bile, IgA and the MMC.',
+  'A sterile inner mucus layer separates epithelium from the colonic mass; its failure is an IBD-relevant lesion. Colonocytes depend on bacterial butyrate. There is no established resident fetal microbiome; placental claims are contamination-prone.'],
+  rc:'A game that filled the small bowel with bacteria would be wrong by a hundred-million-fold at the duodenal end. Count the rods as you fly: almost none until the ileum.'},
+ ens:{title:'Enteric nervous system & serotonin',tag:'Physiology · the gut’s own brain · 100–600 million neurons',src:REF.gi,L:[
+  'The gut has its own nervous system that runs digestion without asking the brain.',
+  'Two nets of nerves in the wall coordinate the squeezing and the secretions.',
+  'Myenteric (Auerbach) plexus between the muscle layers runs motility; submucosal (Meissner) plexus runs secretion and blood flow. The peristaltic reflex is local: sensor → interneuron → excitatory motor ahead, inhibitory behind. Estimates range ~100–600 million neurons; quote a range.',
+  '~90% of body serotonin is made by enterochromaffin cells and acts locally and on platelets; it does not cross the blood–brain barrier. The gut–brain axis is real (vagus, immune signals, metabolites), but “gut serotonin is mood serotonin” is false as stated.'],
+  rc:'The peristaltic reflex is the same sensor → interneuron → motor logic as the spinal reflex arc in the nervous-system world, at gut scale.'},
+ bileacids:{title:'Bile acids go round',tag:'Physiology · enterohepatic circulation',src:REF.gi,L:[
+  'The liver recycles its soap.',
+  'Bile salts are reabsorbed at the end of the small bowel and reused many times a day.',
+  'Pool ~3 g cycling 4–12 times a day, ≥95% recovered per pass in the terminal ileum via ASBT; only 0.2–0.6 g/day is lost in stool and replaced by hepatic synthesis (CYP7A1, inhibited by FXR/FGF19 feedback).',
+  'Ileal disease or resection → bile-acid diarrhoea (secretory, colonic) and, when synthesis cannot keep up, fat malabsorption and cholesterol gallstones. Bile-acid sequestrants treat the former and worsen the latter.'],
+  rc:'Bile is not made fresh for each meal: one pool does many shifts a day.'},
+ coeliac:{title:'Coeliac disease',tag:'Case 03 · gluten-triggered villous atrophy',src:'Med J Aust 2017 coeliac guidance · REF GI',L:[
+  'In some people gluten triggers an attack on their own villi.',
+  'The villi flatten, so iron, folate and fat are poorly absorbed; a gluten-free diet lets them regrow.',
+  'HLA-DQ2/DQ8; tissue transglutaminase deamidates gliadin, T cells drive crypt hyperplasia and villous atrophy. Marsh: 0 normal · 1 intraepithelial lymphocytes >25/100 · 2 + crypt hyperplasia · 3a/b/c progressive villous atrophy. Anti-tTG IgA with total IgA is the screening test.',
+  'Test while the patient still eats gluten: serology and histology normalise on the diet and the diagnosis is lost. Dermatitis herpetiformis is the skin form (IgA at the dermal papillae, dapsone). Associations: type 1 diabetes, autoimmune thyroid disease, IgA deficiency; refractory disease and enteropathy-associated T-cell lymphoma are the rare late risks.'],
+  rc:'Press V in the jejunum to cycle healthy → Marsh 1 → Marsh 3 → gluten-free regrowth on the same villus field. “Gluten sensitivity” in the game means this defined immune disease, not a vague intolerance.'},
+ appendix:{title:'Appendix',tag:'Correction · GALT organ, not a useless remnant',src:REF.gi,L:[
+  'The appendix is not useless: it is immune tissue, and may shelter good bacteria.',
+  'It is packed with lymphoid tissue, like a tonsil in the gut.',
+  'Gut-associated lymphoid tissue with a biofilm-rich lumen; a proposed “safe house” role re-seeds the colon after diarrhoeal washout (a hypothesis, labelled as such).',
+  'Appendicitis: luminal obstruction (faecolith, lymphoid hyperplasia), visceral periumbilical pain migrating to McBurney point as the parietal peritoneum is irritated. Appendectomy remains correct treatment; dispensable is not the same as functionless.'],
+  rc:'“No known function” is decades out of date.'},
+ case03:{title:'Case 03 · Priya Nair, 34',tag:'The anaemia that would not stay fixed',src:'Fictional patient · coeliac guidance, Med J Aust 2017',L:[
+  'Priya has felt tired and bloated for months and her low iron keeps coming back. The answer is in her small intestine.',
+  'Iron tablets help, then it relapses; folate is low too, and she has an itchy blistering rash on her elbows. Blood tests for coeliac disease are strongly positive.',
+  'Iron-deficiency anaemia relapsing on treatment, low folate, B12 preserved (localises to duodenum/proximal jejunum), anti-tTG IgA strongly positive with normal total IgA, dermatitis herpetiformis. Endoscopy: scalloped, flat duodenal folds. Biopsy: Marsh 3.',
+  'Management: lifelong gluten-free diet is the treatment; villi recover over months; check bone density, iron, folate, B12, thyroid; screen first-degree relatives. The trap: starting the diet before testing normalises serology and histology, and the diagnosis is lost.'],
+  rc:'Fictional patient. Her disease is proximal, which is why B12 (terminal ileum) is spared: the anaemia pattern localises the lesion before any scope does.'},
+ // cells & things in the lumen
+ villus:{title:'Villus',tag:'Structure · 0.5–1 mm finger · enterocytes, goblet, Paneth, lacteal',src:REF.gi,L:[
+  'A tiny finger of gut lining. Millions of them soak up your food.',
+  'Each villus is covered in absorbing cells with a fuzzy brush border, and has a blood capillary and a lymph vessel inside.',
+  'Simple columnar epithelium: enterocytes (microvilli ~1 µm with glycocalyx), goblet cells, scattered enteroendocrine cells; a crypt of Lieberkühn at the base with Lgr5⁺ stem cells and Paneth cells (defensins). Inside: a capillary network, one central lacteal and a smooth-muscle strand that pumps it.',
+  'Enterocytes migrate crypt → tip in 3–5 days and are shed. Villus:crypt 3–5:1 is normal; <25 intraepithelial lymphocytes per 100 enterocytes. In coeliac disease the ratio falls toward 0:1 (Marsh 3) and both drains carry less.'],
+  rc:'The lining you fly past is days old. Villi here are about a fifth of the lumen radius for visibility; real proportion is nearer a fifteenth.'},
+ gbact:{title:'Gut bacteria',tag:'Microbe · rods and cocci · 10³/g duodenum → 10¹²/g colon',src:'Sender, Fuchs & Milo, PLoS Biol 2016',L:[
+  'Bacteria that live in your gut. Most of them are in the colon and most of them are helpful.',
+  'They digest fibre you cannot, make vitamin K and some B vitamins, and crowd out invaders.',
+  'Mostly anaerobes (Bacteroidetes, Firmicutes). They ferment fibre to acetate, propionate and butyrate; butyrate feeds colonocytes. Density is kept low upstream by acid, bile, IgA and the MMC.',
+  'Dysbiosis after antibiotics opens the niche for C. difficile; faecal microbiota transplant restores it. Colonisation begins at birth (no established fetal microbiome).'],
+  rc:'Drawn at the real gradient: almost none until the ileum, and never on the colonic wall, where the inner mucus layer keeps them off.'},
+ bolus:{title:'Food bolus',tag:'In the lumen · chewed, saliva-coated food',src:REF.gi,L:[
+  'A lump of chewed food on its way down.',
+  'Chewing and saliva make it soft enough to swallow; the oesophagus squeezes it down in seconds.',
+  'A bolus is moved by primary peristalsis; anything left behind triggers secondary peristalsis. Starch digestion by salivary amylase continues inside the bolus until gastric acid reaches it.',
+  'Impaction (meat bolus) above a stricture or ring, or in eosinophilic oesophagitis, is the adult presentation of oesophageal narrowing; dysphagia to solids first points to a mechanical lesion, to both from the start to a motor one.'],
+  rc:'In the stomach the lump is broken down to 1–2 mm particles before the pylorus lets it out; the smaller particles you see downstream are that process.'},
+ chyme:{title:'Chyme particle',tag:'In the lumen · ground to 1–2 mm · acid, then neutralised',src:REF.gi,L:[
+  'Food after the stomach has ground it into a thick acid soup.',
+  'Only particles smaller than about 2 mm get past the pylorus; in the duodenum the acid is neutralised.',
+  'Trituration in the antrum; emptying rate is governed by duodenal feedback (fat, acid, osmolarity via CCK and secretin). In the small bowel, segmentation mixes chyme with pancreatic enzymes and bile for 3–5 h.',
+  'Dumping syndrome after gastric surgery is loss of this metering: hyperosmolar chyme floods the jejunum (early dumping), then reactive hypoglycaemia (late dumping).'],
+  rc:'The speed is wildly non-uniform in life: seconds in the oesophagus, hours in stomach and small bowel, days in the colon. The game keeps that order, compressed.'},
+ micelle:{title:'Mixed micelle',tag:'In the lumen · bile salts carrying fat to the brush border',src:REF.gi,L:[
+  'A tiny soap bubble that carries fat to the gut wall.',
+  'Bile salts wrap fat so it can travel through watery chyme to the absorbing cells.',
+  'Bile salts, monoglycerides, fatty acids, cholesterol and fat-soluble vitamins; pancreatic lipase and colipase make the products. At the brush border the contents diffuse in; the bile salt stays behind to be recovered in the ileum.',
+  'Inside the enterocyte fat is re-esterified in the smooth ER and packed into chylomicrons (apoB-48, MTP) that exit to the lacteal. Loss of bile (obstruction), lipase (pancreatic insufficiency) or absorptive surface (coeliac) all give steatorrhoea.'],
+  rc:'In the coeliac toggle, more micelles survive into the ileum and colon: unabsorbed fat is what steatorrhoea is.'},
+ peyer:{title:'Peyer’s patch',tag:'Immune · aggregated lymphoid follicles under M cells',src:REF.lymph,L:[
+  'An immune lookout post in the wall of the last part of the small intestine.',
+  'Special cells on top sample what is passing; the follicles below decide whether to make antibodies.',
+  'Follicle-associated epithelium with M cells (microfold) transcytoses antigen to dendritic cells; germinal centres class-switch B cells to IgA, which is secreted into the lumen via the polymeric Ig receptor.',
+  'Typhoid (Salmonella Typhi) invades through M cells; ileal Peyer’s patches hypertrophy and can bleed or perforate in week 3. Crohn disease begins as aphthous ulcers over lymphoid follicles.'],
+  rc:'The follicle visuals are the lymph node’s: same germinal-centre biology, different address.'},
+ // wall environments
+ squamous:{title:'Stratified squamous lining',tag:'Wall · mouth and oesophagus · built for abrasion',src:REF.gi,L:[
+  'A tough, layered lining, like the inside of your cheek.',
+  'Many layers of flat cells protect against rough food; they do not absorb anything.',
+  'Non-keratinised stratified squamous epithelium on a lamina propria; muscularis mucosae, submucosa with glands, then two muscle layers. At endoscopy it is pale pink; the Z-line marks the change to gastric columnar mucosa.',
+  'Chronic reflux → columnar metaplasia (Barrett) → dysplasia → adenocarcinoma at the junction; squamous cell carcinoma in the upper two-thirds follows smoking, alcohol and hot drinks.'],
+  rc:'Endoscopy sees this surface at millimetre scale only; it cannot see cells. Every zoom in this game labels the scale jump.'},
+ gastricmucosa:{title:'Gastric mucosa',tag:'Wall · pits and glands · mucus–bicarbonate shield',src:REF.gi,L:[
+  'The stomach wall: a surface of mucus-making cells with deep pits that lead to acid-making glands.',
+  'Surface cells make the protective mucus; down the pits, glands make acid, enzyme precursor and intrinsic factor.',
+  'Gastric pits open into glands: mucous neck cells, parietal cells (large, pink, intracellular canaliculi), chief cells (basophilic, pepsinogen), ECL cells, D and G cells (antrum). Surface pH is kept near neutral by trapped bicarbonate.',
+  'Autoimmune gastritis destroys parietal cells (body/fundus): achlorhydria, hypergastrinaemia, pernicious anaemia. H. pylori gastritis starts in the antrum and raises ulcer and adenocarcinoma/MALT lymphoma risk.'],
+  rc:'The folds (rugae) flatten as the stomach fills; the mucus layer you can inspect is the only thing between pH 1.5 and living cells.'},
+ crypt:{title:'Crypt of Lieberkühn',tag:'Wall · between the villi · the renewal engine',src:REF.gi,L:[
+  'The pits between the fingers, where new lining cells are born.',
+  'Stem cells at the bottom make new cells that move up the villus and are shed from the tip a few days later.',
+  'Lgr5⁺ crypt base columnar stem cells flanked by Paneth cells (lysozyme, defensins), transit-amplifying cells above; goblet and enteroendocrine cells differentiate on the way up. Whole turnover 3–5 days.',
+  'Crypt hyperplasia with villous atrophy is the coeliac signature (Marsh 2–3). Chemotherapy and radiation kill the transit-amplifying compartment: mucositis and diarrhoea follow the turnover clock.'],
+  rc:'In Marsh 3 the crypts deepen while the villi vanish: the renewal engine is running flat out and still losing.'},
+ colonmucus:{title:'Colonic wall & mucus bilayer',tag:'Wall · straight crypts, goblet cells, a sterile inner layer',src:'Johansson et al., PNAS 2008/2011 · REF GI',L:[
+  'The colon wall is covered by a thick slime that keeps the bacteria at arm’s length.',
+  'An inner layer of mucus has almost no bacteria; the outer layer is where they live.',
+  'Straight crypts rich in goblet cells secreting MUC2. The inner, firmly attached layer is essentially sterile; the outer, loose layer is colonised. Shown in mouse; human layer thicknesses remain unverified.',
+  'Ulcerative colitis thins the inner layer and bacteria reach the epithelium; mucus-degrading bacteria thrive on low-fibre diets. Colonocytes rely on butyrate from the outer layer’s residents.'],
+  rc:'Draw the moat or the image lies: in health the bacteria fill the lumen centre, not the wall.'},
+ sphinctermusc:{title:'Sphincter',tag:'Wall · a thickened ring of circular muscle',src:REF.gi,L:[
+  'A ring of muscle that works like a drawstring.',
+  'It stays closed on its own and relaxes when the nerves tell it to.',
+  'Tonic circular smooth muscle (LES, pylorus, ileocaecal, internal anal) relaxed by inhibitory enteric neurons (NO, VIP). The external anal sphincter and upper oesophageal sphincter are skeletal.',
+  'Achalasia (LES), hypertrophic pyloric stenosis, and Hirschsprung disease (internal anal sphincter fails to relax) are all failures of relaxation, not of contraction.'],
+  rc:'Gates in the game open on their real triggers: the LES for the arriving wave, the pylorus with each antral wave, the ileocaecal valve with ileal waves.'},
  endothelium:{title:'Endothelium',tag:'Vessel lining · one cell thick · structure',src:REF.vessels,L:[
   'The smooth inner skin of every blood vessel: a single layer of flat cells, like tiles, that the blood slides over.',
   'Endothelial cells are long and thin, lined up with the flow. They stop blood from clotting on the wall and control what passes through.',
@@ -880,6 +1092,19 @@ const KIND={ // flow speed (units/s), tint, contraction weights [atrium, ventric
  nmj:{f:.5,tint:[.7,.58,.56],w:[0,.8,0,0]},
 };
 const REGIONS={
+ // gastrointestinal tract (b:'n' → no oxygen bookkeeping)
+ mouth:{n:'Mouth',s:'Chewing, saliva 1–1.5 L/day · swallow to start',b:'n'},
+ oesoph:{n:'Oesophagus',s:'Peristaltic wave 3–4 cm/s · ride ahead of the squeeze',b:'n'},
+ les:{n:'Lower oesophageal sphincter',s:'Shut at rest · relaxes as the wave arrives',b:'n'},
+ stomach:{n:'Stomach · fundus & body',s:'Reservoir · pH 1.5–3.5 · slow wave 3/min',b:'n'},
+ antrum:{n:'Antrum',s:'The grinder · particles to 1–2 mm',b:'n'},
+ pylorus:{n:'Pylorus',s:'Opens a crack with each antral wave',b:'n'},
+ duodenum:{n:'Duodenum',s:'Bile + pancreatic juice enter · slow wave 12/min',b:'n'},
+ jejunum:{n:'Jejunum',s:'Villus forest · the fork: K at a villus',b:'n'},
+ ileum:{n:'Ileum',s:'Peyer’s patches · B12 and bile acids recovered',b:'n'},
+ ileocaecal:{n:'Ileocaecal valve',s:'One-way into the colon · the clock slows 100×',b:'n'},
+ colon:{n:'Colon',s:'Water back · bacteria 10¹¹–10¹²/g in the lumen, not on the wall',b:'n'},
+ rectum:{n:'Rectum',s:'Defecation reflex · the way out',b:'n'},
  ivc:{n:'Inferior vena cava',s:'Venous return · SO₂ ~75%',b:'v'},
  ra:{n:'Right atrium',s:'Wait here for the tricuspid valve to open (diastole)',b:'v'},
  tricuspid:{n:'Tricuspid valve',s:'Opens in diastole',b:'v'},
@@ -1036,8 +1261,39 @@ function buildWorld(name,NODES,VDEF,closed){
 // the engine reads the active world through these
 let W,N,DS,P,T,NR,BN,R0,KW,TINT,FLOW,PD,SAT,CW,REG,RANGE,nodeIdx,VALVES,TURB,TURBAO,valveSlow,wrapI,wrapD,BX,BY,atlasXY;
 function useWorld(w){W=w;({N,DS,P,T,NR,BN,R0,KW,TINT,FLOW,PD,SAT,CW,REG,RANGE,nodeIdx,VALVES,TURB,TURBAO,valveSlow,wrapI,wrapD,BX,BY,atlasXY}=w);}
-const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false);
-BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;
+// gut kinds: w = [villus, rugae, haustra, squamous]; cw = slow-wave frequency as a fraction of 12/min (stomach 3/min → .25, duodenum 12/min → 1)
+Object.assign(KIND,{
+ mouth:{f:2,tint:[.84,.64,.64],w:[0,0,0,1],ew:.8,el:.8,nuc:.45,str:0,cw:0},
+ oesoph:{f:4,tint:[.86,.66,.66],w:[0,0,0,1],ew:.75,el:.75,nuc:.45,str:0,cw:0},
+ gsph:{f:1,tint:[.74,.44,.46],w:[0,.3,0,0],ew:1,el:1,nuc:.8,str:0,cw:.25},
+ stomach:{f:.35,tint:[.78,.38,.42],w:[0,1,0,0],ew:1,el:1,nuc:.9,str:0,cw:.25},
+ antrum:{f:.7,tint:[.78,.4,.42],w:[0,.7,0,0],ew:1,el:1,nuc:.9,str:0,cw:.25},
+ duodenum:{f:1.2,tint:[.86,.58,.5],w:[.8,0,0,0],ew:.9,el:.9,nuc:.9,str:0,cw:1},
+ jejunum:{f:1,tint:[.88,.6,.5],w:[1,0,0,0],ew:.9,el:.9,nuc:.9,str:0,cw:.9},
+ ileum:{f:.9,tint:[.84,.56,.5],w:[.6,0,0,0],ew:.9,el:.9,nuc:.9,str:0,cw:.7},
+ colon:{f:.45,tint:[.8,.52,.52],w:[0,0,1,0],ew:1.1,el:1.1,nuc:.9,str:0,cw:.3},
+ rectum:{f:.3,tint:[.76,.48,.5],w:[0,0,.5,0],ew:1.1,el:1.1,nuc:.9,str:0,cw:.3},
+});
+/* Gastrointestinal tract: one open tube, mouth → rectum, built to the living ~5 m (compressed), +x = patient's left */
+const GNODES=(()=>{const n=[],add=(x,y,z,r,k,g)=>n.push([x,y,z,r,k,g]);
+ add(1000,250,0,5.5,'mouth','mouth');add(1000,240,-3,4.5,'mouth','mouth');add(1000,232,-6,2.6,'oesoph','oesoph');
+ for(let j=1;j<=6;j++)add(1000-Math.sin(j/6*Math.PI)*3,232-j*20,-6-j*1.2,2.2,'oesoph','oesoph');
+ add(1002,100,-14,2.2,'oesoph','oesoph');add(1004,92,-15,2.3,'gsph','les');
+ add(1010,86,-16,8,'stomach','stomach');add(1018,90,-18,10.5,'stomach','stomach');add(1024,76,-19,11,'stomach','stomach');add(1020,58,-18,9.5,'stomach','stomach');
+ add(1010,46,-15,7.5,'antrum','antrum');add(998,40,-12,5.5,'antrum','antrum');add(990,40,-10,3.5,'antrum','antrum');
+ add(984,41,-9,1.9,'gsph','pylorus');
+ add(978,38,-8,3.2,'duodenum','duodenum');add(972,28,-7,3.2,'duodenum','duodenum');add(974,16,-6,3.2,'duodenum','duodenum');add(984,10,-4,3.1,'duodenum','duodenum');
+ let y=4;const coil=(r,reg,turns,yStep,x0,amp)=>{for(let t=0;t<turns;t++){const dir=t%2?-1:1;add(x0+dir*amp,y,(t%3-1)*10,r,reg,reg);y-=yStep*.5;add(x0+dir*amp*.3,y,t%2?8:-8,r,reg,reg);y-=yStep*.5;}};
+ coil(3,'jejunum',5,9,1000,20);coil(2.7,'ileum',5,9,996,18);
+ add(978,-92,4,2.6,'ileum','ileum');add(966,-96,6,2.6,'ileum','ileum');
+ add(960,-98,6,2.2,'gsph','ileocaecal');
+ add(954,-100,4,6.5,'colon','colon');for(let j=1;j<=5;j++)add(952,-100+j*22,2,5.2,'colon','colon');
+ add(956,16,6,5,'colon','colon');for(let j=1;j<=4;j++)add(956+j*22,14+(j===2?-6:0),8,5,'colon','colon');
+ for(let j=1;j<=5;j++)add(1046,14-j*22,0,4.8,'colon','colon');
+ add(1036,-108,4,4.5,'colon','colon');add(1016,-112,8,4.5,'colon','colon');add(1002,-118,6,4.2,'rectum','rectum');add(998,-134,2,4,'rectum','rectum');add(998,-146,0,3.5,'rectum','rectum');
+ return n;})();
+const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false);GUT.gut=true;
+BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;
 useWorld(BLOOD);
 const heartC=new V3();[2,4,13,15].forEach(k=>heartC.add(new V3(NODES[k][0],NODES[k][1],NODES[k][2])));heartC.multiplyScalar(.25);
 
@@ -1050,6 +1306,7 @@ const NODE_PER=22,nodeAtS=s=>{const f=s%NODE_PER,d=Math.min(f,NODE_PER-f);return
 function scaleAt(i){
  if(W.lymph)return 1-CW[i]*.22*lymSq(i);
  if(W.nerve)return 1-KW[i*4]*.3*nodeAtS(i*DS);
+ if(W.gut){const k=i*4;return 1-(.16+.14*KW[k+1])*gSlow(i)-.5*gWave(i);}
  const v=bump(C.tc,.02,C.sys),a=bump(C.tc,C.T-.16,C.T-.02);
  let tp=C.tc-.05-PD[i]/C.PWV;tp=((tp%C.T)+C.T)%C.T;const p=bump(tp,0,.3);
  const k=i*4;return 1-KW[k+1]*.2*v+KW[k]*(.06*v-.14*a)+KW[k+2]*.07*p;
@@ -1074,7 +1331,7 @@ scene.add(new THREE.HemisphereLight(0x9a3a44,0x1a0306,.55));
 const headlight=new THREE.PointLight(0xffeee6,1.5,90,1.1);scene.add(headlight);
 
 /* --- vessel wall: one cheap custom shader (pulsing, bumpy, wet, fake SSS, endothelial cell mosaic) --- */
-const wallU={uAP:{value:-999},uAP2:{value:-999},uTc:{value:0},uT:{value:1},uSys:{value:.32},uPwv:{value:60},uTime:{value:0},
+const wallU={uGW:{value:160},uAP:{value:-999},uAP2:{value:-999},uTc:{value:0},uT:{value:1},uSys:{value:.32},uPwv:{value:60},uTime:{value:0},
  uLight:{value:new V3()},uCam:{value:new V3()},uFog:{value:new THREE.Color(FOG)},uFogD:{value:.02}};
 const NOISE=`
 float h3(vec3 p){p=fract(p*0.3183099+.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
@@ -1098,7 +1355,7 @@ vec4 endo(vec2 x,float nc){
 const NODEFN=`float nodeF(float s){float f=mod(s,22.);float d=min(f,22.-f);return 1.-smoothstep(.5,1.4,d);}`;
 const wallMat=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},
  vertexShader:`
-uniform float uTc,uT,uSys,uPwv,uTime;
+uniform float uTc,uT,uSys,uPwv,uTime,uGW;
 attribute vec3 aCenter,aDir,aTint,aUV,aX;attribute float aR,aPd,aS;attribute vec4 aKind;
 varying vec3 vPos,vN,vTint,vUV,vX;varying vec4 vKind;varying float vS;
 float bmp(float x,float a,float b){return (x<a||x>b)?0.:sin(3.14159265*(x-a)/(b-a));}
@@ -1114,6 +1371,15 @@ void main(){
 #ifdef NERVE
  s=1.-aKind.x*.3*nodeF(aS); // no heartbeat in here; the axon pinches at each node of Ranvier
 #endif
+#ifdef GUT
+ {float sw=aX.z;float ph=fract(uTime*sw*.2-aS/60.);float band=ph<.25?sin(3.14159*ph/.25):0.;
+  s=1.-(.16+.14*aKind.y)*band*step(.01,sw);                          // slow-wave contraction ring (real tempo), deepest in the antrum
+  float x=mod(uTime*11.,uGW);float d=aS-x;s-=aKind.w*.5*exp(-d*d/16.); // the swallow: one peristaltic squeeze running down the oesophagus
+  float th=aUV.x/aUV.z*6.2832;
+  s+=aKind.z*.14*sin(aS*.9)*(.5+.5*sin(th*3.+1.));                      // haustra between the three taeniae
+  s-=aKind.y*.07*(.5+.5*sin(th*9.))*(1.-band);                           // rugae: longitudinal folds that flatten as the wall stretches
+ }
+#endif
  vec3 pos=aCenter+aDir*aR*s;
  vPos=pos;vN=-aDir;vTint=aTint;vKind=aKind;vS=aS;vUV=aUV;vX=aX;
  gl_Position=projectionMatrix*viewMatrix*vec4(pos,1.);
@@ -1126,8 +1392,8 @@ ${NODEFN}
 void main(){
  vec3 n=normalize(vN);
  float h=fbm(vPos*.45)+.15*vn(vPos*2.2);
- float cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.;
-#ifndef NERVE
+ float cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.;
+#if !defined(NERVE) && !defined(GUT)
  float ridge=1.-abs(vn(vPos*vec3(.16,.55,.16)+vec3(vS*.02))*2.-1.);   // trabeculae carneae in ventricles
  h+=vKind.y*ridge*ridge*1.4+vKind.x*.4*vn(vPos*vec3(.9,.25,.9)); // pectinate texture in atria
  cells=vn(vPos*1.6);h+=vKind.w*(1.-abs(cells*2.-1.))*.6;           // alveolar bubbles behind capillary wall
@@ -1160,6 +1426,13 @@ void main(){
  // pericytes and astrocyte end-feet pressed against the brain capillary
  h+=vKind.w*(.35*smoothstep(.6,.8,vn(vPos*.7+vec3(5.)))+.1*(1.-abs(vn(vPos*.35)*2.-1.)));
 #endif
+#ifdef GUT
+ // villus tips seen between the modelled villi, with brush-border fuzz; gastric pits; colonic crypt mouths; flat squamous sheet
+ gvf=1.-abs(vn(vPos*2.6)*2.-1.);h+=vKind.x*(gvf*gvf*.9+.12*vn(vPos*14.));
+ gpit=smoothstep(.62,.72,vn(vPos*3.2+vec3(7.)));h+=vKind.y*(.2*vn(vPos*1.3)-gpit*.5);
+ gcr=smoothstep(.7,.78,vn(vPos*4.5+vec3(3.)));h-=vKind.z*gcr*.35;
+ h+=vKind.w*.05*vn(vPos*2.);fib*=(1.-vKind.x)*(1.-vKind.w)*.5;
+#endif
  vec3 dpx=dFdx(vPos),dpy=dFdy(vPos);float dhx=dFdx(h),dhy=dFdy(h);
  vec3 r1=cross(dpy,n),r2=cross(n,dpx);float det=dot(dpx,r1);
  n=normalize(abs(det)*n-sign(det)*(dhx*r1+dhy*r2)*1.6);
@@ -1169,6 +1442,9 @@ void main(){
  base*=mix(1.,.9+.2*en.y,mos);                                        // each cell a slightly different tone
  base=mix(base,base*vec3(.5,.36,.5),jn*mos*.8);                       // cell junctions
  base=mix(base,base*vec3(1.05,.9,1.25)*(.95+.25*vn(vPos*9.)),smoothstep(.0,.35,nuc)*mos*.75); // nuclei with chromatin speckle
+#ifdef GUT
+ base=mix(base,base*vec3(.6,.3,.35),vKind.y*gpit);base=mix(base,base*vec3(.65,.4,.45),vKind.z*gcr);base*=1.+vKind.x*.18*gvf;base=mix(base,base*vec3(1.08,1.02,.98),vKind.w*.5);
+#endif
  float vline=smoothstep(.035,.0,abs(vn(vPos*.22+vec3(0.,0.,vS*.003))-.5)); // vasa vasorum
 #ifdef NERVE
  vline=0.;
@@ -1184,10 +1460,15 @@ void main(){
  float ndl=dot(n,L);float diff=max(ndl*.75+.25,0.);
  vec3 V=normalize(uCam-vPos);vec3 H=normalize(L+V);
  float spec=pow(max(dot(n,H),0.),48.)*.8;
+#ifdef GUT
+ spec*=1.+gcr*2.5+gvf*.8+vKind.z*1.2;
+#endif
  float fres=pow(1.-max(dot(n,V),0.),3.);
  vec3 sss=vec3(1.,.18,.12)*pow(1.-abs(ndl),2.)*.35;
  vec3 col=(base*diff+sss*vTint)*att*1.9+vec3(1.,.92,.9)*spec*att+base*fres*.25+base*.06;
+#ifndef GUT
  col+=vKind.w*vec3(.35,.45,.6)*(1.-abs(cells*2.-1.))*.25*att;        // air glow through thin membrane
+#endif
 #ifdef NERVE
  // the action potential: a wave of depolarisation running down the axon, brightest at the nodes
  float ap=exp(-pow((vS-uAP)/3.,2.))+.6*exp(-pow((vS-uAP2)/3.,2.));
@@ -1238,7 +1519,8 @@ function buildWalls(Wd,mat){ // build the tube in chunks so the GPU can frustum-
 // the lymph walls share the shader, plus a squeeze wave for the pumping lymphangions
 const wallMatL=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LYMPH:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatN=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{NERVE:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
-buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);scene.add(BLOOD.group,LYMPH.group,NERVE.group);
+const wallMatG=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{GUT:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
+buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group);
 
 /* --- valves, built from real anatomy: unequal leaflets, scalloped posterior mitral leaflet, branching chordae on
        papillary muscles, a crown-shaped (semilunar) or saddle-shaped (mitral) annulus, lunulae, nodules and coronary ostia --- */
@@ -1316,7 +1598,7 @@ VALVES.forEach(vl=>{
 }
 const _u=new V3(),_h=new V3(),_p=new V3(),_e=new V3(),_e2=new V3(),_q3=new V3();
 const uAt=(vl,th,out)=>out.copy(vl.n).multiplyScalar(Math.cos(th)).addScaledVector(vl.b,Math.sin(th));
-[BLOOD,LYMPH,NERVE].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
+[BLOOD,LYMPH,NERVE,GUT].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
 const AOV=BLOOD.VALVES[3];
 // one point on leaflet l: f runs commissure→commissure along the edge, rho = 1 at the hinge, 0 at the free edge
 function leafPoint(vl,l,f,rho,out){
@@ -1499,6 +1781,103 @@ const CELLS={
   meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.18,8,6),new THREE.MeshStandardMaterial({color:0xf4efe0,roughness:.35,emissive:0x2a2618}),260)]},
 };
 Object.assign(CELLS,CELLS_NS);
+/* ===== Gastrointestinal world: clocks, gates, cells, case 03 ===== */
+const GI={marsh:0,gf:0,regrow:1,ampT:0,duoT:0};
+// slow-wave contraction band at sample i (matches the GUT wall shader); the swallow wave in the oesophagus
+function gSlow(i){const sw=CW[i];if(sw<=.01)return 0;const ph=((time*sw*.2-i*DS/60)%1+1)%1;return ph<.25?Math.sin(Math.PI*ph/.25):0;}
+function gWave(i){const sq=KW[i*4+3];if(sq<.05)return 0;return sq*gBand(i);}
+function gBand(i){const d=i*DS-(time*11)%wallU.uGW.value;return Math.exp(-d*d/16);}
+// sphincters: muscular rings that open on their real triggers
+const SPH=[{id:'les',open:()=>clamp(gBand(SPH[0].i-3)*1.4,0,1)},{id:'pylorus',open:()=>clamp(gSlow(SPH[1].i-6)*1.4,0,1)*.85},{id:'ileocaecal',open:()=>.2+.8*clamp(gSlow(SPH[2].i-6)*1.3,0,1)}];
+const sphMat=new THREE.MeshStandardMaterial({color:0x9c4452,roughness:.6,emissive:0x1a0608});
+function buildSphincters(){SPH.forEach(s=>{const [a,b]=GUT.RANGE[s.id];s.i=Math.floor((a+b)/2);s.c=gv(GUT.P,s.i,new V3());s.t=gv(GUT.T,s.i,new V3());s.n=gv(GUT.NR,s.i,new V3());s.b=gv(GUT.BN,s.i,new V3());s.r=GUT.R0[s.i];s.o=0;
+ s.iris=new THREE.InstancedMesh(new THREE.SphereGeometry(1,10,8),sphMat,14);s.iris.frustumCulled=false;GUT.group.add(s.iris);});wallU.uGW.value=(SPH[0].i+14)*GUT.DS;}
+const _sp=new V3(),_sq=new THREE.Quaternion(),_ss=new V3();
+function updateSphincters(){SPH.forEach(s=>{const o=s.o=s.open();const R=s.r;
+ for(let k=0;k<14;k++){const th=k/14*Math.PI*2;_sp.copy(s.n).multiplyScalar(Math.cos(th)).addScaledVector(s.b,Math.sin(th));
+  const rad=R*(.5+.5*o)+R*.22;_m.compose(_c.copy(s.c).addScaledVector(_sp,rad),_sq.setFromUnitVectors(_vY,_sp),_ss.set(R*.34,R*(.3+.22*(1-o)),R*.26));s.iris.setMatrixAt(k,_m);}
+ s.iris.instanceMatrix.needsUpdate=true;});}
+function gutGateSlow(){SPH.forEach(s=>{const o=Math.max(.06,s.o);for(let j=-24;j<=2;j++)valveSlow[wrapI(s.i+j)]=j>0?o:lerp(o,1,-j/24);});}
+function gutGates(prevS,prevPos){for(const s of SPH){const a=prevS-s.i,b=S.sF-s.i;if(Math.abs(a)>40||Math.abs(b)>40)continue;
+ if((a<0&&b>=0)||(a>=0&&b<0)){if(s.o>.38){if(a<0&&s.id==='les')complete('swallow');if(a<0&&s.id==='pylorus')complete('grind');continue;}
+  S.pos.copy(prevPos);const vt=S.vel.dot(s.t);S.vel.addScaledVector(s.t,-vt*1.6);S.idx=nearestIdx(S.pos,S.idx);S.sF=prevS;S.bumpT=.25;sfx('bonk');
+  if(a>=0)toastOnce('gback','Sphincters are one-way here: chyme (and you) only go forward','warn');
+  else toastOnce(s.id,s.id==='les'?'The LES is shut. Wait for the swallow wave behind you: it relaxes as the squeeze arrives (thrust with the wave, or press F)':s.id==='pylorus'?'The pylorus is closed. It opens a crack as each antral wave (3/min) arrives, and only particles under 1–2 mm get through':'The ileocaecal valve opens with the ileal waves. Wait for one.','warn');}}}
+// cells of the gut
+function villusGeo(){const pr=[];for(let k=0;k<=8;k++){const t=k/8;pr.push(new THREE.Vector2(.15*(1-.15*t)*(k===8?0:1)*(1-Math.pow(Math.max(0,t-.8)/.2,2)*.8),-.15+t*.95));}const g=new THREE.LatheGeometry(pr,9);g.computeVertexNormals();return g;}
+const villusMat=new THREE.MeshStandardMaterial({color:0xe8a898,roughness:.42,emissive:0x1e0806});
+const CELLS_GI={
+ villus:{world:'gut',n:340,ahead:50,behind:18,speedK:0,fixed:1,radial:1,clear:0,size:.5,wall:true,dens:{duodenum:.8,jejunum:1,ileum:.55},
+  meshes:[new THREE.InstancedMesh(villusGeo(),villusMat,340)]},
+ peyer:{world:'gut',n:6,ahead:110,behind:40,speedK:0,fixed:1,radial:1,clear:0,size:1.3,wall:true,dens:{ileum:1},
+  meshes:[new THREE.InstancedMesh(at(new THREE.SphereGeometry(1,16,10),0,0,0).scale(1.3,.32,1.3),new THREE.MeshStandardMaterial({color:0xeadcd8,roughness:.55,emissive:0x12080a}),6),new THREE.InstancedMesh(at(blob(.42,.08,5,3,12,8),0,.2,0).scale(1,.5,1),new THREE.MeshStandardMaterial({color:0xd8c8e0,roughness:.5,emissive:0x100818}),6)]},
+ gbact:{world:'gut',n:220,ahead:60,behind:25,rmax:.7,speedK:1,spin:.7,clear:.2,size:.3,confine:1,cap:1,dens:{duodenum:.015,jejunum:.04,ileum:.25,colon:1,rectum:1},
+  meshes:[new THREE.InstancedMesh(new THREE.CapsuleGeometry(.07,.3,3,7),new THREE.MeshStandardMaterial({color:0xb8e4d2,roughness:.45,emissive:0x0a2a22}),220)]},
+ bolus:{world:'gut',n:24,ahead:80,behind:30,rmax:.55,speedK:1,clear:.9,size:1,confine:1,dens:{mouth:1,oesoph:1,stomach:1},
+  meshes:[new THREE.InstancedMesh(blob(.55,.14,4,21,16,12),new THREE.MeshStandardMaterial({color:0xc9b486,roughness:.8,emissive:0x1a1408}),24)]},
+ chyme:{world:'gut',n:160,ahead:70,behind:30,rmax:.85,speedK:1,clear:.3,size:.3,dens:{antrum:1,duodenum:1,jejunum:.9,ileum:.7,colon:.6,rectum:.6},
+  meshes:[new THREE.InstancedMesh(blob(.16,.05,4,5,10,8),new THREE.MeshStandardMaterial({color:0xcdb690,roughness:.85,emissive:0x16120a}),160)]},
+ micelle:{world:'gut',n:140,ahead:60,behind:25,rmax:.95,speedK:1,clear:.15,size:.2,confine:1,dens:{duodenum:1,jejunum:1,ileum:.2,colon:.04},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.1,8,6),new THREE.MeshStandardMaterial({color:0xf4e4a6,roughness:.3,transparent:true,opacity:.75,emissive:0x2a2208}),140)]},
+};
+// case 03 toggle (V): healthy → Marsh 1 → Marsh 3 → gluten-free regrowth
+const MARSH=[{k:0,n:'HEALTHY',sy:1,t:'Healthy jejunum: villus:crypt 3–5:1, IELs <25/100'},{k:1,n:'MARSH 1',sy:.9,t:'Marsh 1: villi intact, intraepithelial lymphocytes >25 per 100 enterocytes'},{k:3,n:'MARSH 3 · flat',sy:.28,t:'Marsh 3: villous atrophy with crypt hyperplasia. Watch micelles survive into the ileum (fat malabsorption) and the lacteal run thin'},{k:'gf',n:'GLUTEN-FREE · regrowing',sy:1,t:'Gluten-free diet: villi regrow over months (time-lapse). Serology falls with them — which is why you test first'}];
+function gutToggle(){GI.marsh=(GI.marsh+1)%MARSH.length;const m=MARSH[GI.marsh];if(m.k==='gf')GI.regrow=.28;toast(m.t,m.k===3?'warn':m.k===0?'good':'');gutCaseTag();if(m.k===3)complete('marsh');if(!scanned.has('coeliac')){addCodex('coeliac');}}
+function gutCaseTag(){const m=MARSH[GI.marsh];$('caseTag').textContent='Case 03 · jejunum: '+m.n;$('caseTag').style.color=m.k===0?'var(--green)':m.k==='gf'?'var(--cyan)':'var(--amber)';}
+function gutTick(dt){const m=MARSH[GI.marsh];let sy=m.sy;if(m.k==='gf'){GI.regrow=Math.min(1,GI.regrow+dt/30);sy=GI.regrow;if(GI.regrow>=1){GI.marsh=0;gutCaseTag();}}
+ const V=CELLS.villus;V.sy=sy;const M=CELLS.micelle;M.dens.ileum=m.k===3?.9:.2;M.dens.colon=m.k===3?.6:.04;
+ updateSphincters();
+ const r=REG[S.idx];if(r==='duodenum'){GI.duoT+=dt;if(GI.duoT>3)complete('ampulla');}
+ if(r==='rectum'&&!done.has('colon'))complete('colon');}
+function gutDetour(){const r=REG[S.idx];
+ if(r==='jejunum'||r==='ileum')openFork();
+ else if(r==='stomach'||r==='antrum')toastOnce('gk','No shortcut out of the stomach: the pylorus meters particles under 1–2 mm with each antral wave. Ride one.','warn');
+ else if(r==='mouth'||r==='oesoph')toastOnce('gk','Swallow first: the peristaltic wave behind you opens the LES.','warn');
+ else if(r==='duodenum')toastOnce('gk','Almost: the two exits are at the villi, from the jejunum on. Iron leaves into the blood here, but the game’s doors are ahead.','warn');
+ else toastOnce('gk','The doors out of the gut were at the villi (portal blood, lacteal lymph). From the colon the only way is on to the rectum.','warn');}
+function openFork(){const m=MARSH[GI.marsh];closeModals();$('forkSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">The villus fork</div><h1 style="font-size:28px">Two drains out of one villus</h1>
+ <p class="small">Water-soluble nutrients cross the enterocyte into the villus capillary and leave by the <b>portal vein</b> to the liver. Long-chain fat is packed into chylomicrons and leaves by the <b>central lacteal</b> into the lymph. ${m.k===3?'<span style="color:var(--amber)">Marsh 3: the flattened villus has lost most of its surface; both drains are running thin.</span>':''}</p>
+ <div class="forkgrid"><button class="sys" id="forkPortal"><b>Follow a glucose molecule</b><small>SGLT1 → GLUT2 → villus capillary → superior mesenteric vein → portal vein</small><span>You arrive in the blood below the liver (the liver world is in build: you pass straight through its sinusoids to the hepatic vein and IVC).</span><em>portal route ▸</em></button>
+ <button class="sys" id="forkLacteal"><b>Follow a chylomicron</b><small>micelle → enterocyte → apoB-48 chylomicron → central lacteal → mesenteric lymph</small><span>You arrive in the cisterna chyli of the lymph world, milky after a meal, and ride the thoracic duct back to the blood.</span><em>lacteal route ▸</em></button></div>
+ <p class="small" style="color:var(--faint)">This is why fat-soluble vitamin deficiency is lymph pathology and why the portal blood gets first pass at every oral drug.</p>`;
+ $('forkSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ $('forkPortal').onclick=()=>{closeModals();warp('Across the enterocyte, into the villus capillary, down the superior mesenteric vein into the portal vein and the liver sinusoids…',()=>{switchWorld(BLOOD,BLOOD.nodeIdx[0]+6);complete('portal');addCodex('villusfork');toast('Hepatic vein → inferior vena cava. First pass done: the liver saw it before the heart did.','good');});};
+ $('forkLacteal').onclick=()=>{closeModals();warp('Re-esterified in the smooth ER, packed into a chylomicron, squeezed into the central lacteal, up the mesenteric lymphatics…',()=>{switchWorld(LYMPH,LYMPH.RANGE.cisterna[0]+3);complete('lacteal');addCodex('villusfork');toast('Cisterna chyli: milky lymph after a meal. The chylomicrons around you came from the villus you just left.','good');});};
+ show('mFork');}
+function exitGut(){if(warping)return;warp('Rectal distension → defecation reflex. Out of the body; back to the systems chart.',()=>{complete('colon');switchWorld(BLOOD,BLOOD.nodeIdx[1]-20);openSystems();});}
+function enterGut(){switchWorld(GUT,GUT.nodeIdx[1]);complete('gut');GI.duoT=0;setTimeout(()=>{if(W===GUT)addCodex('case03');},900);}
+// bedside for case 03
+function openExamGI(){if(!started||anyModal())return;closeModals();const sh=$('examGISheet');
+ sh.innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Bedside · Case 03</div><h1 style="font-size:28px">Priya Nair, 34</h1>
+ <p class="small">Months of bloating and loose stool, fatigue. Iron-deficiency anaemia that improves on iron tablets and relapses. An itchy, blistering rash on both elbows.</p>
+ <div class="exgrid"><div><b>Inspection</b><br>Pale conjunctivae, angular stomatitis, grouped excoriated vesicles on the extensor elbows (dermatitis herpetiformis).</div>
+ <div><b>Abdomen · in sequence</b><br>Inspection: mild distension. Auscultation <i>before</i> palpation: bowel sounds ~12/min, non-specific. Percussion: tympanic. Palpation: soft, non-tender, no organomegaly.</div>
+ <div><b>Bloods</b><br>Hb 98 g/L, MCV 72 fL, ferritin 6 µg/L · folate low · <b>B12 normal</b> · anti-tTG IgA >10× upper limit · total IgA normal · TSH normal.</div>
+ <div><b>Endoscopy</b><br>Duodenal folds scalloped and flattened; biopsies taken (she is still eating gluten).</div></div>
+ <p><b>Where is the lesion?</b> The pattern localises it before the scope does.</p>
+ <div id="exgQ">${shuffle([['dj','Duodenum and proximal jejunum (iron, folate lost; B12 spared)',1],['ti','Terminal ileum (B12 and bile-acid territory)',0],['st','Stomach: autoimmune gastritis',0],['co','Colon: inflammatory bowel disease',0]]).map(([id,t,ok])=>`<button class="opt" data-ok="${ok}">${t}</button>`).join('')}</div><div id="exgFb"></div>`;
+ sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ sh.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const ok=b.dataset.ok==='1';sfx(ok?'chime':'buzz');sh.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right');});if(!ok)b.classList.add('wrong');
+  $('exgFb').innerHTML=`<div class="expl">${ok?'✓ ':'✗ '}Iron is absorbed in the duodenum, folate in the proximal jejunum, B12 only in the terminal ileum. Iron and folate low with B12 preserved places the disease proximally: exactly where coeliac disease starts. Anti-tTG IgA with a normal total IgA is the screen; biopsy confirms Marsh grade. The trap: a gluten-free diet before testing normalises both.</div><button class="btn" data-close>Fly in ▸</button>`;
+  $('exgFb').querySelector('[data-close]').onclick=closeModals;complete('gexam');addCodex('case03');});
+ show('mExamGI');}
+// vitals, map, route, ambience helpers
+const GREG={mouth:{ph:'6.7–7.0 (saliva)',tr:'seconds',bac:'~10⁸/mL in saliva'},oesoph:{ph:'~7',tr:'6–10 s solids · ~1 s liquids',bac:'transient only'},les:{ph:'7 → 2 across the junction',tr:'seconds',bac:'transient'},
+ stomach:{ph:'1.5–3.5 (secreted 0.9)',tr:'liquids t½ <20 min · solids 1–2 h',bac:'10²–10³/g (acid-tolerant)'},antrum:{ph:'1.5–3.5',tr:'ground to 1–2 mm before release',bac:'10²–10³/g'},pylorus:{ph:'~2 → 6',tr:'a few mL per wave',bac:'10³/g'},
+ duodenum:{ph:'6 → 7.5 (bicarbonate)',tr:'minutes',bac:'~10³/g'},jejunum:{ph:'~7.5',tr:'small bowel 3–5 h in total',bac:'10³–10⁴/g'},ileum:{ph:'7.5–8',tr:'small bowel 3–5 h in total',bac:'~10⁷/g'},ileocaecal:{ph:'~7.5',tr:'metered spurts',bac:'10⁷ → 10¹¹/g across the valve'},
+ colon:{ph:'6–7 (fermentation)',tr:'24–48 h',bac:'10¹¹–10¹²/g'},rectum:{ph:'~6.5',tr:'stored until convenient',bac:'10¹¹–10¹²/g'}};
+function gutVitals(){const i=S.idx,r=REG[i],g=GREG[r]||{};const sw=CW[i];$('vSW').textContent=sw>.01?Math.round(sw*12)+'/min (real time)':'none · striated/sphincter';const band=gSlow(i),wv=gWave(i);
+ $('vSWph').textContent=band>.15?'CONTRACTING':wv>.3?'PERISTALTIC WAVE':'resting';$('vSWph').style.color=band>.15||wv>.3?'var(--amber)':'';$('vpH').textContent=g.ph||'—';$('vTr').textContent=g.tr||'—';$('vBac').textContent=g.bac||'—';}
+function gutTrace(){const i=S.idx;const sw=CW[i];if(sw>.01){const ph=((time*sw*.2-i*DS/60)%1+1)%1;return .35+.2*Math.sin(ph*Math.PI*2)+.4*gSlow(i)*(ph<.12?Math.sin(time*60):1);}return .3+.5*gWave(i);}
+const GSHOW=[['mouth','Mouth'],['oesoph','Oesophagus'],['stomach','Stomach'],['duodenum','Duodenum'],['jejunum','Jejunum'],['ileum','Ileum'],['colon','Colon'],['rectum','Rectum']];
+function gutSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
+ if(r==='jejunum')return f<.33?'proximal jejunum':f<.66?'mid jejunum':'distal jejunum';if(r==='ileum')return f<.7?'ileum':'terminal ileum';
+ if(r==='colon')return f<.06?'caecum':f<.3?'ascending colon':f<.36?'hepatic flexure':f<.62?'transverse colon':f<.68?'splenic flexure':f<.9?'descending colon':'sigmoid colon';
+ if(r==='oesoph')return f<.33?'cervical oesophagus':f<.8?'thoracic oesophagus':'abdominal oesophagus';if(r==='stomach')return f<.4?'fundus':'body';return null;}
+function gutAmbience(now,rnd,reg){let o={turb:0,hush:0,air:0};const sq=gSlow(S.idx);if(amb.prevG<.3&&sq>=.3){if(reg==='stomach'||reg==='antrum'){pop(60,34,.6,.32);burst(120,1.2,.6,.25);}else if(reg==='colon'||reg==='rectum'){pop(70,40,.45,.2);burst(90,1.5,.5,.2);}else glug(.14);}amb.prevG=sq;
+ const wv=gWave(S.idx);if(amb.prevW<.4&&wv>=.4)burst(320,1,.7,.22);amb.prevW=wv;
+ if(reg==='stomach'||reg==='antrum')o.hush=.07+.03*Math.sin(now*.6);if((reg==='colon'||reg==='rectum')&&rnd(.25))pop(240,120,.12,.06);if(reg==='mouth')o.air=.03;return o;}
+Object.assign(CELLS,CELLS_GI);buildSphincters();
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
  D.meshes.forEach((m,mi)=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);m.frustumCulled=false;m.renderOrder=mi;scene.add(m);});return D;});
@@ -1508,7 +1887,7 @@ let playerS=0; // continuous sample index of the probe
 let _avO=0,_sys=0;
 const pulseShape=x=>(x<0||x>.42)?0:Math.pow(Math.sin(Math.PI*x/.42),2); // smooth raised-cosine pulse, no hard edges
 function pulseAt(i){let tp=C.tc-.05-PD[i]/C.PWV;tp=((tp%C.T)+C.T)%C.T;return pulseShape(tp);}
-function flowMul(i){if(W.nerve)return 1;if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
+function flowMul(i){if(W.nerve)return 1;if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
  const k=i*4,a=KW[k],v=KW[k+1],ar=KW[k+2],cp=KW[k+3],rest=Math.max(0,1-a-v-ar-cp);
  return rest*(.82+.28*_avO)+a*(.6+.6*_avO)+v*(.65+.85*_sys+.2*_avO)+ar*(.65+1.05*pulseAt(i))+cp;}
 // turbulence lives where it does in a real body: jets and eddies just past valves, worst through the stenosis
@@ -1521,20 +1900,21 @@ function spawn(p,D,around){
   const s0=Math.floor(around+(Math.random()-.5)*10);
   if(!W.closed&&(s0<2||s0>N-3))continue;
   const s=wrapI(s0);
-  if(D.dens){if(Math.random()>(D.dens[REG[s]]||0))continue;}
+  if(D.dens){const dn=D.dens[REG[s]]||0;if(Math.random()>dn)continue;if(D.cap){const lim=Math.ceil(D.n*dn);if(lim<=0||(D.liveIn[REG[s]]||0)>=lim)continue;D.liveIn[REG[s]]=(D.liveIn[REG[s]]||0)+1;}}
   else{const acc=clamp(R0[s]*R0[s]/40,.06,1);if(!D.wall&&D.kind!=='lymph'&&D.kind!=='mono'&&D.kind!=='eos'&&Math.random()>acc)continue;}
   p.s=s+Math.random();ok=true;break;
  }
  if(!ok){p.live=false;p.sc=0;return false;}
- p.ang=Math.random()*Math.PI*2;p.rf0=D.wall?.86+Math.random()*.08:Math.sqrt(Math.random())*D.rmax;p.rf=p.rf0;p.vr=p.va=0;p.age=0;p.vb=undefined;p.live=true;
+ p.ang=Math.random()*Math.PI*2;p.rf0=D.wall?(D.radial?.96+Math.random()*.02:.86+Math.random()*.08):Math.sqrt(Math.random())*D.rmax;p.rf=p.rf0;p.vr=p.va=0;p.age=0;p.vb=undefined;p.live=true;
  return true;
 }
 const _m0=new THREE.Matrix4().makeScale(0,0,0);
 const hideCell=(D,k)=>{D.a[k].sc=0;for(const m of D.meshes)m.setMatrixAt(k,_m0);};
-const _m=new THREE.Matrix4(),_q=new THREE.Quaternion(),_sc=new V3(1,1,1),_c=new V3(),_n=new V3(),_b=new V3(),_t=new V3(),_seg=new V3(),_w=new V3();
+const _m=new THREE.Matrix4(),_q=new THREE.Quaternion(),_q2=new THREE.Quaternion(),_sc=new V3(1,1,1),_c=new V3(),_n=new V3(),_b=new V3(),_t=new V3(),_seg=new V3(),_w=new V3();
 const lerp3=(A,i,j,f,out)=>out.set(lerp(A[i*3],A[j*3],f),lerp(A[i*3+1],A[j*3+1],f),lerp(A[i*3+2],A[j*3+2],f));
 function updateCells(D,dt,time){
  _seg.subVectors(S.pos,camPos);const segL2=Math.max(_seg.lengthSq(),1e-4);
+ if(D.cap){const li=D.liveIn={};for(const q of D.a)if(q.live){const r=REG[wrapI(Math.floor(q.s))];li[r]=(li[r]||0)+1;}}
  for(let k=0;k<D.a.length;k++){
   const p=D.a[k];
   if(!p.live){if(!spawn(p,D,playerS+(-D.behind+Math.random()*(D.ahead+D.behind))/DS)){hideCell(D,k);continue;}p.age=.6;}
@@ -1545,6 +1925,7 @@ function updateCells(D,dt,time){
   // blood has inertia: each cell eases toward the local speed instead of jumping with the pulse
   const vt=FLOW[i]*valveSlow[i]*flowMul(i)*D.speedK*(C.exercise?1.5:1);p.vb=p.vb===undefined?vt:p.vb+(vt-p.vb)*(1-Math.exp(-dt/.22));
   p.s+=p.vb*prof*dt/DS;
+  if(D.confine&&!(D.dens[REG[wrapI(Math.floor(p.s))]]>0)){p.live=false;hideCell(D,k);continue;}
   if(W.closed){if(p.s>=N)p.s-=N;if(p.s<0)p.s+=N;}else if(p.s>N-1.05||p.s<0){p.live=false;hideCell(D,k);continue;}
   // cross-stream: laminar core keeps its lane, the wall layer drifts in slow swirls, turbulence mixes everything
   if(tb>.03){p.va+=(Math.random()-.5)*16*tb*dt;p.vr+=(Math.random()-.5)*6*tb*dt;}
@@ -1568,7 +1949,7 @@ function updateCells(D,dt,time){
   const dc=p.pos.distanceTo(camPos);sc*=clamp((dc-.4-D.size*.6)/1.1,0,1);
   _w.subVectors(p.pos,camPos);const tl=clamp(_w.dot(_seg)/segL2,0,1.2);_w.addScaledVector(_seg,-tl);
   const dl=_w.length()-D.size*.7;if(tl>0&&tl<1.15)sc*=clamp((dl-.25)/.7,0,1);
-  p.sc=sc;_sc.setScalar(sc);_m.compose(p.pos,_q,_sc);
+  p.sc=sc;if(D.radial){_t.copy(_c).sub(p.pos).normalize();_q.setFromUnitVectors(_vY,_t);_q.multiply(_q2.setFromAxisAngle(_vY,p.tw));}_sc.set(sc,sc*(D.sy||1),sc);_m.compose(p.pos,_q,_sc);
   for(const m of D.meshes)m.setMatrixAt(k,_m);
   if(D.kind==='rbc'){tmpC.copy(VEN).lerp(ART,clamp((SAT[j0]-75)/23,0,1));D.meshes[0].setColorAt(k,tmpC);}
  }
@@ -1757,10 +2138,10 @@ const camPos=new V3();
 // swap the active world: its tube, valves, cells, fog and labels
 function switchWorld(w,idx){
  exitStudy();useWorld(w);if(typeof hidePredict==='function')hidePredict();
- BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;
+ BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;
  ALL.forEach(D=>{D.on=D.world===w.name;D.meshes.forEach(m=>m.visible=D.on);D.a.forEach(p=>{p.live=false;p.sc=0;});});
  FOG.set(w.fog);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);
- motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:0xffc9a8);
+ motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:0xffc9a8);
  placeAt(idx);curReg=null;target=null;if(started)buildLabels();
 }
 let warping=false;
@@ -1769,6 +2150,7 @@ function warp(msg,fn){
  setTimeout(()=>{fn();setTimeout(()=>{el.style.opacity=0;warping=false;},400);},700);
 }
 function detour(){
+ if(W===GUT){gutDetour();return;}
  const r=REG[S.idx];
  if(!W.lymph&&(r==='syscap'||r==='venule')){
   warp('Squeezing out through a gap between two endothelial cells…',()=>{switchWorld(LYMPH,8);complete('leak');addCodex('leak');
@@ -1852,15 +2234,28 @@ const OBJ=[
  {id:'decuss',ns:1,t:'Cross the pyramidal decussation'},
  {id:'synapse',ns:1,t:'Cross the synaptic cleft onto the lower motor neuron'},
  {id:'nmj',ns:1,t:'Reach the neuromuscular junction in the thigh'},
+ {id:'gut',gi:1,t:'Enter the gut (Tab → Gastrointestinal)'},
+ {id:'gexam',gi:1,t:'Bedside: examine Ms. Nair and localise the lesion (G)'},
+ {id:'swallow',gi:1,t:'Ride a swallow: let the peristaltic wave carry you through the LES'},
+ {id:'grind',gi:1,t:'Antrum: pass the pylorus when an antral wave opens it'},
+ {id:'ampulla',gi:1,t:'Duodenum: stay while bile and pancreatic juice neutralise the chyme'},
+ {id:'villus',gi:1,t:'Jejunum: scan a villus (click one)'},
+ {id:'lacteal',gi:1,t:'The fork: press K at a villus and ride a chylomicron into the lymph'},
+ {id:'portal',gi:1,t:'The fork: take the glucose route into the portal blood'},
+ {id:'peyer',gi:1,t:'Ileum: find a Peyer’s patch (click it)'},
+ {id:'marsh',gi:1,t:'Case toggle: in the jejunum press V until the villi flatten (Marsh 3)'},
+ {id:'colon',gi:1,t:'Cross the colon to the rectum: transit slows ~100×, bacteria stay off the wall'},
+ {id:'grounds',gi:1,t:'Present Ms. Nair on Rounds (R)'},
 ];
 const done=new Set();
 function renderObj(){
  // finished steps fold into one line so the open ones stay visible; the section you're in comes first
  const sec=(list,title)=>{const next=list.find(o=>!done.has(o.id)),nd=list.filter(o=>done.has(o.id)).length;
-  const gate=list[0].ly?'leak':list[0].ns?'carotid':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
+  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
   return (title?`<li class="sec">${title}</li>`:'')+(nd?`<li class="sum">${nd} done</li>`:'')+shown.map(o=>{let t=o.t;if(o.id==='scan')t+=` · ${Math.min(scanned.size,6)}/6`;return `<li class="${o===next?'next':''}">${t}</li>`;}).join('');};
- const main=sec(OBJ.filter(o=>!o.ly&&!o.ns),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
- $('objList').innerHTML=W&&W.lymph?ly+ns+main:W&&W.nerve?ns+ly+main:main+ly+ns;
+ const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03');
+ const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
+ $('objList').innerHTML=W&&W.gut?gi+ly+main:W&&W.lymph?ly+ns+gi+main:W&&W.nerve?ns+ly+gi+main:main+ly+ns+gi;
 }
 function complete(id){
  if(done.has(id)||!OBJ.some(o=>o.id===id))return;done.add(id);renderObj();
@@ -1894,7 +2289,7 @@ function renderCardBody(){
 $('body').addEventListener('click',()=>{if(started)openAtlas();});
 $('cardTabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;cardLevel=+b.dataset.l;renderCardBody();});
 $('cardX').onclick=()=>$('card').classList.remove('open');
-function addCodex(key){const first=!scanned.has(key);scanned.add(key);unlocked.add(key);openCard(key,first);renderObj();if(scanned.size>=6)complete('scan');if(scanned.has('macro')&&scanned.has('dc'))complete('immune');if(scanned.has('neuron')&&scanned.has('astro')&&scanned.has('microglia'))complete('glia');refreshLabels();}
+function addCodex(key){const first=!scanned.has(key);scanned.add(key);unlocked.add(key);openCard(key,first);renderObj();if(key==='villus')complete('villus');if(key==='peyer')complete('peyer');if(scanned.size>=6)complete('scan');if(scanned.has('macro')&&scanned.has('dc'))complete('immune');if(scanned.has('neuron')&&scanned.has('astro')&&scanned.has('microglia'))complete('glia');refreshLabels();}
 
 /* --- scanning --- */
 let target=null;
@@ -1942,7 +2337,7 @@ const PROV={
  pnerve:['neuro','Peripheral nerve · fascicles, epi-/peri-/endoneurium'],schwann:['neuro','Schwann cell · PNS myelin'],nmj:['neuro','Neuromuscular junction · end-plate potential'],myelin:['neuro','Myelin sheath · capacitance and resistance'],paranode:['neuro','Paranode · axo-glial junctions'],hillock:['neuro','Axon initial segment · spike initiation'],
  ecm:['msk','Extracellular matrix · collagen, proteoglycans']
 };
-const PROV_IDS={};(()=>{const n={};for(const k in PROV){const s=PROV_SYS[PROV[k][0]];n[s.code]=(n[s.code]||0)+1;PROV_IDS[k]='IV-'+s.code+'-'+String(n[s.code]).padStart(3,'0');}})();
+const PROV_IDS={};function provIndex(){const n={};for(const k in PROV){const s=PROV_SYS[PROV[k][0]];n[s.code]=(n[s.code]||0)+1;PROV_IDS[k]='IV-'+s.code+'-'+String(n[s.code]).padStart(3,'0');}}provIndex();
 function provOf(k){const p=PROV[k];if(!p)return null;const s=PROV_SYS[p[0]];const c=CODEX[k];
  return {id:PROV_IDS[k],sys:s.sys,topic:p[1],tag:s.tag,fa:s.fa,outline:s.outline,written:c?c.src:'',refs:p[2]||[],verified:'',status:'unverified · pending clinical review'};}
 function provHTML(k,compact){const p=provOf(k);if(!p)return '';
@@ -1952,6 +2347,12 @@ function provHTML(k,compact){const p=provOf(k);if(!p)return '';
  <div><b>Coverage index</b> ${esc(p.fa)} · AnKing tag <span class="tagp">${esc(p.tag)}</span> · USMLE Step 1 outline: ${esc(p.outline)}</div>
  <div><b>Status</b> ${esc(p.status)}</div>`;
  return `<details class="prov"${compact?'':' open'}><summary>Sources · ${p.id} · ${esc(p.sys)} › ${esc(p.topic)}</summary>${rows}<div class="note">AnKing is used only as an index of what to cover and where to verify it; no deck content is reproduced.</div></details>`;}
+PROV_SYS.gi={code:'GI',sys:'Gastrointestinal',tag:'#AK_Step1_v12::#FirstAid::Gastrointestinal (confirm subtree path in Anki)',fa:'First Aid 2025 · Gastrointestinal',outline:'Gastrointestinal System'};
+Object.assign(PROV,{mouth:['gi','Oral cavity · saliva'],oesoph:['gi','Oesophagus · peristalsis, achalasia, Barrett'],les:['gi','Lower oesophageal sphincter · GORD'],stomach:['gi','Stomach · accommodation, emptying'],antrum:['gi','Antrum · gastrin, trituration'],pylorus:['gi','Pylorus · pyloric stenosis'],
+ duodenum:['gi','Duodenum · secretin/CCK, iron absorption'],jejunum:['gi','Jejunum · carbohydrate and protein absorption'],ileum:['gi','Ileum · B12, bile acids, Peyer’s patches'],ileocaecal:['gi','Ileocaecal valve · SIBO'],colon:['gi','Colon · water, SCFA, haustra'],rectum:['gi','Rectum · defecation reflex, Hirschsprung'],
+ gutlength:['gi','Gut length (living vs cadaveric)'],gutsurface:['gi','Absorptive surface area'],villusfork:['gi','Portal vs lymphatic absorption'],acid:['gi','Gastric acid secretion and mucosal defence'],slowwave:['gi','Slow waves, MMC, motility'],microbiome:['gi','Microbiome density gradient'],ens:['gi','Enteric nervous system, serotonin'],bileacids:['gi','Enterohepatic circulation'],coeliac:['gi','Coeliac disease · Marsh classification'],appendix:['gi','Appendix · GALT'],case03:['gi','Case 03 · coeliac disease presentation'],
+ villus:['gi','Villus histology · enterocyte turnover'],gbact:['gi','Gut microbiota'],bolus:['gi','Swallowing · oesophageal transit'],chyme:['gi','Gastric emptying · dumping'],micelle:['gi','Fat digestion · micelles, chylomicrons'],peyer:['immuno','Peyer’s patches · M cells, IgA'],
+ squamous:['gi','Oesophageal mucosa histology'],gastricmucosa:['gi','Gastric gland histology'],crypt:['gi','Crypt of Lieberkühn · stem cells, Paneth cells'],colonmucus:['gi','Colonic mucosa · mucus bilayer'],sphinctermusc:['gi','GI sphincters · relaxation disorders']});provIndex();
 function provSummary(){const by={};let n=0,v=0;for(const k in PROV){const s=PROV_SYS[PROV[k][0]].sys;by[s]=(by[s]||0)+1;n++;}return {n,v,by};}
 /* ---- Bring-your-own Anki deck (Jon, 31 Oct 2026) ----
    The player loads their OWN .apkg (or a "Notes in Plain Text" .txt export) in the browser. Everything is parsed
@@ -2163,6 +2564,11 @@ function renderDeckCard(c,head,grades,sh,st){const n=DECK.byId.get(c.nid);if(!n)
   sh.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;if(g>=3)st.ok++;srsGrade(c.id,g);sfx(g>=3?'chime':'click');st.i++;renderStudyCard();});
   sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);};}
 function deckHereToast(reg){if(!DECK.loaded)return;const n=deckCardsFor(reg).length;if(n)toastOnce('deck:'+reg,`${n} card${n>1?'s':''} from your deck belong here — open the Codex entry or press T`,'',600);}
+Object.assign(DECKKW,{mouth:['saliva','salivary','parotid','amylase','xerostomia','taste'],oesoph:['esophag','oesophag','achalasia','barrett','peristalsis','dysphagia'],les:['lower esophageal','les ','gerd','gord','reflux','hiatal'],stomach:['stomach','gastric','fundus','accommodation','gastroparesis','gastric emptying'],antrum:['antrum','gastrin','g cell','trituration','motilin'],pylorus:['pylor','pyloric stenosis','gastric outlet'],
+ duodenum:['duoden','secretin','cck','cholecystokinin','brunner','iron absorption','dmt1','hepcidin','ampulla'],jejunum:['jejun','sglt1','glut2','glut5','villi','brush border','disaccharidase','lactase','pept1'],ileum:['ileum','ileal','b12','cobalamin','intrinsic factor','bile acid','asbt','terminal ileum'],ileocaecal:['ileocecal','ileocaecal','sibo','bacterial overgrowth'],colon:['colon','colonic','haustra','large intestine','butyrate','short-chain','taeniae','diverticul'],rectum:['rectum','rectal','anal','defecation','hirschsprung','hemorrhoid','dentate'],
+ gutlength:['intestinal length','small intestine length'],gutsurface:['surface area','plicae','microvilli'],villusfork:['lacteal','chylomicron','portal vein','apob-48','apo b-48','first pass','first-pass'],acid:['parietal','h+/k+','proton pump','ppi','h2 blocker','histamine','pepsin','mucus','bicarbonate','nsaid','ulcer','helicobacter','h. pylori','urease'],slowwave:['slow wave','interstitial cells of cajal','migrating motor','mmc','peristalsis','segmentation','motilin'],microbiome:['microbiome','microbiota','gut flora','c. difficile','clostridioides','dysbiosis'],ens:['enteric nervous','myenteric','auerbach','meissner','submucosal plexus','serotonin','enterochromaffin','5-ht'],bileacids:['bile acid','bile salt','enterohepatic','cholesterol 7','cyp7a1','gallstone','cholestyramine','sequestrant'],coeliac:['celiac','coeliac','gluten','ttg','transglutaminase','dermatitis herpetiformis','villous atrophy','hla-dq2','dq8','marsh'],appendix:['appendix','appendicitis','mcburney','galt'],case03:['celiac','coeliac','iron deficiency','anemia','anaemia'],
+ villus:['villus','villi','enterocyte','goblet','paneth','lgr5','crypt','brush border'],gbact:['bacteroides','firmicutes','anaerobe','gut flora','microbiota','vitamin k'],bolus:['swallow','deglutition','bolus','food impaction','eosinophilic esophagitis'],chyme:['chyme','gastric emptying','dumping syndrome','trituration'],micelle:['micelle','lipase','colipase','fat absorption','steatorrhea','steatorrhoea','fat-soluble','chylomicron'],peyer:['peyer','m cell','iga','typhoid','salmonella typhi','gut-associated'],
+ squamous:['squamous','stratified squamous','esophageal mucosa','z-line','barrett'],gastricmucosa:['parietal','chief cell','gastric gland','gastric pit','pernicious','autoimmune gastritis','gastritis','mucous neck'],crypt:['crypt','paneth','lgr5','stem cell','lieberkuhn','lieberkühn','mucositis'],colonmucus:['muc2','mucus layer','goblet','ulcerative colitis','colonocyte'],sphinctermusc:['sphincter','achalasia','hirschsprung','pyloric stenosis','nitric oxide','vip']});
 
 const CELLDO={neuron:'Integrating thousands of synaptic inputs on its dendrites; its axon runs to the spinal cord.',astro:'Feeding neurons, mopping up glutamate and K⁺, and sealing the capillary with its end-feet.',microglia:'Sweeping the neuropil with its processes, checking synapses and looking for debris.',oligo:'Wrapping segments of several axons in myelin.',schwann:'Wrapping one internode of this axon in spiral layers of its membrane.',mito:'Walking outward on kinesin toward a node or the terminal, where ATP demand is highest.',vesicle:'Fast anterograde transport: new membrane and proteins heading for the terminal.',endosome:'Retrograde transport on dynein: worn-out material and trophic signals heading back to the cell body.',svesicle:'Loaded with neurotransmitter, docked at the active zone, waiting for calcium.',eos:'Cruising mid-stream. Its big granules carry major basic protein for killing parasitic worms.',macro:'Clinging to the sinus wall, swallowing anything foreign that drifts past.',dc:'Carrying pieces of bacteria from the tissue to show to T cells in the node.',bact:'Drifting with the lymph toward the node, where macrophages and lymphocytes will catch it.',chylo:'Carrying dietary fat absorbed by the gut toward the blood.',platelet:'Resting: smooth disc, not activated. It will spread and stick only if it meets exposed collagen.',wbc:'Patrolling. Selectins on the wall let it tether and roll; chemokines would make it stop and squeeze out.',lymph:'Recirculating between blood and lymph nodes, looking for its one matching antigen.',mono:'In transit (it circulates 1–3 days) before entering a tissue and becoming a macrophage.'};
 function cellFacts(t){
@@ -2231,16 +2637,21 @@ const TOPICS=[
  ['vessels','Vessels & gas exchange',['lungcap','asc','arch','desc','syscap','venule','leak']],
  ['cells','Blood cells',['rbc','wbc','platelet','lymph','mono','eos']],
  ['lymph','Lymphatics & immunity',['interstitium','lymphcap','collecting','subcap','cortsinus','medsinus','efferent','cisterna','thoracic','venangle','macro','dc','bact','chylo']],
- ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle']]];
+ ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle']],
+ ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc']]];
 const topicOf=k=>{const t=TOPICS.find(t=>t[2].includes(k));return t?t[0]:'heart';};
 // where to fly to see a card's subject again
 const CELLHOME={rbc:'desc',wbc:'venule',platelet:'syscap',lymph:'cortsinus',mono:'venule',eos:'venule',macro:'medsinus',dc:'subcap',bact:'lymphcap',chylo:'cisterna',neuron:'cortex',astro:'cortex',microglia:'cortex',oligo:'axon',schwann:'pnerve',mito:'axon',vesicle:'axon',transport:'axon',ranvier:'axon',synapse:'bouton',murmur:'aortic',bedside:'aortic',exercise:'lv',leak:'syscap',carotid:'arch',bbb:'braincap',aorticN:'aortic',lyvalve:'collecting'};
+Object.assign(CELLHOME,{villus:'jejunum',gbact:'colon',bolus:'oesoph',chyme:'antrum',micelle:'jejunum',peyer:'ileum',gutlength:'jejunum',gutsurface:'jejunum',villusfork:'jejunum',acid:'stomach',slowwave:'antrum',microbiome:'colon',ens:'jejunum',bileacids:'ileum',coeliac:'jejunum',appendix:'colon',case03:'duodenum',squamous:'oesoph',gastricmucosa:'stomach',crypt:'jejunum',colonmucus:'colon',sphinctermusc:'pylorus'});
 function flyToKey(k){
- const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE].find(w=>w.RANGE[r]);if(!w)return false;
+ const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT].find(w=>w.RANGE[r]);if(!w)return false;
  const [a,b]=w.RANGE[r];closeModals();switchWorld(w,Math.floor(a+(b-a)*.3));toast('Flew to '+(REGIONS[r]?REGIONS[r].n:r)+' — look around, then review again later','good');return true;
 }
 // regions in flow order, per world, for "what comes next" cards
 function regionSeq(w){const out=[];for(let i=0;i<w.N;i++){const r=w.REG[i];if(out[out.length-1]!==r&&r!=='lyvalve')out.push(r);}return out;}
+Object.assign(CELLNAME,{villus:'Villus',gbact:'Gut bacterium',bolus:'Food bolus',chyme:'Chyme particle',micelle:'Mixed micelle',peyer:'Peyer’s patch'});
+Object.assign(CELLSUB,{villus:'absorptive finger · enterocytes, goblet, Paneth · lacteal inside',gbact:'anaerobe · fibre fermenter · 10³ → 10¹²/g along the gut',bolus:'chewed food · seconds to the stomach',chyme:'ground to 1–2 mm · acid, then neutralised',micelle:'bile salts carrying fat to the brush border',peyer:'lymphoid follicles under M cells'});
+Object.assign(CELLSIZE,{villus:'0.5–1 mm tall',gbact:'≈ 1–3 µm',bolus:'≈ 1–2 cm',chyme:'≤ 1–2 mm',micelle:'≈ 4–8 nm',peyer:'patch ≈ 1–3 cm'});
 const CELLKINDS=Object.keys(CELLNAME);
 // the deck: everything unlocked this session plus anything already in the SRS file (so it survives a reload)
 function srsDeck(){
@@ -2250,8 +2661,9 @@ function srsDeck(){
   deck.push({id:'recall:'+k,type:'recall',k,topic:topicOf(k)});
   if(c.rc)deck.push({id:'rc:'+k,type:'rc',k,topic:topicOf(k)});});
  CELLKINDS.forEach(kd=>{const ck=CODEXKEY[kd]||kd;if(keys.has(ck)||keys.has(kd))deck.push({id:'cell:'+kd,type:'cell',k:kd,topic:topicOf(ck)});});
- [BLOOD,LYMPH,NERVE].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
+ [BLOOD,LYMPH,NERVE,GUT].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
  if(done.has('exam')||done.has('rounds'))QUIZ.forEach((q,i)=>deck.push({id:'quiz:'+i,type:'quiz',q,k:'aortic',topic:'heart'}));
+ if(done.has('grounds')||done.has('gexam'))QUIZ_GI.forEach((q,i)=>deck.push({id:'gquiz:'+i,type:'quiz',q,k:'jejunum',topic:'gut'}));
  PREDICT.forEach(p=>{if(SRS.cards['pred:'+p.id])deck.push({id:'pred:'+p.id,type:'pred',p,k:p.k,topic:topicOf(p.k)});});
  deckCardsForStudy().forEach(c=>deck.push(c));
  return deck;
@@ -2330,7 +2742,21 @@ function renderDue(){const n=srsDue(srsDeck()).length;const el=$('dueBadge');el.
 setInterval(()=>{if(started)renderDue();},20000);
 
 /* --- predict before you see it: a quick question as you approach something, graded into the same deck --- */
+const QUIZ_GI=[
+ {q:'A glucose molecule absorbed in the jejunum reaches the systemic circulation via…',a:['Villus capillary → portal vein → liver first','The lacteal','The thoracic duct','Directly into the aorta'],e:'Water-soluble nutrients take the portal route; only long-chain fat takes the lymph. That is the villus fork.'},
+ {q:'The best current estimate of total digestive surface area is…',a:['~32 m²','~260 m² (a tennis court)','~600 m²','~7 m²'],e:'Helander & Fändriks 2014, direct measurement. The tennis court multiplies textbook maxima.'},
+ {q:'Bacteria in the duodenum number roughly…',a:['~10³ per gram: the small bowel is sparsely colonised','10¹²/g, the same as the colon','Zero: it is sterile','More than in the colon'],e:'The gradient runs 10³ → 10⁷ (ileum) → 10¹¹–10¹² (colon); acid, bile and the MMC keep the upper gut sparse.'},
+ {q:'Vitamin B12 deficiency after bowel resection localises the lesion to…',a:['The terminal ileum (cubam receptor for B12–intrinsic factor)','The duodenum','The stomach only','The colon'],e:'Iron is the duodenal one; B12 is ileal. The anaemia pattern localises before imaging.'},
+ {q:'The fasting “housekeeper” wave is…',a:['MMC phase III, sweeping debris every 90–120 min','Segmentation','The gastrocolic reflex','A slow wave'],e:'Eating abolishes it; slow waves only set the tempo, they do not sweep.'},
+ {q:'NSAID ulcers arise mainly because…',a:['COX-1 inhibition removes prostaglandin defence (mucus, bicarbonate, blood flow)','NSAIDs directly burn the mucosa','They raise acid tenfold','They kill parietal cells'],e:'Defence failure, not an acid surge: the same logic as H. pylori living in the mucus layer.'},
+ {q:'Villus:crypt ratio 0:1 with crypt hyperplasia and 40 IELs per 100 enterocytes is…',a:['Marsh 3 coeliac disease (total villous atrophy)','Normal jejunum','Crohn disease by definition','Ulcerative colitis'],e:'Normal is 3–5:1; ulcerative colitis never causes small-bowel villous atrophy.'},
+ {q:'Which statement about bowel sounds is defensible?',a:['They are non-specific and do not localise disease; examine inspection → auscultation → percussion → palpation','Absent sounds prove ileus','Hyperactive sounds diagnose obstruction','They are synchronised to peristalsis you can time'],e:'Poor sensitivity and specificity: hear them, do not over-call them.'},
+ {q:'Crohn disease vs ulcerative colitis: the clean discriminator is…',a:['Crohn is transmural with skip lesions anywhere from mouth to anus; UC is mucosal, continuous, colon only, from the rectum up','UC causes fistulae, Crohn does not','Crohn never affects the colon','UC causes villous atrophy'],e:'Distribution plus depth separate them.'},
+ {q:'Testing for coeliac disease should happen…',a:['While the patient still eats gluten, with anti-tTG IgA plus total IgA','After six months gluten-free','By HLA typing alone','Only if villi look flat at endoscopy'],e:'Diet first normalises serology and histology: a lost diagnosis. HLA is a rule-out, not a diagnosis.'},
+];
 const PREDICT=[
+ {id:'gfork',k:'villusfork',at:'duodenum',short:'villus exits',q:'Prediction — a glucose molecule absorbed in the jejunum ahead reaches the systemic circulation via…',a:['The villus capillary → portal vein → liver first','The lacteal → thoracic duct → subclavian vein'],e:'Water-soluble nutrients take the portal route and meet the liver first. Only long-chain fat (as chylomicrons) takes the lacteal and the lymph.'},
+ {id:'gbac',k:'microbiome',at:'ileum',short:'bacterial density',q:'Prediction — per gram of contents, the colon ahead holds…',a:['About 10⁸–10⁹ times more bacteria than the duodenum (10¹¹–10¹²/g vs ~10³/g)','About the same number; the whole gut is uniformly colonised'],e:'The gradient is steep: acid, bile, IgA and the fasting MMC keep the upper gut sparse; the colon is where the microbiome lives.'},
  {id:'tri',k:'tricuspid',at:'ra',short:'tricuspid timing',q:'Prediction — the tricuspid valve ahead opens in…',a:['Diastole, after S2, when the atrium empties into the ventricle','Systole, right after S1, as the ventricle squeezes'],e:'AV valves (tricuspid, mitral) open in diastole: ventricular pressure falls below atrial pressure after S2. They close at S1.'},
  {id:'pulm',k:'pulmonic',at:'rv',short:'pulmonary valve timing',q:'Prediction — the pulmonary valve opens in…',a:['Systole, right after S1, when RV pressure exceeds PA pressure','Diastole, after S2'],e:'Semilunar valves (pulmonary, aortic) open in systole once ventricular pressure exceeds the great-artery pressure, and snap shut at S2.'},
  {id:'mit',k:'mitral',at:'la',short:'mitral timing',q:'Prediction — the mitral valve opens in…',a:['Diastole, after S2','Systole, after S1'],e:'Like the tricuspid, the mitral valve opens in diastole; its closure contributes most of S1.'},
@@ -2515,6 +2941,7 @@ function envKeyAt(i){
  if(W===NERVE){if(r==='braincap'||r==='bbb')return 'bbbendo';if(r==='cortex')return 'neuropil';const kind=NNODES[Math.max(0,nodeIdx.findIndex(x=>x>i)-1)][4];
   if(kind==='hillock')return 'hillock';if(r==='axon'||r==='decuss'||r==='cord'||r==='pnerve'){const f=nodeAtS(i*DS);return f>.5?'node':f>.08?'paranode':'myelin';}
   if(r==='bouton'||r==='cleft')return 'activezone';if(r==='soma')return 'somamem';if(r==='nmj')return 'endplate';}
+ if(W===GUT){if(SPH.some(sp=>Math.abs(i-sp.i)<4))return 'gsphinc';if(r==='mouth'||r==='oesoph')return 'squamous';if(r==='stomach'||r==='antrum')return 'gastricpit';if(/duodenum|jejunum|ileum/.test(r))return 'crypt';return 'colonwall';}
  return null;
 }
 let envT=null;const _er=new V3(),_ep=new V3(),_ed=new V3();
@@ -2533,6 +2960,56 @@ function updateEnvTag(){
  el.innerHTML=`<b>${E.n}</b><span>${E.sub}</span><small>click for details · the wall here</small>`;
  el.style.left=clamp((_pv.x+1)/2*innerWidth,el.offsetWidth/2+8,innerWidth-el.offsetWidth/2-8)+'px';el.style.top=Math.max(el.offsetHeight+8,(1-_pv.y)/2*innerHeight-28)+'px';el.style.opacity=1;
 }
+// gut wall environments (inspect the wall with E / click)
+Object.assign(ENV,{
+ squamous:{n:'Stratified squamous mucosa',sub:'many flat cell layers · lamina propria · muscularis mucosae',codex:'squamous',size:'epithelium ≈ 0.3–0.5 mm thick · cells 20–40 µm'},
+ gastricpit:{n:'Gastric mucosa',sub:'surface mucous cells · pits → glands with parietal and chief cells',codex:'gastricmucosa',size:'mucosa ≈ 1 mm · pit ≈ 0.2 mm · parietal cell ≈ 20 µm'},
+ crypt:{n:'Crypt of Lieberkühn',sub:'between the villi · Lgr5⁺ stem cells · Paneth cells at the base',codex:'crypt',size:'crypt ≈ 0.3–0.5 mm deep · villus 0.5–1 mm'},
+ colonwall:{n:'Colonic mucosa & mucus bilayer',sub:'straight crypts · goblet cells · sterile inner mucus · colonised outer layer',codex:'colonmucus',size:'crypt ≈ 0.4–0.6 mm · mucus layers ~50–100 µm each (mouse)'},
+ gsphinc:{n:'Sphincter',sub:'thickened circular smooth muscle · inhibitory NO/VIP neurons relax it',codex:'sphinctermusc',size:'LES high-pressure zone 2–4 cm · pylorus ring ≈ 1 cm'},
+});
+Object.assign(ENVBUILD,{
+ squamous(){const o=[];o.push(part(new THREE.BoxGeometry(30,6,12),0x7a2a36,{p:[0,-4.6,0],o:.9}));o.push(part(new THREE.BoxGeometry(30,.35,12),0xf0e0d0,{p:[0,-1.5,0],o:.9})); // lamina propria, basement membrane
+  for(let k=0;k<3;k++)o.push(part(new THREE.CylinderGeometry(.5,.5,12,10),0xb3121a,{p:[-9+k*9,-3.2,0],r:[Math.PI/2,0,0],e:0x2a0306}));
+  for(let L=0;L<6;L++){const flat=.95-L*.12,w=1.4+L*.25;for(let k=0;k<Math.ceil(30/w);k++)for(let j=0;j<Math.ceil(12/w);j++){const x=-15+w*.5+k*w+(L%2)*w*.5,z=-6+w*.5+j*w;if(x>15||z>6)continue;o.push(part(new THREE.SphereGeometry(w*.52,8,6),L<2?0xe6bdc0:0xf1d6d6,{p:[x,-1.1+L*.9*flat+L*.1,z],s:[1,flat*.55,1],rough:.7}));}}
+  o.push(part(new THREE.BoxGeometry(30,.12,12),0xfff0f0,{p:[0,4.2,0],o:.25}));return o;},
+ gastricpit(){const o=[];o.push(part(new THREE.BoxGeometry(30,1,12),0xe9b9b9,{p:[0,3.2,0],rough:.6}));o.push(part(new THREE.BoxGeometry(30,.9,12),0xdfe9ef,{p:[0,4.3,0],o:.22})); // surface mucous cells + mucus–bicarbonate layer
+  [-9,0,9].forEach(x=>{o.push(part(new THREE.CylinderGeometry(1.2,1.1,2.2,14,1,true),0xc77f84,{p:[x,2.6,0],side:THREE.DoubleSide,rough:.7}));
+   for(let k=0;k<6;k++){const y=1.2-k*1.3;o.push(part(new THREE.SphereGeometry(.95,10,8),0xf0a8a0,{p:[x-1.3,y,(k%2?.6:-.6)],s:[1,.8,1],rough:.5}));o.push(part(new THREE.SphereGeometry(.95,10,8),0xf0a8a0,{p:[x+1.3,y-.6,(k%2?-.6:.6)],s:[1,.8,1],rough:.5}));} // parietal cells
+   for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(.6,8,6),0x9fb4d8,{p:[x+(k%2?.7:-.7),-6.8-(k>>1)*1.1,(k%2?-.5:.5)]})); // chief cells at the base
+   o.push(part(new THREE.CylinderGeometry(.55,.55,9.5,8,1,true),0x5a1a26,{p:[x,-3.2,0],side:THREE.DoubleSide,o:.35}));
+   for(let k=0;k<8;k++)o.push(part(new THREE.SphereGeometry(.12,6,5),0x3ee6d8,{p:[x+(Math.random()-.5)*.5,-7+k*1.4,(Math.random()-.5)*.5],e:0x0e5a55}));}); // acid leaving the canaliculi
+  o.push(part(new THREE.BoxGeometry(30,10,12),0x6e2430,{p:[0,-3.5,0],o:.18}));return o;},
+ crypt(){const o=[];const villus=(x)=>{o.push(part(new THREE.CylinderGeometry(1.9,2.1,9,18,1,true),0xeab0a0,{p:[x,2.5,0],side:THREE.DoubleSide,rough:.6}));o.push(part(new THREE.SphereGeometry(1.9,18,10),0xeab0a0,{p:[x,7,0],s:[1,.8,1],rough:.6}));
+   o.push(part(new THREE.CylinderGeometry(2.05,2.25,9,18,1,true),0xfff2d8,{p:[x,2.5,0],side:THREE.DoubleSide,o:.35})); // brush border
+   o.push(part(new THREE.CylinderGeometry(.45,.45,9.6,10),0xf4e4a6,{p:[x,2.6,0],o:.8,e:0x2a2208})); // central lacteal
+   for(let k=0;k<5;k++)o.push(part(new THREE.TorusGeometry(1.35,.13,6,24),0xb3121a,{p:[x,-1+k*2.1,0],r:[Math.PI/2,0,0],e:0x2a0306})); // capillary network
+   for(let k=0;k<3;k++)o.push(part(new THREE.SphereGeometry(.45,8,6),0xbfe0f0,{p:[x+1.6*Math.cos(k*2.1),1+k*2.2,1.6*Math.sin(k*2.1)],s:[.7,1.1,.7],o:.85}));}; // goblet cells
+  villus(-5.5);villus(5.5);
+  o.push(part(new THREE.CylinderGeometry(1.6,1.4,5,14,1,true),0xd9958f,{p:[0,-4.5,0],side:THREE.DoubleSide,rough:.7})); // the crypt between them
+  for(let k=0;k<5;k++)o.push(part(new THREE.SphereGeometry(.5,8,6),0xf0a070,{p:[1.1*Math.cos(k*1.26),-6.6,1.1*Math.sin(k*1.26)],e:0x2a1004})); // Paneth cells with granules
+  for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(.42,8,6),0xa8e6b0,{p:[.9*Math.cos(k*1.57+.5),-5.6,.9*Math.sin(k*1.57+.5)],e:0x0c2a10})); // Lgr5+ stem cells
+  o.push(part(new THREE.BoxGeometry(24,4,14),0x7a2a36,{p:[0,-9,0],o:.9}));
+  for(let k=0;k<10;k++)o.push(part(new THREE.SphereGeometry(.22,7,5),0xfff0c0,{p:[(k%2?-5.5:5.5),-2+k*.9,0],e:0x3a3010})); // chylomicrons climbing the lacteal
+  for(let k=0;k<8;k++)o.push(part(new THREE.SphereGeometry(.12,6,5),0x3ee6d8,{p:[(k%2?-5.5:5.5)+2.3,1+k*.8,0],e:0x0e5a55})); // glucose heading for the capillary
+  return o;},
+ colonwall(){const o=[];o.push(part(new THREE.BoxGeometry(30,.9,12),0xe5b4b4,{p:[0,0,0],rough:.6}));
+  for(let k=0;k<7;k++){const x=-13.5+k*4.5;o.push(part(new THREE.CylinderGeometry(.75,.7,6,12,1,true),0xc98088,{p:[x,-3.4,0],side:THREE.DoubleSide,rough:.7}));
+   for(let j=0;j<5;j++)o.push(part(new THREE.SphereGeometry(.42,8,6),0xbfe0f0,{p:[x+(j%2?.7:-.7),-1-j*1.1,(j%2?.4:-.4)],s:[.8,1.2,.8],o:.9}));} // goblet cells
+  o.push(part(new THREE.BoxGeometry(30,1.6,12),0xdfe9ef,{p:[0,1.3,0],o:.3}));  // inner mucus: firm, essentially sterile
+  o.push(part(new THREE.BoxGeometry(30,2,12),0xd0dde4,{p:[0,3.1,0],o:.12}));   // outer mucus: loose, colonised
+  for(let k=0;k<26;k++)o.push(part(new THREE.CapsuleGeometry(.09,.4,3,7),0xb8e4d2,{p:[-14+Math.random()*28,2.4+Math.random()*4,(Math.random()-.5)*10],r:[Math.random()*3,Math.random()*3,0],e:0x0a2a22}));
+  o.push(part(new THREE.BoxGeometry(30,6,12),0x7a2a36,{p:[0,-7.4,0],o:.9}));return o;},
+ gsphinc(){const o=[];o.push(part(new THREE.TorusGeometry(4.5,1.6,12,36),0x9c4452,{r:[Math.PI/2,0,0],rough:.6,e:0x1a0608}));o.push(part(new THREE.TorusGeometry(6.2,.5,8,36),0xb8666e,{r:[Math.PI/2,0,0],rough:.7}));
+  o.push(part(new THREE.CylinderGeometry(2.9,2.9,3.4,28,1,true),0xeab0a0,{side:THREE.DoubleSide,rough:.6}));
+  for(let k=0;k<10;k++)o.push(part(new THREE.SphereGeometry(.28,7,5),0xf0d080,{p:[5.3*Math.cos(k*.628),.2,5.3*Math.sin(k*.628)],e:0x3a2a08})); // myenteric ganglia between the layers
+  return o;}
+});
+Object.assign(ENVANIM,{
+ gastricpit(dt,objs){objs.forEach(m=>{if(m.material&&m.material.color.getHex()===0x3ee6d8){m.position.y+=dt*1.4;if(m.position.y>4.6)m.position.y=-7;}});},
+ crypt(dt,objs){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();if(c===0xfff0c0){m.position.y+=dt*1.2;if(m.position.y>7)m.position.y=-2;}else if(c===0x3ee6d8){m.position.x+=(m.position.x>0?-1:1)*dt*.6;if(Math.abs(m.position.x)<5.6){m.position.x=(m.position.x>0?1:-1)*7.8;}}});},
+ gsphinc(dt,objs,t){const o=.5+.5*Math.sin(t*.9);objs.forEach(m=>{if(m.geometry&&m.geometry.type==='TorusGeometry'&&m.geometry.parameters.radius===4.5){m.scale.setScalar(.8+.2*o);}});}
+});
 function inspectEnv(e){
  const E=ENV[e.key];sfx('scan');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
  const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',rg?rg.n:'—'],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
@@ -2544,19 +3021,21 @@ const VROWS={
  blood:[['HR','vHR'],['BP','vBP'],['Local SO₂','vSat'],['Local PO₂','vPO2'],['Cycle','phase']],
  lymph:[['Pump rate','vLyR'],['This segment','vLyPh'],['Interstitial P','vIntP'],['Lymph protein','vLyPr'],['Flow here','vLyF']],
  nerve:[['Vm here','vVm'],['Conduction','vCV'],['Spike rate','vSpk'],['Myelin','vMy'],['GCS · reflexes','vGCS']],
+ gut:[['Slow wave','vSW'],['Wall','vSWph'],['Lumen pH','vpH'],['Transit here','vTr'],['Bacteria','vBac']],
 };
-const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position'};
+const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position'};
 let vitalsWorld='';
 function setVitals(){
  const wn=W.name;if(vitalsWorld===wn)return;vitalsWorld=wn;
  $('vrows').innerHTML=VROWS[wn].map(([l,id])=>id==='phase'?`<div class="vrow"><span>${l}</span><span id="phase" class="dia">DIASTOLE</span></div>`:`<div class="vrow"><span>${l}</span><b id="${id}">—</b></div>`).join('');
- $('vTitle').textContent='Host vitals · '+(wn==='blood'?'circulation':wn==='lymph'?'lymphatics':'nervous system');$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=wn==='blood'?'':'none';
+ $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
 }
 function vmHere(){const [a1,a2]=apPositions(),s=S.idx*DS;let v=-70;[a1,a2].forEach(a=>{const d=a-s;v+=105*Math.exp(-Math.pow((d-.5)/2.2,2))-12*Math.exp(-Math.pow((d+7)/5,2));});return v;}
-function traceVal(){if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
+function traceVal(){if(W===GUT)return gutTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
 function vitalsTick(){
  setVitals();
- if(W===LYMPH){$('vLyR').textContent='≈17/min (sped up)';const q=lymSq(S.idx);$('vLyPh').textContent=q>0?'CONTRACTING':'FILLING';$('vLyPh').style.color=q>0?'var(--amber)':'';$('vIntP').textContent='−2 mmHg';$('vLyPr').textContent=/sinus|subcap|efferent|cisterna|thoracic|venangle/.test(REG[S.idx])?'3–4 g/dL':'≈2 g/dL';$('vLyF').textContent=(FLOW[S.idx]*flowMul(S.idx)).toFixed(1)+' units/s';}
+ if(W===GUT)gutVitals();
+ else if(W===LYMPH){$('vLyR').textContent='≈17/min (sped up)';const q=lymSq(S.idx);$('vLyPh').textContent=q>0?'CONTRACTING':'FILLING';$('vLyPh').style.color=q>0?'var(--amber)':'';$('vIntP').textContent='−2 mmHg';$('vLyPr').textContent=/sinus|subcap|efferent|cisterna|thoracic|venangle/.test(REG[S.idx])?'3–4 g/dL':'≈2 g/dL';$('vLyF').textContent=(FLOW[S.idx]*flowMul(S.idx)).toFixed(1)+' units/s';}
  else if(W===NERVE){const r=REG[S.idx],v=vmHere();$('vVm').textContent=Math.round(v)+' mV';$('vVm').style.color=v>-20?'var(--cyan)':'';
   $('vCV').textContent=/axon|decuss|cord|pnerve/.test(r)?'Aα 80–120 m/s':r==='cortex'||r==='soma'?'graded EPSPs':r==='nmj'||r==='bouton'||r==='cleft'?'delay 0.5–1 ms':'CBF 50 mL/100g/min';
   $('vSpk').textContent=/axon|decuss|cord|pnerve|nmj/.test(r)?'≈10 Hz drive':'—';$('vMy').textContent=/axon|decuss|cord/.test(r)?'intact · g≈0.75 (CNS)':r==='pnerve'?'intact · g≈0.65 (PNS)':'—';$('vGCS').textContent='15 · 2+';}
@@ -2618,11 +3097,12 @@ function onKey(e){
  if(k==='KeyE')scan();
  else if(k==='KeyH')setSteth(true);
  else if(k==='KeyB')toggleBell();
- else if(k==='KeyG')openExam();
+ else if(k==='KeyG'){if(W===GUT)openExamGI();else openExam();}
  else if(k==='KeyF'){S.auto=!S.auto;toast(S.auto?'Autopilot on — follows the centreline, waits for valves':'Autopilot off');}
  else if(k==='KeyX'){C.exercise=!C.exercise;C.hrT=C.exercise?118:72;
   if(C.exercise){toast('Flashback: last week, Mr. Reyes climbs the stairs…','warn');if(C.stenosis)setTimeout(()=>{if(C.exercise){toast('“I feel light-headed…” — BP is falling','warn');unlocked.add('exercise');scanned.add('exercise');openCard('exercise',true);renderObj();}},4500);}
   else toast('He sits down to rest. Heart rate settling.');}
+ else if(k==='KeyV'&&W===GUT)gutToggle();
  else if(k==='KeyV'){C.stenosis=!C.stenosis;$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';toast(C.stenosis?'Back to Mr. Reyes\' stenotic valve':'Comparison: a healthy aortic valve. Listen and look again.');}
  else if(k==='KeyJ')openJournal();
  else if(k==='KeyT')openStudy();
@@ -2657,7 +3137,7 @@ function openJournal(){
 // depth picker on start screen
 $('lvPick').innerHTML=[['L1 Curious','kids & curious adults'],['L2 School','secondary-school biology'],['L3 Pre-med','undergrad physiology'],['L4 Med school','pathology & clinical reasoning']].map((l,i)=>`<button class="lv ${i===depth?'on':''}" data-l="${i}"><b>${l[0]}</b>${l[1]}</button>`).join('');
 let startSys='circ';
-$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
+$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
 $('sysPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;startSys=b.dataset.s;$('sysPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 $('lvPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;depth=+b.dataset.l;$('lvPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 
@@ -2719,10 +3199,10 @@ function openExam(){
 /* --- Rounds (quiz) --- */
 let qi=0,qScore=0,qOrder=[],roundsTry=0;
 function openQuiz(){
- qi=0;qScore=0;qOrder=QUIZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
+ qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
  const pending=['exam','ra','tricuspid','pulmonic','lungcap','mitral','steth','aortic'].filter(k=>!done.has(k));
- $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present Mr. Reyes</h1>
- <p>The consultant asks you ${QUIZ.length} questions about what you saw and heard inside. ${pending.length?`<br><span style="color:var(--amber)">Tip: you still have ${pending.length} exploration objective${pending.length>1?'s':''} open — the answers are easier if you've seen it.</span>`:'You have seen the whole circuit. Go.'}</p>
+ $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':'Mr. Reyes'}</h1>
+ <p>The consultant asks you ${QZ.length} questions about what you saw and heard inside. ${pending.length?`<br><span style="color:var(--amber)">Tip: you still have ${pending.length} exploration objective${pending.length>1?'s':''} open — the answers are easier if you've seen it.</span>`:'You have seen the whole circuit. Go.'}</p>
  <button class="btn" id="qStart">Start Rounds ▸</button> <button class="btn ghost" data-close>Keep exploring</button>`;
  $('quizSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
  $('qStart').onclick=()=>{roundsTry++;renderQ();};show('mQuiz');
@@ -2742,7 +3222,7 @@ function renderQ(){
  });
 }
 function finishQuiz(){
- complete('rounds');
+ complete(W===GUT?'grounds':'rounds');
  const pct=Math.round(qScore/qOrder.length*100);
  const expl=[...done].length;
  $('quizSheet').innerHTML=`<div class="eyebrow">Rounds complete</div><h1 style="font-size:34px">${qScore}/${qOrder.length} · ${pct}%</h1>
@@ -2825,7 +3305,7 @@ function ambience(t){ // what each place sounds like
   if(reg==='bouton'||reg==='nmj'){if(rnd(4))pop(900,480,.06,.07);}
   if(reg==='nmj'){const [a1,a2]=apPositions(),e=N*DS,near=Math.min(Math.abs(a1-e),Math.abs(a2-e))<3;if(near&&!amb.apEnd){pop(70,38,.5,.5);burst(90,1,.5,.35);}amb.apEnd=near;} // the muscle fibre twitches
   if(reg==='braincap')turb=.02;
- }
+ }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
  set(A.turbG,turb,.1);set(A.humG,hum,.08);set(A.hushG,hush);set(A.gamG,gam);set(A.somaG,soma);set(A.airG,air*(steth?.3:1),.2);
 }
 function thump(t,f,dur,g){
@@ -2868,7 +3348,7 @@ function updateAudio(flowLocal,thrust){
  const surge=art*bump(((C.tc-.05-PD[S.idx]/C.PWV)%C.T+C.T)%C.T,0,.3);
  A.flowG.gain.setTargetAtTime((W===NERVE?.004:.02+.012*flowLocal+.18*surge)*(steth?.2:1),t,.05);
  A.flowLP.frequency.setTargetAtTime(R0[S.idx]<2.2?900:380,t,.2); // a tighter hiss in capillaries
- A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:27,t,.5);
+ A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:27,t,.5);
  ambience(t);
  A.engG.gain.setTargetAtTime(steth?0:.012*thrust,t,.15);A.eng.frequency.setTargetAtTime(40+18*thrust,t,.1);
  // stethoscope chest piece: diaphragm passes highs, bell passes lows
@@ -2886,7 +3366,7 @@ function ecgVal(tc,T){
  return .15*g(tc,T-.17,.025)-.12*g(x,-.035,.006)+1*g(x,-.022,.007)-.25*g(x,-.008,.007)+.3*g(tc,C.sys-.11,.04);
 }
 function drawECG(){
- const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
+ const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
  for(let i=0;i<ECGN;i++){const v=ecgBuf[(ecgHead+i)%ECGN];const x=i/(ECGN-1)*w,y=h*.72-v*h*.6;i?ecgC.lineTo(x,y):ecgC.moveTo(x,y);}ecgC.stroke();
 }
 function drawPCG(pcgC=pcgC0){
@@ -2901,10 +3381,10 @@ function drawPCG(pcgC=pcgC0){
 let routeDirty=true;
 function drawRoute(){
  const w=1520,h=68,c=routeC;c.clearRect(0,0,w,h);
- if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
+ if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
  else for(let x=0;x<w;x+=2){const i=Math.floor(x/w*N);const f=(SAT[i]-75)/23;c.fillStyle=`rgb(${Math.round(lerp(70,230,f))},${Math.round(lerp(60,40,f))},${Math.round(lerp(150,60,f))})`;c.fillRect(x,30,2,10);}
  c.font='600 17px system-ui,sans-serif';c.textAlign='center';
- const show=W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
+ const show=W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
  show.forEach(([r,l])=>{const [a,b]=RANGE[r];const x=(a+b)/2/N*w;c.fillStyle=scanned.has(r)?'#8f747a':'#c9aeb2';c.fillText(l,x,22);});
  VALVES.forEach(v=>{const x=v.i/N*w;c.fillStyle=done.has(v.id)?'#6ee7a0':'#ffb547';c.fillRect(x-2,26,4,18);});
  const px=S.idx/N*w;c.fillStyle='#3ee6d8';c.beginPath();c.moveTo(px,46);c.lineTo(px-9,64);c.lineTo(px+9,64);c.fill();
@@ -3053,6 +3533,7 @@ const MAPCTX={
 // where you are within a region, for the caption
 function mapSubloc(){
  const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
+ if(W===GUT)return gutSubloc();
  if(W===NERVE){
   if(r==='axon')return f<.3?'corona radiata':f<.6?'internal capsule':f<.85?'cerebral peduncle':'pons';
   if(r==='decuss')return f<.6?'medullary pyramid':'pyramidal decussation';
@@ -3064,6 +3545,21 @@ function mapSubloc(){
  return null;
 }
 let mapCtxId='body';
+const GBODY2D=GNODES.map(n=>[100+(n[0]-1000)*.78,160-n[1]*.5]);
+GUT.views=[mapView(GUT,'gut',0,GNODES.length-1,GBODY2D,2)];
+MAPCTX.gut={title:'Gut · mouth to rectum',draw(c){
+ const ink='rgba(246,236,236,',fill=ink+'.07)',line=ink+'.3)';c.save();c.lineJoin='round';c.lineCap='round';
+ c.fillStyle=fill;c.strokeStyle=line;c.lineWidth=1.1;
+ c.beginPath();c.ellipse(100,30,15,19,0,0,Math.PI*2);c.fill();c.stroke();
+ c.beginPath();c.moveTo(93,48);c.quadraticCurveTo(100,54,107,48);c.lineTo(108,58);c.lineTo(142,70);c.lineTo(146,150);c.lineTo(140,240);c.lineTo(60,240);c.lineTo(54,150);c.lineTo(58,70);c.lineTo(92,58);c.closePath();c.fill();c.stroke();
+ // liver (RUQ: viewer's left) and diaphragm, faint
+ c.fillStyle=ink+'.05)';c.beginPath();c.moveTo(60,100);c.quadraticCurveTo(70,88,100,92);c.quadraticCurveTo(118,95,112,112);c.quadraticCurveTo(90,124,64,118);c.closePath();c.fill();
+ c.strokeStyle=ink+'.18)';c.setLineDash([2,3]);c.beginPath();c.moveTo(58,96);c.quadraticCurveTo(100,80,142,96);c.stroke();c.setLineDash([]);
+ // the tract itself, drawn from the same anchors the probe moves along
+ c.strokeStyle='rgba(230,160,120,.55)';for(let k=0;k<GBODY2D.length-1;k++){const [x0,y0]=GBODY2D[k],[x1,y1]=GBODY2D[k+1];c.lineWidth=Math.max(1.2,GNODES[k][3]*.7);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+ c.fillStyle=ink+'.45)';c.font='7px system-ui,sans-serif';c.textAlign='left';
+ [['stomach',[122,112]],['liver',[66,106]],['colon',[128,150]],['caecum',[50,212]],['rectum',[104,236]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
+ c.restore();}};
 function curView(){return (W.views||[]).find(v=>S.idx>=v.s0&&S.idx<v.s1)||W.views[0];}
 function drawBody(){
  const c=bodyC,v=curView(),M=MAPCTX[v.ctx];c.setTransform(1.6,0,0,1.6,0,0);c.clearRect(0,0,200,305);
@@ -3110,7 +3606,7 @@ const SYSTEMS=[
  {id:'circ',name:'Circulation',sub:'Case 01 · Mr. Reyes · aortic stenosis',desc:'One lap of the blood: vena cava, right heart, lungs, left heart, aorta, a working muscle. Valves, pulsatile flow, gas exchange, the stenotic jet.',go:()=>switchWorld(BLOOD,BLOOD.nodeIdx[1]-20),ready:1},
  {id:'lymph',name:'Lymphatics & immunity',sub:'Detour · interstitium → node → thoracic duct',desc:'Leak out with the plasma, slip into a blind-ended lymphatic, ride the lymphangion pumps through a node and back into the blood at the venous angle.',go:()=>switchWorld(LYMPH,4),ready:1},
  {id:'nerve',name:'Nervous system',sub:'Brain capillary → motor cortex → corticospinal tract → NMJ',desc:'Cross the blood-brain barrier, follow a pyramidal cell\'s axon through nodes of Ranvier, the decussation and a synapse to the lower motor neuron, the femoral nerve and the muscle end plate.',go:()=>switchWorld(NERVE,NERVE.nodeIdx[3]+4),ready:1},
- {id:'gi',name:'Gastrointestinal',sub:'Mouth → villus fork → colon · coeliac case',desc:'In build from the GI research document: the living 5 m gut, the villus fork between portal blood and lacteal lymph, slow waves, the microbiome at real density.',ready:0},
+ {id:'gi',name:'Gastrointestinal',sub:'Case 03 · Ms. Nair · coeliac disease',desc:'The living 5 m gut as one tube: ride a swallow through the LES, wait on the pylorus, fly a villus forest and take either exit (portal blood or lacteal lymph), count the bacteria rise 10⁹-fold into the colon.',go:enterGut,ready:1},
  {id:'lung',name:'Pulmonary',sub:'Nose → airway tree → alveolus · pneumonia case',desc:'In build from the pulmonary research document: the air side of the barrier you already crossed from the blood, the breathing clock, shunt.',ready:0},
  {id:'renal',name:'Kidney',sub:'Glomerulus → nephron → collecting duct',ready:0,desc:'Planned: filtration, the loop of Henle counter-current, tubular transport.'},
  {id:'liver',name:'Liver & biliary',sub:'Portal triad → sinusoid → central vein · gallbladder',ready:0,desc:'Planned: the lobule, hepatocytes, Kupffer cells, bile canaliculi, the gallbladder and sphincter of Oddi.'},
@@ -3118,7 +3614,7 @@ const SYSTEMS=[
  {id:'pituitary',name:'Pituitary',sub:'Portal system & axes',ready:0,desc:'Planned: the hypothalamo-hypophyseal portal system and the endocrine axes.'},
 ];
 function openSystems(){
- const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':'';
+ const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':'';
  $('sysSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Systems</div><h1 style="font-size:30px">Choose a system to explore</h1>
  <p class="small" style="margin-top:0">Each system is its own flyable world with its own cells, clock and Codex. Jump straight in, or find the natural doorway between systems while flying (K at the labelled junctions).</p>
  <div class="sysgrid">${SYSTEMS.map(s=>`<button class="sys ${s.ready?'':'soon'} ${s.id===cur?'cur':''}" data-s="${s.id}" ${s.ready?'':'disabled'}><b>${s.name}</b><small>${s.sub}</small><span>${s.desc}</span>${s.ready?(s.id===cur?'<em>you are here</em>':'<em>enter ▸</em>'):'<em>in build</em>'}</button>`).join('')}</div>`;
@@ -3381,6 +3877,7 @@ function stepShip(dt,time){
  S.sF=S.idx+d.dot(_t)/DS;
  if(!W.closed&&S.sF<3){S.pos.addScaledVector(_t,(3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb<0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=3;}
  if(!W.closed&&S.sF>N-3){S.pos.addScaledVector(_t,(N-3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb>0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=N-3;}
+ if(W===GUT)gutGates(prevS,prevPos);
  // valves: one-way doors with timing
  for(const v of VALVES){
   const a=wrapD(prevS-v.i),b=wrapD(S.sF-v.i);
@@ -3541,6 +4038,7 @@ function frame(now){
 }
 function update(dt){
  time+=dt;
+ if(W===GUT){gutTick(dt);gutGateSlow();}
  if(started&&dt>0&&(time%1)<dt)checkPredict();
  stepCycle(dt);
  if(!started){S.auto=true;}
@@ -3550,6 +4048,7 @@ function update(dt){
  _avO=smooth(openness('av'));_sys=pulseShape((C.tc-.01)*.42/(C.sys+.04));
  ALL.forEach(D=>{if(D.on)updateCells(D,dt,time);});updateLeak(dt);updateFlaps();
  if(started&&W===LYMPH&&S.sF>=N-8)exitLymph();
+ if(started&&W===GUT&&S.sF>=N-8)exitGut();
  updateNerve(dt);
  if(started&&W===NERVE){if(REG[S.idx]==='bouton'&&S.sF>=RANGE.cleft[0]-5)crossSynapse();else if(S.sF>=N-8)exitNerve();}
  // motes ride the local flow and wrap around the camera
@@ -3629,7 +4128,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={addCodex,flyToKey,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={addCodex,flyToKey,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 

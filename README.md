@@ -2,6 +2,10 @@
 
 A browser prototype of a medical-education game set inside the human body. You pilot a micro-sub through one full loop of the circulation (vena cava, right heart, lungs, left heart, a stenotic aortic valve, aorta, capillaries and back), with heart sounds, an ECG, a Stethoscope Mode and Case 01: a 74-year-old patient with severe calcific aortic stenosis.
 
+## Systems you can fly
+
+Circulation (Case 01, aortic stenosis), lymphatics and immunity, the nervous system (brain capillary → cortex → corticospinal axon → neuromuscular junction) and, since 31 Oct 2026, the gastrointestinal tract: the living ~5 m gut as one tube, swallow waves and three sphincters that open on their real triggers, the antral grinder at 3 waves a minute, a villus forest with two exits (portal blood or lacteal lymph), bacteria at the real density gradient, and Case 03 (coeliac disease, with the Marsh stages on the villi). Press Tab in the game to switch systems.
+
 ## How to play
 
 Open `inner-voyage-game.html` in Chrome, Safari or Firefox (double-click it). It is one self-contained file and runs offline; no install or server is needed.
