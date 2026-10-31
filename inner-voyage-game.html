@@ -240,6 +240,13 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 .rc b{color:var(--amber)}
 #ptBar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:4px}
 #ptFill{height:100%;width:100%;background:var(--green);transition:width .4s,background .4s}
+#cardSlides{margin:6px 0 2px}#cardSlides .sh{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);opacity:.85;margin-bottom:4px}#cardSlides .sh a{color:inherit;opacity:.75;margin-left:6px;text-transform:none;letter-spacing:0}
+#cardSlides .row{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}#cardSlides figure{margin:0;flex:none;width:104px}#cardSlides img{display:block;width:104px;height:70px;object-fit:cover;border-radius:4px;cursor:zoom-in;background:#000}
+#cardSlides figcaption{font-size:9.5px;line-height:1.25;opacity:.72;margin-top:2px}#cardSlides figcaption b{font-weight:600;opacity:1;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#cardSlides figcaption a,#slideView .cr a{color:inherit}
+#slideView{position:fixed;inset:0;z-index:300;background:#0b0407;display:none;flex-direction:column;align-items:center;justify-content:center;padding:14px;gap:10px}#slideView.show{display:flex}
+#slideView img{max-width:min(96vw,1400px);max-height:62vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 40px #000}#slideView .info{max-width:min(96vw,820px);color:#f4e6e0;font-size:14px;line-height:1.45;overflow-y:auto;max-height:30vh}
+#slideView h3{margin:0 0 2px;font-size:16px}#slideView .meta{opacity:.7;font-size:12px;margin-bottom:6px}#slideView ul{margin:4px 0 6px 18px;padding:0}#slideView .cr{font-size:11.5px;color:#f4e6e0;opacity:.85;max-width:min(96vw,820px);text-align:center;margin-top:-4px}
+#slideView .nav{position:absolute;top:10px;right:12px;display:flex;gap:8px}#slideView .nav button{background:#ffffff18;color:#fff;border:0;border-radius:6px;padding:6px 10px;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -297,6 +304,7 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
   <h2 id="cardTitle"></h2>
   <div class="tag" id="cardTag"></div>
   <div id="cardDeck"></div>
+  <div id="cardSlides"></div>
   <div id="cardModel"><canvas id="cellCv" width="600" height="400"></canvas><div class="cap"><span id="cellSize"></span><span>drag to turn · scroll or pinch to zoom <a id="cellBig">⤢ enlarge</a></span></div></div>
   <div id="cardCell"></div>
   <div class="tabs" id="cardTabs"></div>
@@ -305,6 +313,7 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
   <div class="src" id="cardSrc"></div>
 </aside>
 
+<div id="slideView" role="dialog" aria-label="Slide"><div class="nav"><button id="slPrev" aria-label="Previous">‹</button><button id="slNext" aria-label="Next">›</button><button id="slX" aria-label="Close">✕</button></div><img id="slImg" alt=""><div class="cr" id="slCr"></div><div class="info" id="slInfo"></div></div>
 <!-- start -->
 <div class="modal show" id="mStart"><div class="sheet">
   <div class="eyebrow">My Body · Inner Voyage · playable MVP</div>
@@ -3862,12 +3871,62 @@ let lastToast={};function toastOnce(key,msg,cls,gap=2.5){const t=performance.now
 
 /* --- codex card --- */
 let cardKey=null,cardLevel=3;
+
+/* ===== Real slides: histopathology and microbiology photographs (assets/images.json, PR #2) =====
+   Every image comes from Wikimedia Commons (public domain, CC0, CC BY or CC BY-SA). The author and licence are shown
+   wherever an image is shown: under each thumbnail and in the viewer. Captions are our own. The manifest is fetched when
+   the game is served over http (the deployed site); opened from a local file it is silently skipped. */
+const SLIDES={list:null,byId:{},cur:[],i:0,tried:false};
+const SLIDEMAP={
+ rbc:['blood-smear-normal','sickle-cell-smear','iron-deficiency-smear','p-falciparum-rings'],rbcA:['blood-smear-normal','sickle-cell-smear','iron-deficiency-smear'],rbcR:['blood-smear-normal','p-falciparum-rings'],
+ wbc:['blood-smear-normal','aml-auer-rods'],neutA:['blood-smear-normal','aml-auer-rods'],mono:['blood-smear-normal'],platelet:['blood-smear-normal'],
+ fibrin:['thrombus-lines-of-zahn'],pa:['thrombus-lines-of-zahn'],artwall:['coronary-atherosclerosis-trichrome'],endothelium:['coronary-atherosclerosis-trichrome'],
+ cortex:['lymph-node-normal','reactive-follicular-hyperplasia','hodgkin-reed-sternberg','burkitt-starry-sky','burkitt-touch-prep'],subcap:['lymph-node-normal'],cortsinus:['lymph-node-normal'],medsinus:['lymph-node-normal','tb-lymph-node-langhans'],dc:['lymph-node-normal','reactive-follicular-hyperplasia'],
+ macro:['tb-lymph-node-langhans','m-tuberculosis-zn-cdc','pulmonary-tb-necrotising-granuloma','m-tuberculosis-zn-bal'],
+ neuron:['cortex-grey-white-normal','alzheimer-tangles-silver','lewy-body-he'],soma:['cortex-grey-white-normal','lewy-body-he','lewy-body-synuclein','alzheimer-tau-ihc'],brain:['cortex-grey-white-normal','alzheimer-tangles-silver','glioblastoma-pseudopalisading','ms-plaque-kluver-barrera'],
+ astro:['glioblastoma-pseudopalisading'],oligo:['ms-plaque-kluver-barrera'],myelin:['peripheral-nerve-osmium','ms-plaque-kluver-barrera'],schwann:['peripheral-nerve-osmium'],ranvier:['peripheral-nerve-osmium'],axon:['peripheral-nerve-osmium'],pnerve:['peripheral-nerve-osmium'],
+ bbb:['n-meningitidis-csf-gram','cryptococcus-india-ink'],
+ squamous:['oesophagus-normal-squamous','barrett-oesophagus-goblet'],oesoph:['oesophagus-normal-squamous','barrett-oesophagus-goblet'],les:['barrett-oesophagus-goblet','oesophagus-normal-squamous'],
+ stomach:['gastric-body-normal','h-pylori-gastritis-organisms','h-pylori-giemsa'],body:['gastric-body-normal'],gastricmucosa:['gastric-body-normal','h-pylori-gastritis-organisms','h-pylori-giemsa'],acid:['gastric-body-normal'],antrum:['h-pylori-gastritis-organisms','h-pylori-giemsa'],
+ duodenum:['duodenum-normal-villi','duodenum-normal-high','giardiasis-duodenum','giardia-trophozoites-giemsa'],jejunum:['duodenum-normal-villi','duodenum-normal-high'],villus:['duodenum-normal-villi','duodenum-normal-high','coeliac-villous-atrophy-low'],
+ brushborder:['duodenum-normal-high','acute-tubular-necrosis'],crypt:['duodenum-normal-villi','coeliac-villous-atrophy-low'],ileum:['duodenum-normal-villi'],
+ coeliac:['coeliac-villous-atrophy-low','coeliac-iel-high','duodenum-normal-villi','duodenum-normal-high'],case03:['coeliac-villous-atrophy-low','coeliac-iel-high','duodenum-normal-villi'],
+ colon:['tubular-adenoma-low','colorectal-adenocarcinoma','ulcerative-colitis-crypt-abscess','crohn-colon-granuloma','pseudomembranous-colitis-volcano'],colonmucus:['ulcerative-colitis-crypt-abscess','pseudomembranous-colitis-volcano'],rectum:['ulcerative-colitis-crypt-abscess','tubular-adenoma-low'],
+ bact:['e-coli-gram','salmonella-gram','c-difficile-sem'],gbact:['e-coli-gram','salmonella-gram','c-difficile-sem','h-pylori-giemsa'],microbiome:['e-coli-gram','c-difficile-sem','giardia-trophozoite-single'],
+ alveolus:['lung-normal-bronchiole-alveoli','emphysema','pneumonia-acute-high','aspergillus-hyphae-gms'],acinus:['lung-normal-bronchiole-alveoli','emphysema'],sac:['lung-normal-bronchiole-alveoli','emphysema'],lungcap:['lung-normal-bronchiole-alveoli'],surfactant:['lung-normal-bronchiole-alveoli','pneumocystis-cysts-silver'],
+ bronchus:['bronchus-normal-epithelium','asthma-airway-mucus','lung-squamous-carcinoma-keratin','lung-adenocarcinoma-acinar'],ciliated:['bronchus-normal-epithelium'],escalator:['bronchus-normal-epithelium','asthma-airway-mucus'],tbronch:['bronchus-normal-epithelium'],
+ bronchiole:['lung-normal-bronchiole-alveoli','asthma-airway-mucus'],bronchiolewall:['lung-normal-bronchiole-alveoli','asthma-airway-mucus'],
+ pneumonia:['pneumonia-acute-low','pneumonia-acute-high','s-pneumoniae-gram','s-pneumoniae-sem','klebsiella-gram'],case04:['pneumonia-acute-low','pneumonia-acute-high','s-pneumoniae-gram'],
+ glom:['glomerulus-normal-pas','diabetic-nephropathy-kw-pas','crescentic-gn','post-infectious-gn'],bowman:['glomerulus-normal-pas','crescentic-gn'],filtbarrier:['glomerulus-normal-pas','diabetic-nephropathy-kw-pas'],fenestra:['glomerulus-normal-pas'],afferent:['glomerulus-normal-pas'],
+ dka:['diabetic-nephropathy-kw-pas','glomerulus-normal-pas'],case05:['diabetic-nephropathy-kw-pas','glomerulus-normal-pas'],gluc:['diabetic-nephropathy-kw-pas'],
+ pct:['acute-tubular-necrosis','clear-cell-rcc'],calyx:['acute-pyelonephritis','e-coli-gram-uti','urine-wbc-cast'],urothelium:['acute-pyelonephritis','e-coli-gram-uti','urine-wbc-cast'],cd:['acute-pyelonephritis'],mcd:['acute-pyelonephritis'],
+};
+const slEsc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function slidesLoad(){if(SLIDES.p)return SLIDES.p;SLIDES.tried=true;if(location.protocol==='file:')return SLIDES.p=Promise.resolve(null);
+ return SLIDES.p=fetch('assets/images.json').then(r=>r.ok?r.json():null).then(d=>{if(!d||!Array.isArray(d.images))return null;SLIDES.list=d.images.filter(i=>i&&i.id&&i.file&&i.credit);SLIDES.list.forEach(i=>SLIDES.byId[i.id]=i);return SLIDES.list;}).catch(()=>null);}
+function slTitle(i){const t=i.condition==='normal'?'Normal '+i.tissue:i.condition;return t.charAt(0).toUpperCase()+t.slice(1);}
+function slidesFor(key){if(!SLIDES.list)return[];return (SLIDEMAP[key]||[]).map(id=>SLIDES.byId[id]).filter(Boolean);}
+function slideWho(i){return slEsc((i.author||'').replace(/^Dr\.? /,'').split(/[,(]/)[0].trim().slice(0,40))+' · <a href="'+slEsc(i.license_url||i.source_url)+'" target="_blank" rel="noopener">'+slEsc(i.license)+'</a>';}
+function renderSlides(key){const el=$('cardSlides');el.innerHTML='';const L=slidesFor(key);if(!L.length)return;
+ el.innerHTML='<div class="sh">Real slides · '+L.length+'<a href="assets/gallery.html" target="_blank" rel="noopener">all ↗</a></div><div class="row">'+L.map((i,k)=>`<figure><img loading="lazy" src="assets/${slEsc(i.thumb||i.file)}" alt="${slEsc(i.condition+' · '+i.tissue)}" data-k="${k}"><figcaption><b>${slEsc(slTitle(i))}</b>${slideWho(i)}</figcaption></figure>`).join('')+'</div>';
+ el.querySelectorAll('img').forEach(im=>{im.onclick=()=>slideOpen(L,+im.dataset.k);im.onerror=()=>{const f=im.closest('figure');if(f)f.remove();};});}
+function slideShow(){const i=SLIDES.cur[SLIDES.i];if(!i)return;$('slImg').src='assets/'+i.file;$('slImg').alt=i.condition+' · '+i.tissue;
+ $('slInfo').innerHTML=`<h3>${slEsc(slTitle(i))}</h3><div class="meta">${slEsc(i.tissue)} · ${slEsc(i.stain)}${i.magnification?' · '+slEsc(i.magnification):''} · ${SLIDES.i+1} of ${SLIDES.cur.length}</div><div>${slEsc(i.caption)}</div>`+
+  (i.look_for&&i.look_for.length?`<b>Look for</b><ul>${i.look_for.map(t=>'<li>'+slEsc(t)+'</li>').join('')}</ul>`:'')+
+  '';$('slCr').innerHTML=`Image: ${slEsc(i.credit)} · <a href="${slEsc(i.license_url)}" target="_blank" rel="noopener">${slEsc(i.license)}</a> · <a href="${slEsc(i.source_url)}" target="_blank" rel="noopener">source</a> · resized; caption ours`;
+ $('slPrev').style.visibility=$('slNext').style.visibility=SLIDES.cur.length>1?'visible':'hidden';}
+function slideOpen(L,k){SLIDES.cur=L;SLIDES.i=k;slideShow();$('slideView').classList.add('show');}
+function slideClose(){$('slideView').classList.remove('show');}
+$('slX').onclick=slideClose;$('slPrev').onclick=()=>{SLIDES.i=(SLIDES.i+SLIDES.cur.length-1)%SLIDES.cur.length;slideShow();};$('slNext').onclick=()=>{SLIDES.i=(SLIDES.i+1)%SLIDES.cur.length;slideShow();};
+$('slideView').addEventListener('click',e=>{if(e.target.id==='slideView')slideClose();});
+addEventListener('keydown',e=>{if(!$('slideView').classList.contains('show'))return;if(e.key==='Escape')slideClose();else if(e.key==='ArrowRight')$('slNext').click();else if(e.key==='ArrowLeft')$('slPrev').click();e.stopImmediatePropagation();e.preventDefault();},true);
 function openCard(key,first){
  const c=CODEX[key];if(!c)return;cardKey=key;cardLevel=depth;if($('cardModel').classList.contains('big'))pvBig(false);$('cardCell').style.display='none';$('cardModel').style.display='none';PV.on=false;
  $('cardKind').textContent=first?'Codex · new entry':'Codex';
  $('cardTitle').textContent=c.title;$('cardTag').textContent=c.tag;$('cardSrc').innerHTML=provHTML(key,MOBILE)||('Ref: '+c.src+' · draft, pending clinical review');
  const dn=DECK.loaded?deckCardsFor(key).length:0;$('cardDeck').innerHTML=dn?`<button class="mini" id="cardDeckBtn">Your deck · ${dn} card${dn>1?'s':''} here ▸</button>`:'';if(dn)$('cardDeckBtn').onclick=()=>deckStudyKey(key);
  renderCardBody();$('card').classList.add('open');
+ if(SLIDES.list)renderSlides(key);else{$('cardSlides').innerHTML='';slidesLoad().then(()=>{if(cardKey===key)renderSlides(key);});}
 }
 function renderCardBody(){
  const c=CODEX[cardKey];
@@ -6249,7 +6308,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
