@@ -406,7 +406,7 @@ const CODEX={
   'The tiniest tubes, wrapped around air sacs. Watch the red cells turn bright red as they grab oxygen!',
   'Oxygen diffuses from alveolar air across a barrier less than 1 µm thick into red blood cells, while CO₂ diffuses out the other way.',
   'At rest a red cell spends ~0.75 s in a pulmonary capillary, but oxygen equilibrates in ~0.25 s — the first third of the journey. That spare time is a safety margin that shrinks in exercise.',
-  'Diffusion limitation appears when the barrier thickens (interstitial fibrosis) or transit time falls (exercise) → exertional desaturation; DLCO measures it. Alveolar PO₂ ≈ 100 mmHg, mixed-venous PO₂ ≈ 40 mmHg.'],rc:"Time is stretched. The real ~0.75 s capillary transit is spread over a much longer flight so you can watch the colour change. Real capillaries are also barely wider than one red cell."},
+  'Diffusion limitation appears when the barrier thickens (interstitial fibrosis) or transit time falls (exercise) → exertional desaturation; DLCO measures it. Alveolar PO₂ ≈ 100 mmHg, mixed-venous PO₂ ≈ 40 mmHg.'],rc:"Sizes are not to scale with the vessels: real capillaries (~5–8 µm) are about as wide as one red cell, so cells pass in single file and fold to fit. Click the capillary wall to see it at true scale."},
  pv:{title:'Pulmonary vein',tag:'Vein · carries oxygenated blood',src:REF.resp,L:[
   'A vein carrying fresh, oxygen-rich blood from the lungs back to the heart.',
   'Usually four pulmonary veins drain into the left atrium. They are the only veins carrying oxygenated blood (~98% saturated).',
@@ -456,7 +456,7 @@ const CODEX={
   'Tiny tubes inside a working muscle, where blood drops off oxygen and food.',
   'Capillary walls are one cell thick. O₂ and glucose leave the blood; CO₂ and waste enter it. Watch the red cells darken.',
   'Blood moves slowest in capillaries (~0.3 mm/s) because their total cross-sectional area is the largest in the circulation — more time for exchange. Starling forces govern fluid movement.',
-  'At rest the body extracts ~25% of delivered O₂ (SaO₂ 98% → SvO₂ ~75%). Exercising muscle extracts far more, helped by the Bohr effect (CO₂, H⁺ and heat shift the Hb–O₂ curve right).'],rc:"Real capillary flow (~0.3 mm/s) is far slower relative to your size than shown, and real capillaries are about one red cell wide. Both are widened and sped up for play."},
+  'At rest the body extracts ~25% of delivered O₂ (SaO₂ 98% → SvO₂ ~75%). Exercising muscle extracts far more, helped by the Bohr effect (CO₂, H⁺ and heat shift the Hb–O₂ curve right).'],rc:"Sizes are not to scale with the vessels: real capillaries (~5–8 µm) are about as wide as one red cell, so cells pass in single file and fold to fit. Click the capillary wall to see it at true scale."},
  venule:{title:'Venules',tag:'Small veins · start of the trip home',src:REF.vessels,L:[
   'Small veins collecting blood from the capillaries to start the trip home.',
   'Veins are thin-walled and hold most of your blood — about 60–70% of blood volume sits in the venous system.',
@@ -1892,15 +1892,15 @@ function previewCell(D,V){const PVm=PV;const vw=V||PVm;
   cv.addEventListener('pointerdown',e=>{vw.drag=true;vw.lx=e.clientX;vw.ly=e.clientY;cv.setPointerCapture(e.pointerId);});
   cv.addEventListener('pointermove',e=>{if(!vw.drag)return;vw.rot+=(e.clientX-vw.lx)*.012;vw.tilt=clamp(vw.tilt+(e.clientY-vw.ly)*.012,-1.4,1.4);vw.lx=e.clientX;vw.ly=e.clientY;});
   cv.addEventListener('pointerup',()=>vw.drag=false);}
- vw.g.clear();
+ vw.g.clear();vw.objs=[];vw.anim=ENVANIM[D.kind]||null;
  D.meshes.forEach((m,mi)=>{let mat=m.material;if(D.kind==='rbc'){mat=mat.clone();mat.color.set(0xb3121a);}
-  const mesh=new THREE.Mesh(m.geometry,mat);mesh.renderOrder=mi;vw.g.add(mesh);});
+  const mesh=new THREE.Mesh(m.geometry,mat);mesh.renderOrder=mi;vw.g.add(mesh);vw.objs.push(mesh);});
  const br=Math.max(...D.meshes.map(m=>{m.geometry.computeBoundingSphere();return m.geometry.boundingSphere.radius;}));vw.g.scale.setScalar(1.15/br);vw.rot=0;vw.tilt=D.kind==='rbc'||D.kind==='platelet'?.6:.3;vw.on=true;
  if(vw===PVm){$('cellSize').textContent=CELLSIZE[D.kind]||'';$('cardModel').style.display='block';}
  else{const host=$('srsModel');if(host&&!host.contains(vw.cv))host.appendChild(vw.cv);}
 }
 function renderPreview(dt){
- const one=(V,vis)=>{if(!V.on||!vis)return;if(!V.drag)V.rot+=dt*.45;V.g.rotation.set(V.tilt,V.rot,0);V.r.render(V.scene,V.cam);};
+ const one=(V,vis)=>{if(!V.on||!vis)return;if(!V.drag)V.rot+=dt*(V.anim?.12:.45);if(V.anim)V.anim(dt,V.objs,time);V.g.rotation.set(V.tilt,V.rot,0);V.r.render(V.scene,V.cam);};
  one(PV,$('card').classList.contains('open'));one(SV,$('mStudy').classList.contains('show'));
 }
 function inspect(t,quiet){
@@ -2002,7 +2002,7 @@ function renderStudyCard(){
   sh.innerHTML=head+front+`<button class="btn" id="sShow">Show answer</button>`;
   $('sShow').onclick=()=>{sh.innerHTML=head+front+`<div class="expl">${c.type==='rc'?cx.rc:cx.L[depth]+(cx.rc?'<br><br><b style="color:var(--amber)">Reality check · </b>'+cx.rc:'')}</div><p class="small">How well did you have it?</p>`+grades+`<p class="small"><button class="mini" data-fly="${c.k}">Fly there</button> to see it again in context.</p>`;
    sh.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;if(g>=3)st.ok++;srsGrade(c.id,g);sfx(g>=3?'chime':'click');st.i++;renderStudyCard();});
-   sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));sh.querySelector('[data-close]').onclick=closeModals;};
+   sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);};
  }else if(c.type==='cell'){
   const D=ALL.find(D=>D.kind===c.k);const pool=shuffle(CELLKINDS.filter(k=>k!==c.k&&(unlocked.has(CODEXKEY[k]||k)||SRS.cards['cell:'+k]))).slice(0,3);
   while(pool.length<3){const k=CELLKINDS[Math.floor(Math.random()*CELLKINDS.length)];if(k!==c.k&&!pool.includes(k))pool.push(k);}
@@ -2017,7 +2017,7 @@ function renderStudyCard(){
  }else if(c.type==='pred'){
   mcq(c.p.q,c.p.a,0,c.p.e);
  }
- sh.querySelector('[data-close]').onclick=closeModals;
+ sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
 }
 function finishStudy(){
  const st=study2;study2=null;SV.on=false;const deck=srsDeck(),due=srsDue(deck);
@@ -2026,7 +2026,7 @@ function finishStudy(){
  <p>${st.ok===st.n?'Clean sweep. Those cards now come back later, when you are about to forget them.':st.ok>=st.n*.7?'Good. The ones you missed come back in 10 minutes, then spread out as you get them right.':'Several misses: fly back to those places and look again — seeing it is what makes the card stick.'}</p>
  <p class="small">${due.length?due.length+' card'+(due.length>1?'s':'')+' already due again (the misses).':'Nothing more due right now.'} Scan new structures and cells to grow the deck.</p>
  <button class="btn" id="sBack">Back to study</button> <button class="btn ghost" data-close>Keep exploring</button>`;
- $('studySheet').querySelector('[data-close]').onclick=closeModals;$('sBack').onclick=openStudy;renderDue();
+ $('studySheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);$('sBack').onclick=openStudy;renderDue();
 }
 function renderDue(){const n=srsDue(srsDeck()).length;const el=$('dueBadge');el.textContent=n?`${n} due (T)`:'';el.style.display=n?'inline-block':'none';}
 setInterval(()=>{if(started)renderDue();},20000);
@@ -2058,6 +2058,7 @@ function hidePredict(){$('predict').classList.remove('show');predNow=null;}
 
 /* ===== Inspectable environment: hover the wall, myelin, a node, a valve cusp, node stroma… → label; click → Codex card + 3D model ===== */
 const ENV={
+ truecap:{n:'Capillary at true scale',sub:'lumen 5–8 µm · one red cell wide · cells fold to pass',codex:'@region',size:'red cell 7.5 µm · wall 0.2–0.5 µm'},
  endo:{n:'Capillary endothelium',sub:'one cell wraps the whole lumen · pericyte outside',codex:'endothelium',size:'cell ≈ 0.3 µm thick, 10–15 µm wide'},
  artwall:{n:'Arterial wall',sub:'intima · elastic + smooth-muscle media · adventitia',codex:'artwall',size:'aortic wall ≈ 2 mm · ~50 elastic lamellae'},
  veinwall:{n:'Venous wall',sub:'endothelium over a thin media · high compliance',codex:'veinwall',size:'IVC wall ≈ 1 mm · lumen ≈ 2 cm'},
@@ -2098,6 +2099,17 @@ function cuspGeo(sl,R0=2.2){
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;
 }
 const ENVBUILD={
+ truecap(){const o=[];const L=30;
+  o.push(part(new THREE.CylinderGeometry(3.3,3.3,L,28,1,true),0xd99a94,{r:[0,0,Math.PI/2],side:THREE.DoubleSide,o:.32}));for(let k=0;k<6;k++)o.push(part(new THREE.TorusGeometry(3.32,.04,5,40),0x7a2d3a,{p:[-12+k*5,0,0],r:[0,Math.PI/2,0],o:.6}));
+  o.push(part(new THREE.SphereGeometry(1,14,10),0x8c3a4a,{p:[4,-3.0,0],s:[3,.9,2.2]}));o.push(part(new THREE.SphereGeometry(1,14,10),0x8c3a4a,{p:[-7,3.0,.6],s:[2.6,.8,2]})); // endothelial nuclei bulging into the lumen
+  o.push(part(new THREE.BoxGeometry(L,.5,9),0xf0e0d0,{p:[0,3.75,0],o:.85}));o.push(part(new THREE.BoxGeometry(L,.5,9),0xf0e0d0,{p:[0,-3.75,0],o:.85})); // alveolar epithelium + fused basement membrane
+  o.push(part(new THREE.BoxGeometry(L,3,9),0xa8d8ff,{p:[0,5.6,0],o:.12}));o.push(part(new THREE.BoxGeometry(L,3,9),0xa8d8ff,{p:[0,-5.6,0],o:.12})); // air space
+  const prof=[[0,1.9],[1.1,1.75],[2.1,1.25],[2.75,.5],[3.0,-.45],[2.85,-1.05],[2.3,-.95],[1.6,-.3],[.9,.25],[0,.45]].map(([r,y])=>new THREE.Vector2(r,y));
+  for(let k=0;k<7;k++){const g=new THREE.LatheGeometry(prof,26);g.rotateZ(-Math.PI/2);o.push(part(g,0xb3121a,{p:[-13.5+k*4.4,0,0],e:0x2a0306,rough:.5}));}
+  for(let k=0;k<2;k++)o.push(part(new THREE.CylinderGeometry(.9,.9,.35,14),0xe8d8c0,{p:[-11+k*13,1.2,.8],r:[Math.PI/2,0,.4]})); // platelets
+  for(let k=0;k<14;k++)o.push(part(new THREE.SphereGeometry(.18,6,5),0x3ee6d8,{p:[-13+k*2,(k%2?1:-1)*5.2,(k%3-1)*1.5],e:0x0e5a55}));
+  o.push(part(new THREE.SphereGeometry(.7,10,8),0xa07058,{p:[9,3.55,-2.5],s:[2.4,.5,1.2]})); // pericyte
+  return o;},
  endo(){const o=[];o.push(part(new THREE.CylinderGeometry(1.5,1.5,6,24,1,true),0xd99a94,{r:[0,0,Math.PI/2],side:THREE.DoubleSide,o:.95}));
   for(let k=0;k<3;k++){o.push(part(new THREE.TorusGeometry(1.52,.025,6,40),0x7a2d3a,{p:[-2+k*2,0,0],r:[0,Math.PI/2,0]}));o.push(part(new THREE.SphereGeometry(.5,14,10),0x8c3a4a,{p:[-1+k*2,1.35,0],s:[1.3,.42,.9],r:[0,0,0]}));}
   o.push(part(new THREE.CylinderGeometry(1.62,1.62,6.2,24,1,true),0xd8c8b8,{r:[0,0,Math.PI/2],side:THREE.BackSide,o:.35})); // basement membrane
@@ -2191,12 +2203,16 @@ const ENVBUILD={
   return o;},
 };
 function envMeshes(key){if(!ENVM[key])ENVM[key]=ENVBUILD[key]().map(m=>Object.assign(m,{kind:key}));return ENVM[key];}
+const ENVANIM={truecap(dt,objs,t){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();
+  if(c===0xb3121a){m.position.x+=dt*2.6;if(m.position.x>15.5)m.position.x-=30.8;const nearN=Math.abs(m.position.x-4)<2.6||Math.abs(m.position.x+7)<2.4;const sq=nearN?.78:1;m.scale.y+=(sq-m.scale.y)*Math.min(1,dt*6);m.scale.z=m.scale.y;m.scale.x=1+(1-m.scale.y)*1.3;m.rotation.x+=dt*.3;}
+  else if(c===0xe8d8c0){m.position.x+=dt*2.6;if(m.position.x>15.5)m.position.x-=30.8;}
+  else if(c===0x3ee6d8){const dir=m.position.y>0?-1:1;m.position.y+=dir*dt*1.8;if(Math.abs(m.position.y)<3.2){m.position.y=dir*-5.4;m.position.x=-13+Math.random()*26;}}});}};
 // what the wall is made of here
 function envKeyAt(i){
  const r=REG[i],k=i*4;
  if(W===BLOOD){
   for(const vl of VALVES){const d=Math.abs(wrapD(i-vl.i));if(d<5)return vl.id==='aortic'&&C.stenosis?'leaflet_calc':vl.type==='av'?'leaflet_av':'leaflet_sl';}
-  if(KW[k+3]>.5)return 'endo';if(KW[k+2]>.5)return 'artwall';if(KW[k+1]>.5)return 'trabec';if(KW[k]>.5)return 'endocard';return 'veinwall';}
+  if(KW[k+3]>.5)return 'truecap';if(KW[k+2]>.5)return 'artwall';if(KW[k+1]>.5)return 'trabec';if(KW[k]>.5)return 'endocard';return 'veinwall';}
  if(W===LYMPH){if(r==='interstitium')return 'ecm';if(r==='lymphcap')return 'lymphendo';if(/sinus|subcap/.test(r))return 'reticulum';if(VALVES.some(vl=>Math.abs(i-vl.i)<4))return 'lyleaflet';if(r==='venangle')return 'veinwall';return 'lymwall';}
  if(W===NERVE){if(r==='braincap'||r==='bbb')return 'bbbendo';if(r==='cortex')return 'neuropil';const kind=NNODES[Math.max(0,nodeIdx.findIndex(x=>x>i)-1)][4];
   if(kind==='hillock')return 'hillock';if(r==='axon'||r==='decuss'||r==='cord'||r==='pnerve'){const f=nodeAtS(i*DS);return f>.5?'node':f>.08?'paranode':'myelin';}
@@ -2220,7 +2236,7 @@ function updateEnvTag(){
  el.style.left=clamp((_pv.x+1)/2*innerWidth,el.offsetWidth/2+8,innerWidth-el.offsetWidth/2-8)+'px';el.style.top=Math.max(el.offsetHeight+8,(1-_pv.y)/2*innerHeight-28)+'px';el.style.opacity=1;
 }
 function inspectEnv(e){
- const E=ENV[e.key];sfx('scan');addCodex(E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
+ const E=ENV[e.key];sfx('scan');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
  const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',rg?rg.n:'—'],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
  $('cardKind').textContent=$('cardKind').textContent+' · wall inspected';$('cellSize').textContent=E.size;
 }
@@ -2378,7 +2394,7 @@ function renderQ(){
  const q=qOrder[qi];
  $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="prog">QUESTION ${qi+1} / ${qOrder.length} · score ${qScore}</div>
  <div class="q">${q.q}</div>${q.idx.map(i=>`<button class="opt" data-i="${i}">${q.a[i]}</button>`).join('')}<div id="qFb"></div>`;
- $('quizSheet').querySelector('[data-close]').onclick=closeModals;
+ $('quizSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
  $('quizSheet').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
   const ok=+b.dataset.i===0;if(ok)qScore++;sfx(ok?'chime':'buzz');
   if(!ok&&roundsTry===1)harm(8,'a wrong call on Rounds muddles his plan');
@@ -2398,7 +2414,7 @@ function finishQuiz(){
  <p><b>Diagnosis:</b> severe calcific aortic stenosis — exertional angina, breathlessness and syncope. <b>Plan:</b> echo to confirm (AVA, gradient, jet velocity) → heart-team referral for SAVR/TAVI.</p>
  <p class="small">Objectives completed: ${expl}/${OBJ.length} · Codex entries: ${unlocked.size}/${Object.keys(CODEX).length}</p>
  <button class="btn" data-close>Keep exploring</button> <button class="btn ghost" id="qAgain">Retake</button>`;
- $('quizSheet').querySelector('[data-close]').onclick=closeModals;$('qAgain').onclick=openQuiz;
+ $('quizSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);$('qAgain').onclick=openQuiz;
 }
 
 /* ===== Audio: synthesised from the same cardiac clock ===== */
@@ -3230,6 +3246,7 @@ function update(dt){
    if(reg==='nmj')toastOnce('nmjHint','Motor end plate ahead: acetylcholine vesicles, junctional folds and receptor clusters on the muscle side.','',30);
    renderObj();}
   if(reg==='lungcap'){const [a,b]=RANGE.lungcap;if(S.idx>a+(b-a)*.4)complete('lungcap');}
+  if(reg==='lungcap'||reg==='syscap')toastOnce('truecap','Reality check: this capillary is drawn wide for flying. A real one (5–8 µm) is one red cell wide — click the wall to see cells pass single file and fold to fit.','warn',600);
   bannerT-=dt;$('banner').style.opacity=clamp(bannerT,0,1);
   // stethoscope objective
   if(steth){const av=AOV;const dA=S.pos.distanceTo(av.c);$('stethWhere').textContent=dA<30?`Aortic area · ${dA.toFixed(0)} u from the valve`:`Distance to aortic valve: ${dA.toFixed(0)} u — get closer`;
