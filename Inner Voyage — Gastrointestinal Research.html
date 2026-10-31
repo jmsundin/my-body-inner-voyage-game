@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Inner Voyage — Gastrointestinal Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --surface2:#efe9dd; --ink:#1c2320; --muted:#5c665f; --line:#ddd5c4;
+  --accent:#b44a26; --accent-ink:#8f3719; --teal:#1f6b5a; --teal-bg:#e3efe9; --gold:#9a7418; --gold-bg:#f7ecd0;
+  --red:#a62b1f; --red-bg:#fbe9e6; --amber:#8a5a00; --amber-bg:#fdf0d3; --green:#1f6b3a; --green-bg:#e2f0e4;
+  --portal:#1f6b5a; --lacteal:#b07d10;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#141816; --surface:#1e2421; --surface2:#262d29; --ink:#ece7db; --muted:#a8b0a6; --line:#3a423c;
+    --accent:#e07a4e; --accent-ink:#f0a07c; --teal:#6fc2ab; --teal-bg:#1d332c; --gold:#e3bc5a; --gold-bg:#3a3016;
+    --red:#ff8a7a; --red-bg:#3d201c; --amber:#f0c26a; --amber-bg:#3a2f14; --green:#7ed492; --green-bg:#1d3322;
+    --portal:#6fc2ab; --lacteal:#e3bc5a; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--teal);text-decoration:underline;text-underline-offset:2px}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;line-height:1.08;margin:0}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:.6em 0}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 72px}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;vertical-align:middle}
+.tag.est{background:var(--green-bg);color:var(--green)} .tag.rev{background:var(--red-bg);color:var(--red)}
+.tag.deb{background:var(--amber-bg);color:var(--amber)} .tag.wrong{background:var(--red);color:#fff}
+.tag.simp{background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+/* Header */
+.hero{padding:40px 0 8px}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-size:clamp(2.3rem,6vw,4.1rem);font-weight:800;letter-spacing:-.02em;margin:.15em 0 .2em;max-width:14em}
+.hero .lede{font-size:1.13rem;color:var(--muted);max-width:44em}
+.verdict{margin:26px 0 8px;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:var(--radius);padding:22px 24px}
+.verdict h2{font-size:1.45rem}
+.verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+.verdict-grid strong{color:var(--accent-ink)}
+@media(max-width:700px){.verdict-grid{grid-template-columns:1fr}}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.83rem;color:var(--muted);margin-top:14px}
+/* Nav */
+.subnav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin:22px -20px 0;padding:10px 20px;display:flex;gap:6px;flex-wrap:wrap}
+.subnav a{color:var(--ink);text-decoration:none;font-size:.84rem;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.subnav a:hover{border-color:var(--accent);color:var(--accent-ink)}
+section{padding:44px 0 6px}
+.sec-head{max-width:46em;margin-bottom:18px}
+.sec-head .num{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--accent);font-weight:600}
+.sec-head p{color:var(--muted)}
+/* Headline numbers */
+.num-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.num-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.num-card .big{font-family:"Newsreader",Georgia,serif;font-size:2rem;font-weight:800;line-height:1;color:var(--accent-ink)}
+.num-card .lbl{font-weight:700;font-size:.92rem;margin-top:6px}
+.num-card .old{font-size:.82rem;color:var(--muted)}
+.num-card .old s{text-decoration-color:var(--red);text-decoration-thickness:2px}
+/* Station explorer */
+.explorer{display:grid;grid-template-columns:230px 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.station-list{display:flex;flex-direction:column;background:var(--surface2)}
+.station-btn{appearance:none;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;padding:13px 16px;font:inherit;cursor:pointer;color:var(--ink)}
+.station-btn small{display:block;color:var(--muted);font-size:.78rem}
+.station-btn.active{background:var(--surface);border-left:5px solid var(--accent);font-weight:700}
+.station-detail{padding:22px 24px;min-height:340px}
+.station-detail h3{font-size:1.6rem}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.stat{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat .v{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.02rem}
+.stat .k{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+@media(max-width:700px){.explorer{grid-template-columns:1fr}.station-list{flex-direction:row;flex-wrap:wrap}.station-btn{flex:1 1 30%;border-bottom:1px solid var(--line)}.station-btn small{display:none}}
+/* Cards / tables */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:14px 0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.two-col{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tbl-wrap{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+@media(max-width:640px){ .stack-table thead{display:none} .stack-table tr{display:block;border-bottom:2px solid var(--line);padding:8px 0} .stack-table td{display:block;border:0;padding:4px 12px} }
+/* Villus exits */
+.nutrient-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.nchip{appearance:none;font:inherit;font-weight:600;font-size:.9rem;padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.nchip[aria-pressed="true"]{border-color:var(--accent);background:var(--surface2)}
+.route-box{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+@media(max-width:640px){.route-box{grid-template-columns:1fr}}
+.route{border-radius:12px;padding:16px 18px;border:2px solid var(--line);opacity:.55;transition:opacity .2s,border-color .2s}
+.route.on{opacity:1}
+.route.portal.on{border-color:var(--portal);background:var(--teal-bg)} .route.lacteal.on{border-color:var(--lacteal);background:var(--gold-bg)}
+.route h4{margin:0 0 4px;font-size:1rem}
+/* Clocks */
+.clock-bars{display:grid;gap:10px}
+.clock-row{display:grid;grid-template-columns:110px 1fr 86px;gap:12px;align-items:center;font-size:.92rem}
+.clock-track{height:16px;background:var(--surface2);border-radius:999px;position:relative;overflow:hidden}
+.clock-fill{position:absolute;inset:0 auto 0 0;background:var(--teal);border-radius:999px}
+.clock-row .freq{font-family:"IBM Plex Mono",monospace;font-weight:600;text-align:right}
+@media(max-width:560px){.clock-row{grid-template-columns:86px 1fr 70px}}
+/* Marsh */
+.marsh-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:760px){.marsh-wrap{grid-template-columns:1fr}}
+input[type=range]{width:100%;accent-color:var(--accent);height:36px}
+.marsh-labels{display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;color:var(--muted)}
+/* Density */
+.dens-row{display:grid;grid-template-columns:120px 1fr 110px;gap:12px;align-items:center;font-size:.9rem;margin:7px 0}
+.dens-track{height:20px;background:var(--surface2);border-radius:6px;position:relative}
+.dens-fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:6px;min-width:3px}
+@media(max-width:560px){.dens-row{grid-template-columns:88px 1fr 84px;font-size:.82rem}}
+/* Myths */
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.fbtn{appearance:none;font:inherit;font-weight:600;font-size:.87rem;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.fbtn[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.myth{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:10px 0}
+.myth .claim{font-weight:700;font-size:1.02rem}
+.myth .fix{color:var(--muted);font-size:.94rem}
+.myth .rank{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-weight:600;margin-right:8px}
+.hidden{display:none!important}
+/* Sources */
+.src-list{font-size:.9rem;padding-left:1.1em}
+.src-list li{margin:7px 0;color:var(--muted)}
+.openq{background:var(--amber-bg);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.btn{display:inline-flex;align-items:center;gap:8px;appearance:none;border:0;cursor:pointer;font:inherit;font-weight:700;padding:12px 20px;border-radius:999px;background:var(--accent);color:#fff}
+.btn.secondary{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.copy-status{font-size:.88rem;color:var(--teal);font-weight:600;margin-left:10px}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.86rem}
+.note{font-size:.88rem;color:var(--muted)}
+.callout{border-left:4px solid var(--teal);background:var(--teal-bg);padding:14px 18px;border-radius:0 12px 12px 0;margin:14px 0}
+ul.tight{margin:.4em 0;padding-left:1.2em} ul.tight li{margin:4px 0}
+svg text{font-family:"IBM Plex Sans",sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">My Body — Inner Voyage · Mode research</div>
+  <h1>The gut is five metres, two exits, and four clocks.</h1>
+  <p class="lede">A fact-audit and design brief for the gastrointestinal mode — built from the 2026-10-30 deep-research report. Every number below carries the status the report gave it and the source it came from. Where the report hedged, this page hedges. Where it could not verify, this page says so.</p>
+  <div class="meta-row">
+    <span>Research retrieved via web index, <strong>2026-10-30 (EDT)</strong></span>
+    <span>·</span><span>Not live-browser verified in that run — spot-check any number before printing it on a Codex card</span>
+  </div>
+
+  <div class="verdict">
+    <h2>Design verdict</h2>
+    <div class="verdict-grid">
+      <div><p><strong>Build the route at in-vivo scale — ~5 m mouth-to-anus</strong> (Helander &amp; Fändriks 2014), not the cadaveric ~9 m — with a pH gradient, three nested surface-amplification scales, and <strong>two different exit routes from the villus</strong> as the core mechanic.</p></div>
+      <div><p><strong>First case: coeliac disease</strong> (villous-atrophy toggle). <strong>Second, short episode: <em>H. pylori</em> peptic ulcer.</strong> The portal-vs-lacteal split already exists in the game's lymph mode — the GI mode should be the mode that <em>explains</em> it.</p></div>
+    </div>
+  </div>
+
+  <nav class="subnav" aria-label="Sections">
+    <a href="#numbers">Numbers</a><a href="#route">The route</a><a href="#surface">Surface &amp; villi</a><a href="#exits">Two exits</a><a href="#clocks">Clocks</a><a href="#acid">Acid &amp; defence</a><a href="#microbiome">Microbiome</a><a href="#brain">Gut–brain</a><a href="#bedside">Bedside</a><a href="#case">The case</a><a href="#myths">Myth audit</a><a href="#sources">Sources</a>
+  </nav>
+</header>
+
+<!-- ============ NUMBERS ============ -->
+<section id="numbers">
+  <div class="sec-head"><div class="num">01 — HEADLINE NUMBERS</div><h2>Four famous figures, all revised</h2>
+  <p>The corrections that change the build, not just the Codex text.</p></div>
+  <div class="num-grid">
+    <div class="num-card"><div class="big">~5 m</div><div class="lbl">Total GI length, living</div><div class="old">Old figure: <s>~9 m</s> — that is the cadaver, after loss of smooth-muscle tone (cadaveric ~7–9 m). <span class="tag rev">Revised</span></div></div>
+    <div class="num-card"><div class="big">~32 m²</div><div class="lbl">Total mucosal surface area</div><div class="old">~30 m² small intestine, ~2 m² colon — “half a badminton court.” Old: <s>260–300 m² “tennis court”</s> <span class="tag rev">Revised</span></div></div>
+    <div class="num-card"><div class="big">~1.3 : 1</div><div class="lbl">Bacteria : human cells</div><div class="old">3.8×10¹³ bacteria vs 3.0×10¹³ human cells, ~0.2 kg (Sender et al. 2016). Old: <s>10 : 1</s> <span class="tag rev">Revised</span></div></div>
+    <div class="num-card"><div class="big">~9 L/day</div><div class="lbl">Fluid load through the gut</div><div class="old">≈2 L ingested + ~7 L secreted; only ~100–200 mL leaves in stool. <span class="tag est">Established</span></div></div>
+    <div class="num-card"><div class="big">3–5 : 1</div><div class="lbl">Normal villus : crypt ratio</div><div class="old">Falls below 3:1 in coeliac atrophy, to ~0 at Marsh 3c. <span class="tag est">Established</span></div></div>
+    <div class="num-card"><div class="big">100–500 M</div><div class="lbl">Enteric neurons — a range, not a fact</div><div class="old">~100 M is the older estimate; ~500 M is Furness's later one. Do not print one number as settled. <span class="tag deb">Debated</span></div></div>
+  </div>
+  <div class="callout"><strong>Design rule from the report:</strong> do not sum the classic segment lengths (25 cm + 2.5 m + 3.5 m + 1.5 m…) and call the result the living length. Those figures come from cadaver/surgical/textbook traditions with different stretch and tone. Helander &amp; Fändriks's review of intubation/radiological methods gives oro-anal length ~5 m in life, about two-thirds small intestine, small-intestinal inner diameter averaging 2.5 cm, large-intestinal 4.8 cm.</div>
+</section>
+
+<!-- ============ ROUTE ============ -->
+<section id="route">
+  <div class="sec-head"><div class="num">02 — THE ROUTE</div><h2>Station by station</h2>
+  <p>Pick a station. Transit time is the curriculum: seconds in the oesophagus, hours in the stomach and small bowel, a day or two in the colon. Chyme does not travel at uniform speed.</p></div>
+  <div class="explorer">
+    <div class="station-list" role="tablist" aria-label="GI stations" id="stationList"></div>
+    <div class="station-detail" id="stationDetail" aria-live="polite"></div>
+  </div>
+  <p class="note">Segment lengths marked “textbook” are the cadaveric-framing figures the report keeps for reference; the flyable route is the ~5 m in-vivo total above.</p>
+</section>
+
+<!-- ============ SURFACE ============ -->
+<section id="surface">
+  <div class="sec-head"><div class="num">03 — SURFACE &amp; MICROSCOPY</div><h2>How “tennis court” happened — and why it fell</h2>
+  <p>Textbooks multiplied three idealised factors — folds ×3, villi ×10, microvilli ×20 = <strong>×600</strong> — then multiplied by a smooth-cylinder area based on a cadaveric length, yielding 200–300 m². Helander &amp; Fändriks (2014) instead used the in-vivo length and measured biopsies: plicae amplify only ~×1.6, villi + microvilli together ×60–120 for small intestine, total ~32 m².</p></div>
+  <div class="two-col">
+    <div class="card">
+      <h3>The textbook multiplication <span class="tag simp">Reality-check only</span></h3>
+      <p class="mono" style="font-size:1.05rem">×3 folds × ×10 villi × ×20 microvilli = ×600</p>
+      <p>The ×600 chain is not fabricated — each factor appears in histology texts — but multiplying maxima from different preparations overstates the real, distension-dependent area. Show it in the L4 Reality-check, side by side with the measured estimate of ~30–40 m².</p>
+    </div>
+    <div class="card">
+      <h3>The measured scales <span class="tag est">Established</span></h3>
+      <ul class="tight">
+        <li><strong>Villi:</strong> 0.5–1.6 mm tall, 10–40 per mm², millions total; tallest in jejunum, shorter in ileum, absent in colon.</li>
+        <li><strong>Microvilli:</strong> ~1 µm long, 0.1 µm wide; ~1,000–3,000 per enterocyte. <span class="tag deb">Range debated</span></li>
+        <li><strong>Plicae circulares:</strong> prominent in jejunum, fading in ileum; measured amplification ~×1.6 (Helander morphometry) vs ×3 textbook. <span class="tag deb">Debated</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>The crypt–villus conveyor</h3>
+    <p><strong>Lgr5+ stem cells</strong> sit at the crypt base, intermingled with Paneth cells. Transit-amplifying daughters divide, differentiate (enterocytes, goblet, enteroendocrine, tuft cells; Paneth cells migrate <em>down</em> and live weeks), migrate up the villus, and are <strong>shed at the tip after 3–5 days</strong> — some human texts say 5–7 days. One of the fastest self-renewals in the body, and the mechanism behind both acid survival (§05) and coeliac crypt hyperplasia (§09).</p>
+    <p><strong>Enterocyte detail:</strong> tall columnar, basal nucleus, apical brush border under a <strong>glycocalyx</strong> — a fuzzy glycoprotein coat holding the brush-border enzymes (lactase, sucrase-isomaltase, peptidases) that finish digestion <em>at</em> the surface. <strong>Tight junctions</strong> apically are a regulated leak, not a weld; jejunal junctions are leakier than colonic.</p>
+    <p><strong>Enteroendocrine cells:</strong> ~1% of the epithelium, &gt;20 hormones — the largest endocrine organ by diffuse spread. Cast: G (gastrin), I (CCK), S (secretin), K (GIP), L (GLP-1, PYY), M (motilin), D (somatostatin), enterochromaffin (serotonin), ECL (histamine). Modern single-cell work shows cells can co-express and switch hormones — the one-cell-one-hormone letter code is a useful <span class="tag simp">Simplification</span>, not literal.</p>
+    <p><strong>Paneth cells:</strong> crypt base, long-lived, granules of α-defensins (HD5/6 in humans) and lysozyme, plus stem-cell niche signals (Wnt3, EGF, Notch ligand). Dysfunction is linked to Crohn's ileitis — a forward hook for the IBD arc.</p>
+    <p class="note">Sources: Barker/Clevers Lgr5 work as summarised in <em>Nat Commun</em> 2020;11:1936 (migration 3–5 days); “Enteroendocrine Dynamics,” <em>Endocr Rev</em> 2020;41:bnaa018.</p>
+  </div>
+</section>
+
+<!-- ============ EXITS ============ -->
+<section id="exits">
+  <div class="sec-head"><div class="num">04 — INSIDE ONE VILLUS</div><h2>Two exits, two destinations</h2>
+  <p>Each villus holds a capillary network just under the epithelium and a blind-ending central <strong>lacteal</strong>. Which drain a nutrient takes is decided mostly by size and solubility. Tap a nutrient to see its route.</p></div>
+  <div class="card">
+    <div class="nutrient-row" id="nutrientRow"></div>
+    <div id="nutrientWhy" aria-live="polite" style="font-weight:600;min-height:1.6em"></div>
+    <div class="route-box">
+      <div class="route portal" id="routePortal"><h4>→ Villus capillary → hepatic portal vein → liver first</h4><p>Small, water-soluble cargo. The liver screens and processes it before it reaches the rest of the body.</p></div>
+      <div class="route lacteal" id="routeLacteal"><h4>→ Lacteal → mesenteric lymph → cisterna chyli → thoracic duct → systemic blood</h4><p>Chylomicrons (~75–1,200 nm) are too large for capillary endothelium; lacteals have open junctions. This route <em>bypasses liver first pass</em> — it is exactly the chylomicron traffic already shown in the game's cisterna chyli.</p></div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="card"><h3>Transporters worth naming</h3>
+      <ul class="tight">
+        <li><strong>SGLT1</strong> — apical, 2 Na⁺ : 1 glucose/galactose, secondary active. The basis of oral rehydration solution.</li>
+        <li><strong>GLUT5</strong> — fructose, facilitated, capacity-limited. <strong>GLUT2</strong> — basolateral exit.</li>
+        <li><strong>PepT1</strong> — H⁺-coupled di/tripeptide uptake; a major protein route, often omitted.</li>
+        <li><strong>DMT1</strong> — iron, mainly duodenum/proximal jejunum, after Fe³⁺ reduction (Dcytb; vitamin C helps). Export via ferroportin, blocked by hepatic <strong>hepcidin</strong>. There is no regulated iron excretion — absorption <em>is</em> the control point.</li>
+        <li><strong>Cubam (cubilin–amnionless)</strong> — terminal ileum; takes up the B12–intrinsic-factor complex. Liver stores 2–5 mg of B12 — years' supply — so deficiency is slow.</li>
+        <li><strong>ASBT</strong> — terminal ileum; bile-acid reuptake (see pool, right).</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Fat, step by step <span class="tag est">Established</span></h3>
+      <p>Emulsification (bile salts + motility) → pancreatic lipase/colipase → <strong>mixed micelles</strong> ferry fatty acids and monoglycerides across the unstirred water layer → enterocyte re-esterifies them in smooth ER → <strong>chylomicron assembly with apoB-48</strong> in the Golgi → exocytosis → lacteal. Bile salts themselves are <em>not</em> absorbed here — they ride on to the ileum.</p>
+      <h3 style="margin-top:16px">The bile-acid loop</h3>
+      <p>Pool <strong>~3 g (2–4 g)</strong>, recycled <strong>~4–12 cycles/day</strong> (many texts simplify to 6–10), secreting 12–36 g/day; <strong>≥95% reabsorbed</strong> in the terminal ileum; <strong>0.2–0.6 g/day</strong> lost in faeces equals hepatic synthesis from cholesterol. Ileal resection or disease → bile-acid diarrhoea + fat malabsorption: a perfect portal/lymph cross-mode quiz.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOCKS ============ -->
+<section id="clocks">
+  <div class="sec-head"><div class="num">05 — CLOCKS &amp; MOTILITY</div><h2>Four clocks, nested honestly</h2>
+  <p>Interstitial cells of Cajal are the pacemakers. The slow wave sets the <em>maximum</em> contraction frequency; nerves and hormones decide whether a contraction actually happens. The frequency gradient — fast proximally, slow distally — is why contents move aborally.</p></div>
+  <div class="card">
+    <h3 style="margin-bottom:14px">Slow-wave frequency by region <span class="tag est">Established</span></h3>
+    <div class="clock-bars" id="clockBars"></div>
+    <p class="note" style="margin-top:12px">Duodenal 12/min ≈ breathing rate (12–16/min) is a nice coincidence to teach — not a coupling to imply. Heartbeat ~1/s and breathing are the fast foreground; gastric 3/min is a visible 20-second swell — playable in real time. The MMC (90–120 min) and colonic transit (24–48 h) belong on a mission elapsed-time HUD, with time-lapse ×60 / ×1,000 clearly labelled.</p>
+  </div>
+  <div class="two-col">
+    <div class="card"><h3>Gastric emptying: liquids are not solids</h3>
+      <svg viewBox="0 0 460 240" width="100%" role="img" aria-label="Chart: stomach contents remaining over time. Liquids fall exponentially with half-time under 20 to 30 minutes and no lag. Solids hold flat for a 20 to 30 minute lag, then fall roughly linearly with half-time 60 to 120 minutes.">
+        <line x1="52" y1="200" x2="440" y2="200" stroke="currentColor" stroke-opacity=".35"/>
+        <line x1="52" y1="16" x2="52" y2="200" stroke="currentColor" stroke-opacity=".35"/>
+        <text x="52" y="222" font-size="11" fill="currentColor" opacity=".7">0 min</text>
+        <text x="400" y="222" font-size="11" fill="currentColor" opacity=".7">240 min</text>
+        <text x="8" y="24" font-size="11" fill="currentColor" opacity=".7">100%</text>
+        <text x="14" y="112" font-size="11" fill="currentColor" opacity=".7">50%</text>
+        <path d="M52,20 C110,60 150,120 230,165 C300,195 380,198 440,199" fill="none" stroke="#1f6b5a" stroke-width="3"/>
+        <path d="M52,20 L120,20 C170,30 210,80 280,130 C340,168 400,192 440,197" fill="none" stroke="#b44a26" stroke-width="3"/>
+        <text x="238" y="150" font-size="12" font-weight="700" fill="#1f6b5a">Liquids — t½ &lt;20–30 min, no lag</text>
+        <text x="150" y="52" font-size="12" font-weight="700" fill="#b44a26">Solids — 20–30 min lag, then t½ ~60–120 min</text>
+      </svg>
+      <p>Solids wait while the antrum grinds them to <strong>1–2 mm</strong>; only then does the pylorus pass them, in spurts. Fat, hyperosmolality and acid in the duodenum slow emptying via CCK, secretin and the enterogastric reflex. A single “2–4 h” figure for everything is wrong. Source: Farrell 2019, gastric emptying scintigraphy.</p>
+    </div>
+    <div class="card"><h3>Patterns of movement</h3>
+      <ul class="tight">
+        <li><strong>Peristalsis</strong> — contraction behind, receptive relaxation ahead; the propulsive wave.</li>
+        <li><strong>Segmentation</strong> — stationary ring contractions; mixing, little net movement. The dominant fed pattern in small bowel. Haustral churning is the colon analogue.</li>
+        <li><strong>Migrating motor complex</strong> — fasting only, cycle <strong>90–120 min</strong>: Phase I quiescence → II irregular → <strong>III, ~5–10 min of maximal rhythmic contractions sweeping stomach→ileum — the “housekeeper”</strong> that clears debris, shed cells and bacteria → IV transition. Motilin peaks initiate gastric Phase III; feeding abolishes the MMC instantly. Large indigestible objects wait for Phase III, when the pylorus opens wider.</li>
+        <li><strong>Gastric accommodation</strong> — swallow triggers vagovagal receptive relaxation (NO/VIP) of the fundus; the stomach holds ~1–1.5 L with little pressure rise. Failure → early satiety.</li>
+        <li><strong>Gastrocolic reflex</strong> — food in the stomach → colonic mass movements (1–3+/day, often post-breakfast) and defaecation urge. The effect is real; the relative contributions of gastrin/CCK vs extrinsic nerves are debated in detail.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACID ============ -->
+<section id="acid">
+  <div class="sec-head"><div class="num">06 — ACID &amp; DEFENCE</div><h2>Attack vs defence — the balance is the lesson</h2>
+  <p>Parietal secretion is ~150–155 mmol/L HCl at pH ~0.8–0.9 <em>before mixing</em>; the fed/fasting lumen sits at pH 1.5–3.5. “Stomach pH = 1,” constant, is not a fact.</p></div>
+  <div class="two-col">
+    <div class="card"><h3>The parietal cell <span class="tag est">Established</span></h3>
+      <p>Apical <strong>H⁺/K⁺-ATPase</strong> — the proton pump, target of PPIs — is inserted from tubulovesicles on activation; Cl⁻ follows; HCO₃⁻ exits basolaterally (the alkaline tide). Three stimulants converge and <strong>potentiate</strong> each other: <strong>histamine</strong> (ECL cells, H2, cAMP — the dominant amplifier), <strong>gastrin</strong> (G cells, acting largely via ECL histamine), <strong>acetylcholine</strong> (vagus, M3, Ca²⁺). Somatostatin is the main brake. Total parietal cells ~1×10⁹ is a widely repeated order-of-magnitude estimate. <span class="tag deb">Debated</span></p>
+      <p><strong>Phases</strong> — give ranges, not a pie chart: cephalic ~20–30% (sight/smell/thought, vagal), gastric ~50–70% (distension + peptides → gastrin), intestinal ~5–10% stimulatory, rapidly overridden by intestinal inhibitory signals. Textbooks vary (30/60/10 vs 20/70/5). <span class="tag deb">Debated in detail</span></p>
+    </div>
+    <div class="card"><h3>Why the stomach does not digest itself</h3>
+      <p>No single answer — it is multi-layer:</p>
+      <ul class="tight">
+        <li><strong>Mucus–bicarbonate barrier:</strong> adherent mucus gel traps HCO₃⁻; surface pH ~6–7 while the lumen is ~2 — a gradient within ~100–500 µm.</li>
+        <li>Tight junctions + rapid restitution of surface epithelium.</li>
+        <li><strong>Prostaglandins (PGE₂/PGI₂)</strong> maintain mucus, HCO₃⁻ and mucosal blood flow.</li>
+        <li>Rich blood flow washes out back-diffused H⁺.</li>
+        <li>Epithelial renewal every few days; pepsinogen stays inactive until luminal acid activates it.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="card"><h3><em>H. pylori</em> — lives in the mucus, not the acid <span class="tag est">Established</span></h3>
+      <p>A spiral, flagellated, microaerophilic Gram-negative in the mucus layer. Its <strong>urease</strong> splits urea into an NH₃/CO₂ cloud that neutralises its microenvironment. Adhesins bind the epithelium; VacA/CagA (strain-dependent) plus inflammation disrupt the barrier and alter gastrin/somatostatin. Antral-predominant infection tends to raise acid → duodenal ulcer pattern; corpus pangastritis tends to lower acid → gastric ulcer and cancer risk. <strong>Most infected people never get an ulcer</strong> — do not show infection as inevitable ulcer.</p>
+    </div>
+    <div class="card"><h3>NSAIDs — defence lowered, acid unchanged <span class="tag est">Established</span></h3>
+      <p>Systemic <strong>COX-1 inhibition → fewer prostaglandins → less mucus, less HCO₃⁻, less mucosal blood flow</strong> is the main mechanism, plus direct topical irritation. Acid need not be high for injury. That asymmetry — attack vs defence — is the teachable model for the ulcer case.</p>
+      <p class="note">And the correction to the school version: acid denatures protein, activates pepsinogen, kills many microbes and aids iron/B12 handling — but most chemical digestion is pancreatic and brush-border work in the small intestine. Acid does not dissolve bone or metal on meal timescales, and many pathogens and spores survive it. <span class="tag wrong">“Acid melts everything” — wrong</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MICROBIOME ============ -->
+<section id="microbiome">
+  <div class="sec-head"><div class="num">07 — MICROBIOME AT REAL SCALE</div><h2>Geography is the lesson: eight orders of magnitude</h2>
+  <p>Density rises ~8 orders of magnitude along the route. The small bowel is <em>sparsely</em> colonised — acid, bile, fast transit and the MMC housekeeper keep it that way. The colon is a fermentation vat. Do not fill the jejunum with a dense bacterial swarm.</p></div>
+  <div class="card">
+    <h3 style="margin-bottom:12px">Bacterial density by segment (per gram of content, log scale)</h3>
+    <div id="densChart"></div>
+    <p class="note">Totals: 3.8×10¹³ bacteria vs 3.0×10¹³ human cells in a 70-kg reference man, ratio ~1.3:1, bacterial mass ~0.2 kg (Sender, Fuchs &amp; Milo 2016). The 10:1 figure traces to a 1970s back-of-envelope estimate. Delightful Reality-check from the same paper: defaecation can transiently flip the ratio.</p>
+  </div>
+  <div class="two-col">
+    <div class="card"><h3>The colon's two mucus layers</h3>
+      <svg viewBox="0 0 440 190" width="100%" role="img" aria-label="Diagram: colon wall at bottom, a dense inner mucus layer essentially free of bacteria, then a loose outer mucus layer colonised by bacteria, then the lumen.">
+        <rect x="10" y="150" width="420" height="30" rx="4" fill="#b44a26" opacity=".85"/>
+        <rect x="10" y="112" width="420" height="38" rx="4" fill="#1f6b5a" opacity=".55"/>
+        <rect x="10" y="52" width="420" height="60" rx="4" fill="#1f6b5a" opacity=".18"/>
+        <g fill="#8f3719"><circle cx="70" cy="78" r="5"/><circle cx="140" cy="66" r="4"/><circle cx="215" cy="84" r="5"/><circle cx="295" cy="70" r="4"/><circle cx="365" cy="82" r="5"/><circle cx="105" cy="94" r="4"/><circle cx="330" cy="96" r="4"/></g>
+        <text x="18" y="169" font-size="12" font-weight="700" fill="#fff">Epithelium</text>
+        <text x="18" y="136" font-size="11.5" font-weight="700">Inner mucus — bacteria-free (~50 µm, mouse)</text>
+        <text x="18" y="44" font-size="11.5" font-weight="700">Outer mucus — colonised (~100 µm, mouse) · lumen above</text>
+      </svg>
+      <p>Johansson, Hansson and colleagues (PNAS 2008, 2011): the inner MUC2 layer is dense, stratified and essentially bacteria-free; the outer layer is expanded MUC2 and is the habitat. <strong>Caveat the report insists on:</strong> those thicknesses are mouse measurements; human layers exist but figures vary — do not print mouse µm values as human. The small intestine has a single, looser, penetrable mucus layer — do not copy the colon bilayer everywhere.</p>
+    </div>
+    <div class="card"><h3>Fermentation &amp; SCFAs <span class="tag est">Established</span></h3>
+      <p>Fibre fermentation in the colon yields acetate, propionate and <strong>butyrate — the preferred fuel of colonocytes</strong>, oxidised locally, supporting the barrier with anti-inflammatory signalling. That colonocytes are “starved” without butyrate is an emerging mechanistic story — present it as debated detail beyond the fuel fact.</p>
+      <p>Dominant colon phyla: <strong>Firmicutes (now Bacillota)</strong> and <strong>Bacteroidetes (Bacteroidota)</strong> together form the large majority, with Actinobacteria, Proteobacteria and Verrucomicrobia minorities. Phylum names are being renamed — the Codex can note both.</p>
+      <p><strong>Show:</strong> a density gradient, an anaerobe-dominated colon lumen held off the epithelium by inner mucus, fermentation and SCFA pickup in the colon only. <strong>Don't show:</strong> bacteria inside cells or tissue in health, uniform “good bacteria” characters, or one-species-fixes-everything probiotic claims.</p>
+      <p><strong>Sterile at birth?</strong> <span class="tag deb">Debated, leaning defensible</span> — Perez-Muñoz et al. 2017 found evidence for a placental/fetal microbiome weak and largely contamination in low-biomass sequencing. Present the healthy fetal gut as sterile/near-sterile; colonisation happens during and after birth. Do not teach a placental microbiome as fact.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUT-BRAIN ============ -->
+<section id="brain">
+  <div class="sec-head"><div class="num">08 — ENTERIC NERVOUS SYSTEM &amp; GUT–BRAIN</div><h2>Autonomous, yes. A second thinking brain, no.</h2></div>
+  <div class="two-col">
+    <div class="card"><h3>Two plexuses, one reflex</h3>
+      <ul class="tight">
+        <li><strong>Myenteric (Auerbach)</strong> — between longitudinal and circular muscle; motility.</li>
+        <li><strong>Submucosal (Meissner)</strong> — secretion, blood flow, sensing. Plus enteric glia, more numerous than the neurons.</li>
+        <li><strong>Peristaltic reflex:</strong> mucosal stimulus (distension; 5-HT from enterochromaffin cells) → intrinsic primary afferent neurons → ascending excitatory motor neurons (ACh, substance P — contraction on the oral side) + descending inhibitory (NO, VIP, ATP — relaxation on the anal side).</li>
+        <li>It runs <strong>without the CNS</strong> — isolated gut peristalses. “Second brain” is a metaphor for autonomy, not cognition. <span class="tag simp">Simplification if literal</span></li>
+        <li><strong>Neuron count:</strong> hundreds of millions; estimates range ~100–500 million depending on counting method and species extrapolation. Anyone giving one exact number is overselling. <span class="tag deb">Debated</span></li>
+      </ul>
+    </div>
+    <div class="card"><h3>Serotonin: the correction that matters</h3>
+      <p>~90% (often quoted 90–95%) of the body's serotonin is made by gut enterochromaffin cells (TPH1). It drives motility, secretion and nausea signalling via vagal and ENS 5-HT₃/5-HT₄ receptors; platelets mop up the excess.</p>
+      <p><strong>It does not cross the blood–brain barrier. Brain serotonin is made separately (TPH2).</strong> So “90% of your serotonin is in your gut, therefore gut health directly sets mood serotonin” is <span class="tag wrong">Simplification-wrong</span>. Gut–brain influence on mood is real but indirect — vagal, immune, metabolite, tryptophan availability — and effect sizes are debated.</p>
+      <p><strong>The vagus mostly listens:</strong> ~80% of its gut fibres are afferent — distension, nutrients (via CCK/GLP-1/PYY signalling to vagal terminals), nausea — while it modulates upper-GI motility and acid. It does not micromanage the colon; pelvic nerves serve the distal colon and rectum. A good in-game “radio link to HQ” UI, provided the Codex notes ENS local autonomy.</p>
+    </div>
+  </div>
+  <div class="card"><h3>Duodenal inputs — bile &amp; pancreas <span class="tag est">Established</span></h3>
+    <div class="two-col" style="gap:20px">
+      <div><p><strong>Bile ~0.5 L/day</strong> (some texts up to 1.0 L — present the range 0.5–1.0 L). The gallbladder stores and concentrates it between meals. Bile contains <strong>no enzymes</strong> — its jobs are emulsification, micelles, and excretion of bilirubin and cholesterol.</p></div>
+      <div><p><strong>Pancreatic juice 1.0–1.5 L/day, pH ~8.0–8.3.</strong> Duct cells make the HCO₃⁻-rich fluid (<strong>secretin</strong>-driven, triggered by acid); acinar cells make the enzyme-rich secretion (<strong>CCK</strong>-driven, triggered by fatty acids/peptides): lipase/colipase, amylase, and proteases shipped as <strong>zymogens</strong> — trypsinogen is activated by enteropeptidase at the brush border, and trypsin activates the rest. A safety cascade worth its own Codex card.</p></div>
+    </div>
+    <p><strong>Sphincter of Oddi:</strong> tonically closed between meals, diverting bile to the gallbladder; CCK relaxes it <em>while</em> contracting the gallbladder. One hormone, two opposite coordinated actions — the teachable point.</p>
+  </div>
+</section>
+
+<!-- ============ BEDSIDE ============ -->
+<section id="bedside">
+  <div class="sec-head"><div class="num">09 — BEDSIDE, BEFORE YOU FLY</div><h2>Sounds are a clue. They never prove.</h2>
+  <p>The exam sequence is <strong>inspection → auscultation → percussion → palpation</strong> — auscultate before palpating so you don't stir up sounds. (StatPearls, <em>Abdominal Examination</em>, NBK459220.)</p></div>
+  <div class="two-col">
+    <div class="card"><h3>Bowel sounds — with the honesty flag</h3>
+      <p>Normal: <strong>5–35 per minute</strong> (StatPearls; 5–34 in nursing texts), irregular low-pitched gurgling and clicking from gas + fluid — synthesisable as irregular filtered gurgles at random intervals, <em>not</em> a metronome. <strong>Hypoactive:</strong> soft/infrequent (ileus, peritonitis, post-op). <strong>Hyperactive:</strong> loud, frequent, high-pitched tinkling and rushes with colicky pain in early obstruction. “Absent” only after prolonged listening — texts vary 1–5 minutes, which is itself a tell.</p>
+      <p><span class="tag deb">Poor standalone value</span> Critical reviews find poor inter-observer agreement, wide normal variation, sounds that transmit across the abdomen (not localised), and low sensitivity/specificity alone — hyperactive sounds for obstruction are quoted at sensitivity only ~40%, specificity ~89–94% in secondary sources. Presence of sounds does not exclude obstruction or ileus; absence does not prove it. Rounds should reward: <em>sounds support; history and imaging decide.</em></p>
+    </div>
+    <div class="card"><h3>The rest of the exam</h3>
+      <ul class="tight">
+        <li><strong>Succussion splash</strong> — splashing on rocking a fluid+gas-filled stomach; abnormal only <strong>&gt;3–4 h after a meal/drink</strong> → gastric outlet obstruction. Normal shortly after drinking; the timing caveat is the exam point.</li>
+        <li><strong>Percussion</strong> — generalised tympany over gas-filled bowel; dull over liver, solid organs, full bladder.</li>
+        <li><strong>Shifting dullness</strong> — flank dullness supine that moves to the dependent side on rolling → free fluid/ascites; needs roughly &gt;500 mL–1 L to detect reliably, sensitivity modest. Direct link to the liver/portal mode.</li>
+        <li><strong>Murphy sign</strong> — fingers under the right costal margin; deep inspiration brings the inflamed gallbladder down onto them → inspiratory arrest → acute cholecystitis. Sonographic Murphy is more reliable than clinical.</li>
+        <li><strong>Palpation</strong> — tender area last; guarding, rigidity, rebound = peritonism. Inspection hooks: distension, visible peristalsis, scars, herniae.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card"><h3>Outside views: tests &amp; the real “inside view”</h3>
+    <p><strong>FIT</strong> (faecal immunochemical test, detects human globin; no dietary restriction) is the modern colorectal screening triage — it has <em>replaced</em> guaiac FOBT. <span class="tag rev">Terminology revised</span> <strong>Faecal calprotectin</strong> (neutrophil protein, common cut-off ~50 µg/g) separates IBD inflammation from IBS and rules IBD out well — it is <strong>not</strong> a cancer test, and rises with infection and NSAIDs. Anti-tTG IgA (+ total IgA) is the coeliac test (§09 case).</p>
+    <p><strong>Endoscopy</strong> sees the mucosal surface at centimetre–millimetre scale in real colour — redness, ulcers, polyps, bleeding, flattened duodenal folds and scalloping in coeliac — plus biopsy forceps for the microscopic scale. It does <strong>not</strong> show individual villi in normal view, and never shows microvilli, cells, transporters or bacteria. The micro-sub is therefore <em>three scale-jumps beyond endoscopy</em>: lumen (endoscopy-true) → villus forest (histology scale) → brush border/cell (EM scale). <strong>Label the scale on screen at all times</strong> — the single best anti-misconception UI feature.</p>
+  </div>
+</section>
+
+<!-- ============ CASE ============ -->
+<section id="case">
+  <div class="sec-head"><div class="num">10 — THE CASE DECISION</div><h2>First case: coeliac disease</h2>
+  <p>One toggle teaches the whole mode. Drag the Marsh stage and watch the villus forest — then note what fails downstream: duodenal iron pickup, fat pickup into the lacteal (pale, scanty chyle — a direct callback to lymph mode), and anaemia in the circulation mode.</p></div>
+  <div class="card">
+    <div class="marsh-wrap">
+      <div>
+        <svg viewBox="0 0 420 230" width="100%" role="img" aria-label="Diagram of villi and crypts changing with Marsh stage" id="marshSvg">
+          <rect x="10" y="196" width="400" height="24" rx="4" fill="currentColor" opacity=".18"/>
+          <g id="marshVilli"></g>
+          <text x="14" y="214" font-size="11" fill="currentColor" opacity=".75">Muscularis / submucosa</text>
+        </svg>
+        <input type="range" id="marshRange" min="0" max="4" step="1" value="0" aria-label="Marsh stage" />
+        <div class="marsh-labels"><span>Marsh 0</span><span>1</span><span>2</span><span>3a</span><span>3b</span><span>3c</span></div>
+        <p class="note">Slider steps: 0 · 1 · 2 · 3a/3b combined view · 3c. Crypt depth grows as villi shrink — compensation, drawn to the report's ratios.</p>
+      </div>
+      <div aria-live="polite">
+        <h3 id="marshTitle">Marsh 0 — normal</h3>
+        <p id="marshText"></p>
+        <p><strong>Villus : crypt ratio:</strong> <span class="mono" id="marshRatio">3–5 : 1</span></p>
+        <p class="note">Serology: <strong>anti-tTG IgA</strong> — always check total IgA, since IgA deficiency causes false negatives — plus EMA. HLA-DQ2/DQ8 is essentially required genetically but common in the population, so it <em>excludes</em> rather than confirms. Sources: <em>Med J Aust</em> 2017;207:173–178; Celiac Disease Revisited review (Marsh–Oberhuber table), PMC8995660.</p>
+        <p class="note"><strong>Treatment flight:</strong> gluten-free replay restores villi over weeks on the HUD clock — mucosal recovery takes months in adults, faster in children. Do not promise instant regrowth.</p>
+      </div>
+    </div>
+  </div>
+  <div class="tbl-wrap"><table class="stack-table">
+    <thead><tr><th>Candidate</th><th>Why it teaches</th><th>Reuses</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Coeliac disease</strong></td><td>Absorption, villus biology, immune/GALT, iron/B12/folate, HLA-DQ2/8</td><td>Highest — lacteal route fails visibly, portal shrinks, Peyer's/GALT, anaemia downstream</td><td><strong>FIRST CASE</strong></td></tr>
+      <tr><td><strong><em>H. pylori</em> peptic ulcer</strong></td><td>Acid–defence balance, urease, NSAID contrast, gastrin</td><td>Stomach set; bleeding vessel reuses circulation</td><td><strong>SECOND — short episode</strong> (urea breath test outside view; eradication + PPI)</td></tr>
+      <tr><td><strong>Small-bowel obstruction</strong></td><td>Motility, fluid sequestration, tinkling sounds</td><td>Motility clocks; little absorption/lymph reuse</td><td>Third / emergency mini-case</td></tr>
+      <tr><td><strong>IBD (Crohn vs UC)</strong></td><td>Rich but <em>two</em> diseases: Crohn = any segment, skip lesions, transmural → strictures/fistulae; UC = colon only, from rectum, continuous, mucosal only</td><td>Immune + colon; needs large new colon content</td><td>Full second mode arc — too big for first case</td></tr>
+      <tr><td><strong>Colorectal cancer / screening</strong></td><td>Screening logic, polyp→cancer sequence, FIT</td><td>Colonoscopy outside view; little physiology reuse</td><td>Later public-health episode</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- ============ MYTHS ============ -->
+<section id="myths">
+  <div class="sec-head"><div class="num">11 — MYTH AUDIT</div><h2>The ranked corrections list</h2>
+  <p>The report's 15 ranked factual corrections, in its order — written to be applied directly to the build. Filter by verdict.</p></div>
+  <div class="filter-row" role="group" aria-label="Filter corrections">
+    <button class="fbtn" data-filter="all" aria-pressed="true">All 15</button>
+    <button class="fbtn" data-filter="rev" aria-pressed="false">Revised figures</button>
+    <button class="fbtn" data-filter="wrong" aria-pressed="false">Wrong / simplification-wrong</button>
+    <button class="fbtn" data-filter="simp" aria-pressed="false">Framing &amp; terminology</button>
+  </div>
+  <div id="mythList"></div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section id="sources">
+  <div class="sec-head"><div class="num">12 — SOURCES, DATASETS &amp; OPEN QUESTIONS</div><h2>What this stands on — and what it couldn't verify</h2></div>
+  <div class="two-col">
+    <div class="card"><h3>Named sources</h3>
+      <ul class="src-list">
+        <li>Helander &amp; Fändriks 2014, <em>Scand J Gastroenterol</em> 49:681–689, DOI 10.3109/00365521.2014.898326 — <a href="https://pubmed.ncbi.nlm.nih.gov/24694282/">PubMed</a> (length &amp; surface area)</li>
+        <li>Sender, Fuchs &amp; Milo 2016, <em>PLoS Biol</em> 14:e1002533, DOI 10.1371/journal.pbio.1002533 — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4991899/">PMC</a> (cell counts)</li>
+        <li>Johansson et al. 2011, <em>PNAS</em>, DOI 10.1073/pnas.1006451107 — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3063600/">PMC</a> (colon mucus bilayer)</li>
+        <li>Perez-Muñoz et al. 2017, <em>Microbiome</em> 5:48, DOI 10.1186/s40168-017-0268-4 — <a href="https://pmc.ncbi.nlm.nih.gov:443/articles/PMC5410102/">PMC</a> (sterile womb evidence)</li>
+        <li>Farrell 2019, <em>J Nucl Med Technol</em> 47:111–119, DOI 10.2967/jnmt.117.227892 — <a href="https://tech.snmjournals.org/content/47/2/111.full">journal</a> (gastric emptying)</li>
+        <li>“Enteroendocrine Dynamics” 2020, <em>Endocr Rev</em> 41:bnaa018, DOI 10.1210/endrev/bnaa018 — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7320824/">PMC</a></li>
+        <li>Crypt–villus / Lgr5 migration, <em>Nat Commun</em> 2020, DOI 10.1038/s41467-020-15714-x — <a href="https://pmc.ncbi.nlm.nih.gov:443/articles/PMC7176679/">PMC</a></li>
+        <li>Coeliac review 2017, <em>Med J Aust</em> 207:173–178, DOI 10.5694/mja16.00788 — <a href="https://www.mja.com.au/journal/2017/207/4/coeliac-disease-review-diagnosis-and-management">journal</a>; Marsh table — <a href="https://pmc.ncbi.nlm.nih.gov:443/articles/PMC8995660/">PMC8995660</a></li>
+        <li>StatPearls <em>Abdominal Examination</em>, NBK459220 — <a href="https://www.ncbi.nlm.nih.gov/books/NBK459220/">NCBI Bookshelf</a></li>
+        <li>Guyton &amp; Hall slow-wave values via <a href="https://clinicalpub.com/general-principles-of-gastrointestinal-functionmotility-nervous-control-and-blood-circulation/">ClinicalPub GI chapter</a>; textbook corroboration (Guyton &amp; Hall; Boron &amp; Boulpaep; Ganong; Tortora) for secretions, bile-acid pool and transporter detail</li>
+        <li>Tongue map — <a href="https://www.smithsonianmag.com/science-nature/neat-and-tidy-map-tastes-tongue-you-learned-school-all-wrong-180963407/">Smithsonian Magazine</a> (Hänig 1901 thresholds mis-plotted by Boring 1942; Collings 1974 re-test)</li>
+        <li>Deloose et al. 2012, <em>Nat Rev Gastroenterol Hepatol</em> 9:271–285 (MMC — title/journal/year as given in the report; DOI not quoted there)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card"><h3>Open datasets — with licence honesty</h3>
+        <ul class="tight">
+          <li><strong>Gut Cell Atlas</strong> (Oliver et al., <em>Nature</em> 2024): 25 datasets harmonised, <strong>1.6 million cells</strong>, 136 cell states, including coeliac/Crohn/UC samples; portal gutcellatlas.org, described by Wellcome Sanger as freely available (<a href="https://www.sanger.ac.uk/news_item/mapping-1-6-million-gut-cells-to-find-new-ways-to-treat-disease/">Sanger news</a>). Use for cell-type instancing ratios — check per-dataset licences before commercial reuse; “freely available for research” ≠ public domain.</li>
+          <li><strong>Human Protein Atlas</strong> — Creative Commons Attribution per its <a href="https://www.proteinatlas.org/about/licence">licence page</a> (verify the current version before shipping); Histology Dictionary has annotated gut sections. Best legal source for histology reference stills — attribute (Uhlén et al., <em>Science</em> 2015, DOI 10.1126/science.1260419).</li>
+          <li><strong>Gut models / common coordinate framework</strong> (Burger et al. 2023, DOI 10.1186/s12911-023-02111-9) — fully open-source 1D/2D/3D gut models; ready-made centreline logic for station placement.</li>
+          <li><strong>Cell Image Library</strong> — licence varies per image (many CC BY / CC BY-NC); verify each asset.</li>
+        </ul>
+      </div>
+      <div class="openq"><h3 style="margin-bottom:8px">Could not verify — stated plainly</h3>
+        <ul class="tight">
+          <li><strong>No clearly open-licence endoscopy image atlas</strong> was verified; most society atlases are copyrighted/member resources. Do not scrape endoscopy photos — redraw appearances as stylised scenes, or license an atlas.</li>
+          <li><strong>Parietal-cell total</strong> (~1×10⁹): widely repeated, but the primary morphometry was not retrieved — labelled Debated throughout.</li>
+          <li><strong>Human colon mucus thicknesses:</strong> Johansson's µm values are mouse; human layers exist, figures vary.</li>
+          <li><strong>Cell Image Library</strong> per-image licences not individually checked in this run.</li>
+          <li><strong>Bile volume:</strong> sources split 0.5 L vs up to 1.0 L/day — reported as a range.</li>
+          <li>University histology banks (Michigan/Yale etc.) are free to view for teaching but not clearly open-licence for redistribution — drawing reference only.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Builder simplifications from the report</h3>
+    <p>Villi = one instanced finger mesh with height/density parameters per segment — the coeliac toggle is that one parameter. Brush border = fresnel/rim fuzz shader + glycocalyx noise, never geometry. Plicae = torus-segment instancing fading through the ileum. Bacteria = density-graded particle field, excluded from the colon's inner-mucus shell by a distance field. Chylomicrons = large instanced spheres in the lacteal only; sugars/amino acids = small particles in the capillary — <em>the size difference is the lesson</em>. Slow waves = a travelling emissive band on the wall shader at the region-correct frequency.</p>
+    <div style="margin-top:16px">
+      <button class="btn" id="copyBtn" type="button">Copy research digest (Markdown)</button>
+      <span class="copy-status" id="copyStatus" aria-live="polite"></span>
+      <p class="note" style="margin-top:10px">The digest carries the verdict, headline numbers, the 15 ranked corrections, the case decision and the could-not-verify list — formatted to paste into a Margin Chat document.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built from the Inner Voyage gastrointestinal deep-research report (retrieved via web index 2026-10-30, EDT). Status tags follow the report: <strong>Established</strong> = textbook + primary literature agree · <strong>Revised</strong> = old figure superseded by a named re-measurement · <strong>Debated</strong> = genuine range/uncertainty · <strong>Simplification-wrong</strong> = commonly taught, should not be reproduced as fact. DOIs are shown only where the research itself displayed them.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Station explorer ---------- */
+var stations=[
+ {name:"Mouth",sub:"~1 min game-time",title:"Mouth",tags:'<span class="tag est">Established</span>',
+  stats:[["Saliva","1.0–1.5 L/day"],["Saliva pH","~6.7–7.0"],["Transit","~1 min"]],
+  body:"<p>Salivary <strong>α-amylase (ptyalin)</strong> begins starch digestion; lingual lipase is minor. Chewing and swallowing take about a minute of game-time.</p><p><strong>Taste: no zones.</strong> The tongue map is a mis-plotting — Hänig's 1901 threshold differences were tiny and Boring (1942) drew them as zones; all five tastes are detected across all taste-bud-bearing regions (Collings 1974 re-test).</p>"},
+ {name:"Oesophagus",sub:"25 cm · ~6–10 s",title:"Oesophagus",tags:'<span class="tag est">Established</span>',
+  stats:[["Length","~25 cm"],["Diameter","~2 cm"],["Peristalsis","~3–4 cm/s"],["Solid transit","~6–15 s"],["Liquid transit","~1 s"]],
+  body:"<p>Upper third striated muscle, smooth muscle distally. Primary peristalsis reaches the stomach in ~6–9 s; liquids take ~1 s upright, gravity-assisted. No digestion or absorption of note.</p><p>The <strong>lower oesophageal sphincter</strong> is not a thick anatomical ring so much as a physiological high-pressure zone (plus the crural diaphragm) — flag it as a simplification if drawn as a literal valve door. Its failure is reflux.</p>"},
+ {name:"Stomach",sub:"Reservoir · grinder · pump",title:"Stomach",tags:'<span class="tag est">Established</span>',
+  stats:[["Length","~25 cm"],["Empty volume","~50 mL"],["Comfortable","~1–1.5 L"],["Max distension","up to ~4 L"],["Gastric juice","~2–2.5 L/day"],["Luminal pH","1.5–3.5"]],
+  body:"<p>J-shaped. Fundus/body = reservoir + acid–pepsin factory; antrum = grinder/pump; pylorus = sieve passing ~1–2 mm particles. <strong>Rugae</strong> flatten on distension; gastric pits lead to gastric glands.</p><p>Cell cast: parietal (HCl + intrinsic factor), chief (pepsinogen), G (gastrin), D (somatostatin — the brake), ECL (histamine), mucous cells (mucus + HCO₃⁻). Output is <strong>chyme</strong> — acidic, soupy, released in spurts, not a continuous river. Five jobs, not one bag: reservoir, grinder, endocrine organ, steriliser, metered pump.</p>"},
+ {name:"Duodenum",sub:"25–30 cm · the violent junction",title:"Duodenum",tags:'<span class="tag est">Established</span>',
+  stats:[["Length","~25–30 cm"],["pH after neutralising","~6–6.5"],["Key hormones","Secretin · CCK"]],
+  body:"<p>C-shaped around the pancreatic head, mostly retroperitoneal — the shortest, widest, most fixed segment, and chemically the most violent junction in the game: acid chyme in, HCO₃⁻ flood neutralises it. <strong>Brunner glands</strong> (proximal, submucosal) secrete alkaline mucus.</p><p>At the <strong>ampulla of Vater</strong> (major papilla, D2), guarded by the sphincter of Oddi, bile and pancreatic juice enter. <strong>Secretin</strong> (S cells, triggered by acid) drives HCO₃⁻ and brakes gastric acid/emptying; <strong>CCK</strong> (I cells, triggered by fatty acids/peptides) contracts the gallbladder, relaxes Oddi, drives enzyme-rich pancreatic secretion and slows gastric emptying. Iron and calcium absorption start here.</p>"},
+ {name:"Jejunum",sub:"The main absorber",title:"Jejunum",tags:'<span class="tag est">Established</span>',
+  stats:[["Share","proximal ~2/5 of small bowel"],["Textbook length","~2.5 m (cadaveric framing)"],["Lumen pH","~6.5–7.5"],["Bacteria","~10⁴ /g"]],
+  body:"<p>Thicker wall, prominent <strong>plicae circulares</strong>, the tallest villi, no (or sparse) Peyer's patches. The main absorption site for most nutrients — and, at ~10⁴ bacteria per gram, a <em>sparsely</em> colonised space. Keep it that way in the build.</p>"},
+ {name:"Ileum",sub:"B12 · bile acids · immune sampling",title:"Ileum",tags:'<span class="tag est">Established</span>',
+  stats:[["Share","distal ~3/5 of small bowel"],["Textbook length","~3.5 m (cadaveric framing)"],["pH","~7.5"],["Bacteria","~10⁷ /g"]],
+  body:"<p>Thinner wall, fewer plicae, shorter villi, abundant <strong>Peyer's patches</strong> (aggregated gut-associated lymphoid tissue). <strong>M cells</strong> over the patch domes — no brush border, thin glycocalyx — transcytose luminal antigen to immune cells beneath.</p><p>Two exclusive jobs: <strong>B12–intrinsic-factor uptake</strong> (cubam receptor) and <strong>bile-acid reabsorption</strong> (ASBT, ≥95%). Lose the terminal ileum and both fail.</p>"},
+ {name:"Ileocaecal junction",sub:"A partial gate",title:"Ileocaecal valve / junction",tags:'<span class="tag simp">Simplification risk</span>',
+  stats:[["Job","Limit colonic reflux into ileum"],["Competence","Partial, not absolute"]],
+  body:"<p>A papillary projection into the caecum that limits reflux of colonic bacteria into the ileum. Competence is partial — draw it as a leaky gate, not a one-way steel door. The appendix opens from the caecum nearby (see Myth audit #11).</p>"},
+ {name:"Colon",sub:"~1.5 m · 24–48 h",title:"Colon",tags:'<span class="tag est">Established</span>',
+  stats:[["Length","~1.5 m"],["Diameter","~4.8–7 cm"],["Receives","~1.5 L/day"],["Absorbs","~1.3–1.9 L/day water"],["Leaves in stool","~100–200 mL"],["Transit","~24–48 h"],["Bacteria","10¹¹–10¹² /g"]],
+  body:"<p><strong>Haustra</strong> — sacculations from the three taeniae coli — no villi, deep crypts, abundant goblet cells. Water-absorbing capacity runs to ~5 L/day before diarrhoea. Fermentation yields SCFAs (real calories, ~5–10% of energy) and gas; the colon also absorbs electrolytes and some bacterial vitamins — it is a salvager, not merely a dryer, but it does no macronutrient digestion.</p>"},
+ {name:"Rectum & anus",sub:"~12 cm · storage",title:"Rectum & anus",tags:'<span class="tag est">Established</span>',
+  stats:[["Rectum","~12 cm"],["Normal state","Empty until mass movement"]],
+  body:"<p>Storage and compliance, not absorption (except some drugs — the suppository route is a nice Codex aside). Distension triggers the defaecation reflex; the internal sphincter is involuntary, the external voluntary.</p>"}
+];
+var list=document.getElementById('stationList'), detail=document.getElementById('stationDetail');
+stations.forEach(function(s,i){
+  var b=document.createElement('button'); b.className='station-btn'+(i===0?' active':''); b.setAttribute('role','tab');
+  b.innerHTML=s.name+'<small>'+s.sub+'</small>';
+  b.addEventListener('click',function(){
+    list.querySelectorAll('.station-btn').forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active'); showStation(s);
+  });
+  list.appendChild(b);
+});
+function showStation(s){
+  var stats=s.stats.map(function(p){return '<div class="stat"><div class="k">'+p[0]+'</div><div class="v">'+p[1]+'</div></div>'}).join('');
+  detail.innerHTML='<h3>'+s.title+'</h3><p>'+s.tags+'</p><div class="stat-row">'+stats+'</div>'+s.body;
+}
+showStation(stations[0]);
+
+/* ---------- Nutrients ---------- */
+var nutrients=[
+ {n:"Glucose & galactose",route:"portal",why:"SGLT1 (2 Na⁺ : 1 sugar) at the brush border, GLUT2 out basolaterally → villus capillary → portal vein."},
+ {n:"Fructose",route:"portal",why:"GLUT5 facilitated uptake — capacity-limited → villus capillary → portal vein."},
+ {n:"Amino acids & small peptides",route:"portal",why:"Na⁺ cotransporters + PepT1 di/tripeptide uptake → villus capillary → portal vein."},
+ {n:"Long-chain fat (chylomicrons)",route:"lacteal",why:"Rebuilt to triglyceride, packed into chylomicrons (~75–1,200 nm, apoB-48) — too large for capillary endothelium → lacteal → thoracic duct. Bypasses liver first pass."},
+ {n:"Short-/medium-chain fatty acids",route:"portal",why:"Small enough to go straight into villus capillary blood → portal vein. The exception that proves the size rule."},
+ {n:"Fat-soluble vitamins A/D/E/K",route:"lacteal",why:"Ride inside chylomicrons → lacteal → lymph → systemic blood."},
+ {n:"Iron",route:"portal",why:"Duodenum/proximal jejunum: DMT1 in, ferroportin out (hepcidin-gated) → portal blood."},
+ {n:"Vitamin B12",route:"portal",why:"Terminal ileum only: B12–intrinsic-factor complex via cubam → portal blood. Years of liver stores buffer failure."},
+ {n:"Bile acids",route:"portal",why:"Terminal ileum: ASBT reuptake, ≥95% → portal vein back to the liver. The enterohepatic loop."}
+];
+var nrow=document.getElementById('nutrientRow');
+nutrients.forEach(function(x,i){
+  var b=document.createElement('button'); b.className='nchip'; b.type='button'; b.textContent=x.n; b.setAttribute('aria-pressed', i===3?'true':'false');
+  b.addEventListener('click',function(){
+    nrow.querySelectorAll('.nchip').forEach(function(c){c.setAttribute('aria-pressed','false')});
+    b.setAttribute('aria-pressed','true'); showNutrient(x);
+  });
+  nrow.appendChild(b);
+});
+function showNutrient(x){
+  document.getElementById('nutrientWhy').textContent=x.why;
+  document.getElementById('routePortal').classList.toggle('on', x.route==='portal');
+  document.getElementById('routeLacteal').classList.toggle('on', x.route==='lacteal');
+}
+showNutrient(nutrients[3]);
+
+/* ---------- Slow-wave bars ---------- */
+var clocks=[["Stomach",3],["Duodenum",12],["Jejunum",10],["Ileum",8.5],["Colon",3.5]];
+document.getElementById('clockBars').innerHTML=clocks.map(function(c){
+  var pct=Math.round(c[1]/12*100);
+  var label=(c[1]%1===0?c[1]:'8–9')+'/min';
+  if(c[0]==='Duodenum')label='11–12/min'; if(c[0]==='Colon')label='3–4/min';
+  return '<div class="clock-row"><div>'+c[0]+'</div><div class="clock-track"><div class="clock-fill" style="width:'+pct+'%"></div></div><div class="freq">'+label+'</div></div>';
+}).join('');
+
+/* ---------- Density chart (log10 scale, 0 to 12) ---------- */
+var dens=[["Stomach / duodenum","10¹–10³",2],["Jejunum","~10⁴",4],["Ileum","~10⁷",7],["Colon","10¹¹–10¹²",11.5]];
+document.getElementById('densChart').innerHTML=dens.map(function(d){
+  return '<div class="dens-row"><div>'+d[0]+'</div><div class="dens-track"><div class="dens-fill" style="width:'+Math.round(d[2]/12*100)+'%"></div></div><div class="mono">'+d[1]+' /g</div></div>';
+}).join('');
+
+/* ---------- Marsh interactive ---------- */
+var marsh=[
+ {t:"Marsh 0 — normal",r:"3–5 : 1",h:120,c:34,txt:"Finger-like villi, shallow crypts. Intraepithelial lymphocytes within normal limits. Full surface area; iron, fat and folate pickup all working."},
+ {t:"Marsh 1 — infiltrative",r:"3–5 : 1 (villi intact)",h:120,c:34,txt:"Villi still normal in shape, but intraepithelial lymphocytes rise above 25 per 100 enterocytes. The lesion is in the census, not the silhouette — a good lesson that early disease can be invisible at route scale."},
+ {t:"Marsh 2 — hyperplastic",r:"Falling toward 3 : 1",h:104,c:58,txt:"Crypts elongate (hyperplasia) on top of the lymphocyte infiltrate. The conveyor speeds up to compensate for surface losses — crypt depth is the visible tell."},
+ {t:"Marsh 3a–3b — partial to subtotal atrophy",r:"< 3 : 1",h:44,c:74,txt:"Villi blunt, shorten and finally flatten; crypts are deeply elongated. Surface-area HUD collapses: duodenal iron pickup fails (iron-deficiency anaemia), fat pickup into the lacteal runs pale and scanty, folate and fat-soluble vitamins fall."},
+ {t:"Marsh 3c — total villous atrophy",r:"~0 : 1",h:6,c:82,txt:"A flat plain where the forest stood. Near-total malabsorption at this segment. This is the toggle's end state — and it is reversible: gluten withdrawal regrows villi over months in adults, faster in children."}
+];
+var svgG=document.getElementById('marshVilli');
+function drawMarsh(m){
+  var out='';
+  for(var i=0;i<5;i++){
+    var x=36+i*76;
+    out+='<rect x="'+x+'" y="'+(196-m.h)+'" width="34" height="'+m.h+'" rx="15" fill="#b44a26" opacity="'+(m.h<10?0.25:0.8)+'"/>';
+    out+='<rect x="'+(x+7)+'" y="196" width="20" height="'+m.c+'" rx="8" fill="#1f6b5a" opacity=".55"/>';
+  }
+  out+='<text x="14" y="18" font-size="11" fill="currentColor" opacity=".7">Villi rise · crypts deepen below</text>';
+  svgG.innerHTML=out;
+}
+var range=document.getElementById('marshRange');
+function setMarsh(i){
+  var m=marsh[i]; drawMarsh(m);
+  document.getElementById('marshTitle').textContent=m.t;
+  document.getElementById('marshText').textContent=m.txt;
+  document.getElementById('marshRatio').textContent=m.r;
+}
+range.addEventListener('input',function(){ setMarsh(parseInt(range.value,10)); });
+setMarsh(0);
+
+/* ---------- Myths ---------- */
+var myths=[
+ ["rev","“The GI tract is 9 m long.”","Replace with ~5 m living / 7–9 m cadaveric, and stop summing textbook segment lengths. (Helander & Fändriks 2014)"],
+ ["rev","“Surface area is a tennis court, 260–300 m².”","Replace with ~32 m² total — “half a badminton court.” Demote ×600 to a Reality-check about multiplying textbook maxima."],
+ ["rev","“Bacteria outnumber human cells 10 : 1.”","Replace with ~1.3 : 1 — 3.8×10¹³ vs 3.0×10¹³, ~0.2 kg. (Sender et al. 2016)"],
+ ["wrong","“Villi absorb food into the blood.”","Split the drainage: sugars/amino acids → portal blood; long-chain fat in chylomicrons → lacteal/lymph. Never state it unqualified."],
+ ["wrong","“The stomach is where digestion/absorption mainly happens.”","Move digestion's centre of gravity to the small intestine. The stomach is acid/pepsin start, storage and metering — and absorbs essentially no nutrients."],
+ ["wrong","“The gut is uniformly full of bacteria.”","Geography: near-empty small bowel → dense colon (10¹¹–10¹²/g). Colon inner mucus layer bacteria-free, outer layer colonised; no colon bilayer in the small bowel."],
+ ["wrong","“90% of serotonin is made in the gut, so the gut makes your mood.”","Gut and brain serotonin pools are separate; gut 5-HT does not cross the blood–brain barrier. Kill the direct mood claim."],
+ ["wrong","“The tongue has taste zones.”","Delete the zones. All five tastes are detected across the tongue; only small threshold differences exist."],
+ ["simp","“The ENS has 500 million neurons — the second brain.”","Print a range (~100–500 million, method-dependent). “Second brain” is an autonomy metaphor, not a count or a cognition claim."],
+ ["simp","“Bowel sounds prove the bowel is working.”","Teach 5–35/min and their poor standalone diagnostic value. Exam sequence: inspection → auscultation → percussion → palpation."],
+ ["simp","“The appendix is useless.”","Replace with: a dispensable GALT-rich organ with a proposed (not proven) bacterial “safe-house” reservoir role. People live normally without it."],
+ ["wrong","“Chyme travels at a uniform speed.”","Non-uniform clocks: oesophagus seconds; stomach hours with a liquid/solid split (t½ <20–30 min vs 60–120 min + lag); small bowel 3–5 h; colon 1–2 days; MMC 90–120 min, fasting only."],
+ ["simp","“Stomach pH is 1; acid phases are fixed percentages.”","Use ranges: parietal secretion pH ~0.9, lumen 1.5–3.5; cephalic ~20–30% / gastric ~50–70% / intestinal ~5–10%."],
+ ["simp","“Screening uses FOBT; calprotectin tests for cancer.”","Terminology update: FIT has replaced guaiac FOBT. Calprotectin = inflammation (IBD vs IBS), not a cancer test."],
+ ["simp","“The gut is colonised before birth (placental microbiome).”","Present the fetal gut as sterile/near-sterile on current best evidence; placental microbiome claims are contamination-prone and unproven. (Perez-Muñoz 2017)"]
+];
+var mythList=document.getElementById('mythList');
+mythList.innerHTML=myths.map(function(m,i){
+  return '<div class="myth" data-kind="'+m[0]+'"><div class="claim"><span class="rank">#'+(i+1)+'</span>'+m[1]+'</div><div class="fix">'+m[2]+'</div></div>';
+}).join('');
+document.querySelectorAll('.fbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(x){x.setAttribute('aria-pressed','false')});
+    b.setAttribute('aria-pressed','true');
+    var f=b.getAttribute('data-filter');
+    mythList.querySelectorAll('.myth').forEach(function(el){
+      el.classList.toggle('hidden', f!=='all' && el.getAttribute('data-kind')!==f);
+    });
+  });
+});
+
+/* ---------- Copy digest ---------- */
+var digest=[
+"# Inner Voyage — Gastrointestinal Mode: Research Digest",
+"",
+"## Design verdict",
+"Build the GI route at in-vivo scale (~5 m mouth-to-anus, Helander & Fändriks 2014), not the cadaveric ~9 m, with a pH gradient, three nested surface-amplification scales, and two exit routes from the villus (portal blood vs lacteal/lymph) as the core mechanic.",
+"First case: coeliac disease (villous-atrophy toggle). Second, short episode: H. pylori peptic ulcer.",
+"",
+"## Headline numbers",
+"- Total GI length, living: ~5 m oro-anal (Helander & Fändriks 2014) [Revised from ~9 m cadaveric]",
+"- Total mucosal surface area: ~32 m² (~30 m² small intestine, ~2 m² colon) — 'half a badminton court' [Revised from 260–300 m² 'tennis court']",
+"- Bacteria: 3.8×10^13 vs 3.0×10^13 human cells, ratio ~1.3:1, mass ~0.2 kg (Sender et al. 2016) [Revised from 10:1]",
+"- Fluid load ~9 L/day (~2 L ingested + ~7 L secreted); ~100–200 mL lost in stool",
+"- Slow waves: stomach 3/min, duodenum 11–12/min, jejunum ~10/min, ileum 8–9/min, colon 3–4/min",
+"- MMC cycle 90–120 min, fasting only; Phase III = 'housekeeper'",
+"- Gastric emptying t½: liquids <20–30 min (no lag); solids ~60–120 min after 20–30 min lag, ground to 1–2 mm",
+"- Bile-acid pool ~3 g (2–4 g); 4–12 cycles/day; ≥95% reabsorbed in terminal ileum; 0.2–0.6 g/day lost",
+"- Enterocyte crypt→tip migration 3–5 days (some human texts 5–7)",
+"- Enteric neurons: ~100–500 million — a range [Debated]; gut serotonin ~90% of body total but does NOT cross the BBB",
+"- Bowel sounds: normal 5–35/min, poor standalone diagnostic value; exam = inspection → auscultation → percussion → palpation",
+"",
+"## The 15 ranked corrections",
+"1. Length: ~5 m living / 7–9 m cadaveric; stop summing textbook segment lengths.",
+"2. Surface area: ~32 m²; ×600 demoted to a Reality-check on multiplying textbook maxima.",
+"3. Microbiome ratio: ~1.3:1, not 10:1.",
+"4. Split villus drainage: sugars/amino acids → portal; long-chain fat/chylomicrons → lacteal.",
+"5. Digestion's centre of gravity is the small intestine; the stomach absorbs essentially no nutrients.",
+"6. Microbiome geography: sparse small bowel → colon 10^11–10^12/g; inner mucus bacteria-free, outer colonised.",
+"7. Serotonin: separate gut/brain pools, no BBB crossing — kill the direct mood claim.",
+"8. Tongue map: delete zones.",
+"9. ENS neurons: print the range; 'second brain' = autonomy metaphor.",
+"10. Bowel sounds: 5–35/min and poor standalone value.",
+"11. Appendix: dispensable GALT organ, proposed safe-house (hypothesis), not 'useless'.",
+"12. Non-uniform clocks: seconds → hours (liquid/solid split) → 3–5 h → 1–2 days; MMC fasting only.",
+"13. Acid as ranges: secretion pH ~0.9, lumen 1.5–3.5; phases ~20–30 / ~50–70 / ~5–10%.",
+"14. FIT replaced guaiac FOBT; calprotectin = inflammation, not a cancer test.",
+"15. Fetal gut sterile/near-sterile on best evidence; placental microbiome unproven (Perez-Muñoz 2017).",
+"",
+"## Case decision",
+"Coeliac first: normal villus:crypt 3–5:1 → Marsh 1 (>25 IEL/100 enterocytes) → 2 (+ crypt hyperplasia) → 3a/3b/3c atrophy to ratio ~0. Anti-tTG IgA + total IgA; HLA-DQ2/8 excludes rather than confirms. Gluten-free recovery takes months in adults — no instant regrowth.",
+"H. pylori ulcer second (short): urease ammonia shield, mucus breach, attack-vs-defence balance; NSAIDs lower defence via COX-1/prostaglandins without raising acid.",
+"",
+"## Could not verify",
+"- No clearly open-licence endoscopy image atlas (do not scrape).",
+"- Parietal-cell total ~1×10^9: order-of-magnitude estimate [Debated].",
+"- Human colon mucus thicknesses: Johansson µm values are mouse.",
+"- Cell Image Library per-image licences not individually checked.",
+"- Bile volume: 0.5 vs up to 1.0 L/day across sources — range.",
+"",
+"Sources: Helander & Fändriks 2014 (DOI 10.3109/00365521.2014.898326); Sender et al. 2016 (DOI 10.1371/journal.pbio.1002533); Johansson et al. 2011 (DOI 10.1073/pnas.1006451107); Perez-Muñoz et al. 2017 (DOI 10.1186/s40168-017-0268-4); Farrell 2019 (DOI 10.2967/jnmt.117.227892); Endocr Rev 2020 (DOI 10.1210/endrev/bnaa018); Nat Commun 2020 (DOI 10.1038/s41467-020-15714-x); Med J Aust 2017 (DOI 10.5694/mja16.00788); StatPearls NBK459220. Retrieved via web index 2026-10-30 (EDT); not live-browser verified — spot-check before printing on Codex cards."
+].join("\n");
+var copyBtn=document.getElementById('copyBtn'), copyStatus=document.getElementById('copyStatus');
+copyBtn.addEventListener('click',function(){
+  function done(){ copyStatus.textContent='Copied — ready to paste into Margin Chat.'; }
+  function fallback(){
+    var ta=document.createElement('textarea'); ta.value=digest; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){ copyStatus.textContent='Copy failed — select the page text manually.'; }
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(digest).then(done, fallback); } else { fallback(); }
+});
+})();
+</script>
+</body>
+</html>
