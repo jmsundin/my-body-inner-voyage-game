@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#14090b">
 <title>Inner Voyage — Heart MVP</title>
 <style>
 :root{
@@ -67,6 +68,32 @@ body.zap::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;
 .sys b{font-size:15px}.sys small{color:var(--cyan);font-family:var(--mono);font-size:10.5px}.sys span{font-size:12.5px;color:var(--muted);line-height:1.4}.sys em{font-style:normal;color:var(--amber);font-size:12px;margin-top:4px}
 .sys.soon{opacity:.55;cursor:default;border-style:dashed}.sys.cur{border-color:var(--cyan)}.sys:not(.soon):hover{border-color:var(--amber)}
 #bodyTitle{font-size:9px;letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#touchBar{display:none;position:fixed;right:8px;bottom:64px;z-index:5;grid-template-columns:repeat(3,44px);gap:6px}
+#touchBar button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;font-size:16px;line-height:1;touch-action:manipulation}
+#touchBar button small{font:9px var(--mono);color:var(--faint);margin-top:2px}
+#joy{display:none;position:fixed;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;border:1.5px solid rgba(62,230,216,.45);background:rgba(62,230,216,.06);z-index:4;pointer-events:none}
+#joy.on{display:block}#joyKnob{position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50%;background:rgba(62,230,216,.35);border:1px solid rgba(62,230,216,.8);transform:translate(-50%,-50%)}
+body.mobile canvas#c{touch-action:none;cursor:default}
+body.mobile #touchBar{display:grid}
+body.mobile{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body.mobile #hint,body.mobile #vTrace,body.mobile #caseTag,body.mobile #holdTag,body.mobile #scanTip{display:none}
+body.mobile #obj{top:8px;left:8px;width:calc(100vw - 160px);max-height:84px;padding:8px 10px;font-size:11.5px;pointer-events:auto;cursor:pointer}
+body.mobile #obj h3{display:none}body.mobile #obj .eyebrow{font-size:9px}
+body.mobile #obj li:not(.next):not(.sec){display:none}body.mobile #obj.full{max-height:70vh;overflow:auto}body.mobile #obj.full li{display:list-item}
+body.mobile #vitals{top:8px;right:8px;width:138px;padding:8px 9px;font-size:10px}body.mobile #vitals .eyebrow{font-size:8.5px;letter-spacing:.1em}
+body.mobile #ecg{height:30px}body.mobile #vitals .vrow{margin:1px 0}
+body.mobile #banner{top:98px}body.mobile #banner .n{font-size:18px}body.mobile #banner .s{font-size:11px}
+body.mobile #toasts{top:132px;width:92vw}body.mobile .toast{font-size:12px;white-space:normal;text-align:center;border-radius:14px}
+body.mobile #predict{top:132px;width:92vw}
+body.mobile #route{bottom:6px;width:calc(100vw - 16px);padding:5px 8px}body.mobile #routeC{height:26px}
+body.mobile #body{left:8px;bottom:56px;width:118px;padding:6px 6px 4px}body.mobile #bodyC{width:104px;height:158px}body.mobile #bodyWhere{font-size:9.5px}body.mobile #bodyTitle{font-size:7.5px}
+body.mobile #stethBtn{right:8px;bottom:218px;width:46px;height:46px;font-size:20px}
+body.mobile #card{top:auto;bottom:0;left:0;right:0;width:auto;max-height:62vh;border-radius:18px 18px 0 0;transform:translateY(110%);padding:12px 14px}body.mobile #card.open{transform:none}
+body.mobile #cardModel canvas{max-height:34vh}
+body.mobile #cellTag{font-size:11px}
+body.mobile .sheet{padding:16px 14px;border-radius:14px;max-height:calc(100vh - 16px)}body.mobile .sheet h1{font-size:24px!important}body.mobile .modal{padding:8px}
+body.mobile #study{left:8px;right:8px;width:auto;bottom:64px}
+body.mobile #labels .lbl{font-size:10px}
 #dueBadge{display:none;margin-left:8px;background:var(--amber);color:#2a1805;border-radius:999px;padding:1px 8px;font:700 10px var(--mono);letter-spacing:0;text-transform:none}
 .sstat{display:flex;gap:10px;margin:12px 0}.sstat div{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:11px;color:var(--muted)}.sstat b{display:block;font-size:24px;color:var(--fg)}
 .srow{display:grid;grid-template-columns:170px 1fr;gap:4px 12px;align-items:center;margin:6px 0;font-size:13px}.srow small{grid-column:2;color:var(--faint);font-size:11px;margin-top:-2px}
@@ -227,6 +254,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 <div id="toasts" class="hud"></div>
 <div id="ret" class="hud"></div>
 <div id="cellTag"></div>
+<div id="touchBar"></div><div id="joy"><div id="joyKnob"></div></div>
 <div id="warp"></div>
 <div id="slabels"></div>
 <div id="study" class="hud panel"><div class="eyebrow">Valve study · Y or Esc to fly on</div><h3 id="stTitle"></h3><div id="stPhase"></div><p id="stInfo"></p><div class="stKeys">Drag: orbit · Scroll: zoom · O: other side · Space: pause · [ ]: slower/faster (<span id="stRate"></span>) · B: blood on/off</div></div>
@@ -1027,7 +1055,8 @@ const isSystole=()=>C.tc<C.sys;
 /* ===== Renderer ===== */
 const canvas=$('c');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
-let DPR=Math.min(window.devicePixelRatio||1,1.5);
+const MOBILE=(matchMedia('(pointer:coarse)').matches&&Math.min(innerWidth,innerHeight)<900)||innerWidth<760;
+let DPR=Math.min(window.devicePixelRatio||1,MOBILE?1.15:1.5);
 renderer.setPixelRatio(DPR);
 const FOG=new THREE.Color(0x1c0407);
 const scene=new THREE.Scene();scene.background=FOG;scene.fog=new THREE.FogExp2(FOG,.02);
@@ -1461,7 +1490,7 @@ const CELLS={
   meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.18,8,6),new THREE.MeshStandardMaterial({color:0xf4efe0,roughness:.35,emissive:0x2a2618}),260)]},
 };
 Object.assign(CELLS,CELLS_NS);
-const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
+const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
  D.meshes.forEach((m,mi)=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);m.frustumCulled=false;m.renderOrder=mi;scene.add(m);});return D;});
 const VEN=new THREE.Color(.30,.015,.045),ART=new THREE.Color(.95,.07,.07),tmpC=new THREE.Color();
@@ -2264,6 +2293,45 @@ function vitalsTick(){
   $('vSpk').textContent=/axon|decuss|cord|pnerve|nmj/.test(r)?'≈10 Hz drive':'—';$('vMy').textContent=/axon|decuss|cord/.test(r)?'intact · g≈0.75 (CNS)':r==='pnerve'?'intact · g≈0.65 (PNS)':'—';$('vGCS').textContent='15 · 2+';}
 }
 
+
+/* ===== Touch controls (phones and tablets): left thumb = joystick thrust, right thumb = steer, tap = inspect, buttons for the keys ===== */
+const joy={id:-1,x:0,y:0,cx:0,cy:0};let lookId=-1,lookLX=0,lookLY=0,tapT=0,tapX=0,tapY=0,tapMoved=false;
+if(MOBILE){
+ document.body.classList.add('mobile');
+ const jEl=$('joy'),jK=$('joyKnob');
+ const unlock=()=>{if(AC&&AC.state==='suspended')AC.resume();};
+ canvas.addEventListener('touchstart',e=>{e.preventDefault();unlock();if(!started)return;
+  for(const t of e.changedTouches){
+   if(t.clientX<innerWidth*.45&&t.clientY>innerHeight*.4&&joy.id<0){joy.id=t.identifier;joy.cx=t.clientX;joy.cy=t.clientY;joy.x=joy.y=0;jEl.style.left=joy.cx+'px';jEl.style.top=joy.cy+'px';jEl.classList.add('on');jK.style.transform='translate(-50%,-50%)';}
+   else if(lookId<0){lookId=t.identifier;lookLX=tapX=t.clientX;lookLY=tapY=t.clientY;tapT=performance.now();tapMoved=false;}
+  }},{passive:false});
+ canvas.addEventListener('touchmove',e=>{e.preventDefault();
+  for(const t of e.changedTouches){
+   if(t.identifier===joy.id){let dx=t.clientX-joy.cx,dy=t.clientY-joy.cy;const L=Math.hypot(dx,dy),R=48;if(L>R){dx*=R/L;dy*=R/L;}joy.x=dx/R;joy.y=-dy/R;jK.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`;}
+   else if(t.identifier===lookId){const dx=t.clientX-lookLX,dy=t.clientY-lookLY;if(Math.hypot(t.clientX-tapX,t.clientY-tapY)>8)tapMoved=true;if(tapMoved&&!steth){mouseDX+=dx*1.7;mouseDY+=dy*1.7;dragging=true;}lookLX=t.clientX;lookLY=t.clientY;}
+  }},{passive:false});
+ const endT=e=>{e.preventDefault();
+  for(const t of e.changedTouches){
+   if(t.identifier===joy.id){joy.id=-1;joy.x=joy.y=0;jEl.classList.remove('on');}
+   else if(t.identifier===lookId){lookId=-1;dragging=false;
+    if(!tapMoved&&performance.now()-tapT<400&&!anyModal()){mouseX=tapX;mouseY=tapY;target=findTarget();envT=target?null:findEnv();if(target)inspect(target);else if(envT)inspectEnv(envT);setTimeout(()=>{mouseX=-1;},300);}
+   }}};
+ canvas.addEventListener('touchend',endT,{passive:false});canvas.addEventListener('touchcancel',endT,{passive:false});
+ // key buttons
+ const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyP','❚❚','pause'],['F1','?','help']];
+ $('touchBar').innerHTML=BTNS.map(([c,ic,l])=>`<button data-code="${c}"><span>${ic}</span><small>${l}</small></button>`).join('');
+ $('touchBar').querySelectorAll('button').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();unlock();const code=b.dataset.code;
+  if(code==='KeyG'&&!started)return;
+  if(code==='Tab'){if(!started)return;if($('mSystems').classList.contains('show'))closeModals();else{closeModals();openSystems();}return;}
+  if(anyModal()&&code!=='F1'){closeModals();return;}
+  onKey({code,key:code==='F1'?'?':'',preventDefault(){}});});});
+ // objectives panel: tap to expand
+ $('obj').addEventListener('click',()=>$('obj').classList.toggle('full'));
+ // start-screen controls text
+ const cb=document.querySelector('#mStart .box h4');
+ if(cb&&cb.textContent.includes('Controls')){cb.parentElement.innerHTML='<h4>📱 Touch controls</h4><div class="ctrl"><span class="kbd">Left thumb</span><span>joystick: thrust and strafe</span><span class="kbd">Right thumb</span><span>drag to steer the view</span><span class="kbd">Tap</span><span>a cell or the wall for its name, card and 3D model</span><span class="kbd">Buttons</span><span>scan · autopilot · bedside exam · K doorway · valve study · systems · flashcards · atlas · codex · rounds · pause · help</span><span class="kbd">🩺</span><span>hold to listen inside</span></div>';}
+}
+
 /* --- keys --- */
 function onKey(e){
  const k=e.code;
@@ -3004,7 +3072,8 @@ function stepShip(dt,time){
  if(!steth){tq.setFromAxisAngle(new V3(0,1,0),yaw);S.q.multiply(tq);tq.setFromAxisAngle(new V3(1,0,0),pitch);S.q.multiply(tq);}
  gv(T,S.idx,_t);
  // assist: drift nose toward the flow when not steering; autopilot does it hard
- const assist=S.auto?2.2:(time-S.lastMouse>1.4?.5:0);
+ // nose drifts toward the flow only on autopilot, or when you already face downstream and have stopped steering; pointing the other way is respected
+ fwd.set(0,0,-1).applyQuaternion(S.q);const assist=S.auto?2.2:(time-S.lastMouse>1.4&&fwd.dot(_t)>.55?.35:0);
  if(assist>0){fwd.set(0,0,-1).applyQuaternion(S.q);tq.setFromUnitVectors(fwd,_t);const id=new THREE.Quaternion();id.slerp(tq,Math.min(1,assist*dt));S.q.premultiply(id);}
  // auto-level roll toward world up (no gravity inside, but keeps the horizon sane)
  fwd.set(0,0,-1).applyQuaternion(S.q);up.set(0,1,0).applyQuaternion(S.q);
@@ -3016,6 +3085,7 @@ function stepShip(dt,time){
  if(!steth&&!study){
   if(keys.KeyW)acc.add(fwd);if(keys.KeyS)acc.sub(fwd);if(keys.KeyD)acc.add(right);if(keys.KeyA)acc.sub(right);
   if(keys.Space)acc.add(up);if(keys.KeyC)acc.sub(up);
+  if(MOBILE&&joy.id>=0){acc.addScaledVector(fwd,joy.y);acc.addScaledVector(right,joy.x);}
  }
  let thrust=acc.length();if(thrust>0)acc.multiplyScalar(1/thrust);
  const boost=keys.ShiftLeft||keys.ShiftRight;
