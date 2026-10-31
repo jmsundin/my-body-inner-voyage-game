@@ -1,0 +1,1668 @@
+[
+ {
+  "id": "sickle-cell-smear",
+  "kind": "path",
+  "world": "blood",
+  "commons_title": "File:Sickle Cell Anemia (5610746554).jpg",
+  "tissue": "peripheral blood",
+  "condition": "sickle cell anaemia",
+  "stain": "Wright",
+  "magnification": "approx. 400x",
+  "caption": "Peripheral smear in sickle cell disease. Deoxygenated HbS polymerises and bends red cells into rigid crescents that block small vessels and are cleared early by the spleen.",
+  "look_for": [
+   "crescent and boat-shaped sickle cells",
+   "target cells",
+   "polychromatic (bluish) young red cells from marrow response"
+  ],
+  "tags": [
+   "sickle cell",
+   "hbs",
+   "haemolysis",
+   "anaemia",
+   "vaso-occlusion",
+   "rbc"
+  ]
+ },
+ {
+  "id": "iron-deficiency-smear",
+  "kind": "path",
+  "world": "blood",
+  "commons_title": "File:Iron-deficiency Anemia, Peripheral Blood Smear (4422704616).jpg",
+  "tissue": "peripheral blood",
+  "condition": "iron deficiency anaemia",
+  "stain": "Wright",
+  "magnification": "approx. 400x",
+  "caption": "Severe iron deficiency: red cells are small and pale with a wide central halo because too little haemoglobin is made. Compare the cells with the lymphocyte nucleus, which is about the size of a normal red cell.",
+  "look_for": [
+   "microcytic red cells smaller than a lymphocyte nucleus",
+   "hypochromia with central pallor over half the cell",
+   "pencil cells and other poikilocytes"
+  ],
+  "tags": [
+   "iron deficiency",
+   "microcytic",
+   "hypochromic",
+   "anaemia",
+   "rbc"
+  ]
+ },
+ {
+  "id": "aml-auer-rods",
+  "kind": "path",
+  "world": "blood",
+  "commons_title": "File:Myeloblast with Auer rod smear 2010-01-27.JPG",
+  "tissue": "bone marrow aspirate",
+  "condition": "acute myeloid leukaemia",
+  "stain": "May-Grünwald-Giemsa",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Bone marrow packed with myeloblasts in acute myeloid leukaemia. Pink needle-like Auer rods in the blast cytoplasm are fused primary granules and point to a myeloid rather than lymphoid lineage.",
+  "look_for": [
+   "sheets of large blasts with fine chromatin and nucleoli",
+   "high nucleus-to-cytoplasm ratio",
+   "thin pink Auer rods in the cytoplasm"
+  ],
+  "tags": [
+   "aml",
+   "leukaemia",
+   "auer rod",
+   "myeloblast",
+   "bone marrow"
+  ]
+ },
+ {
+  "id": "coronary-atherosclerosis-trichrome",
+  "kind": "path",
+  "world": "blood",
+  "commons_title": "File:RCA atherosclerosis.jpg",
+  "tissue": "coronary artery",
+  "condition": "atherosclerosis",
+  "stain": "Masson trichrome",
+  "magnification": "low (as stated on source)",
+  "caption": "Cross-section of a right coronary artery with a thick, eccentric atherosclerotic plaque that narrows the lumen. Plaques like this limit flow on exertion (stable angina) and can rupture to trigger thrombosis.",
+  "look_for": [
+   "eccentric intimal thickening narrowing the lumen",
+   "fibrous cap over the plaque",
+   "intact media and adventitia outside the plaque"
+  ],
+  "tags": [
+   "atherosclerosis",
+   "plaque",
+   "coronary artery",
+   "angina",
+   "myocardial infarction",
+   "vessel"
+  ]
+ },
+ {
+  "id": "thrombus-lines-of-zahn",
+  "kind": "path",
+  "world": "blood",
+  "commons_title": "File:Laminations in a thrombus - intermed mag.jpg",
+  "tissue": "pulmonary artery thrombus",
+  "condition": "thrombosis (lines of Zahn)",
+  "stain": "H&E",
+  "magnification": "intermediate (as stated on source)",
+  "caption": "Thrombus from a fatal pulmonary embolism showing alternating pale bands of platelets and fibrin and darker bands of trapped red cells. These lines of Zahn show the clot formed in flowing blood before death, which separates it from a post-mortem clot.",
+  "look_for": [
+   "alternating pale pink fibrin-platelet layers",
+   "darker red-cell-rich layers",
+   "scattered neutrophils within the fibrin"
+  ],
+  "tags": [
+   "thrombus",
+   "lines of zahn",
+   "pulmonary embolism",
+   "coagulation",
+   "virchow"
+  ]
+ },
+ {
+  "id": "blood-smear-normal",
+  "kind": "path",
+  "world": "blood",
+  "commons_title": "File:Normal Adult Blood Smear.JPG",
+  "tissue": "peripheral blood",
+  "condition": "normal",
+  "stain": "Giemsa",
+  "magnification": "approx. 400x",
+  "caption": "A healthy adult blood film: red cells of even size with a pale central third, two segmented neutrophils, a lymphocyte and scattered platelets. Use it as the baseline for judging size, colour and shape in every abnormal smear.",
+  "look_for": [
+   "uniform round RBCs with central pallor about one third of the cell",
+   "segmented neutrophils",
+   "small lymphocyte with a thin rim of cytoplasm",
+   "platelets as small purple dots"
+  ],
+  "tags": [
+   "blood smear",
+   "rbc",
+   "neutrophil",
+   "lymphocyte",
+   "platelet",
+   "normal"
+  ]
+ },
+ {
+  "id": "p-falciparum-rings",
+  "kind": "micro",
+  "world": "blood",
+  "commons_title": "File:Malaria falciparum ring forms.jpg",
+  "tissue": "peripheral blood",
+  "condition": "falciparum malaria",
+  "organism": "Plasmodium falciparum",
+  "stain": "Giemsa",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Thin blood film with Plasmodium falciparum ring forms inside red cells. Small delicate rings, sometimes two in one cell or sitting at the cell edge, with normal-sized host cells are typical of falciparum.",
+  "look_for": [
+   "small signet-ring trophozoites inside RBCs",
+   "dot-like chromatin with a thin blue cytoplasmic ring",
+   "infected red cells not enlarged"
+  ],
+  "tags": [
+   "malaria",
+   "plasmodium falciparum",
+   "ring form",
+   "parasite",
+   "rbc",
+   "haemolysis"
+  ]
+ },
+ {
+  "id": "lymph-node-normal",
+  "kind": "path",
+  "world": "lymph",
+  "commons_title": "File:Normal Lymph Node.jpg",
+  "tissue": "lymph node",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "low (whole node)",
+  "caption": "Whole lymph node from a colectomy specimen. The thin capsule, subcapsular sinus, outer cortex with follicles and the paler medulla are all visible, showing how lymph filters through the node.",
+  "look_for": [
+   "fibrous capsule with subcapsular sinus beneath it",
+   "cortex with rounded lymphoid follicles",
+   "medullary cords and sinuses toward the hilum"
+  ],
+  "tags": [
+   "lymph node",
+   "follicle",
+   "cortex",
+   "medulla",
+   "sinus",
+   "normal"
+  ]
+ },
+ {
+  "id": "reactive-follicular-hyperplasia",
+  "kind": "path",
+  "world": "lymph",
+  "commons_title": "File:Follicular lymphatic hyperplasia, HE.jpg",
+  "tissue": "lymph node",
+  "condition": "reactive follicular hyperplasia",
+  "stain": "H&E",
+  "magnification": "approx. 200x",
+  "caption": "A reactive lymph node with an enlarged secondary follicle: a pale germinal centre ringed by a dark mantle zone of small B cells. Follicles that vary in size and keep a mantle and polarity favour a benign reaction over lymphoma.",
+  "look_for": [
+   "pale germinal centre with mixed centroblasts and centrocytes",
+   "dark mantle zone cuffing the germinal centre",
+   "tingible-body macrophages in the germinal centre"
+  ],
+  "tags": [
+   "lymph node",
+   "reactive",
+   "germinal centre",
+   "follicle",
+   "b cell",
+   "lymphadenopathy"
+  ],
+  "author": "Patho"
+ },
+ {
+  "id": "hodgkin-reed-sternberg",
+  "kind": "path",
+  "world": "lymph",
+  "commons_title": "File:Hodgkin's lymphoma 40X.jpg",
+  "tissue": "lymph node",
+  "condition": "classical Hodgkin lymphoma",
+  "stain": "H&E",
+  "magnification": "40x objective (as stated on source)",
+  "caption": "A Reed-Sternberg cell in classical Hodgkin lymphoma: a large cell with two mirror-image nuclei each holding a big eosinophilic nucleolus ('owl eyes'). The malignant cells are rare among a background of reactive lymphocytes and other inflammatory cells.",
+  "look_for": [
+   "large binucleate cell with owl-eye nucleoli",
+   "abundant amphophilic cytoplasm",
+   "background of small reactive lymphocytes"
+  ],
+  "tags": [
+   "hodgkin lymphoma",
+   "reed-sternberg",
+   "lymph node",
+   "lymphoma",
+   "cd30",
+   "cd15"
+  ]
+ },
+ {
+  "id": "burkitt-starry-sky",
+  "kind": "path",
+  "world": "lymph",
+  "commons_title": "File:Burkitt lymphoma, H&E.jpg",
+  "tissue": "lymph node / extranodal mass",
+  "condition": "Burkitt lymphoma",
+  "stain": "H&E",
+  "magnification": "approx. 400x",
+  "caption": "Burkitt lymphoma: sheets of monotonous medium-sized B cells with scattered pale tingible-body macrophages, the classic 'starry sky'. The macrophages are clearing tumour cells that die at the high turnover driven by MYC translocation.",
+  "look_for": [
+   "dense sheet of uniform medium-sized lymphoid cells (the 'sky')",
+   "scattered pale macrophages with debris (the 'stars')",
+   "many mitoses and apoptotic bodies"
+  ],
+  "tags": [
+   "burkitt lymphoma",
+   "starry sky",
+   "myc",
+   "t(8;14)",
+   "ebv",
+   "lymphoma"
+  ],
+  "author": "Ed Uthman, MD"
+ },
+ {
+  "id": "burkitt-touch-prep",
+  "kind": "path",
+  "world": "lymph",
+  "commons_title": "File:Burkitt lymphoma, touch prep, Wright stain.jpg",
+  "tissue": "tumour touch preparation",
+  "condition": "Burkitt lymphoma",
+  "stain": "Wright",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Touch preparation of Burkitt lymphoma. The tumour cells have deep blue cytoplasm with many clear lipid vacuoles, a cytology clue that matches the starry-sky pattern seen in sections.",
+  "look_for": [
+   "medium-sized cells with deeply basophilic cytoplasm",
+   "multiple small clear cytoplasmic vacuoles",
+   "round nuclei with several small nucleoli"
+  ],
+  "tags": [
+   "burkitt lymphoma",
+   "cytology",
+   "vacuoles",
+   "lymphoma",
+   "myc"
+  ],
+  "author": "Ed Uthman, MD"
+ },
+ {
+  "id": "tb-lymph-node-langhans",
+  "kind": "path",
+  "world": "lymph",
+  "commons_title": "File:Tuberculous lymph node with caseating granuloma 40X.jpg",
+  "tissue": "lymph node",
+  "condition": "tuberculous lymphadenitis (caseating granuloma)",
+  "stain": "H&E",
+  "magnification": "40x (as stated on source)",
+  "caption": "Tuberculous lymph node with caseous necrosis bordered by epithelioid macrophages and a Langhans giant cell. Caseation, the cheesy amorphous centre, is the hallmark of the cell-mediated response to Mycobacterium tuberculosis.",
+  "look_for": [
+   "amorphous pink granular caseous necrosis",
+   "rim of epithelioid histiocytes",
+   "Langhans giant cell with horseshoe nuclei",
+   "outer cuff of lymphocytes"
+  ],
+  "tags": [
+   "tuberculosis",
+   "granuloma",
+   "caseation",
+   "langhans giant cell",
+   "lymph node",
+   "mycobacterium"
+  ]
+ },
+ {
+  "id": "m-tuberculosis-zn-cdc",
+  "kind": "micro",
+  "world": "lymph",
+  "commons_title": "File:Mycobacterium tuberculosis Ziehl-Neelsen stain 02.jpg",
+  "tissue": "smear",
+  "condition": "tuberculosis",
+  "organism": "Mycobacterium tuberculosis",
+  "stain": "Ziehl-Neelsen",
+  "magnification": "1000x (as stated on source)",
+  "caption": "Acid-fast bacilli of Mycobacterium tuberculosis stained red by Ziehl-Neelsen against a blue counterstain. The mycolic-acid-rich wall holds carbol fuchsin even after acid-alcohol decolourisation.",
+  "look_for": [
+   "thin slightly curved red rods",
+   "blue methylene-blue background",
+   "bacilli sometimes beaded or in small clumps"
+  ],
+  "tags": [
+   "tuberculosis",
+   "acid-fast",
+   "ziehl-neelsen",
+   "mycobacterium",
+   "afb",
+   "granuloma"
+  ]
+ },
+ {
+  "id": "alzheimer-tangles-silver",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:Neurofibrillary tangles in the Hippocampus of an old person with Alzheimer-related pathology, Gallyas silver stain.JPG",
+  "tissue": "hippocampus",
+  "condition": "Alzheimer disease (neurofibrillary tangles)",
+  "stain": "Gallyas silver",
+  "magnification": "approx. 400x",
+  "caption": "Gallyas silver stain of the hippocampus with black flame-shaped neurofibrillary tangles filling neuron cell bodies. Tangles are aggregates of hyperphosphorylated tau and their spread tracks cognitive decline.",
+  "look_for": [
+   "black flame-shaped tangles in neuronal cytoplasm",
+   "tangles extending into the proximal dendrite",
+   "pale pink background neuropil"
+  ],
+  "tags": [
+   "alzheimer",
+   "neurofibrillary tangle",
+   "tau",
+   "dementia",
+   "hippocampus",
+   "silver stain"
+  ]
+ },
+ {
+  "id": "alzheimer-tau-ihc",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:Tauopathy AD.jpg",
+  "tissue": "cerebral cortex",
+  "condition": "Alzheimer disease",
+  "stain": "IHC (phospho-tau)",
+  "magnification": "approx. 200x",
+  "caption": "Tau immunostain in Alzheimer cortex. Brown tau fills neurons as tangles (arrow) and forms a cluster of dystrophic neurites around an amyloid plaque (arrowhead).",
+  "look_for": [
+   "brown tau-positive neuron bodies (tangles)",
+   "neuritic plaque ringed by tau-positive dystrophic neurites",
+   "fine brown neuropil threads"
+  ],
+  "tags": [
+   "alzheimer",
+   "tau",
+   "plaque",
+   "tangle",
+   "dementia",
+   "immunohistochemistry"
+  ]
+ },
+ {
+  "id": "lewy-body-he",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:Lewy body in the substantia nigra from a person with Parkinson's disease.jpg",
+  "tissue": "substantia nigra",
+  "condition": "Parkinson disease (Lewy body)",
+  "stain": "H&E",
+  "magnification": "approx. 600x",
+  "caption": "A pigmented substantia nigra neuron containing a Lewy body (arrowhead): a round eosinophilic inclusion with a pale halo. Lewy bodies are built from alpha-synuclein, and loss of these dopaminergic neurons causes the motor signs of Parkinson disease.",
+  "look_for": [
+   "round pink cytoplasmic inclusion with a pale halo",
+   "brown neuromelanin in the neuron",
+   "loss of neighbouring pigmented neurons"
+  ],
+  "tags": [
+   "parkinson",
+   "lewy body",
+   "substantia nigra",
+   "alpha-synuclein",
+   "dopamine",
+   "neuron"
+  ]
+ },
+ {
+  "id": "lewy-body-synuclein",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:Lewy Body alphaSynuclein.jpg",
+  "tissue": "substantia nigra",
+  "condition": "Parkinson disease (Lewy body)",
+  "stain": "IHC (alpha-synuclein)",
+  "magnification": "approx. 1000x",
+  "caption": "Alpha-synuclein immunostain marking a Lewy body as a dense brown ball inside a nigral neuron. The stain makes the inclusions easy to count and is how Lewy pathology is mapped through the brain.",
+  "look_for": [
+   "dense round brown alpha-synuclein inclusion",
+   "inclusion inside the neuronal cytoplasm",
+   "blue haematoxylin counterstain elsewhere"
+  ],
+  "tags": [
+   "parkinson",
+   "lewy body",
+   "alpha-synuclein",
+   "substantia nigra",
+   "immunohistochemistry"
+  ]
+ },
+ {
+  "id": "cortex-grey-white-normal",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:Grey matter and white matter - very high mag.jpg",
+  "tissue": "cerebral cortex",
+  "condition": "normal",
+  "stain": "HPS (haematoxylin-phloxine-saffron)",
+  "magnification": "very high (as stated on source)",
+  "caption": "Normal brain at the grey-white junction: neurons with triangular cell bodies and nucleoli sit in a pink fibrillary neuropil. Glial nuclei are small, round and dark, and the white matter beside it holds no neurons.",
+  "look_for": [
+   "pyramidal neurons with visible nucleoli and Nissl substance",
+   "fine pink neuropil between cells",
+   "small dark oligodendrocyte and astrocyte nuclei"
+  ],
+  "tags": [
+   "brain",
+   "cortex",
+   "neuron",
+   "grey matter",
+   "white matter",
+   "neuropil",
+   "normal"
+  ]
+ },
+ {
+  "id": "peripheral-nerve-osmium",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:Поперечний нерв.jpg",
+  "tissue": "peripheral nerve",
+  "condition": "normal",
+  "stain": "osmium tetroxide (osmic acid)",
+  "magnification": "400x (as stated on source)",
+  "caption": "A peripheral nerve fascicle cut across and stained with osmium, which blackens myelin lipid. Each dark ring is the myelin sheath around one axon; the fascicle is wrapped by perineurium.",
+  "look_for": [
+   "black myelin rings around pale axons",
+   "range of fibre diameters",
+   "perineurium surrounding the fascicle"
+  ],
+  "tags": [
+   "peripheral nerve",
+   "myelin",
+   "axon",
+   "schwann cell",
+   "fascicle",
+   "normal"
+  ]
+ },
+ {
+  "id": "glioblastoma-pseudopalisading",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:GBM pseudopalisading necrosis.jpg",
+  "tissue": "brain",
+  "condition": "glioblastoma",
+  "stain": "H&E",
+  "magnification": "approx. 100x",
+  "caption": "Glioblastoma with serpiginous bands of necrosis lined by densely packed tumour nuclei (pseudopalisading). Tumour cells migrate away from hypoxic, thrombosed areas, and necrosis or microvascular proliferation marks a grade 4 astrocytic tumour.",
+  "look_for": [
+   "pale geographic zones of necrosis",
+   "crowded tumour nuclei lining the necrosis edge",
+   "hypercellular background of atypical glial cells"
+  ],
+  "tags": [
+   "glioblastoma",
+   "pseudopalisading",
+   "necrosis",
+   "brain tumour",
+   "astrocytoma"
+  ]
+ },
+ {
+  "id": "ms-plaque-kluver-barrera",
+  "kind": "path",
+  "world": "nerve",
+  "commons_title": "File:MS Demyelinisation KB 10x.jpg",
+  "tissue": "white matter",
+  "condition": "multiple sclerosis (demyelinating plaque)",
+  "stain": "Klüver-Barrera (Luxol fast blue + cresyl violet)",
+  "magnification": "10x objective (as stated on source)",
+  "caption": "Multiple sclerosis lesion on a myelin stain: intact white matter is deep blue, and the sharply bordered plaque is pale because its myelin is lost. A lymphocytic cuff around a vein in the plaque shows the immune attack that drives demyelination.",
+  "look_for": [
+   "sharp edge between blue myelinated and pale demyelinated white matter",
+   "perivenular lymphocytic cuff inside the plaque",
+   "many small nuclei in the plaque (macrophages, gliosis)"
+  ],
+  "tags": [
+   "multiple sclerosis",
+   "demyelination",
+   "myelin",
+   "plaque",
+   "luxol fast blue",
+   "white matter"
+  ]
+ },
+ {
+  "id": "n-meningitidis-csf-gram",
+  "kind": "micro",
+  "world": "nerve",
+  "commons_title": "File:Neisseria meningitidis CSF Gram 1000.jpg",
+  "tissue": "cerebrospinal fluid",
+  "condition": "bacterial meningitis",
+  "organism": "Neisseria meningitidis",
+  "stain": "Gram",
+  "magnification": "1000x (as stated on source)",
+  "caption": "Gram stain of cloudy CSF in meningococcal meningitis: many neutrophils with small pink Gram-negative diplococci, some inside the cells. This finding justifies immediate antibiotics and prophylaxis for close contacts.",
+  "look_for": [
+   "sheets of neutrophils",
+   "small Gram-negative (pink) kidney-bean diplococci",
+   "organisms inside neutrophils"
+  ],
+  "tags": [
+   "meningitis",
+   "neisseria meningitidis",
+   "gram negative",
+   "diplococci",
+   "csf",
+   "neutrophil"
+  ]
+ },
+ {
+  "id": "cryptococcus-india-ink",
+  "kind": "micro",
+  "world": "nerve",
+  "commons_title": "File:Cryptococcus neoformans using a light India ink staining preparation PHIL 3771 lores.jpg",
+  "tissue": "CSF / culture",
+  "condition": "cryptococcosis",
+  "organism": "Cryptococcus neoformans",
+  "stain": "India ink",
+  "magnification": "approx. 400x",
+  "caption": "India ink preparation of Cryptococcus neoformans. The ink particles cannot enter the thick polysaccharide capsule, so each round yeast sits in a clear halo; this is a classic test in HIV-associated meningitis.",
+  "look_for": [
+   "round budding yeasts",
+   "wide clear halo (capsule) excluding the ink",
+   "dark particulate background"
+  ],
+  "tags": [
+   "cryptococcus",
+   "meningitis",
+   "india ink",
+   "capsule",
+   "fungus",
+   "hiv"
+  ],
+  "author": "CDC/Dr. Leanor Haley"
+ },
+ {
+  "id": "coeliac-villous-atrophy-low",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Celiac Sprue, Small Bowel Biopsy (5709845067).jpg",
+  "tissue": "small bowel mucosa (duodenum)",
+  "condition": "coeliac disease",
+  "stain": "H&E",
+  "magnification": "approx. 100x",
+  "caption": "Small bowel biopsy in coeliac disease with total villous atrophy: the surface is flat and the crypts are long and crowded (Marsh 3). Gluten-driven T-cell injury destroys the absorptive villi, causing malabsorption.",
+  "look_for": [
+   "flat mucosal surface with no villi",
+   "elongated hyperplastic crypts",
+   "lamina propria crowded with lymphocytes and plasma cells"
+  ],
+  "tags": [
+   "coeliac",
+   "celiac",
+   "villous atrophy",
+   "marsh",
+   "gluten",
+   "small bowel",
+   "malabsorption",
+   "villus"
+  ]
+ },
+ {
+  "id": "coeliac-iel-high",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Celiac Sprue, Small Bowel Biopsy (5709845115).jpg",
+  "tissue": "small bowel mucosa (duodenum)",
+  "condition": "coeliac disease",
+  "stain": "H&E",
+  "magnification": "approx. 400x",
+  "caption": "Higher power of the coeliac biopsy: small dark lymphocytes sit between the surface enterocytes. More than about 25 intraepithelial lymphocytes per 100 enterocytes is the earliest Marsh lesion and persists in villous atrophy.",
+  "look_for": [
+   "small round intraepithelial lymphocytes among enterocytes",
+   "flattened, damaged surface epithelium",
+   "dense plasma-cell-rich lamina propria"
+  ],
+  "tags": [
+   "coeliac",
+   "celiac",
+   "intraepithelial lymphocytes",
+   "iel",
+   "marsh",
+   "gluten",
+   "small bowel"
+  ]
+ },
+ {
+  "id": "oesophagus-normal-squamous",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Tinción hematoxilina-eosina.jpg",
+  "tissue": "oesophagus",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "approx. 200x",
+  "caption": "Normal oesophageal lining of non-keratinised stratified squamous epithelium, with a dark basal layer that matures upward into flattened surface cells. This tough layer resists abrasion from food but not acid reflux.",
+  "look_for": [
+   "basal cell layer with dark crowded nuclei",
+   "cells flattening toward the surface",
+   "no keratin layer on top"
+  ],
+  "tags": [
+   "oesophagus",
+   "esophagus",
+   "squamous epithelium",
+   "normal",
+   "swallowing"
+  ]
+ },
+ {
+  "id": "barrett-oesophagus-goblet",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Histopathology of Barrett's esophagus, original.jpg",
+  "tissue": "distal oesophagus",
+  "condition": "Barrett oesophagus",
+  "stain": "H&E",
+  "magnification": "approx. 200x",
+  "caption": "Barrett oesophagus: squamous lining (left) gives way to columnar mucosa with goblet cells, intestinal metaplasia caused by chronic reflux. Goblet cells confirm the diagnosis and mark an increased risk of adenocarcinoma.",
+  "look_for": [
+   "squamous epithelium meeting columnar epithelium",
+   "goblet cells with clear mucin vacuoles",
+   "glandular crypts in the lamina propria"
+  ],
+  "tags": [
+   "barrett",
+   "metaplasia",
+   "goblet cell",
+   "gerd",
+   "reflux",
+   "oesophagus",
+   "adenocarcinoma risk"
+  ],
+  "author": "Mikael Häggström, M.D."
+ },
+ {
+  "id": "gastric-body-normal",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Normal gastric mucosa intermed mag.jpg",
+  "tissue": "stomach (body/oxyntic mucosa)",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "intermediate (as stated on source)",
+  "caption": "Normal oxyntic gastric mucosa: short foveolar pits lined by mucous cells lead to long glands packed with pink parietal cells and bluish chief cells. Parietal cells secrete acid and intrinsic factor; chief cells secrete pepsinogen.",
+  "look_for": [
+   "surface foveolar cells with mucin caps",
+   "pink parietal cells in the upper glands",
+   "basophilic chief cells deeper in the glands"
+  ],
+  "tags": [
+   "stomach",
+   "gastric",
+   "parietal cell",
+   "chief cell",
+   "acid",
+   "normal"
+  ]
+ },
+ {
+  "id": "h-pylori-gastritis-organisms",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Helicobacter gastritis -- extremely high mag.jpg",
+  "tissue": "gastric mucosa",
+  "condition": "Helicobacter pylori gastritis",
+  "stain": "H&E",
+  "magnification": "extremely high (as stated on source)",
+  "caption": "At very high power, Helicobacter pylori appear as tiny curved rods in the mucus layer above the foveolar cells. Their urease neutralises acid locally, and chronic infection causes gastritis, peptic ulcers and gastric cancer risk.",
+  "look_for": [
+   "small curved rods in the surface mucus",
+   "organisms hugging the foveolar cell surface",
+   "inflammatory cells in the lamina propria"
+  ],
+  "tags": [
+   "h pylori",
+   "helicobacter",
+   "gastritis",
+   "peptic ulcer",
+   "stomach",
+   "urease"
+  ]
+ },
+ {
+  "id": "duodenum-normal-villi",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Duodenal biopsy, intermed. mag.jpg",
+  "tissue": "small bowel mucosa (duodenum)",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "intermediate (as stated on source)",
+  "caption": "Normal duodenal biopsy with tall finger-like villi and short crypts, a villus-to-crypt ratio of about 3 to 4:1. Compare with the flat coeliac biopsy to see what villous atrophy removes.",
+  "look_for": [
+   "tall slender villi",
+   "short crypts at the base",
+   "villus-to-crypt height ratio around 3:1 or more"
+  ],
+  "tags": [
+   "duodenum",
+   "small bowel",
+   "villus",
+   "crypt",
+   "absorption",
+   "normal",
+   "coeliac comparison"
+  ]
+ },
+ {
+  "id": "duodenum-normal-high",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Duodenal biopsy, very high mag.jpg",
+  "tissue": "small bowel mucosa (duodenum)",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "very high (as stated on source)",
+  "caption": "Close-up of normal villi lined by tall absorptive enterocytes with a brush border and scattered goblet cells. Only a few lymphocytes sit in the epithelium, unlike the crowded epithelium of coeliac disease.",
+  "look_for": [
+   "tall columnar enterocytes with a pink brush border",
+   "goblet cells with pale mucin",
+   "few intraepithelial lymphocytes",
+   "lamina propria core with capillaries"
+  ],
+  "tags": [
+   "duodenum",
+   "enterocyte",
+   "brush border",
+   "goblet cell",
+   "villus",
+   "normal"
+  ]
+ },
+ {
+  "id": "crohn-colon-granuloma",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Crohn's disease - colon - high mag.jpg",
+  "tissue": "colon mucosa",
+  "condition": "Crohn disease",
+  "stain": "H&E",
+  "magnification": "high (as stated on source)",
+  "caption": "Colonic biopsy in Crohn disease with a non-caseating granuloma at the base of the mucosa. A granuloma without caseation helps separate Crohn disease from ulcerative colitis.",
+  "look_for": [
+   "tight cluster of epithelioid histiocytes with no central necrosis",
+   "chronic inflammation in the lamina propria",
+   "crypts nearby with patchy distortion"
+  ],
+  "tags": [
+   "crohn",
+   "ibd",
+   "granuloma",
+   "colon",
+   "transmural",
+   "inflammatory bowel disease"
+  ]
+ },
+ {
+  "id": "giardiasis-duodenum",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Giardiasis duodenum high.jpg",
+  "tissue": "small bowel mucosa (duodenum)",
+  "condition": "giardiasis",
+  "stain": "H&E",
+  "magnification": "high (as stated on source)",
+  "caption": "Duodenal biopsy with Giardia trophozoites in the lumen next to intact villi. The pear-shaped parasites cling to the brush border with a ventral disc and cause malabsorptive diarrhoea, often with near-normal histology.",
+  "look_for": [
+   "pear or sickle-shaped trophozoites in the lumen",
+   "paired nuclei in some organisms",
+   "largely preserved villous architecture"
+  ],
+  "tags": [
+   "giardia",
+   "giardiasis",
+   "parasite",
+   "diarrhoea",
+   "duodenum",
+   "malabsorption"
+  ]
+ },
+ {
+  "id": "ulcerative-colitis-crypt-abscess",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Moderate chronic active ulcerative colitis, very high mag.jpg",
+  "tissue": "colon mucosa",
+  "condition": "ulcerative colitis",
+  "stain": "H&E",
+  "magnification": "very high (as stated on source)",
+  "caption": "Active ulcerative colitis: a crypt lumen filled with neutrophils (crypt abscess) amid a dense plasma-cell-rich lamina propria. Disease confined to the mucosa, starting in the rectum and spreading continuously, is typical of UC.",
+  "look_for": [
+   "crypt lumen packed with neutrophils (crypt abscess)",
+   "neutrophils invading crypt epithelium (cryptitis)",
+   "plasma cells crowding the lamina propria",
+   "reduced goblet cell mucin"
+  ],
+  "tags": [
+   "ulcerative colitis",
+   "ibd",
+   "crypt abscess",
+   "colitis",
+   "colon",
+   "inflammatory bowel disease"
+  ]
+ },
+ {
+  "id": "tubular-adenoma-low",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Tubular adenoma 2 low mag.jpg",
+  "tissue": "colon",
+  "condition": "tubular adenoma",
+  "stain": "H&E",
+  "magnification": "low (as stated on source)",
+  "caption": "Colorectal tubular adenoma: the dysplastic crypts on one side are crowded and dark with elongated nuclei, beside normal crypts full of goblet cells. Adenomas are the main precursor of colorectal cancer, which is why polyps are removed at colonoscopy.",
+  "look_for": [
+   "crowded crypts with dark pencil-shaped nuclei",
+   "loss of goblet cell mucin in dysplastic crypts",
+   "abrupt transition to normal colonic crypts"
+  ],
+  "tags": [
+   "adenoma",
+   "polyp",
+   "dysplasia",
+   "colon",
+   "colorectal cancer",
+   "apc"
+  ]
+ },
+ {
+  "id": "colorectal-adenocarcinoma",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Colorectal adenocarcinoma -- intermed mag.jpg",
+  "tissue": "colon",
+  "condition": "colorectal adenocarcinoma",
+  "stain": "H&E",
+  "magnification": "intermediate (as stated on source)",
+  "caption": "Invasive colorectal adenocarcinoma: irregular malignant glands with central 'dirty' necrosis invade the wall next to residual normal mucosa. Depth of invasion and nodal spread set the stage and treatment.",
+  "look_for": [
+   "irregular, back-to-back malignant glands",
+   "luminal dirty necrosis with debris",
+   "desmoplastic stroma around invasive glands",
+   "normal crypts at the edge for comparison"
+  ],
+  "tags": [
+   "colorectal cancer",
+   "adenocarcinoma",
+   "colon",
+   "dirty necrosis",
+   "tumour"
+  ]
+ },
+ {
+  "id": "pseudomembranous-colitis-volcano",
+  "kind": "path",
+  "world": "gi",
+  "commons_title": "File:Pseudomembranous Colitis (H&E) (7414583144).jpg",
+  "tissue": "colon",
+  "condition": "pseudomembranous colitis",
+  "stain": "H&E",
+  "magnification": "approx. 40x",
+  "caption": "Pseudomembranous colitis from Clostridioides difficile toxin: fibrin, mucus and neutrophils erupt from damaged crypts in a 'volcano' and spread as a pseudomembrane over the surface. It usually follows antibiotic use.",
+  "look_for": [
+   "mushroom or volcano-shaped exudate over the mucosa",
+   "fibrin, mucus and neutrophil debris in the plume",
+   "dilated damaged crypts beneath"
+  ],
+  "tags": [
+   "c difficile",
+   "pseudomembranous colitis",
+   "antibiotic",
+   "diarrhoea",
+   "colon",
+   "toxin"
+  ]
+ },
+ {
+  "id": "giardia-trophozoites-giemsa",
+  "kind": "micro",
+  "world": "gi",
+  "commons_title": "File:Giardia trophozoites Giemsa.tif",
+  "tissue": "culture",
+  "condition": "giardiasis",
+  "organism": "Giardia duodenalis",
+  "stain": "Giemsa",
+  "magnification": "100x objective (as stated on source)",
+  "caption": "Cultured Giardia trophozoites stained with Giemsa. Each pear-shaped organism has two nuclei that look like eyes, a central axostyle and trailing flagella, which give it a face-like appearance.",
+  "look_for": [
+   "pear-shaped teardrop bodies",
+   "two symmetric nuclei",
+   "flagella trailing from the body"
+  ],
+  "tags": [
+   "giardia",
+   "giardiasis",
+   "protozoa",
+   "trophozoite",
+   "parasite",
+   "diarrhoea"
+  ],
+  "author": "Eva Nohýnková"
+ },
+ {
+  "id": "giardia-trophozoite-single",
+  "kind": "micro",
+  "world": "gi",
+  "commons_title": "File:Giardia intestinalis - trophozoite.jpg",
+  "tissue": "culture",
+  "condition": "giardiasis",
+  "organism": "Giardia duodenalis",
+  "stain": "Giemsa",
+  "magnification": "approx. 1000x (10 µm scale bar)",
+  "caption": "A single Giardia trophozoite at high power showing its paired nuclei, curved median bodies and four pairs of flagella. The ventral sucking disc lets it attach to the duodenal brush border.",
+  "look_for": [
+   "two nuclei at the broad front end",
+   "dark curved median bodies",
+   "multiple flagella",
+   "about 10-15 µm long (see scale bar)"
+  ],
+  "tags": [
+   "giardia",
+   "giardiasis",
+   "protozoa",
+   "trophozoite",
+   "flagella"
+  ]
+ },
+ {
+  "id": "c-difficile-sem",
+  "kind": "micro",
+  "world": "gi",
+  "commons_title": "File:Clostridium difficile 01.jpg",
+  "tissue": "stool",
+  "condition": "Clostridioides difficile infection",
+  "organism": "Clostridioides difficile",
+  "stain": "scanning electron microscopy",
+  "magnification": "3006x (as stated on image)",
+  "caption": "Scanning electron micrograph of Clostridioides difficile rods from a stool sample. This spore-forming anaerobe overgrows when antibiotics disrupt colonic flora, and its toxins A and B cause pseudomembranous colitis.",
+  "look_for": [
+   "rod-shaped bacilli",
+   "cells in clumps and short chains",
+   "10 µm scale bar for size"
+  ],
+  "tags": [
+   "c difficile",
+   "clostridioides",
+   "antibiotic",
+   "colitis",
+   "anaerobe",
+   "spore"
+  ],
+  "author": "CDC (Public Health Image Library)"
+ },
+ {
+  "id": "e-coli-gram",
+  "kind": "micro",
+  "world": "gi",
+  "commons_title": "File:E choli Gram.JPG",
+  "tissue": "culture",
+  "condition": "urinary tract infection isolate",
+  "organism": "Escherichia coli",
+  "stain": "Gram",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Gram stain of Escherichia coli from culture: short pink Gram-negative rods. The thin peptidoglycan layer loses crystal violet during decolourisation and takes up the safranin counterstain.",
+  "look_for": [
+   "short pink (Gram-negative) rods",
+   "single cells and pairs",
+   "no spores or capsules visible"
+  ],
+  "tags": [
+   "e coli",
+   "gram negative",
+   "rod",
+   "enterobacterales",
+   "uti",
+   "gut flora"
+  ]
+ },
+ {
+  "id": "salmonella-gram",
+  "kind": "micro",
+  "world": "gi",
+  "commons_title": "File:Salmonella Typhimurium Gram.jpg",
+  "tissue": "culture",
+  "condition": "salmonellosis",
+  "organism": "Salmonella enterica serovar Typhimurium",
+  "stain": "Gram",
+  "magnification": "1000x (as stated on source)",
+  "caption": "Gram stain of Salmonella Typhimurium: Gram-negative rods that look like E. coli on a smear. They are separated by culture and biochemistry (non-lactose fermenting, H2S producing), not by the Gram stain.",
+  "look_for": [
+   "pink Gram-negative rods",
+   "morphology similar to E. coli",
+   "10 µm scale bar for size"
+  ],
+  "tags": [
+   "salmonella",
+   "gram negative",
+   "rod",
+   "food poisoning",
+   "gastroenteritis",
+   "typhoid"
+  ]
+ },
+ {
+  "id": "h-pylori-giemsa",
+  "kind": "micro",
+  "world": "gi",
+  "commons_title": "File:Helicobacter pylori, Gastric Mucosa, Giemsa stain (390307643).jpg",
+  "tissue": "gastric mucosa",
+  "condition": "Helicobacter pylori gastritis",
+  "organism": "Helicobacter pylori",
+  "stain": "Giemsa",
+  "magnification": "1000x (as stated on source)",
+  "caption": "Giemsa stain of a gastric biopsy: Helicobacter pylori show as dark blue curved rods in the mucus over the foveolar epithelium. Special stains make scanty organisms far easier to find than on H&E.",
+  "look_for": [
+   "small dark curved or S-shaped rods",
+   "organisms in surface mucus and pits",
+   "blue-stained gastric epithelium"
+  ],
+  "tags": [
+   "h pylori",
+   "helicobacter",
+   "gastritis",
+   "giemsa",
+   "peptic ulcer",
+   "stomach"
+  ]
+ },
+ {
+  "id": "lung-normal-bronchiole-alveoli",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Normal lung (5414785258).jpg",
+  "tissue": "lung",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "approx. 40x",
+  "caption": "Normal lung: a small bronchiole with folded epithelium and a smooth-muscle cuff, surrounded by thin-walled alveoli. The delicate alveolar septa carry the capillaries for gas exchange.",
+  "look_for": [
+   "bronchiole with ciliated epithelium and smooth muscle",
+   "thin alveolar septa enclosing empty air spaces",
+   "accompanying pulmonary artery branch"
+  ],
+  "tags": [
+   "lung",
+   "alveoli",
+   "bronchiole",
+   "gas exchange",
+   "normal"
+  ]
+ },
+ {
+  "id": "bronchus-normal-epithelium",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Normal bronchus (7471756698).jpg",
+  "tissue": "bronchus",
+  "condition": "normal",
+  "stain": "H&E",
+  "magnification": "approx. 100x",
+  "caption": "Normal bronchial wall with pseudostratified ciliated columnar epithelium on top and seromucous glands with a duct in the submucosa. Cilia and mucus together form the mucociliary escalator that clears inhaled particles.",
+  "look_for": [
+   "pseudostratified ciliated columnar epithelium with goblet cells",
+   "thin basement membrane under the epithelium",
+   "submucosal seromucous glands and duct"
+  ],
+  "tags": [
+   "bronchus",
+   "respiratory epithelium",
+   "cilia",
+   "goblet cell",
+   "mucociliary escalator",
+   "normal"
+  ]
+ },
+ {
+  "id": "pneumonia-acute-low",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Acute pneumonia -- low mag.jpg",
+  "tissue": "lung",
+  "condition": "acute bacterial pneumonia",
+  "stain": "H&E",
+  "magnification": "low (as stated on source)",
+  "caption": "Acute bacterial pneumonia at low power: alveoli in the lower half are filled solid with inflammatory exudate while the upper lung is still aerated. This consolidation is what produces dullness to percussion and an opacity on chest X-ray.",
+  "look_for": [
+   "alveoli packed with exudate (consolidation)",
+   "aerated lung next to consolidated lung",
+   "alveolar walls preserved around the exudate"
+  ],
+  "tags": [
+   "pneumonia",
+   "consolidation",
+   "lung",
+   "neutrophil",
+   "exudate",
+   "bronchopneumonia"
+  ]
+ },
+ {
+  "id": "pneumonia-acute-high",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Acute pneumonia -- high mag.jpg",
+  "tissue": "lung",
+  "condition": "acute bacterial pneumonia",
+  "stain": "H&E",
+  "magnification": "high (as stated on source)",
+  "caption": "Higher power of the same pneumonia: alveolar spaces are full of neutrophils with fibrin and some red cells, while the septa stay intact. Intact walls are why the lung can heal back to normal after the infection clears.",
+  "look_for": [
+   "alveoli stuffed with neutrophils",
+   "strands of fibrin and red cells in the exudate",
+   "congested capillaries in intact septa"
+  ],
+  "tags": [
+   "pneumonia",
+   "neutrophil",
+   "alveoli",
+   "fibrin",
+   "lung",
+   "infection"
+  ]
+ },
+ {
+  "id": "emphysema",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Histopathology of emphysema.jpg",
+  "tissue": "lung",
+  "condition": "emphysema",
+  "stain": "H&E",
+  "magnification": "approx. 40x",
+  "caption": "Severe emphysema: alveolar walls are destroyed, leaving large air spaces with free-floating septal stubs. Loss of surface area and elastic recoil causes air trapping and impaired gas exchange in COPD.",
+  "look_for": [
+   "greatly enlarged air spaces",
+   "thin broken alveolar septa",
+   "free-floating septal fragments"
+  ],
+  "tags": [
+   "emphysema",
+   "copd",
+   "smoking",
+   "alveoli",
+   "lung",
+   "alpha-1 antitrypsin"
+  ],
+  "author": "Mikael Häggström, M.D."
+ },
+ {
+  "id": "pulmonary-tb-necrotising-granuloma",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Bronchocentric tuberculosis Case 201 (6545170087).jpg",
+  "tissue": "lung",
+  "condition": "pulmonary tuberculosis",
+  "stain": "H&E",
+  "magnification": "approx. 100x",
+  "caption": "Pulmonary tuberculosis with a necrotising granuloma next to an airway. Bacilli arrive by inhalation, so granulomas often centre on bronchioles; caseous centres can erode into airways and seed cavities.",
+  "look_for": [
+   "granuloma with a central necrotic zone",
+   "epithelioid histiocytes and lymphocytes around the necrosis",
+   "adjacent bronchiole"
+  ],
+  "tags": [
+   "tuberculosis",
+   "granuloma",
+   "caseation",
+   "lung",
+   "mycobacterium",
+   "cavitation"
+  ]
+ },
+ {
+  "id": "lung-squamous-carcinoma-keratin",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Lung squamous carcinoma -- high mag.jpg",
+  "tissue": "lung",
+  "condition": "squamous cell carcinoma",
+  "stain": "H&E",
+  "magnification": "high (as stated on source)",
+  "caption": "Squamous cell carcinoma of the lung with a keratin pearl: concentric layers of pink keratin inside a nest of atypical squamous cells. It arises centrally in smokers' bronchi and can secrete PTHrP causing hypercalcaemia.",
+  "look_for": [
+   "concentric pink keratin pearl",
+   "large polygonal cells with glassy pink cytoplasm",
+   "pleomorphic nuclei"
+  ],
+  "tags": [
+   "lung cancer",
+   "squamous cell carcinoma",
+   "keratin pearl",
+   "smoking",
+   "hypercalcaemia"
+  ]
+ },
+ {
+  "id": "asthma-airway-mucus",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Asthma .jpg",
+  "tissue": "bronchiole",
+  "condition": "asthma",
+  "stain": "H&E",
+  "magnification": "approx. 40x",
+  "caption": "Bronchiole from a patient with asthma: the lumen is plugged by mucus, the epithelium has many goblet cells and the wall is thickened with inflammation. Mucus plugging and smooth-muscle constriction cause the airflow limitation.",
+  "look_for": [
+   "mucus plug filling the airway lumen",
+   "goblet cell hyperplasia",
+   "thickened basement membrane and inflamed wall",
+   "smooth muscle around the airway"
+  ],
+  "tags": [
+   "asthma",
+   "mucus plug",
+   "airway",
+   "goblet cell",
+   "eosinophil",
+   "bronchiole"
+  ]
+ },
+ {
+  "id": "lung-adenocarcinoma-acinar",
+  "kind": "path",
+  "world": "lung",
+  "commons_title": "File:Acinar pattern adenocarcinoma of lung -- intermed mag.jpg",
+  "tissue": "lung",
+  "condition": "adenocarcinoma",
+  "stain": "H&E",
+  "magnification": "intermediate (as stated on source)",
+  "caption": "Lung adenocarcinoma, acinar pattern: malignant glands of atypical cells infiltrate the lung. Adenocarcinoma is the commonest lung cancer, arises peripherally and also occurs in never-smokers; EGFR or ALK changes guide targeted therapy.",
+  "look_for": [
+   "irregular glands lined by atypical columnar cells",
+   "enlarged nuclei with nucleoli",
+   "fibrotic stroma between glands"
+  ],
+  "tags": [
+   "lung cancer",
+   "adenocarcinoma",
+   "egfr",
+   "alk",
+   "gland",
+   "peripheral"
+  ]
+ },
+ {
+  "id": "m-tuberculosis-zn-bal",
+  "kind": "micro",
+  "world": "lung",
+  "commons_title": "File:Acid fast bacilli of Mycobacterium tuberculosis.jpg",
+  "tissue": "bronchoalveolar lavage",
+  "condition": "pulmonary tuberculosis",
+  "organism": "Mycobacterium tuberculosis",
+  "stain": "Ziehl-Neelsen",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Ziehl-Neelsen stain of bronchoalveolar lavage fluid: red acid-fast bacilli of Mycobacterium tuberculosis stand out against blue cells. A positive smear means the patient is likely infectious.",
+  "look_for": [
+   "thin red beaded rods",
+   "bacilli lying singly and in loose clumps",
+   "blue counterstained background cells"
+  ],
+  "tags": [
+   "tuberculosis",
+   "acid-fast",
+   "ziehl-neelsen",
+   "mycobacterium",
+   "afb",
+   "bal"
+  ]
+ },
+ {
+  "id": "s-pneumoniae-gram",
+  "kind": "micro",
+  "world": "lung",
+  "commons_title": "File:Gram stain of Streptococcus pneumoniae.jpg",
+  "tissue": "culture",
+  "condition": "pneumococcal infection",
+  "organism": "Streptococcus pneumoniae",
+  "stain": "Gram",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Gram stain of Streptococcus pneumoniae: purple Gram-positive cocci in pairs, each pair slightly pointed at the ends (lancet-shaped). Pneumococcus is the commonest cause of community-acquired lobar pneumonia.",
+  "look_for": [
+   "purple Gram-positive cocci",
+   "pairs (diplococci) with pointed lancet ends",
+   "short chains in places"
+  ],
+  "tags": [
+   "pneumonia",
+   "streptococcus pneumoniae",
+   "pneumococcus",
+   "gram positive",
+   "diplococci",
+   "meningitis"
+  ]
+ },
+ {
+  "id": "klebsiella-gram",
+  "kind": "micro",
+  "world": "lung",
+  "commons_title": "File:Gram Negative bacilli of Klebsiella in Gram stained smear of culture.jpg",
+  "tissue": "culture",
+  "condition": "Klebsiella infection",
+  "organism": "Klebsiella pneumoniae",
+  "stain": "Gram",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Gram stain of Klebsiella from culture: plump pink Gram-negative rods. Klebsiella pneumoniae causes aspiration and hospital pneumonia, classically in alcohol use disorder, and many strains carry carbapenemases.",
+  "look_for": [
+   "short plump pink rods",
+   "rods singly and in pairs",
+   "no spores"
+  ],
+  "tags": [
+   "klebsiella",
+   "gram negative",
+   "rod",
+   "pneumonia",
+   "hospital acquired",
+   "aspiration"
+  ]
+ },
+ {
+  "id": "pneumocystis-cysts-silver",
+  "kind": "micro",
+  "world": "lung",
+  "commons_title": "File:Pneumocystis carinii 01.jpg",
+  "tissue": "respiratory specimen",
+  "condition": "Pneumocystis pneumonia",
+  "organism": "Pneumocystis jirovecii",
+  "stain": "Gomori methenamine silver (GMS)",
+  "magnification": "approx. 1000x",
+  "caption": "Silver stain showing Pneumocystis jirovecii cysts as dark round to cup-shaped bodies. Pneumocystis pneumonia is a defining opportunistic infection when CD4 counts fall below 200 cells/µL. (The organism was formerly called P. carinii.)",
+  "look_for": [
+   "round or crescent cup-shaped black cysts",
+   "cysts about the size of a red cell",
+   "clusters of cysts in a foamy background"
+  ],
+  "tags": [
+   "pneumocystis",
+   "pcp",
+   "hiv",
+   "opportunistic infection",
+   "fungus",
+   "silver stain"
+  ],
+  "author": "CDC (Public Health Image Library)"
+ },
+ {
+  "id": "aspergillus-hyphae-gms",
+  "kind": "micro",
+  "world": "lung",
+  "commons_title": "File:Aspergillosis, angioinvasive, - GMS stain (5390967417).jpg",
+  "tissue": "lung",
+  "condition": "invasive aspergillosis",
+  "organism": "Aspergillus species",
+  "stain": "Gomori methenamine silver (GMS)",
+  "magnification": "approx. 200x",
+  "caption": "GMS stain of angioinvasive aspergillosis with black hyphae invading a vessel. Aspergillus hyphae are narrow, septate and branch at acute angles, and vessel invasion leads to infarction in neutropenic patients.",
+  "look_for": [
+   "black, narrow septate hyphae",
+   "acute-angle (about 45°) branching",
+   "hyphae within and through the vessel wall"
+  ],
+  "tags": [
+   "aspergillus",
+   "aspergillosis",
+   "fungus",
+   "neutropenia",
+   "hyphae",
+   "angioinvasion"
+  ]
+ },
+ {
+  "id": "s-pneumoniae-sem",
+  "kind": "micro",
+  "world": "lung",
+  "commons_title": "File:Streptococcus pneumoniae-263.jpg",
+  "tissue": "culture",
+  "condition": "pneumococcal infection",
+  "organism": "Streptococcus pneumoniae",
+  "stain": "scanning electron microscopy",
+  "magnification": "approx. 30,000x",
+  "caption": "Scanning electron micrograph of a pneumococcal diplococcus. Its polysaccharide capsule resists phagocytosis and is the target of pneumococcal vaccines.",
+  "look_for": [
+   "paired round cocci",
+   "fuzzy surface from the capsule",
+   "pores in the filter membrane behind"
+  ],
+  "tags": [
+   "pneumonia",
+   "streptococcus pneumoniae",
+   "pneumococcus",
+   "capsule",
+   "vaccine",
+   "diplococci"
+  ]
+ },
+ {
+  "id": "glomerulus-normal-pas",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Renal corpuscle.jpg",
+  "tissue": "kidney cortex",
+  "condition": "normal",
+  "stain": "PAS",
+  "magnification": "approx. 400x",
+  "caption": "Normal glomerulus on PAS, which outlines basement membranes in magenta. Thin, delicate capillary loops sit inside Bowman's space and capsule, surrounded by proximal tubules with brush borders.",
+  "look_for": [
+   "thin, even capillary loop basement membranes",
+   "open Bowman's space",
+   "few mesangial cells",
+   "proximal tubules with PAS-positive brush borders"
+  ],
+  "tags": [
+   "glomerulus",
+   "kidney",
+   "nephron",
+   "bowman's capsule",
+   "filtration",
+   "normal"
+  ],
+  "author": "Ed Uthman, MD"
+ },
+ {
+  "id": "crescentic-gn",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Crescentic glomerulonephritis - very high mag.jpg",
+  "tissue": "kidney glomerulus",
+  "condition": "crescentic glomerulonephritis",
+  "stain": "PAS",
+  "magnification": "very high (as stated on source)",
+  "caption": "Crescentic glomerulonephritis: proliferating parietal epithelial cells and macrophages form a crescent in Bowman's space that compresses the glomerular tuft. Crescents mean severe capillary wall rupture and rapidly progressive renal failure.",
+  "look_for": [
+   "cellular crescent filling Bowman's space",
+   "compressed, collapsed glomerular tuft",
+   "inflamed surrounding interstitium"
+  ],
+  "tags": [
+   "crescentic glomerulonephritis",
+   "rpgn",
+   "goodpasture",
+   "anca vasculitis",
+   "glomerulus",
+   "nephritic"
+  ]
+ },
+ {
+  "id": "post-infectious-gn",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Post-infectious glomerulonephritis - very high mag.jpg",
+  "tissue": "kidney glomerulus",
+  "condition": "post-infectious (post-streptococcal) glomerulonephritis",
+  "stain": "PAS",
+  "magnification": "very high (as stated on source)",
+  "caption": "Post-infectious glomerulonephritis: the glomerulus is enlarged and hypercellular with neutrophils in the capillary loops. Immune complexes formed after a streptococcal infection deposit in the glomerulus, causing haematuria, oedema and hypertension.",
+  "look_for": [
+   "enlarged, hypercellular glomerular tuft",
+   "neutrophils within capillary loops",
+   "narrowed capillary lumens"
+  ],
+  "tags": [
+   "post-streptococcal glomerulonephritis",
+   "psgn",
+   "nephritic syndrome",
+   "immune complex",
+   "glomerulus",
+   "streptococcus"
+  ]
+ },
+ {
+  "id": "clear-cell-rcc",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Clear cell renal cell carcinoma -- very high mag.jpg",
+  "tissue": "kidney",
+  "condition": "clear cell renal cell carcinoma",
+  "stain": "H&E",
+  "magnification": "very high (as stated on source)",
+  "caption": "Clear cell renal cell carcinoma: nests of cells with clear cytoplasm (lipid and glycogen dissolve in processing) separated by a rich network of thin blood vessels. Loss of VHL activates hypoxia signalling, which drives that vascularity.",
+  "look_for": [
+   "cells with clear or pale cytoplasm and distinct borders",
+   "delicate branching capillary network",
+   "nuclei with prominent nucleoli (higher grade)"
+  ],
+  "tags": [
+   "renal cell carcinoma",
+   "rcc",
+   "clear cell",
+   "vhl",
+   "kidney cancer",
+   "haematuria"
+  ]
+ },
+ {
+  "id": "acute-pyelonephritis",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Acute pyelonephritis - very high mag.jpg",
+  "tissue": "kidney",
+  "condition": "acute pyelonephritis",
+  "stain": "H&E",
+  "magnification": "very high (as stated on source)",
+  "caption": "Acute pyelonephritis: neutrophils flood the interstitium and tubules around a spared glomerulus. Ascending infection, usually E. coli, causes fever, flank pain and white cell casts in urine.",
+  "look_for": [
+   "dense neutrophilic infiltrate in the interstitium",
+   "neutrophils within tubules",
+   "glomerulus relatively spared"
+  ],
+  "tags": [
+   "pyelonephritis",
+   "uti",
+   "e coli",
+   "neutrophil",
+   "kidney infection",
+   "wbc cast"
+  ]
+ },
+ {
+  "id": "diabetic-nephropathy-kw-pas",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Diabetic glomerulosclerosis (4) PAS.jpg",
+  "tissue": "kidney glomerulus",
+  "condition": "diabetic nephropathy (Kimmelstiel-Wilson nodule)",
+  "stain": "PAS",
+  "magnification": "approx. 400x",
+  "caption": "Diabetic glomerulosclerosis with a Kimmelstiel-Wilson nodule: a round PAS-positive mesangial nodule pushing capillary loops aside. Long-standing hyperglycaemia thickens basement membranes and expands the mesangium, leading to proteinuria and chronic kidney disease.",
+  "look_for": [
+   "round acellular PAS-positive mesangial nodule",
+   "thickened capillary and Bowman's capsule basement membranes",
+   "compressed capillary loops at the edge of the nodule"
+  ],
+  "tags": [
+   "diabetic nephropathy",
+   "kimmelstiel-wilson",
+   "diabetes",
+   "glomerulus",
+   "proteinuria",
+   "dka"
+  ],
+  "author": "KGH"
+ },
+ {
+  "id": "acute-tubular-necrosis",
+  "kind": "path",
+  "world": "kidney",
+  "commons_title": "File:Necrosi tubular aguda renal.IMG 1779.JPG",
+  "tissue": "kidney cortex",
+  "condition": "acute tubular necrosis",
+  "stain": "H&E",
+  "magnification": "approx. 200x",
+  "caption": "Acute tubular injury: proximal tubules have flattened epithelium, lost brush borders and sloughed cells or debris in their lumens, while the glomerulus looks normal. Ischaemia or toxins cause this, and it is a leading cause of hospital acute kidney injury and can follow severe volume depletion such as in DKA.",
+  "look_for": [
+   "tubules with flattened, thinned epithelium",
+   "loss of brush border",
+   "cell debris in tubular lumens",
+   "normal-looking glomerulus"
+  ],
+  "tags": [
+   "acute tubular necrosis",
+   "atn",
+   "acute kidney injury",
+   "aki",
+   "tubule",
+   "ischaemia",
+   "dka"
+  ]
+ },
+ {
+  "id": "e-coli-gram-uti",
+  "kind": "micro",
+  "world": "kidney",
+  "commons_title": "File:Escherichia coli Gram Stain.jpg",
+  "tissue": "culture",
+  "condition": "urinary tract infection",
+  "organism": "Escherichia coli",
+  "stain": "Gram",
+  "magnification": "approx. 1000x (oil)",
+  "caption": "Gram stain of Escherichia coli, the commonest cause of urinary tract infection and pyelonephritis. Fimbriae (P pili) let uropathogenic strains climb the urinary tract and attach to urothelium.",
+  "look_for": [
+   "pink Gram-negative rods",
+   "rods in loose clusters",
+   "no spores"
+  ],
+  "tags": [
+   "e coli",
+   "gram negative",
+   "uti",
+   "pyelonephritis",
+   "rod",
+   "urinary tract"
+  ]
+ },
+ {
+  "id": "urine-wbc-cast",
+  "kind": "micro",
+  "world": "kidney",
+  "commons_title": "File:WBC cast in urine.jpg",
+  "tissue": "urine sediment",
+  "condition": "white cell cast",
+  "organism": null,
+  "stain": "unstained wet mount",
+  "magnification": "approx. 400x",
+  "caption": "Unstained urine sediment with a white blood cell cast: leucocytes trapped in a protein cylinder moulded in a renal tubule. Because casts form in tubules, WBC casts place the inflammation in the kidney, as in pyelonephritis or interstitial nephritis.",
+  "look_for": [
+   "cylindrical cast with parallel sides",
+   "round granular leucocytes inside the cast",
+   "lobed nuclei visible in some cells"
+  ],
+  "tags": [
+   "wbc cast",
+   "urinalysis",
+   "pyelonephritis",
+   "interstitial nephritis",
+   "urine",
+   "kidney"
+  ]
+ }
+]

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slide Gallery</title>
+<style>
+  :root {
+    --bg: #faf9f6; --card: #ffffff; --ink: #1d1d1f; --muted: #5f6368; --line: #e3e1dc;
+    --accent: #8a2d4d; --chip: #f1ece4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416; --card: #1d1d21; --ink: #ececef; --muted: #a0a3ab; --line: #2e2e34;
+      --accent: #e48aab; --chip: #2a2a30;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141416; --card: #1d1d21; --ink: #ececef; --muted: #a0a3ab; --line: #2e2e34;
+    --accent: #e48aab; --chip: #2a2a30;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header, main { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 28px; padding-bottom: 8px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  header p { margin: 0; color: var(--muted); }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+  nav a { color: var(--ink); background: var(--chip); padding: 4px 12px; border-radius: 999px;
+    text-decoration: none; font-size: 14px; }
+  h2 { font-size: 22px; margin: 40px 0 4px; text-transform: capitalize; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  h3 { font-size: 15px; margin: 18px 0 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    display: flex; flex-direction: column; }
+  figure button { all: unset; cursor: zoom-in; display: block; aspect-ratio: 4 / 3; overflow: hidden; flex: none; background: #000; }
+  figure button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  figcaption { padding: 10px 12px 12px; font-size: 13.5px; }
+  .cond { font-weight: 600; font-size: 15px; }
+  .meta { color: var(--muted); margin: 2px 0 6px; }
+  .credit { color: var(--muted); font-size: 12px; margin-top: 8px; word-break: break-word; }
+  .credit a { color: inherit; }
+  dialog { border: 0; padding: 0; max-width: min(1400px, 96vw); max-height: 94vh; overflow: auto; background: var(--card); color: var(--ink); border-radius: 10px; }
+  dialog::backdrop { background: rgba(0,0,0,.8); }
+  dialog img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; }
+  dialog .info { padding: 12px 16px 16px; font-size: 14px; max-width: 900px; }
+  dialog ul { margin: 6px 0; padding-left: 20px; }
+  dialog .close { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; border: 0;
+    border-radius: 999px; width: 34px; height: 34px; font-size: 20px; cursor: pointer; }
+  .err { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Inner Voyage slide gallery</h1>
+  <p id="summary">Loading images.json…</p>
+  <nav id="nav"></nav>
+</header>
+<main id="main"></main>
+<dialog id="viewer">
+  <button class="close" aria-label="Close">×</button>
+  <img id="v-img" alt="">
+  <div class="info" id="v-info"></div>
+</dialog>
+<script>
+const WORLDS = ["blood", "lymph", "nerve", "gi", "lung", "kidney"];
+const WORLD_NAMES = { blood: "Blood", lymph: "Lymph", nerve: "Nerve & brain", gi: "Gastrointestinal", lung: "Lung", kidney: "Kidney" };
+const KIND_NAMES = { path: "Histopathology", micro: "Microbiology" };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function creditHtml(im) {
+  return `${esc(im.author)}, <a href="${esc(im.license_url)}" target="_blank" rel="noopener">${esc(im.license)}</a>, via <a href="${esc(im.source_url)}" target="_blank" rel="noopener">Wikimedia Commons</a>`;
+}
+
+function card(im) {
+  const sub = [im.organism ? `<i>${esc(im.organism)}</i>` : esc(im.tissue), esc(im.stain), esc(im.magnification)].filter(Boolean).join(" · ");
+  return `<figure>
+    <button data-id="${esc(im.id)}" aria-label="Open ${esc(im.condition)} full size"><img loading="lazy" src="${esc(im.thumb)}" alt="${esc(im.condition)}, ${esc(im.stain)}"></button>
+    <figcaption>
+      <div class="cond">${esc(im.condition)}</div>
+      <div class="meta">${sub}</div>
+      <div>${esc(im.caption)}</div>
+      <div class="credit">${creditHtml(im)}</div>
+    </figcaption>
+  </figure>`;
+}
+
+fetch("images.json").then(r => r.json()).then(data => {
+  const imgs = data.images, byId = Object.fromEntries(imgs.map(i => [i.id, i]));
+  const main = document.getElementById("main"), nav = document.getElementById("nav");
+  document.getElementById("summary").textContent =
+    `${imgs.length} openly licensed images from Wikimedia Commons, generated ${data.generated}. Click any image for full size.`;
+  for (const w of WORLDS) {
+    const inWorld = imgs.filter(i => i.world === w);
+    if (!inWorld.length) continue;
+    nav.insertAdjacentHTML("beforeend", `<a href="#${w}">${WORLD_NAMES[w]} (${inWorld.length})</a>`);
+    let html = `<h2 id="${w}">${WORLD_NAMES[w]}</h2>`;
+    for (const k of ["path", "micro"]) {
+      const set = inWorld.filter(i => i.kind === k);
+      if (set.length) html += `<h3>${KIND_NAMES[k]}</h3><div class="grid">${set.map(card).join("")}</div>`;
+    }
+    main.insertAdjacentHTML("beforeend", html);
+  }
+  const dlg = document.getElementById("viewer");
+  main.addEventListener("click", e => {
+    const b = e.target.closest("button[data-id]");
+    if (!b) return;
+    const im = byId[b.dataset.id];
+    const vimg = document.getElementById("v-img");
+    vimg.src = im.file; vimg.alt = `${im.condition}, ${im.stain}`;
+    document.getElementById("v-info").innerHTML =
+      `<strong>${esc(im.condition)}</strong> · ${esc(im.tissue)}${im.organism ? ` · <i>${esc(im.organism)}</i>` : ""} · ${esc(im.stain)} · ${esc(im.magnification)}
+       <p>${esc(im.caption)}</p>
+       <div>Look for:</div><ul>${im.look_for.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+       <div class="credit">${creditHtml(im)}</div>`;
+    dlg.showModal();
+  });
+  dlg.querySelector(".close").onclick = () => dlg.close();
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+}).catch(err => {
+  document.getElementById("summary").innerHTML = `<span class="err">Could not load images.json (${esc(err.message)}). Serve this folder over HTTP rather than opening the file directly.</span>`;
+});
+</script>
+</body>
+</html>

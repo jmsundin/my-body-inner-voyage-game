@@ -1,0 +1,82 @@
+# Image credits
+
+Histopathology and microbiology images used by Inner Voyage. Every file comes from
+Wikimedia Commons and is in the public domain or under a Creative Commons licence
+(CC0, CC BY or CC BY-SA). The images were resized and re-encoded as JPEG; no other
+changes were made. Captions are our own.
+
+Images marked CC BY-SA remain under that licence (share-alike): reuse of those
+files, including our resized copies, must keep the same licence and credit the
+author. CC BY images require attribution as shown. This list is generated from
+`assets/images.json` by `tools/fetch_assets.py`.
+
+| Image | World | Author | Licence | Source |
+|---|---|---|---|---|
+| `path/blood/sickle-cell-smear.jpg` | blood | Ed Uthman from Houston, TX, USA | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Sickle_Cell_Anemia_(5610746554).jpg>) |
+| `path/blood/iron-deficiency-smear.jpg` | blood | Ed Uthman from Houston, TX, USA | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Iron-deficiency_Anemia,_Peripheral_Blood_Smear_(4422704616).jpg>) |
+| `path/blood/aml-auer-rods.jpg` | blood | Paulo Henrique Orlandi Mourao | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Myeloblast_with_Auer_rod_smear_2010-01-27.JPG>) |
+| `path/blood/coronary-atherosclerosis-trichrome.jpg` | blood | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg>) |
+| `path/blood/thrombus-lines-of-zahn.jpg` | blood | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Laminations_in_a_thrombus_-_intermed_mag.jpg>) |
+| `path/blood/blood-smear-normal.jpg` | blood | Keith Chambers | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Normal_Adult_Blood_Smear.JPG>) |
+| `micro/blood/p-falciparum-rings.jpg` | blood | Dr Graham Beards | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Malaria_falciparum_ring_forms.jpg>) |
+| `path/lymph/lymph-node-normal.jpg` | lymph | Ed Uthman, MD | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Normal_Lymph_Node.jpg>) |
+| `path/lymph/reactive-follicular-hyperplasia.jpg` | lymph | Patho | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Follicular_lymphatic_hyperplasia,_HE.jpg>) |
+| `path/lymph/hodgkin-reed-sternberg.jpg` | lymph | Calicut Medical College | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Hodgkin%27s_lymphoma_40X.jpg>) |
+| `path/lymph/burkitt-starry-sky.jpg` | lymph | Ed Uthman, MD | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Burkitt_lymphoma,_H%26E.jpg>) |
+| `path/lymph/burkitt-touch-prep.jpg` | lymph | Ed Uthman, MD | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Burkitt_lymphoma,_touch_prep,_Wright_stain.jpg>) |
+| `path/lymph/tb-lymph-node-langhans.jpg` | lymph | Department of Pathology, Calicut Medical College | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Tuberculous_lymph_node_with_caseating_granuloma_40X.jpg>) |
+| `micro/lymph/m-tuberculosis-zn-cdc.jpg` | lymph | CDC/Dr. George P. Kubica | [Public domain](<https://creativecommons.org/publicdomain/mark/1.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Mycobacterium_tuberculosis_Ziehl-Neelsen_stain_02.jpg>) |
+| `path/nerve/alzheimer-tangles-silver.jpg` | nerve | Patho | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Neurofibrillary_tangles_in_the_Hippocampus_of_an_old_person_with_Alzheimer-related_pathology,_Gallyas_silver_stain.JPG>) |
+| `path/nerve/alzheimer-tau-ihc.jpg` | nerve | Tulemo | [CC0](<http://creativecommons.org/publicdomain/zero/1.0/deed.en>) | [Commons](<https://commons.wikimedia.org/wiki/File:Tauopathy_AD.jpg>) |
+| `path/nerve/lewy-body-he.jpg` | nerve | Tulemo | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Lewy_body_in_the_substantia_nigra_from_a_person_with_Parkinson%27s_disease.jpg>) |
+| `path/nerve/lewy-body-synuclein.jpg` | nerve | Marvin 101 | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Lewy_Body_alphaSynuclein.jpg>) |
+| `path/nerve/cortex-grey-white-normal.jpg` | nerve | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Grey_matter_and_white_matter_-_very_high_mag.jpg>) |
+| `path/nerve/peripheral-nerve-osmium.jpg` | nerve | Малишко Анастасія | [CC BY 4.0](<https://creativecommons.org/licenses/by/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:%D0%9F%D0%BE%D0%BF%D0%B5%D1%80%D0%B5%D1%87%D0%BD%D0%B8%D0%B9_%D0%BD%D0%B5%D1%80%D0%B2.jpg>) |
+| `path/nerve/glioblastoma-pseudopalisading.jpg` | nerve | Jensflorian | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:GBM_pseudopalisading_necrosis.jpg>) |
+| `path/nerve/ms-plaque-kluver-barrera.jpg` | nerve | Marvin 101 | [CC BY-SA 3.0](<http://creativecommons.org/licenses/by-sa/3.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:MS_Demyelinisation_KB_10x.jpg>) |
+| `micro/nerve/n-meningitidis-csf-gram.jpg` | nerve | Microman12345 | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Neisseria_meningitidis_CSF_Gram_1000.jpg>) |
+| `micro/nerve/cryptococcus-india-ink.jpg` | nerve | CDC/Dr. Leanor Haley | [Public domain](<https://creativecommons.org/publicdomain/mark/1.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Cryptococcus_neoformans_using_a_light_India_ink_staining_preparation_PHIL_3771_lores.jpg>) |
+| `path/gi/coeliac-villous-atrophy-low.jpg` | gi | Ed Uthman from Houston, TX, USA | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Celiac_Sprue,_Small_Bowel_Biopsy_(5709845067).jpg>) |
+| `path/gi/coeliac-iel-high.jpg` | gi | Ed Uthman from Houston, TX, USA | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Celiac_Sprue,_Small_Bowel_Biopsy_(5709845115).jpg>) |
+| `path/gi/oesophagus-normal-squamous.jpg` | gi | Samir@enwiki | [CC BY-SA 3.0](<http://creativecommons.org/licenses/by-sa/3.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Tinci%C3%B3n_hematoxilina-eosina.jpg>) |
+| `path/gi/barrett-oesophagus-goblet.jpg` | gi | Mikael Häggström, M.D. | [CC0](<http://creativecommons.org/publicdomain/zero/1.0/deed.en>) | [Commons](<https://commons.wikimedia.org/wiki/File:Histopathology_of_Barrett%27s_esophagus,_original.jpg>) |
+| `path/gi/gastric-body-normal.jpg` | gi | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Normal_gastric_mucosa_intermed_mag.jpg>) |
+| `path/gi/h-pylori-gastritis-organisms.jpg` | gi | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Helicobacter_gastritis_--_extremely_high_mag.jpg>) |
+| `path/gi/duodenum-normal-villi.jpg` | gi | CoRus13 | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Duodenal_biopsy,_intermed._mag.jpg>) |
+| `path/gi/duodenum-normal-high.jpg` | gi | CoRus13 | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Duodenal_biopsy,_very_high_mag.jpg>) |
+| `path/gi/crohn-colon-granuloma.jpg` | gi | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Crohn%27s_disease_-_colon_-_high_mag.jpg>) |
+| `path/gi/giardiasis-duodenum.jpg` | gi | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Giardiasis_duodenum_high.jpg>) |
+| `path/gi/ulcerative-colitis-crypt-abscess.jpg` | gi | CoRus13 | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Moderate_chronic_active_ulcerative_colitis,_very_high_mag.jpg>) |
+| `path/gi/tubular-adenoma-low.jpg` | gi | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Tubular_adenoma_2_low_mag.jpg>) |
+| `path/gi/colorectal-adenocarcinoma.jpg` | gi | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Colorectal_adenocarcinoma_--_intermed_mag.jpg>) |
+| `path/gi/pseudomembranous-colitis-volcano.jpg` | gi | Ed Uthman from Houston, TX, USA | [CC BY 2.0](<https://creativecommons.org/licenses/by/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Pseudomembranous_Colitis_(H%26E)_(7414583144).jpg>) |
+| `micro/gi/giardia-trophozoites-giemsa.jpg` | gi | Eva Nohýnková | [CC BY 4.0](<https://creativecommons.org/licenses/by/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Giardia_trophozoites_Giemsa.tif>) |
+| `micro/gi/giardia-trophozoite-single.jpg` | gi | Stefan Walkowski | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Giardia_intestinalis_-_trophozoite.jpg>) |
+| `micro/gi/c-difficile-sem.jpg` | gi | CDC (Public Health Image Library) | [Public domain](<https://creativecommons.org/publicdomain/mark/1.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Clostridium_difficile_01.jpg>) |
+| `micro/gi/e-coli-gram.jpg` | gi | Bobjgalindo | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:E_choli_Gram.JPG>) |
+| `micro/gi/salmonella-gram.jpg` | gi | Y tambe | [CC BY-SA 3.0](<http://creativecommons.org/licenses/by-sa/3.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Salmonella_Typhimurium_Gram.jpg>) |
+| `micro/gi/h-pylori-giemsa.jpg` | gi | Ed Uthman from Houston, TX, USA | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Helicobacter_pylori,_Gastric_Mucosa,_Giemsa_stain_(390307643).jpg>) |
+| `path/lung/lung-normal-bronchiole-alveoli.jpg` | lung | Yale Rosen from USA | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Normal_lung_(5414785258).jpg>) |
+| `path/lung/bronchus-normal-epithelium.jpg` | lung | Yale Rosen from USA | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Normal_bronchus_(7471756698).jpg>) |
+| `path/lung/pneumonia-acute-low.jpg` | lung | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Acute_pneumonia_--_low_mag.jpg>) |
+| `path/lung/pneumonia-acute-high.jpg` | lung | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Acute_pneumonia_--_high_mag.jpg>) |
+| `path/lung/emphysema.jpg` | lung | Mikael Häggström, M.D. | [CC0](<http://creativecommons.org/publicdomain/zero/1.0/deed.en>) | [Commons](<https://commons.wikimedia.org/wiki/File:Histopathology_of_emphysema.jpg>) |
+| `path/lung/pulmonary-tb-necrotising-granuloma.jpg` | lung | Yale Rosen from USA | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Bronchocentric_tuberculosis_Case_201_(6545170087).jpg>) |
+| `path/lung/lung-squamous-carcinoma-keratin.jpg` | lung | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Lung_squamous_carcinoma_--_high_mag.jpg>) |
+| `path/lung/asthma-airway-mucus.jpg` | lung | Yale Rosen | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Asthma_.jpg>) |
+| `path/lung/lung-adenocarcinoma-acinar.jpg` | lung | Librepath | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Acinar_pattern_adenocarcinoma_of_lung_--_intermed_mag.jpg>) |
+| `micro/lung/m-tuberculosis-zn-bal.jpg` | lung | Ajay Kumar Chaurasiya | [CC0](<http://creativecommons.org/publicdomain/zero/1.0/deed.en>) | [Commons](<https://commons.wikimedia.org/wiki/File:Acid_fast_bacilli_of_Mycobacterium_tuberculosis.jpg>) |
+| `micro/lung/s-pneumoniae-gram.jpg` | lung | Arnold Kaufman | [CC0](<http://creativecommons.org/publicdomain/zero/1.0/deed.en>) | [Commons](<https://commons.wikimedia.org/wiki/File:Gram_stain_of_Streptococcus_pneumoniae.jpg>) |
+| `micro/lung/klebsiella-gram.jpg` | lung | Ajay Kumar Chaurasiya | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Gram_Negative_bacilli_of_Klebsiella_in_Gram_stained_smear_of_culture.jpg>) |
+| `micro/lung/pneumocystis-cysts-silver.jpg` | lung | CDC (Public Health Image Library) | [Public domain](<https://creativecommons.org/publicdomain/mark/1.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Pneumocystis_carinii_01.jpg>) |
+| `micro/lung/aspergillus-hyphae-gms.jpg` | lung | Yale Rosen from USA | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Aspergillosis,_angioinvasive,_-_GMS_stain_(5390967417).jpg>) |
+| `micro/lung/s-pneumoniae-sem.jpg` | lung | Janice Haney Carr | [Public domain](<https://creativecommons.org/publicdomain/mark/1.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Streptococcus_pneumoniae-263.jpg>) |
+| `path/kidney/glomerulus-normal-pas.jpg` | kidney | Ed Uthman, MD | [CC BY-SA 2.0](<https://creativecommons.org/licenses/by-sa/2.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Renal_corpuscle.jpg>) |
+| `path/kidney/crescentic-gn.jpg` | kidney | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Crescentic_glomerulonephritis_-_very_high_mag.jpg>) |
+| `path/kidney/post-infectious-gn.jpg` | kidney | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Post-infectious_glomerulonephritis_-_very_high_mag.jpg>) |
+| `path/kidney/clear-cell-rcc.jpg` | kidney | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Clear_cell_renal_cell_carcinoma_--_very_high_mag.jpg>) |
+| `path/kidney/acute-pyelonephritis.jpg` | kidney | Nephron | [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Acute_pyelonephritis_-_very_high_mag.jpg>) |
+| `path/kidney/diabetic-nephropathy-kw-pas.jpg` | kidney | KGH | [CC BY-SA 3.0](<http://creativecommons.org/licenses/by-sa/3.0/>) | [Commons](<https://commons.wikimedia.org/wiki/File:Diabetic_glomerulosclerosis_(4)_PAS.jpg>) |
+| `path/kidney/acute-tubular-necrosis.jpg` | kidney | Amadalvarez | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Necrosi_tubular_aguda_renal.IMG_1779.JPG>) |
+| `micro/kidney/e-coli-gram-uti.jpg` | kidney | Dr Graham Beards | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:Escherichia_coli_Gram_Stain.jpg>) |
+| `micro/kidney/urine-wbc-cast.jpg` | kidney | Ajay Kumar Chaurasiya | [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0>) | [Commons](<https://commons.wikimedia.org/wiki/File:WBC_cast_in_urine.jpg>) |
