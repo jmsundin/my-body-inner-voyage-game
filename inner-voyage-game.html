@@ -68,8 +68,8 @@ body.zap::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;
 .sys b{font-size:15px}.sys small{color:var(--cyan);font-family:var(--mono);font-size:10.5px}.sys span{font-size:12.5px;color:var(--muted);line-height:1.4}.sys em{font-style:normal;color:var(--amber);font-size:12px;margin-top:4px}
 .sys.soon{opacity:.55;cursor:default;border-style:dashed}.sys.cur{border-color:var(--cyan)}.sys:not(.soon):hover{border-color:var(--amber)}
 #bodyTitle{font-size:9px;letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#touchBar{display:none;position:fixed;right:8px;bottom:64px;z-index:5;grid-template-columns:repeat(3,44px);gap:6px}
-#touchBar button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;font-size:16px;line-height:1;touch-action:manipulation}
+#touchBar{display:none;position:fixed;right:8px;bottom:62px;z-index:5;grid-template-columns:repeat(4,40px);gap:5px}
+#touchBar button{width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:var(--panel);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;font-size:16px;line-height:1;touch-action:manipulation}
 #touchBar button small{font:9px var(--mono);color:var(--faint);margin-top:2px}
 #joy{display:none;position:fixed;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;border:1.5px solid rgba(62,230,216,.45);background:rgba(62,230,216,.06);z-index:4;pointer-events:none}
 #joy.on{display:block}#joyKnob{position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50%;background:rgba(62,230,216,.35);border:1px solid rgba(62,230,216,.8);transform:translate(-50%,-50%)}
@@ -77,17 +77,17 @@ body.mobile canvas#c{touch-action:none;cursor:default}
 body.mobile #touchBar{display:grid}
 body.mobile{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 body.mobile #hint,body.mobile #vTrace,body.mobile #caseTag,body.mobile #holdTag,body.mobile #scanTip{display:none}
-body.mobile #obj{top:8px;left:8px;width:calc(100vw - 160px);max-height:84px;padding:8px 10px;font-size:11.5px;pointer-events:auto;cursor:pointer}
+body.mobile #obj{display:block;top:8px;left:8px;width:calc(100vw - 160px);max-height:84px;padding:8px 10px;font-size:11.5px;pointer-events:auto;cursor:pointer}
 body.mobile #obj h3{display:none}body.mobile #obj .eyebrow{font-size:9px}
 body.mobile #obj li:not(.next):not(.sec){display:none}body.mobile #obj.full{max-height:70vh;overflow:auto}body.mobile #obj.full li{display:list-item}
 body.mobile #vitals{top:8px;right:8px;width:138px;padding:8px 9px;font-size:10px}body.mobile #vitals .eyebrow{font-size:8.5px;letter-spacing:.1em}
 body.mobile #ecg{height:30px}body.mobile #vitals .vrow{margin:1px 0}
-body.mobile #banner{top:98px}body.mobile #banner .n{font-size:18px}body.mobile #banner .s{font-size:11px}
-body.mobile #toasts{top:132px;width:92vw}body.mobile .toast{font-size:12px;white-space:normal;text-align:center;border-radius:14px}
-body.mobile #predict{top:132px;width:92vw}
+body.mobile #banner{top:212px}body.mobile #banner .n{font-size:18px}body.mobile #banner .s{font-size:11px}
+body.mobile #toasts{top:262px;width:92vw}body.mobile .toast{font-size:12px;white-space:normal;text-align:center;border-radius:14px}
+body.mobile #predict{top:262px;width:92vw}
 body.mobile #route{bottom:6px;width:calc(100vw - 16px);padding:5px 8px}body.mobile #routeC{height:26px}
-body.mobile #body{left:8px;bottom:56px;width:118px;padding:6px 6px 4px}body.mobile #bodyC{width:104px;height:158px}body.mobile #bodyWhere{font-size:9.5px}body.mobile #bodyTitle{font-size:7.5px}
-body.mobile #stethBtn{right:8px;bottom:218px;width:46px;height:46px;font-size:20px}
+body.mobile #body{left:8px;bottom:54px;width:112px;padding:5px 5px 3px}body.mobile #bodyC{width:104px;height:158px}body.mobile #bodyWhere{font-size:9.5px}body.mobile #bodyTitle{font-size:7.5px}
+body.mobile #stethBtn{right:8px;bottom:200px;width:44px;height:44px;font-size:19px}
 body.mobile #card{top:auto;bottom:0;left:0;right:0;width:auto;max-height:62vh;border-radius:18px 18px 0 0;transform:translateY(110%);padding:12px 14px}body.mobile #card.open{transform:none}
 body.mobile #cardModel canvas{max-height:34vh}
 body.mobile #cellTag{font-size:11px}
@@ -2314,7 +2314,7 @@ if(MOBILE){
   for(const t of e.changedTouches){
    if(t.identifier===joy.id){joy.id=-1;joy.x=joy.y=0;jEl.classList.remove('on');}
    else if(t.identifier===lookId){lookId=-1;dragging=false;
-    if(!tapMoved&&performance.now()-tapT<400&&!anyModal()){mouseX=tapX;mouseY=tapY;target=findTarget();envT=target?null:findEnv();if(target)inspect(target);else if(envT)inspectEnv(envT);setTimeout(()=>{mouseX=-1;},300);}
+    if(!tapMoved&&performance.now()-tapT<650&&!anyModal()){mouseX=tapX;mouseY=tapY;target=findTarget();envT=target?null:findEnv();if(target)inspect(target);else if(envT)inspectEnv(envT);setTimeout(()=>{mouseX=-1;},300);}
    }}};
  canvas.addEventListener('touchend',endT,{passive:false});canvas.addEventListener('touchcancel',endT,{passive:false});
  // key buttons
@@ -3359,7 +3359,7 @@ $('go').onclick=()=>{
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
-window.__IV={addCodex,flyToKey,findEnv,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={addCodex,flyToKey,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
