@@ -62,6 +62,11 @@ body.zap::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;
 #predict button{display:block;width:100%;text-align:left;margin:5px 0;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--fg);font-size:13px;cursor:pointer}
 #predict button.right{border-color:var(--green);background:rgba(110,231,160,.12)}#predict button.wrong{border-color:var(--red);background:rgba(255,77,94,.12)}
 #predict .pe{margin-top:8px;font-size:12.5px;line-height:1.45;color:var(--muted);border-left:3px solid var(--cyan);padding-left:10px}
+.sysgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:14px}
+.sys{text-align:left;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.02);color:var(--fg);cursor:pointer;display:flex;flex-direction:column;gap:4px;font:inherit}
+.sys b{font-size:15px}.sys small{color:var(--cyan);font-family:var(--mono);font-size:10.5px}.sys span{font-size:12.5px;color:var(--muted);line-height:1.4}.sys em{font-style:normal;color:var(--amber);font-size:12px;margin-top:4px}
+.sys.soon{opacity:.55;cursor:default;border-style:dashed}.sys.cur{border-color:var(--cyan)}.sys:not(.soon):hover{border-color:var(--amber)}
+#bodyTitle{font-size:9px;letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #dueBadge{display:none;margin-left:8px;background:var(--amber);color:#2a1805;border-radius:999px;padding:1px 8px;font:700 10px var(--mono);letter-spacing:0;text-transform:none}
 .sstat{display:flex;gap:10px;margin:12px 0}.sstat div{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:11px;color:var(--muted)}.sstat b{display:block;font-size:24px;color:var(--fg)}
 .srow{display:grid;grid-template-columns:170px 1fr;gap:4px 12px;align-items:center;margin:6px 0;font-size:13px}.srow small{grid-column:2;color:var(--faint);font-size:11px;margin-top:-2px}
@@ -81,11 +86,11 @@ body.zap::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;
 #routeC{width:100%;height:34px;display:block}
 #hint{left:50%;bottom:8px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap}
 @media(max-width:1180px){#hint{display:none}}
-#body{left:14px;bottom:34px;width:160px;padding:8px 8px 6px}
-#bodyC{width:136px;height:207px;display:block;margin:0 auto}
+#body{left:14px;bottom:34px;width:196px;padding:8px 8px 6px}
+#bodyC{width:172px;height:262px;display:block;margin:0 auto}
 #bodyWhere{font-size:11px;color:var(--cyan);text-align:center;font-family:var(--mono);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #body.hide{display:none}
-@media(max-height:700px){#bodyC{height:180px;width:118px}}
+@media(max-height:760px){#bodyC{height:207px;width:136px}#body{width:160px}}
 #hint kbd,.kbd{font-family:var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;color:var(--muted);font-size:11px}
 /* labels */
 #labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
@@ -232,9 +237,9 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <div class="stethHead"><span id="stethWhere">Listening…</span><span>release <span class="kbd">H</span> to exit</span></div>
 </div>
 
-<div id="body" class="hud panel"><div class="eyebrow" style="text-align:center">Body map · M · click for atlas (N)</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div></div>
+<div id="body" class="hud panel" title="M hides the map · click it for the gross-anatomy atlas (N)"><div class="eyebrow" id="bodyTitle" style="text-align:center">Body · circulation + lymph</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div></div>
 <div id="route" class="hud panel"><canvas id="routeC" width="1520" height="68"></canvas></div>
-<div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
+<div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>Tab</kbd> systems · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
 <button id="stethBtn" title="Hold for Stethoscope Mode">🩺</button>
 
 <aside id="card" class="hud panel">
@@ -282,6 +287,10 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
     <h4>Choose your depth (change any time with L)</h4>
     <div class="levels" id="lvPick"></div>
   </div>
+  <div class="box" style="margin-top:14px">
+    <h4>Choose where to begin (switch any time with Tab)</h4>
+    <div class="levels" id="sysPick"></div>
+  </div>
   <button class="btn" id="go">Begin voyage ▸</button>
   <span class="small" style="margin-left:12px">🎧 Headphones recommended · valves only open at the right moment of the heartbeat</span>
 </div></div>
@@ -298,6 +307,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <p><b>Valve study (Y).</b> Near any valve, press Y to stop and orbit it. The heartbeat runs in slow motion; drag to look around, O flips to the other side (from the ventricle you see the chordae and papillary muscles), and every labelled part explains itself when clicked.</p>
   <p><b>Nervous system (K in the aortic arch).</b> Take the carotid to a brain capillary, press K again to cross the blood-brain barrier into the motor cortex, then follow a pyramidal cell's axon: microtubule tracks, nodes of Ranvier and action potentials that overtake you, the pyramidal decussation, the terminal bouton and synaptic cleft, the lower motor neuron's cell body, the peripheral nerve with its Schwann cells, and the neuromuscular junction in the thigh, which drops you back into the muscle capillary.</p>
   <p><b>Lymph detour (K).</b> In the muscle capillary, plasma leaks out between the endothelial cells. Press K to go with it: drift through the tissue, slip into a blind-ended lymphatic capillary, ride the pumping collecting lymphatics (their valves open only when the segment behind you squeezes), cross a lymph node with its follicles and macrophages, then take the cisterna chyli and thoracic duct back into the blood. In the tissue space, K takes you back into the capillary instead.</p>
+  <p><b>Systems (Tab).</b> Pick any system and learn it on its own: circulation, lymphatics, nervous system, and the GI, pulmonary, renal, hepatobiliary, pancreatic and pituitary worlds as they land. The body map in the corner redraws for wherever you are — the whole body for the circulation and lymph, a sagittal brain with the motor cortex, internal capsule and pyramids for the cerebral route, a cord cross-section at the anterior horn, the thigh for the femoral nerve.</p>
   <p><b>Study (T).</b> Spaced-repetition flashcards written from what you have actually explored: recall each Codex entry, name a cell from its 3D model, say what comes next downstream, and answer the "predict before you see it" questions that pop up as you approach valves, the capillary, the blood-brain barrier and the decussation. Grade yourself; missed cards return in 10 minutes, known cards stretch out over days (saved in this browser). "Fly there" takes you back to look again.</p>
   <p><b>Autopilot (F)</b> follows the vessel centreline and waits for valves. Scale is compressed for play: real capillaries are ~8 µm wide.</p>
   <p class="small">Medical content is a draft for review by the project's medical accuracy lead before any learner sees it.</p>
@@ -323,6 +333,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 
 <div class="modal" id="mQuiz"><div class="sheet" id="quizSheet"></div></div>
 <div class="modal" id="mStudy"><div class="sheet" id="studySheet"></div></div>
+<div class="modal" id="mSystems"><div class="sheet" id="sysSheet" style="max-width:860px"></div></div>
 
 <div class="modal" id="mExam"><div class="sheet">
   <button class="x" data-close>✕</button>
@@ -1992,6 +2003,7 @@ function onKey(e){
   if(k==='KeyO'){study.side*=-1;return;}
  }
  if(k==='Escape'){closeModals();$('card').classList.remove('open');return;}
+ if(k==='Tab'&&started){if($('mSystems').classList.contains('show'))closeModals();else{closeModals();openSystems();}return;}
  if(exam&&k==='KeyB'){toggleBell();return;}
  if(!started||anyModal())return;
  if(k==='KeyE')scan();
@@ -2035,6 +2047,9 @@ function openJournal(){
 }
 // depth picker on start screen
 $('lvPick').innerHTML=[['L1 Curious','kids & curious adults'],['L2 School','secondary-school biology'],['L3 Pre-med','undergrad physiology'],['L4 Med school','pathology & clinical reasoning']].map((l,i)=>`<button class="lv ${i===depth?'on':''}" data-l="${i}"><b>${l[0]}</b>${l[1]}</button>`).join('');
+let startSys='circ';
+$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
+$('sysPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;startSys=b.dataset.s;$('sysPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 $('lvPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;depth=+b.dataset.l;$('lvPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 
 /* --- Bedside exam: outside to hear, inside to understand --- */
@@ -2287,14 +2302,191 @@ function drawRoute(){
 }
 
 
-/* --- body minimap: schematic front view, patient's right on the viewer's left --- */
-const BODY2D=[[95,205],[95,165],[92,124],[98,129],[105,133],[107,118],[101,107],[80,100],[66,108],[60,120],[64,133],[78,128],[99,115],[111,115],[114,123],[119,132],[111,120],[106,100],[112,90],[114,135],[103,205],[121,255],[121,282],[108,250]];
-const LBODY2D=[[123,264],[123,254],[122,244],[121,234],[120,225],[119,217],[118,210],[117,205],[116,201],[115,198],[114,196],[113,194],[112,192],[111,190],[110,188],[109,185],[108,181],[106,176],[104,170],[103,165],[102,158],[101,145],[100,132],[100,120],[101,107],[103,95],[106,85],[111,79]];
+
+/* ===== Context map: the minimap redraws for wherever you are — whole body for the circulation and lymph,
+   a sagittal brain for the cerebral route, a cord cross-section at the anterior horn, the thigh for the femoral nerve ===== */
+const bodyC=$('bodyC').getContext('2d');
 function spreadPts(anc,n){const L=[0];for(let i=1;i<anc.length;i++)L.push(L[i-1]+Math.hypot(anc[i][0]-anc[i-1][0],anc[i][1]-anc[i-1][1]));const out=[];
  for(let k=0;k<n;k++){const d=L[L.length-1]*k/(n-1);let i=1;while(i<L.length-1&&L[i]<d)i++;const f=(d-L[i-1])/((L[i]-L[i-1])||1);out.push([lerp(anc[i-1][0],anc[i][0],f),lerp(anc[i-1][1],anc[i][1],f)]);}return out;}
-const NBODY2D=spreadPts([[100,24],[100,46],[100,64],[101,120],[102,190],[110,206],[117,236],[122,262]],NNODES.length);
-const bodyC=$('bodyC').getContext('2d');
-// spread schematic node points along each world's samples (light smoothing so the path reads as vessels, not a polyline)
+// one map view: nodes a..b of a world drawn in context `ctx`, each node pinned to a 2D anchor
+function mapView(Wd,ctx,a,b,anchors,sm){
+ const {N,nodeIdx,closed}=Wd,nn=b-a+1,pts=anchors.length===nn?anchors:spreadPts(anchors,nn);
+ const s0=nodeIdx[a],s1=(b+1<nodeIdx.length)?nodeIdx[b+1]:N;const X=new Float32Array(N).fill(NaN),Y=new Float32Array(N).fill(NaN);
+ for(let k=a;k<=b;k++){const i0=nodeIdx[k],i1=(k+1<nodeIdx.length)?nodeIdx[k+1]:N,p=pts[k-a],q=k<b?pts[k-a+1]:(closed?pts[0]:pts[k-a]);
+  for(let i=i0;i<i1;i++){const f=(i-i0)/Math.max(1,i1-i0);X[i]=lerp(p[0],q[0],f);Y[i]=lerp(p[1],q[1],f);}}
+ if(sm){const tx=Float32Array.from(X),ty=Float32Array.from(Y);for(let i=s0;i<s1;i++){let sx=0,sy=0,n=0;for(let j=-sm;j<=sm;j++){const q=closed?Wd.wrapI(i+j):Math.min(s1-1,Math.max(s0,i+j));if(isNaN(tx[q]))continue;sx+=tx[q];sy+=ty[q];n++;}X[i]=sx/n;Y[i]=sy/n;}}
+ return {ctx,a,b,s0,s1,X,Y};
+}
+const BODY2D=[[95,205],[95,165],[92,124],[98,129],[105,133],[107,118],[101,107],[80,100],[66,108],[60,120],[64,133],[78,128],[99,115],[111,115],[114,123],[119,132],[111,120],[106,100],[112,90],[114,135],[103,205],[121,255],[121,282],[108,250]];
+const LBODY2D=[[123,264],[123,254],[122,244],[121,234],[120,225],[119,217],[118,210],[117,205],[116,201],[115,198],[114,196],[113,194],[112,192],[111,190],[110,188],[109,185],[108,181],[106,176],[104,170],[103,165],[102,158],[101,145],[100,132],[100,120],[101,107],[103,95],[106,85],[111,79]];
+BLOOD.views=[mapView(BLOOD,'body',0,NODES.length-1,BODY2D,6)];
+LYMPH.views=[mapView(LYMPH,'body',0,LNODES.length-1,LBODY2D,4)];
+// nerve: brain (nodes 0–12: capillary, cortex, corona radiata, internal capsule, peduncle, pons, pyramid, decussation) · cord section (13–20) · thigh (21–27)
+NERVE.views=[
+ mapView(NERVE,'brain',0,12,[[96,72],[98,66],[100,62],[101,60],[104,64],[106,72],[106,84],[107,100],[108,118],[110,140],[111,166],[110,192],[108,218]],2),
+ mapView(NERVE,'cord',13,20,[[146,118],[141,132],[131,150],[122,160],[118,165],[113,170],[105,176],[94,186]],1),
+ mapView(NERVE,'leg',21,27,[[86,40],[90,78],[94,118],[97,158],[100,196],[106,226],[110,246]],1),
+];
+// context drawings (200 × 305 logical units)
+const MAPCTX={
+ body:{title:'Body · circulation & lymph',draw(c){
+  const ink='rgba(246,236,236,',fill=ink+'.07)',line=ink+'.3)';c.save();c.lineJoin='round';
+  // silhouette, anterior view: patient's right on the viewer's left
+  c.fillStyle=fill;c.strokeStyle=line;c.lineWidth=1.1;
+  c.beginPath();c.ellipse(100,30,15,19,0,0,Math.PI*2);c.fill();c.stroke();
+  c.beginPath();c.moveTo(93,48);c.quadraticCurveTo(100,54,107,48);c.lineTo(108,58);
+  c.bezierCurveTo(122,60,140,64,148,74);c.bezierCurveTo(154,84,156,110,160,140);c.bezierCurveTo(163,160,168,190,166,206);c.quadraticCurveTo(161,210,155,206);
+  c.bezierCurveTo(150,185,142,160,140,135);c.bezierCurveTo(138,120,138,108,137,100);c.bezierCurveTo(139,135,141,165,135,190);c.bezierCurveTo(134,230,134,265,131,300);
+  c.lineTo(116,300);c.bezierCurveTo(114,265,110,230,104,200);c.quadraticCurveTo(100,194,96,200);c.bezierCurveTo(90,230,86,265,84,300);c.lineTo(69,300);
+  c.bezierCurveTo(66,265,66,230,65,190);c.bezierCurveTo(59,165,61,135,63,100);c.bezierCurveTo(62,108,62,120,60,135);c.bezierCurveTo(58,160,50,185,45,206);
+  c.quadraticCurveTo(39,210,34,206);c.bezierCurveTo(32,190,37,160,40,140);c.bezierCurveTo(44,110,46,84,52,74);c.bezierCurveTo(60,64,78,60,92,58);c.closePath();c.fill();c.stroke();
+  // ribcage hint, diaphragm domes, lungs (3 lobes right, 2 left), heart (apex to the patient's left), liver, kidneys, bladder
+  c.strokeStyle=ink+'.12)';c.lineWidth=.8;for(let k=0;k<5;k++){c.beginPath();c.moveTo(100,74+k*9);c.quadraticCurveTo(70,78+k*9,66,96+k*8);c.moveTo(100,74+k*9);c.quadraticCurveTo(130,78+k*9,134,96+k*8);c.stroke();}
+  c.fillStyle='rgba(122,162,255,.13)';c.strokeStyle='rgba(122,162,255,.35)';c.lineWidth=.8;
+  c.beginPath();c.moveTo(94,74);c.bezierCurveTo(70,74,62,100,66,128);c.quadraticCurveTo(72,140,90,138);c.quadraticCurveTo(96,110,94,74);c.fill();c.stroke();
+  c.beginPath();c.moveTo(106,74);c.bezierCurveTo(130,74,138,100,134,128);c.quadraticCurveTo(128,140,112,138);c.quadraticCurveTo(108,120,106,100);c.lineTo(106,74);c.fill();c.stroke();
+  c.beginPath();c.moveTo(70,104);c.lineTo(90,112);c.moveTo(66,118);c.lineTo(88,126);c.moveTo(132,110);c.lineTo(114,122);c.stroke(); // fissures
+  c.fillStyle='rgba(255,77,94,.22)';c.strokeStyle='rgba(255,77,94,.55)';c.beginPath();c.moveTo(97,104);c.bezierCurveTo(90,104,86,112,90,120);c.bezierCurveTo(96,130,106,136,118,136);c.bezierCurveTo(124,124,118,108,106,104);c.closePath();c.fill();c.stroke();
+  c.strokeStyle=ink+'.22)';c.beginPath();c.moveTo(66,140);c.quadraticCurveTo(84,128,100,140);c.quadraticCurveTo(116,130,134,140);c.stroke(); // diaphragm
+  c.fillStyle='rgba(180,90,70,.16)';c.strokeStyle='rgba(180,90,70,.4)';c.beginPath();c.moveTo(66,142);c.bezierCurveTo(70,134,100,136,112,146);c.bezierCurveTo(108,160,96,168,86,166);c.bezierCurveTo(74,164,66,156,66,142);c.fill();c.stroke(); // liver (patient's right)
+  c.fillStyle='rgba(180,90,70,.12)';c.beginPath();c.ellipse(84,172,5,8,.2,0,Math.PI*2);c.fill();c.beginPath();c.ellipse(118,170,5,8,-.2,0,Math.PI*2);c.fill(); // kidneys (retroperitoneal, faint)
+  c.fillStyle='rgba(246,236,236,.06)';c.beginPath();c.ellipse(100,196,8,5,0,0,Math.PI*2);c.fill(); // bladder
+  // lymph node groups
+  c.fillStyle='rgba(120,230,140,.6)';[[88,52],[112,54],[70,86],[132,88],[90,198],[112,198]].forEach(([x,y])=>{c.beginPath();c.ellipse(x,y,1.6,1.1,0,0,Math.PI*2);c.fill();});
+  c.restore();
+ }},
+ brain:{title:'Brain · midsagittal',draw(c){
+  const ink='rgba(246,236,236,';c.save();c.lineJoin='round';
+  // cranium and face profile
+  c.fillStyle=ink+'.05)';c.strokeStyle=ink+'.28)';c.lineWidth=1.1;
+  c.beginPath();c.moveTo(40,150);c.bezierCurveTo(22,110,40,50,100,42);c.bezierCurveTo(160,36,186,90,178,140);c.bezierCurveTo(174,170,160,200,138,214);
+  c.lineTo(122,226);c.lineTo(122,300);c.lineTo(96,300);c.lineTo(96,236);c.bezierCurveTo(90,224,72,212,66,200);c.bezierCurveTo(60,190,50,186,50,178);
+  c.bezierCurveTo(44,170,36,166,38,160);c.lineTo(32,156);c.closePath();c.fill();c.stroke();
+  c.strokeStyle=ink+'.15)';c.beginPath();c.moveTo(34,156);c.quadraticCurveTo(24,160,30,170);c.moveTo(44,186);c.lineTo(52,186);c.stroke(); // nose, lips
+  // cerebrum (medial surface) with frontal, parietal, occipital and temporal lobes
+  c.fillStyle='rgba(255,190,170,.14)';c.strokeStyle='rgba(255,190,170,.6)';c.lineWidth=1;
+  c.beginPath();c.moveTo(48,128);c.bezierCurveTo(44,90,70,54,106,52);c.bezierCurveTo(146,50,172,84,170,124);c.bezierCurveTo(168,146,156,160,146,162);
+  c.bezierCurveTo(134,156,120,158,118,152);c.bezierCurveTo(100,162,80,166,66,158);c.bezierCurveTo(54,150,48,140,48,128);c.closePath();c.fill();c.stroke();
+  // sulci: cingulate, parieto-occipital, calcarine; central sulcus with the precentral (motor) gyrus highlighted
+  c.strokeStyle='rgba(255,190,170,.45)';c.lineWidth=.8;
+  c.beginPath();c.moveTo(60,118);c.bezierCurveTo(66,84,100,70,140,80);c.stroke(); // cingulate sulcus
+  c.beginPath();c.moveTo(150,88);c.lineTo(166,118);c.moveTo(140,130);c.lineTo(168,126);c.stroke(); // parieto-occipital, calcarine
+  c.beginPath();c.moveTo(112,54);c.bezierCurveTo(110,66,106,74,104,80);c.stroke(); // central sulcus (paracentral)
+  c.fillStyle='rgba(255,181,71,.35)';c.strokeStyle='rgba(255,181,71,.9)';c.beginPath();c.moveTo(94,56);c.bezierCurveTo(98,54,108,53,111,56);c.bezierCurveTo(108,66,104,74,102,80);c.bezierCurveTo(98,78,92,74,90,70);c.closePath();c.fill();c.stroke(); // motor cortex
+  // corpus callosum, fornix, thalamus
+  c.fillStyle='rgba(246,236,236,.14)';c.strokeStyle=ink+'.4)';c.lineWidth=.9;
+  c.beginPath();c.moveTo(66,122);c.bezierCurveTo(70,96,120,90,142,104);c.bezierCurveTo(146,112,142,118,138,116);c.bezierCurveTo(120,100,80,104,72,126);c.closePath();c.fill();c.stroke();
+  c.fillStyle='rgba(200,170,220,.25)';c.strokeStyle='rgba(200,170,220,.6)';c.beginPath();c.ellipse(108,128,15,9,-.1,0,Math.PI*2);c.fill();c.stroke(); // thalamus
+  // internal capsule / corona radiata hint: fan lines from motor cortex down to the peduncle
+  c.strokeStyle='rgba(240,205,90,.35)';c.lineWidth=.7;[[-10,0],[-4,0],[4,0],[10,0]].forEach(([dx])=>{c.beginPath();c.moveTo(101+dx,82);c.quadraticCurveTo(104+dx*.5,110,109,140);c.stroke();});
+  // brainstem: midbrain, pons, medulla; cerebellum behind
+  c.fillStyle='rgba(255,190,170,.12)';c.strokeStyle='rgba(255,190,170,.55)';c.lineWidth=.9;
+  c.beginPath();c.ellipse(146,178,28,20,.35,0,Math.PI*2);c.fill();c.stroke();for(let k=0;k<4;k++){c.beginPath();c.ellipse(146,178,22-k*5,15-k*3.5,.35,0,Math.PI*2);c.stroke();} // cerebellum folia
+  c.fillStyle='rgba(246,236,236,.12)';c.strokeStyle=ink+'.45)';c.lineWidth=1;
+  c.beginPath();c.moveTo(102,142);c.lineTo(118,142);c.bezierCurveTo(120,154,126,160,124,172);c.bezierCurveTo(124,184,118,188,118,196);c.lineTo(116,218);c.lineTo(112,230);c.lineTo(104,230);c.lineTo(100,218);c.lineTo(100,196);c.bezierCurveTo(98,186,94,180,96,170);c.bezierCurveTo(98,160,100,152,102,142);c.closePath();c.fill();c.stroke();
+  c.strokeStyle=ink+'.22)';c.beginPath();c.moveTo(100,160);c.lineTo(122,160);c.moveTo(100,196);c.lineTo(118,196);c.stroke(); // midbrain/pons/medulla boundaries
+  // pyramid + decussation
+  c.strokeStyle='rgba(240,205,90,.7)';c.lineWidth=1;c.beginPath();c.moveTo(106,198);c.lineTo(106,214);c.moveTo(103,216);c.lineTo(111,224);c.moveTo(111,216);c.lineTo(103,224);c.stroke();
+  // cervical cord
+  c.fillStyle='rgba(246,236,236,.1)';c.strokeStyle=ink+'.4)';c.beginPath();c.moveTo(104,230);c.lineTo(112,230);c.lineTo(112,300);c.lineTo(104,300);c.closePath();c.fill();c.stroke();
+  c.restore();
+ }},
+ cord:{title:'Cord · L3–L4 section',draw(c){
+  const ink='rgba(246,236,236,';c.save();c.lineJoin='round';
+  // vertebral canal, dura, cord with its fissures
+  c.fillStyle=ink+'.04)';c.strokeStyle=ink+'.18)';c.lineWidth=1;c.beginPath();c.ellipse(100,160,78,92,0,0,Math.PI*2);c.fill();c.stroke();
+  c.strokeStyle=ink+'.3)';c.setLineDash([3,3]);c.beginPath();c.ellipse(100,160,66,78,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
+  c.fillStyle='rgba(246,236,236,.16)';c.strokeStyle=ink+'.6)';c.lineWidth=1.2;c.beginPath();c.ellipse(100,160,54,46,0,0,Math.PI*2);c.fill();c.stroke();
+  c.strokeStyle=ink+'.35)';c.lineWidth=1;c.beginPath();c.moveTo(100,114);c.lineTo(100,130);c.moveTo(100,206);c.lineTo(100,182);c.stroke(); // dorsal median sulcus, ventral median fissure
+  // grey matter butterfly: dorsal horns (narrow, up), ventral horns (broad, down); patient's right on the viewer's left
+  c.fillStyle='rgba(200,170,220,.35)';c.strokeStyle='rgba(200,170,220,.8)';c.lineWidth=.9;
+  c.beginPath();c.moveTo(100,138);c.bezierCurveTo(92,136,86,130,82,120);c.bezierCurveTo(78,118,76,124,78,132);c.bezierCurveTo(80,142,84,150,82,158);
+  c.bezierCurveTo(74,162,66,170,66,182);c.bezierCurveTo(68,194,82,196,92,188);c.bezierCurveTo(96,184,98,178,100,180);
+  c.bezierCurveTo(102,178,104,184,108,188);c.bezierCurveTo(118,196,132,194,134,182);c.bezierCurveTo(134,170,126,162,118,158);
+  c.bezierCurveTo(116,150,120,142,122,132);c.bezierCurveTo(124,124,122,118,118,120);c.bezierCurveTo(114,130,108,136,100,138);c.closePath();c.fill();c.stroke();
+  c.fillStyle='rgba(200,170,220,.5)';c.beginPath();c.ellipse(100,160,4,3.4,0,0,Math.PI*2);c.fill(); // central canal
+  // lateral corticospinal tract (dorsolateral funiculus) and the right anterior horn, highlighted
+  c.fillStyle='rgba(240,205,90,.22)';c.strokeStyle='rgba(240,205,90,.7)';c.lineWidth=.9;
+  c.fillStyle='rgba(240,205,90,.22)';c.strokeStyle='rgba(240,205,90,.75)';
+  c.beginPath();c.moveTo(142,124);c.bezierCurveTo(152,134,154,152,148,168);c.bezierCurveTo(140,162,134,152,132,142);c.bezierCurveTo(132,134,136,128,142,124);c.closePath();c.fill();c.stroke();
+  c.beginPath();c.moveTo(118,158);c.bezierCurveTo(126,162,134,170,134,182);c.bezierCurveTo(132,194,118,196,108,188);c.bezierCurveTo(104,184,102,178,100,180);c.lineTo(100,170);c.bezierCurveTo(106,164,112,160,118,158);c.closePath();c.fill();c.stroke(); // right anterior horn (viewed from above: patient's right on the viewer's right)
+  // roots: dorsal root with its ganglion, ventral root leaving the anterior horn to the spinal nerve
+  c.strokeStyle='rgba(122,162,255,.7)';c.lineWidth=1.4;c.beginPath();c.moveTo(118,120);c.bezierCurveTo(136,106,152,96,168,92);c.stroke();c.fillStyle='rgba(122,162,255,.5)';c.beginPath();c.ellipse(170,90,6,4,-.4,0,Math.PI*2);c.fill();
+  c.strokeStyle='rgba(240,205,90,.8)';c.beginPath();c.moveTo(126,190);c.bezierCurveTo(140,204,156,212,172,216);c.stroke();
+  c.strokeStyle=ink+'.4)';c.lineWidth=2;c.beginPath();c.moveTo(174,214);c.lineTo(190,220);c.stroke(); // spinal nerve
+  c.fillStyle=ink+'.45)';c.font='7px '+'system-ui';c.fillText('dorsal',88,106);c.fillText('ventral',86,222);
+  c.restore();
+ }},
+ leg:{title:'Thigh · femoral nerve',draw(c){
+  const ink='rgba(246,236,236,';c.save();c.lineJoin='round';
+  // pelvis fragment, inguinal ligament, thigh outline, femur, patella
+  c.fillStyle=ink+'.06)';c.strokeStyle=ink+'.3)';c.lineWidth=1.1;
+  c.beginPath();c.moveTo(40,20);c.bezierCurveTo(60,14,110,14,140,28);c.lineTo(150,60);c.bezierCurveTo(154,120,150,190,144,250);c.bezierCurveTo(142,270,138,286,134,298);
+  c.lineTo(70,298);c.bezierCurveTo(60,260,54,200,52,150);c.bezierCurveTo(50,110,46,70,40,20);c.closePath();c.fill();c.stroke();
+  c.strokeStyle=ink+'.3)';c.lineWidth=1.4;c.beginPath();c.moveTo(44,24);c.lineTo(130,46);c.stroke(); // inguinal ligament
+  c.fillStyle=ink+'.08)';c.strokeStyle=ink+'.25)';c.lineWidth=1;c.beginPath();c.moveTo(70,30);c.bezierCurveTo(92,36,104,50,106,66);c.bezierCurveTo(104,120,100,200,100,250);c.bezierCurveTo(100,266,112,276,112,286);c.lineTo(92,290);c.bezierCurveTo(90,274,88,262,90,250);c.bezierCurveTo(92,200,92,120,96,70);c.bezierCurveTo(94,56,82,40,66,36);c.closePath();c.fill();c.stroke(); // femur
+  // quadriceps: rectus femoris in the middle, vastus lateralis and medialis to the sides
+  c.fillStyle='rgba(255,77,94,.14)';c.strokeStyle='rgba(255,77,94,.4)';c.lineWidth=.9;
+  c.beginPath();c.moveTo(90,54);c.bezierCurveTo(118,70,124,150,118,240);c.bezierCurveTo(112,256,96,256,90,240);c.bezierCurveTo(84,150,80,80,90,54);c.closePath();c.fill();c.stroke();
+  c.beginPath();c.moveTo(118,70);c.bezierCurveTo(142,90,146,170,138,246);c.bezierCurveTo(130,252,124,246,122,236);c.bezierCurveTo(128,160,126,100,118,70);c.closePath();c.fill();c.stroke();
+  c.beginPath();c.moveTo(80,100);c.bezierCurveTo(66,140,62,210,70,250);c.bezierCurveTo(78,258,88,254,90,244);c.bezierCurveTo(82,200,78,150,80,100);c.closePath();c.fill();c.stroke();
+  c.fillStyle=ink+'.12)';c.beginPath();c.ellipse(104,272,12,10,0,0,Math.PI*2);c.fill();c.stroke(); // patella
+  // femoral artery and vein beside the nerve (N A V E, lateral to medial = viewer's left to right for a right leg)
+  c.strokeStyle='rgba(196,42,49,.55)';c.lineWidth=1.6;c.beginPath();c.moveTo(100,42);c.bezierCurveTo(112,90,120,150,126,230);c.stroke();
+  c.strokeStyle='rgba(45,95,182,.55)';c.beginPath();c.moveTo(110,44);c.bezierCurveTo(122,92,130,150,134,230);c.stroke();
+  // femoral nerve with its branches into the quadriceps and the saphenous nerve
+  c.strokeStyle='rgba(240,205,90,.9)';c.lineWidth=1.6;c.beginPath();c.moveTo(86,40);c.bezierCurveTo(90,70,96,120,100,196);c.stroke();
+  c.lineWidth=1;c.beginPath();c.moveTo(92,80);c.quadraticCurveTo(120,100,130,150);c.moveTo(94,96);c.quadraticCurveTo(76,130,70,190);c.moveTo(100,196);c.quadraticCurveTo(118,230,124,290);c.stroke();
+  c.fillStyle=ink+'.45)';c.font='7px system-ui';c.fillText('inguinal lig.',56,18);c.fillText('rectus femoris',78,150);
+  c.restore();
+ }},
+};
+// where you are within a region, for the caption
+function mapSubloc(){
+ const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
+ if(W===NERVE){
+  if(r==='axon')return f<.3?'corona radiata':f<.6?'internal capsule':f<.85?'cerebral peduncle':'pons';
+  if(r==='decuss')return f<.6?'medullary pyramid':'pyramidal decussation';
+  if(r==='cord')return 'lateral corticospinal tract';
+  if(r==='bouton'||r==='cleft'||r==='soma')return 'anterior horn, L3–L4';
+  if(r==='pnerve')return f<.3?'ventral root → lumbar plexus':'femoral nerve';
+  if(r==='nmj')return 'rectus femoris motor end plate';
+ }
+ return null;
+}
+let mapCtxId='body';
+function curView(){return (W.views||[]).find(v=>S.idx>=v.s0&&S.idx<v.s1)||W.views[0];}
+function drawBody(){
+ const c=bodyC,v=curView(),M=MAPCTX[v.ctx];c.setTransform(1.6,0,0,1.6,0,0);c.clearRect(0,0,200,305);
+ if(mapCtxId!==v.ctx){mapCtxId=v.ctx;$('bodyTitle').textContent=M.title;}
+ M.draw(c);
+ c.lineWidth=2.2;c.lineCap='round';
+ if(v.ctx==='body'){
+  const B=BLOOD,L=LYMPH,bx=B.views[0].X,by=B.views[0].Y,lx=L.views[0].X,ly=L.views[0].Y;
+  for(let i=0;i<B.N;i+=3){const j=(i+3)%B.N;const f=(B.SAT[i]-75)/23;c.strokeStyle=`rgb(${Math.round(lerp(90,240,f))},${Math.round(lerp(90,60,f))},${Math.round(lerp(230,80,f))})`;c.beginPath();c.moveTo(bx[i],by[i]);c.lineTo(bx[j],by[j]);c.stroke();}
+  c.strokeStyle=W.lymph?'rgba(120,230,140,.95)':'rgba(120,230,140,.5)';c.lineWidth=W.lymph?2:1.3;c.setLineDash([3,2]);c.beginPath();
+  for(let i=0;i<L.N;i+=3)i?c.lineTo(lx[i],ly[i]):c.moveTo(lx[i],ly[i]);c.lineTo(lx[L.N-1],ly[L.N-1]);c.stroke();c.setLineDash([]);c.lineWidth=2.2;
+  {const k=Math.floor((L.RANGE.subcap[0]+L.RANGE.medsinus[1])/2);c.fillStyle='#9fd08a';c.beginPath();c.ellipse(lx[k],ly[k],3.2,2.4,0,0,Math.PI*2);c.fill();}
+  // the other systems' entry points, faint: carotid to the brain (K in the arch)
+  c.fillStyle='rgba(240,205,90,.7)';c.beginPath();c.arc(bx[B.RANGE.arch[0]+2],by[B.RANGE.arch[0]+2],2,0,Math.PI*2);c.fill();
+  B.VALVES.forEach(vl=>{c.fillStyle=done.has(vl.id)?'#6ee7a0':'#ffb547';c.beginPath();c.arc(bx[vl.i],by[vl.i],1.8,0,Math.PI*2);c.fill();});
+  c.fillStyle='rgba(255,255,255,.55)';
+  for(let k=0;k<12;k++){const i=Math.floor((k+.5)*B.N/12);const j=(i+4)%B.N;const a=Math.atan2(by[j]-by[i],bx[j]-bx[i]);c.save();c.translate(bx[i],by[i]);c.rotate(a);c.beginPath();c.moveTo(3,0);c.lineTo(-2,-2.2);c.lineTo(-2,2.2);c.fill();c.restore();}
+ }else{
+  // one route segment through this context, with the part already flown drawn solid
+  const X=v.X,Y=v.Y;c.lineWidth=2;
+  c.strokeStyle='rgba(240,205,90,.35)';c.setLineDash([2,2]);c.beginPath();for(let i=v.s0;i<v.s1;i+=2)i===v.s0?c.moveTo(X[i],Y[i]):c.lineTo(X[i],Y[i]);c.stroke();c.setLineDash([]);
+  c.strokeStyle='rgba(240,205,90,.95)';c.beginPath();for(let i=v.s0;i<=Math.min(S.idx,v.s1-1);i+=2)i===v.s0?c.moveTo(X[i],Y[i]):c.lineTo(X[i],Y[i]);c.lineTo(X[S.idx],Y[S.idx]);c.stroke();
+  for(let k=0;k<4;k++){const i=Math.floor(v.s0+(k+.5)*(v.s1-v.s0)/4),j=Math.min(v.s1-1,i+4);const a=Math.atan2(Y[j]-Y[i],X[j]-X[i]);c.save();c.translate(X[i],Y[i]);c.rotate(a);c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.moveTo(3,0);c.lineTo(-2,-2.2);c.lineTo(-2,2.2);c.fill();c.restore();}
+ }
+ const x=v.X[S.idx],y=v.Y[S.idx],pulse=1+.35*Math.sin(performance.now()/180);
+ c.strokeStyle='rgba(62,230,216,.6)';c.lineWidth=1;c.beginPath();c.arc(x,y,6*pulse,0,Math.PI*2);c.stroke();
+ c.fillStyle='#3ee6d8';c.beginPath();c.arc(x,y,3,0,Math.PI*2);c.fill();
+ c.setTransform(1,0,0,1,0,0);
+ const sub=mapSubloc();$('bodyWhere').textContent='▸ '+REGIONS[REG[S.idx]].n+(sub?' · '+sub:'');
+}
+
+// legacy: spread one anchor per node over a whole world (the atlas still uses it)
 function mapPath(Wd,pts,sm){
  const {N,NODES,nodeIdx,closed}=Wd,X=new Float32Array(N),Y=new Float32Array(N);
  for(let k=0;k<NODES.length;k++){const a=nodeIdx[k];if(!closed&&k===NODES.length-1){X[N-1]=pts[k][0];Y[N-1]=pts[k][1];break;}
@@ -2303,43 +2495,29 @@ function mapPath(Wd,pts,sm){
  if(sm){const tx=Float32Array.from(X),ty=Float32Array.from(Y);for(let i=0;i<N;i++){let sx=0,sy=0;for(let j=-sm;j<=sm;j++){const q=Wd.wrapI(i+j);sx+=tx[q];sy+=ty[q];}X[i]=sx/(2*sm+1);Y[i]=sy/(2*sm+1);}}
  return [X,Y];
 }
-[BLOOD.BX,BLOOD.BY]=mapPath(BLOOD,BODY2D,6);[LYMPH.BX,LYMPH.BY]=mapPath(LYMPH,LBODY2D,4);[NERVE.BX,NERVE.BY]=mapPath(NERVE,NBODY2D,2);useWorld(W);
-let bodyBase=null;
-function bodySilhouette(c){
- c.save();c.fillStyle='rgba(246,236,236,.07)';c.strokeStyle='rgba(246,236,236,.28)';c.lineWidth=1.2;
- c.beginPath();c.ellipse(100,32,17,21,0,0,Math.PI*2);c.fill();c.stroke();
- c.beginPath();
- c.moveTo(92,52);c.lineTo(108,52);c.lineTo(110,62);c.quadraticCurveTo(140,64,146,78);c.lineTo(160,160);c.lineTo(166,205);c.lineTo(156,207);c.lineTo(146,165);c.lineTo(138,110);
- c.lineTo(136,190);c.lineTo(132,300);c.lineTo(117,300);c.lineTo(102,205);c.lineTo(98,205);c.lineTo(83,300);c.lineTo(68,300);c.lineTo(64,190);
- c.lineTo(62,110);c.lineTo(54,165);c.lineTo(44,207);c.lineTo(34,205);c.lineTo(40,160);c.lineTo(54,78);c.quadraticCurveTo(60,64,90,62);c.closePath();c.fill();c.stroke();
- // lungs + heart, faint
- c.fillStyle='rgba(122,162,255,.10)';c.beginPath();c.ellipse(76,114,15,26,.08,0,Math.PI*2);c.fill();c.beginPath();c.ellipse(126,114,14,25,-.08,0,Math.PI*2);c.fill();
- c.fillStyle='rgba(255,77,94,.16)';c.beginPath();c.ellipse(106,124,14,12,-.5,0,Math.PI*2);c.fill();
- c.restore();
+
+/* ===== System switcher (Tab): pick a system and learn it on its own ===== */
+const SYSTEMS=[
+ {id:'circ',name:'Circulation',sub:'Case 01 · Mr. Reyes · aortic stenosis',desc:'One lap of the blood: vena cava, right heart, lungs, left heart, aorta, a working muscle. Valves, pulsatile flow, gas exchange, the stenotic jet.',go:()=>switchWorld(BLOOD,BLOOD.nodeIdx[1]-20),ready:1},
+ {id:'lymph',name:'Lymphatics & immunity',sub:'Detour · interstitium → node → thoracic duct',desc:'Leak out with the plasma, slip into a blind-ended lymphatic, ride the lymphangion pumps through a node and back into the blood at the venous angle.',go:()=>switchWorld(LYMPH,4),ready:1},
+ {id:'nerve',name:'Nervous system',sub:'Brain capillary → motor cortex → corticospinal tract → NMJ',desc:'Cross the blood-brain barrier, follow a pyramidal cell\'s axon through nodes of Ranvier, the decussation and a synapse to the lower motor neuron, the femoral nerve and the muscle end plate.',go:()=>switchWorld(NERVE,NERVE.nodeIdx[3]+4),ready:1},
+ {id:'gi',name:'Gastrointestinal',sub:'Mouth → villus fork → colon · coeliac case',desc:'In build from the GI research document: the living 5 m gut, the villus fork between portal blood and lacteal lymph, slow waves, the microbiome at real density.',ready:0},
+ {id:'lung',name:'Pulmonary',sub:'Nose → airway tree → alveolus · pneumonia case',desc:'In build from the pulmonary research document: the air side of the barrier you already crossed from the blood, the breathing clock, shunt.',ready:0},
+ {id:'renal',name:'Kidney',sub:'Glomerulus → nephron → collecting duct',ready:0,desc:'Planned: filtration, the loop of Henle counter-current, tubular transport.'},
+ {id:'liver',name:'Liver & biliary',sub:'Portal triad → sinusoid → central vein · gallbladder',ready:0,desc:'Planned: the lobule, hepatocytes, Kupffer cells, bile canaliculi, the gallbladder and sphincter of Oddi.'},
+ {id:'pancreas',name:'Pancreas',sub:'Acinus & islet',ready:0,desc:'Planned: exocrine zymogen cascade and the islet of Langerhans.'},
+ {id:'pituitary',name:'Pituitary',sub:'Portal system & axes',ready:0,desc:'Planned: the hypothalamo-hypophyseal portal system and the endocrine axes.'},
+];
+function openSystems(){
+ const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':'';
+ $('sysSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Systems</div><h1 style="font-size:30px">Choose a system to explore</h1>
+ <p class="small" style="margin-top:0">Each system is its own flyable world with its own cells, clock and Codex. Jump straight in, or find the natural doorway between systems while flying (K at the labelled junctions).</p>
+ <div class="sysgrid">${SYSTEMS.map(s=>`<button class="sys ${s.ready?'':'soon'} ${s.id===cur?'cur':''}" data-s="${s.id}" ${s.ready?'':'disabled'}><b>${s.name}</b><small>${s.sub}</small><span>${s.desc}</span>${s.ready?(s.id===cur?'<em>you are here</em>':'<em>enter ▸</em>'):'<em>in build</em>'}</button>`).join('')}</div>`;
+ $('sysSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ $('sysSheet').querySelectorAll('.sys:not(.soon)').forEach(b=>b.onclick=()=>{const s=SYSTEMS.find(x=>x.id===b.dataset.s);closeModals();if(s.id===cur)return;warp('Entering: '+s.name,()=>{s.go();buildLabels();renderObj();toast(s.name+' — '+s.sub,'good');});});
+ show('mSystems');
 }
-function drawBody(){
- const c=bodyC;c.setTransform(1.6,0,0,1.6,0,0);c.clearRect(0,0,200,305);
- bodySilhouette(c);
- c.lineWidth=2.2;c.lineCap='round';
- const B=BLOOD,L=LYMPH;
- for(let i=0;i<B.N;i+=3){const j=(i+3)%B.N;const f=(B.SAT[i]-75)/23;c.strokeStyle=`rgb(${Math.round(lerp(90,240,f))},${Math.round(lerp(90,60,f))},${Math.round(lerp(230,80,f))})`;c.beginPath();c.moveTo(B.BX[i],B.BY[i]);c.lineTo(B.BX[j],B.BY[j]);c.stroke();}
- // lymph detour: faint until you take it
- c.strokeStyle=W.lymph?'rgba(120,230,140,.95)':'rgba(120,230,140,.45)';c.lineWidth=W.lymph?2:1.3;c.setLineDash([3,2]);c.beginPath();
- for(let i=0;i<L.N;i+=3)i?c.lineTo(L.BX[i],L.BY[i]):c.moveTo(L.BX[i],L.BY[i]);c.lineTo(L.BX[L.N-1],L.BY[L.N-1]);c.stroke();c.setLineDash([]);c.lineWidth=2.2;
- {const Nv=NERVE;c.strokeStyle=W.nerve?'rgba(240,205,90,.95)':'rgba(240,205,90,.45)';c.lineWidth=W.nerve?2:1.3;c.setLineDash([1,2]);c.beginPath();
-  for(let i=0;i<Nv.N;i+=3)i?c.lineTo(Nv.BX[i],Nv.BY[i]):c.moveTo(Nv.BX[i],Nv.BY[i]);c.lineTo(Nv.BX[Nv.N-1],Nv.BY[Nv.N-1]);c.stroke();c.setLineDash([]);c.lineWidth=2.2;}
- {const k=Math.floor((L.RANGE.subcap[0]+L.RANGE.medsinus[1])/2);c.fillStyle='#9fd08a';c.beginPath();c.ellipse(L.BX[k],L.BY[k],3.2,2.4,0,0,Math.PI*2);c.fill();}
- B.VALVES.forEach(v=>{c.fillStyle=done.has(v.id)?'#6ee7a0':'#ffb547';c.beginPath();c.arc(B.BX[v.i],B.BY[v.i],1.8,0,Math.PI*2);c.fill();});
- // flow arrows every ~1/12 of the loop
- c.fillStyle='rgba(255,255,255,.55)';
- for(let k=0;k<12;k++){const i=Math.floor((k+.5)*B.N/12);const j=(i+4)%B.N;const a=Math.atan2(B.BY[j]-B.BY[i],B.BX[j]-B.BX[i]);c.save();c.translate(B.BX[i],B.BY[i]);c.rotate(a);c.beginPath();c.moveTo(3,0);c.lineTo(-2,-2.2);c.lineTo(-2,2.2);c.fill();c.restore();}
- // player
- const x=BX[S.idx],y=BY[S.idx],pulse=1+.35*Math.sin(performance.now()/180);
- c.strokeStyle='rgba(62,230,216,.6)';c.lineWidth=1;c.beginPath();c.arc(x,y,6*pulse,0,Math.PI*2);c.stroke();
- c.fillStyle='#3ee6d8';c.beginPath();c.arc(x,y,3,0,Math.PI*2);c.fill();
- c.setTransform(1,0,0,1,0,0);
- $('bodyWhere').textContent='▸ '+REGIONS[REG[S.idx]].n;
-}
+
 
 /* ===== Gross anatomy atlas: circulatory + lymphatic plate, anterior view (patient's right on the viewer's left) ===== */
 const ATLAS=(()=>{
@@ -2831,6 +3009,7 @@ $('go').onclick=()=>{
  $('mStart').classList.remove('show');started=true;S.auto=false;initAudio();
  setTimeout(()=>{renderDue();const n=srsDue(srsDeck()).length;if(n)toast(`${n} flashcard${n>1?'s':''} due from last time — press T to review`,'warn');},2500);
  placeAt(Math.floor(nodeIdx[1]-20));renderObj();buildLabels();
+ if(startSys!=='circ'){const s=SYSTEMS.find(x=>x.id===startSys);setTimeout(()=>warp('Entering: '+s.name,()=>{s.go();buildLabels();renderObj();toast(s.name+' — '+s.sub,'good');}),300);}
  setTimeout(()=>toast('Your back thrusters hold you still against the current. W to fly, drag the view to steer, F for autopilot. Hover over any cell to see what it is; click it for details.'),600);
  setTimeout(()=>toast('Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
 };
