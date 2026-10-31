@@ -18,7 +18,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--
 canvas#c{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
 canvas#c.hov{cursor:pointer}canvas#c.drag{cursor:grabbing}
 #cardModel{display:none;margin:8px 0 4px;border-radius:10px;background:radial-gradient(circle at 50% 45%,#3a1c22 0%,#14070a 75%);border:1px solid rgba(255,181,71,.25);overflow:hidden}
-#cellCv{display:block;width:100%;height:auto;cursor:grab;touch-action:none}#cellCv:active{cursor:grabbing}
+#cellCv{display:block;width:100%;height:auto;cursor:grab;touch-action:none}#cellBig{color:var(--amber);cursor:pointer;margin-left:6px;white-space:nowrap}#cardModel.big{position:fixed;left:3vw;top:4vh;width:94vw;height:90vh;z-index:70;margin:0;display:block!important;box-shadow:0 20px 80px rgba(0,0,0,.6)}#cardModel.big #cellCv{width:100%;height:calc(100% - 26px)!important;max-height:none!important}#cellCv:active{cursor:grabbing}
 #cardModel .cap{display:flex;justify-content:space-between;padding:4px 10px 6px;font-size:11px;color:var(--muted);font-family:var(--mono)}
 #cardCell{display:none;margin:8px 0 2px;padding:8px 10px;border-radius:8px;background:rgba(255,181,71,.08);border:1px solid rgba(255,181,71,.35);font-size:12.5px;line-height:1.5}
 #cardCell b{color:#ffd79a}#cardCell .k{color:var(--muted);display:inline-block;min-width:74px}
@@ -297,7 +297,7 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
   <h2 id="cardTitle"></h2>
   <div class="tag" id="cardTag"></div>
   <div id="cardDeck"></div>
-  <div id="cardModel"><canvas id="cellCv" width="600" height="400"></canvas><div class="cap"><span id="cellSize"></span><span>drag to turn it</span></div></div>
+  <div id="cardModel"><canvas id="cellCv" width="600" height="400"></canvas><div class="cap"><span id="cellSize"></span><span>drag to turn · scroll or pinch to zoom <a id="cellBig">⤢ enlarge</a></span></div></div>
   <div id="cardCell"></div>
   <div class="tabs" id="cardTabs"></div>
   <div class="body" id="cardBody"></div>
@@ -2023,7 +2023,7 @@ void main(){
  sk=0.;
 #endif
  float h=fbm(vPos*.45)+.15*vn(vPos*2.2);
- float cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.,lcart=0.,lraft=0.,lcapl=0.,lpocket=0.,lost=0.,lkohn=0.,lgob=0.,rbrush=0.,rfen=0.,rcd=0.,rint=0.,rspark=0.;
+ float gcm=0.,cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.,lcart=0.,lraft=0.,lcapl=0.,lpocket=0.,lost=0.,lkohn=0.,lgob=0.,rbrush=0.,rfen=0.,rcd=0.,rint=0.,rspark=0.;
 #if !defined(NERVE) && !defined(GUT) && !defined(LUNG) && !defined(RENAL)
  float ridge=1.-abs(vn(vPos*vec3(.16,.55,.16)+vec3(vS*.02))*2.-1.);   // trabeculae carneae in ventricles
  h+=vKind.y*ridge*ridge*1.4+vKind.x*.4*vn(vPos*vec3(.9,.25,.9)); // pectinate texture in atria
@@ -2060,6 +2060,7 @@ void main(){
 #ifdef GUT
  // villus tips seen between the modelled villi, with brush-border fuzz; gastric pits; colonic crypt mouths; flat squamous sheet
  gvf=1.-abs(vn(vPos*2.6)*2.-1.);h+=vKind.x*(gvf*gvf*.9+.12*vn(vPos*14.));
+ gcm=smoothstep(.64,.7,vn(vPos*6.5+vec3(11.)))*(1.-gvf);h-=vKind.x*gcm*.55;            // crypt openings in the valleys between villi
  gpit=smoothstep(.62,.72,vn(vPos*3.2+vec3(7.)));h+=vKind.y*(.2*vn(vPos*1.3)-gpit*.5);
  gcr=smoothstep(.7,.78,vn(vPos*4.5+vec3(3.)));h-=vKind.z*gcr*.35;
  h+=vKind.w*.05*vn(vPos*2.);fib*=(1.-vKind.x)*(1.-vKind.w)*.5;
@@ -2106,7 +2107,7 @@ void main(){
  base=mix(base,base*vec3(.5,.36,.5),jn*mos*.8);                       // cell junctions
  base=mix(base,base*vec3(1.05,.9,1.25)*(.95+.25*vn(vPos*9.)),smoothstep(.0,.35,nuc)*mos*.75); // nuclei with chromatin speckle
 #ifdef GUT
- base=mix(base,base*vec3(.6,.3,.35),vKind.y*gpit);base=mix(base,base*vec3(.65,.4,.45),vKind.z*gcr);base*=1.+vKind.x*.18*gvf;base=mix(base,base*vec3(1.08,1.02,.98),vKind.w*.5);
+ base=mix(base,base*vec3(.6,.3,.35),vKind.y*gpit);base=mix(base,base*vec3(.65,.4,.45),vKind.z*gcr);base*=1.+vKind.x*.18*gvf;base=mix(base,base*vec3(.5,.26,.32),vKind.x*gcm);base=mix(base,base*vec3(1.08,1.02,.98),vKind.w*.5);
 #endif
  float vline=smoothstep(.035,.0,abs(vn(vPos*.22+vec3(0.,0.,vS*.003))-.5)); // vasa vasorum
 #ifdef NERVE
@@ -3862,7 +3863,7 @@ let lastToast={};function toastOnce(key,msg,cls,gap=2.5){const t=performance.now
 /* --- codex card --- */
 let cardKey=null,cardLevel=3;
 function openCard(key,first){
- const c=CODEX[key];if(!c)return;cardKey=key;cardLevel=depth;$('cardCell').style.display='none';$('cardModel').style.display='none';PV.on=false;
+ const c=CODEX[key];if(!c)return;cardKey=key;cardLevel=depth;if($('cardModel').classList.contains('big'))pvBig(false);$('cardCell').style.display='none';$('cardModel').style.display='none';PV.on=false;
  $('cardKind').textContent=first?'Codex · new entry':'Codex';
  $('cardTitle').textContent=c.title;$('cardTag').textContent=c.tag;$('cardSrc').innerHTML=provHTML(key,MOBILE)||('Ref: '+c.src+' · draft, pending clinical review');
  const dn=DECK.loaded?deckCardsFor(key).length:0;$('cardDeck').innerHTML=dn?`<button class="mini" id="cardDeckBtn">Your deck · ${dn} card${dn>1?'s':''} here ▸</button>`:'';if(dn)$('cardDeckBtn').onclick=()=>deckStudyKey(key);
@@ -4192,25 +4193,32 @@ function cellFacts(t){
 /* --- 3D close-up of the clicked cell, in its own little viewer on the Codex card --- */
 const CELLSIZE={rbc:'≈ 7.5 µm across',platelet:'≈ 2–3 µm',wbc:'≈ 12–15 µm',lymph:'≈ 7–10 µm',mono:'≈ 15–20 µm',eos:'≈ 12–17 µm',macro:'≈ 20–50 µm',dc:'body ≈ 10–15 µm, veils longer',bact:'≈ 1–2 µm',chylo:'≈ 0.1–1 µm',neuron:'soma ≈ 20–60 µm (Betz cells to 100)',astro:'≈ 40–60 µm span',microglia:'≈ 10–15 µm body',oligo:'≈ 15–20 µm body',schwann:'≈ 1 mm internode',mito:'≈ 0.5–1 × 2–5 µm',vesicle:'≈ 50–100 nm',endosome:'≈ 0.1–0.5 µm',svesicle:'≈ 40 nm'};
 function makeViewer(cv){return {cv,on:false,rot:0,tilt:.35,drag:false,lx:0,ly:0};}
-var PV=makeViewer($('cellCv'));var SV=makeViewer(Object.assign(document.createElement('canvas'),{width:600,height:400}));
+var PV=makeViewer($('cellCv'));
+function pvBig(on){const el=$('cardModel'),cv=$('cellCv');if(on===undefined)on=!el.classList.contains('big');if(on&&el.parentNode!==document.body){PV.home=el.parentNode;PV.next=el.nextSibling;document.body.appendChild(el);}
+ el.classList.toggle('big',on);if(!on&&PV.home){PV.home.insertBefore(el,PV.next);}$('cellBig').textContent=on?'✕ close':'⤢ enlarge';
+ if(PV.r){const w=on?Math.round(cv.clientWidth*Math.min(2,devicePixelRatio||1)):600,h=on?Math.round(cv.clientHeight*Math.min(2,devicePixelRatio||1)):400;PV.r.setSize(w,h,false);PV.cam.aspect=w/h;PV.cam.updateProjectionMatrix();}}
+$('cellBig').onclick=e=>{e.stopPropagation();pvBig();};var SV=makeViewer(Object.assign(document.createElement('canvas'),{width:600,height:400}));
 function previewCell(D,V){const PVm=PV;const vw=V||PVm;
- if(!vw.r){vw.r=new THREE.WebGLRenderer({canvas:vw.cv,antialias:true,alpha:true});vw.r.setPixelRatio(1);vw.r.setSize(600,400,false);
+ if(!vw.r){vw.r=new THREE.WebGLRenderer({canvas:vw.cv,antialias:true,alpha:true});vw.r.setPixelRatio(1);vw.r.setSize(600,400,false);vw.r.localClippingEnabled=true;
   vw.scene=new THREE.Scene();vw.cam=new THREE.PerspectiveCamera(32,1.5,.1,50);vw.cam.position.set(0,0,5);
   vw.scene.add(new THREE.HemisphereLight(0xfff0f0,0x301018,.9));const dl=new THREE.DirectionalLight(0xffffff,1.1);dl.position.set(2,3,4);vw.scene.add(dl);
   const rim=new THREE.DirectionalLight(0xffc9a8,.6);rim.position.set(-3,-1,-2);vw.scene.add(rim);vw.g=new THREE.Group();vw.scene.add(vw.g);
   const cv=vw.cv;
-  cv.addEventListener('pointerdown',e=>{vw.drag=true;vw.lx=e.clientX;vw.ly=e.clientY;cv.setPointerCapture(e.pointerId);});
-  cv.addEventListener('pointermove',e=>{if(!vw.drag)return;vw.rot+=(e.clientX-vw.lx)*.012;vw.tilt=clamp(vw.tilt+(e.clientY-vw.ly)*.012,-1.4,1.4);vw.lx=e.clientX;vw.ly=e.clientY;});
-  cv.addEventListener('pointerup',()=>vw.drag=false);}
+  vw.pts=new Map();
+  cv.addEventListener('pointerdown',e=>{vw.drag=true;vw.lx=e.clientX;vw.ly=e.clientY;vw.pts.set(e.pointerId,[e.clientX,e.clientY]);if(vw.pts.size===2){const[a,b]=[...vw.pts.values()];vw.pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:vw.zoom||1};}cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(!vw.drag)return;if(vw.pts.has(e.pointerId))vw.pts.set(e.pointerId,[e.clientX,e.clientY]);if(vw.pinch&&vw.pts.size===2){const[a,b]=[...vw.pts.values()];vw.zoom=clamp(vw.pinch.z*Math.hypot(a[0]-b[0],a[1]-b[1])/Math.max(10,vw.pinch.d),.5,8);return;}
+   vw.rot+=(e.clientX-vw.lx)*.012;const dy=e.clientY-vw.ly;if((vw.zoom||1)>1.3&&!e.shiftKey)vw.panY-=dy/Math.max(80,cv.clientHeight)*2.86/((vw.base||1)*(vw.zoom||1));else vw.tilt=clamp(vw.tilt+dy*.012,-1.4,1.4);vw.lx=e.clientX;vw.ly=e.clientY;});
+  const up=e=>{vw.pts.delete(e.pointerId);if(vw.pts.size<2)vw.pinch=null;if(!vw.pts.size)vw.drag=false;};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  cv.addEventListener('wheel',e=>{e.preventDefault();vw.zoom=clamp((vw.zoom||1)*(e.deltaY>0?.9:1.11),.5,8);},{passive:false});}
  vw.g.clear();vw.objs=[];vw.anim=ENVANIM[D.kind]||null;
  D.meshes.forEach((m,mi)=>{let mat=m.material;if(D.kind==='rbc'){mat=mat.clone();mat.color.set(0xb3121a);}
-  const mesh=new THREE.Mesh(m.geometry,mat);mesh.renderOrder=mi;vw.g.add(mesh);vw.objs.push(mesh);});
- const br=Math.max(...D.meshes.map(m=>{m.geometry.computeBoundingSphere();return m.geometry.boundingSphere.radius;}));vw.g.scale.setScalar(1.15/br);vw.rot=0;vw.tilt=D.kind==='rbc'||D.kind==='platelet'?.6:.3;vw.on=true;
+  const mesh=m.isObject3D?m:new THREE.Mesh(m.geometry,mat);if(!mesh.isSprite)mesh.renderOrder=mi;vw.g.add(mesh);vw.objs.push(mesh);});
+ const br=Math.max(...D.meshes.map(m=>{m.geometry.computeBoundingSphere();return m.geometry.boundingSphere.radius;}));vw.g.scale.setScalar(1.15/br);vw.base=1.15/br;vw.zoom=(D.view&&D.view.zoom)||1;vw.panY=(D.view&&D.view.y)||0;vw.rot=0;vw.tilt=D.kind==='rbc'||D.kind==='platelet'?.6:.3;vw.on=true;
  if(vw===PVm){$('cellSize').textContent=CELLSIZE[D.kind]||'';$('cardModel').style.display='block';}
  else{const host=$('srsModel');if(host&&!host.contains(vw.cv))host.appendChild(vw.cv);}
 }
 function renderPreview(dt){
- const one=(V,vis)=>{if(!V.on||!vis)return;if(!V.drag)V.rot+=dt*(V.anim?.12:.45);if(V.anim)V.anim(dt,V.objs,time);V.g.rotation.set(V.tilt,V.rot,0);V.r.render(V.scene,V.cam);};
+ const one=(V,vis)=>{if(!V.on||!vis)return;if(!V.drag)V.rot+=dt*(V.anim?.12:.45);if(V.anim)V.anim(dt,V.objs,time);V.g.rotation.set(V.tilt,V.rot,0);if(V.base){const k=V.base*(V.zoom||1);V.g.scale.setScalar(k);V.g.position.set(0,-(V.panY||0),0).applyEuler(V.g.rotation).multiplyScalar(k);}V.r.render(V.scene,V.cam);};
  one(PV,$('card').classList.contains('open'));one(SV,$('mStudy').classList.contains('show'));
 }
 function inspect(t,quiet){
@@ -4710,6 +4718,143 @@ Object.assign(ENVANIM,{
  crypt(dt,objs){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();if(c===0xfff0c0){m.position.y+=dt*1.2;if(m.position.y>7)m.position.y=-2;}else if(c===0x3ee6d8){m.position.x+=(m.position.x>0?-1:1)*dt*.6;if(Math.abs(m.position.x)<5.6){m.position.x=(m.position.x>0?1:-1)*7.8;}}});},
  gsphinc(dt,objs,t){const o=.5+.5*Math.sin(t*.9);objs.forEach(m=>{if(m.geometry&&m.geometry.type==='TorusGeometry'&&m.geometry.parameters.radius===4.5){m.scale.setScalar(.8+.2*o);}});}
 });
+/* ===== Crypt of Lieberkühn and its villi, cell by cell (31 Oct 2026) =====
+   1 unit ≈ 10 µm. Half-section (the front half is cut away so you see the section face and, as it turns, the outside).
+   Villus ≈ 480 µm, crypt ≈ 150 µm (villus:crypt ≈ 3:1 when healthy), columnar cells ≈ 20 µm tall and 8 µm wide.
+   Lgr5⁺ crypt-base columnar stem cells sit between Paneth cells; daughters divide in the transit-amplifying zone, climb the crypt,
+   differentiate (enterocytes, goblet, enteroendocrine) and ride up the villus to be shed at the tip in 3–5 days. Paneth cells go the other way and stay ~2 months.
+   The villus height, IEL count and mitotic rate follow the coeliac case (MARSH stage) live. */
+const CRY={V:48,C:15,Rv:5,H:2,W:.82,vx:7.4,rl:.75,Y0:-16};
+function cryptBuild(){const o=[],st={cells:[],ielsV:[],t:0};CRY.st=st;const Yc=CRY.Y0;   // everything is shifted so the model turns about its middle
+ const half=(n)=>Array.from({length:n+1},(_,j)=>Math.PI+j/n*Math.PI);                 // angles on the back half (z ≤ 0); the two edge columns lie on the cut and are sectioned
+ // ----- instanced parts -----
+ const MAXC=MOBILE?2400:2900;
+ const prism=(wa,wb)=>{const g=new THREE.BoxGeometry(1,CRY.H*.99,CRY.W*.97,1,3,1);const p=g.attributes.position;for(let k=0;k<p.count;k++){const y=p.getY(k)/(CRY.H*.99)+.5;p.setX(k,p.getX(k)*lerp(wb,wa,y)*.985);}g.computeVertexNormals();return g;};
+ // the section: a clipping plane on the cut (z = 0, turned with the model each frame); what the plane opens is shaded as a flat cut face, so a sectioned cell shows its cytoplasm and nucleus like a slide
+ st.clip=new THREE.Plane(new V3(0,0,-1),.015);st.clip0=st.clip.clone();
+ const cut=m=>{m.side=THREE.DoubleSide;m.clippingPlanes=[st.clip];m.onBeforeCompile=sh=>{sh.fragmentShader=sh.fragmentShader.replace('#include <normal_fragment_begin>','#include <normal_fragment_begin>\n if(!gl_FrontFacing){normal=vec3(0.,0.,1.);}').replace('#include <color_fragment>','#include <color_fragment>\n if(!gl_FrontFacing){diffuseColor.rgb*=vec3(.84,.74,.82);}');};m.customProgramCacheKey=()=>'ivcut';return m;};
+ const bmat=cut(new THREE.MeshStandardMaterial({color:0xffffff,roughness:.62}));
+ const bodyV=new THREE.InstancedMesh(prism(CRY.Rv*Math.PI/(MOBILE?14:17),(CRY.Rv-CRY.H)*Math.PI/(MOBILE?14:17)),bmat,MAXC);
+ const bodyC=new THREE.InstancedMesh(prism(CRY.rl*Math.PI/8,(CRY.rl+CRY.H)*Math.PI/8),bmat,400);const body=bodyV;
+ const brush=new THREE.InstancedMesh(new THREE.BoxGeometry(1,.16,CRY.W*.94),cut(new THREE.MeshStandardMaterial({color:0xffd6e2,roughness:.95,emissive:0x2a1418})),MAXC);
+ const nuc=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.25,1),cut(new THREE.MeshStandardMaterial({color:0xffffff,roughness:.5})),MAXC);
+ const theca=new THREE.InstancedMesh(new THREE.SphereGeometry(.5,12,10),cut(new THREE.MeshStandardMaterial({color:0xe6eef8,roughness:.25,emissive:0x141c28})),400);
+ const gran=new THREE.InstancedMesh(new THREE.SphereGeometry(.12,7,5),cut(new THREE.MeshStandardMaterial({color:0xff5a2e,emissive:0x5a1004,roughness:.35})),500);
+ const egr=new THREE.InstancedMesh(new THREE.SphereGeometry(.07,5,4),new THREE.MeshStandardMaterial({color:0xe0a020,emissive:0x3a2604}),200);
+ const iel=new THREE.InstancedMesh(new THREE.SphereGeometry(.3,10,8),cut(new THREE.MeshStandardMaterial({color:0x2e1c58,roughness:.4})),800);
+ [bodyV,bodyC,brush,nuc,theca,gran,egr,iel].forEach(m=>{m.frustumCulled=false;m.count=0;});st.m={bodyV,bodyC,brush,nuc,theca,gran,egr,iel};
+ // ----- cells: the crypt (axis x=0), from its base to its mouth -----
+ const rC=CRY.rl+CRY.H/2,nCc=8,Lc=CRY.C+rC*Math.PI/2;st.Lc=Lc;
+ st.rC=rC;st.cth=half(nCc);st.coff=0;st.cd=1;CRY.cd=1;st.pool=[];
+ half(nCc).forEach((th,j)=>{for(let k=j===nCc/2?0:1;k*CRY.W<2.6;k++){const s=k*CRY.W+.2;if(s>=2.6)break;st.cells.push({where:'c',th,s,fixed:true,type:(j+k)%2?'stem':'paneth',seed:Math.random()});}});   // the niche is fixed; the cells above it are generated each frame so the crypt can lengthen (crypt hyperplasia)
+ // the villi either side
+ const rV=CRY.Rv-CRY.H/2,nCv=MOBILE?14:17,Lv=CRY.V+rV*Math.PI/2;st.Lv=Lv;
+ [-1,1].forEach(side=>half(nCv).forEach(th=>{for(let k=0;k*CRY.W<Lv;k++){const s=k*CRY.W;st.cells.push({where:'v',side,th,s,type:'ent',seed:Math.random()});}}));
+ st.cells.forEach(c=>c.goblet=c.where==='v'?c.seed<.11:false);st.cells.forEach(c=>c.eec=!c.goblet&&c.seed>.985);
+ if(st.cells.length>MAXC)st.cells.length=MAXC;
+ // intraepithelial lymphocytes ride the villus too
+ for(let k=0;k<800;k++)st.ielsV.push({side:k%2?1:-1,th:Math.PI+Math.random()*Math.PI,s:Math.random()*CRY.V,on:Math.random()});
+ o.push(bodyV,bodyC,brush,nuc,theca,gran,egr,iel);
+ // ----- villus cores: lamina propria cut face with lacteal, capillaries, cells; brush border shell -----
+ const coreTex=(()=>{const c=document.createElement('canvas');c.width=128;c.height=1024;const g=c.getContext('2d');g.fillStyle='#f0c2b2';g.fillRect(0,0,128,1024);
+  for(let k=0;k<420;k++){g.fillStyle=k%5?'rgba(120,70,150,.55)':'rgba(170,70,90,.6)';g.beginPath();g.arc(Math.random()*128,Math.random()*1024,1.6+Math.random()*1.4,0,7);g.fill();}       // lymphocytes, plasma cells
+  g.fillStyle='rgba(255,246,214,.95)';g.fillRect(52,40,24,984);for(let k=0;k<60;k++){g.fillStyle='rgba(255,236,160,.9)';g.beginPath();g.arc(56+Math.random()*16,60+Math.random()*950,2,0,7);g.fill();}  // central lacteal with chylomicrons
+  g.strokeStyle='rgba(160,70,60,.45)';g.lineWidth=2;[46,82].forEach(x=>{g.beginPath();g.moveTo(x,1024);g.lineTo(x,40);g.stroke();});                                                    // smooth muscle beside the lacteal
+  g.strokeStyle='#b8202c';g.lineWidth=5;[[10,1],[118,-1]].forEach(([x,sg])=>{g.beginPath();for(let y=1024;y>20;y-=8)g.lineTo(x+sg*3*Math.sin(y*.05),y);g.stroke();});                   // capillaries under the basement membrane
+  g.fillStyle='#d23440';for(let k=0;k<40;k++){g.beginPath();g.ellipse([10,118][k%2]+Math.sin(k)*2,40+k*24,2.6,1.6,0,0,7);g.fill();}
+  const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return t;})();
+ st.cores=[];
+ [-1,1].forEach(side=>{const cx=side*CRY.vx;const rb=CRY.Rv-CRY.H+.04;
+  const face=new THREE.Mesh(new THREE.PlaneGeometry(rb*2,CRY.V),new THREE.MeshStandardMaterial({map:coreTex,roughness:.7,side:THREE.DoubleSide}));face.geometry.translate(0,CRY.V/2,0);face.position.set(cx,Yc,0);
+  const back=new THREE.Mesh(new THREE.CylinderGeometry(rb,rb,CRY.V,24,1,true,Math.PI/2,Math.PI),new THREE.MeshStandardMaterial({color:0xe7b0a2,roughness:.7,side:THREE.DoubleSide}));back.geometry.translate(0,CRY.V/2,0);back.position.set(cx,Yc,0);
+  const bb=new THREE.Mesh(new THREE.CylinderGeometry(CRY.Rv+.06,CRY.Rv+.06,CRY.V,30,1,true,Math.PI/2,Math.PI),new THREE.MeshStandardMaterial({color:0xfff0f2,transparent:true,opacity:.28,roughness:.9,side:THREE.DoubleSide,depthWrite:false}));bb.geometry.translate(0,CRY.V/2,0);bb.position.set(cx,Yc,0);
+  const cap=new THREE.Mesh(new THREE.SphereGeometry(rb,20,10,Math.PI,Math.PI,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0xe7b0a2,roughness:.7,side:THREE.DoubleSide}));cap.position.set(cx,Yc+CRY.V,0);
+  o.push(face,back,bb,cap);st.cores.push({face,back,bb,cap});});
+ // ----- around the crypt: lamina propria (translucent), basement membrane, muscularis mucosae, a pericryptal fibroblast sheath -----
+ const Xw=CRY.vx+6,ytop=Yc,Ro=CRY.rl+CRY.H-.04;
+ let rs=1;const rnd=()=>{rs=(rs*16807)%2147483647;return (rs-1)/2147483646;};
+ const lpc=document.createElement('canvas');lpc.width=640;lpc.height=480;const lpTex=new THREE.CanvasTexture(lpc);lpTex.encoding=THREE.sRGBEncoding;
+ const drawLP=cd=>{const Hh=CRY.C*cd+rC+2.4,cw=640,ch=480,g=lpc.getContext('2d');rs=7;g.globalCompositeOperation='source-over';g.clearRect(0,0,cw,ch);const X=x=>(x+Xw)/(2*Xw)*cw,Y=y=>(ytop-y)/Hh*ch,u=cw/(2*Xw),v=ch/Hh,Cd=CRY.C*cd;
+  g.fillStyle='#efc0b0';g.fillRect(0,0,cw,ch);
+  for(let k=0;k<260;k++){g.fillStyle='rgba(225,150,150,.35)';g.beginPath();g.ellipse(rnd()*cw,rnd()*ch,6+rnd()*10,1.2,rnd()*3,0,7);g.fill();}          // loose connective tissue fibres
+  const nl=Math.round(520*(1+1.6*(cd-1)/.55));for(let k=0;k<nl;k++){const pl=k%4===0;g.fillStyle=pl?'rgba(150,60,110,.75)':'rgba(84,50,140,.8)';g.beginPath();g.ellipse(rnd()*cw,rnd()*ch,pl?2.6:1.8+rnd(),(pl?2.6:1.8)*v/u,0,0,7);g.fill();}  // lymphocytes and plasma cells (more of them in coeliac disease)
+  [-1,1].forEach(sd=>{const x=X(sd*CRY.vx);g.fillStyle='rgba(255,246,214,.95)';g.fillRect(x-.6*u,0,1.2*u,ch*.82);});                                            // lacteals running down to the submucosal lymphatics
+  g.strokeStyle='#b8202c';g.lineWidth=4;for(let k=0;k<5;k++){g.beginPath();const x0=rnd()*cw;for(let y=ch;y>0;y-=6)g.lineTo(x0+14*Math.sin(y/v*.4+k),y);g.stroke();}  // capillaries
+  const crypt=(dr)=>{g.beginPath();g.moveTo(X(-Ro-dr),0);g.lineTo(X(-Ro-dr),Y(Yc-Cd));g.ellipse(X(0),Y(Yc-Cd),(Ro+dr)*u,(Ro+dr)*v,0,Math.PI,0,true);g.lineTo(X(Ro+dr),0);};
+  g.globalCompositeOperation='destination-out';crypt(0);g.closePath();g.fill();   // the crypt is opened out of the section
+  g.globalCompositeOperation='source-over';g.strokeStyle='rgba(255,240,225,.9)';g.lineWidth=2;crypt(.05);g.stroke();  // basement membrane
+  g.strokeStyle='rgba(120,60,80,.6)';g.lineWidth=1.5;for(let k=0;k<14;k++){const a=Math.PI*(k/13);g.beginPath();g.ellipse(X(Math.cos(a)*(Ro+.35)),Y(Yc-Cd-Math.sin(a)*(Ro+.35)),6,1.5,-a+Math.PI/2,0,7);g.stroke();}   // pericryptal fibroblasts
+  for(let y=Yc-2;y>Yc-Cd;y-=2.2)[-1,1].forEach(sd=>{g.beginPath();g.ellipse(X(sd*(Ro+.35)),Y(y),1.5,6,0,0,7);g.stroke();});
+  lpTex.needsUpdate=true;return Hh;};
+ const lp=new THREE.Mesh(new THREE.PlaneGeometry(2*Xw,1),new THREE.MeshStandardMaterial({map:lpTex,alphaTest:.5,roughness:.75,side:THREE.DoubleSide}));o.push(lp);
+ const lpb=new THREE.Mesh(new THREE.PlaneGeometry(2*Xw,1),new THREE.MeshStandardMaterial({color:0xd8a294,roughness:.85,side:THREE.DoubleSide}));lpb.position.z=-7;o.push(lpb);
+ const sws=[];[-1,1].forEach(sd=>{const w=Xw-Ro;const fl=new THREE.Mesh(new THREE.PlaneGeometry(w,7),new THREE.MeshStandardMaterial({color:0xe2ab9c,roughness:.85,side:THREE.DoubleSide}));fl.rotation.x=-Math.PI/2;fl.position.set(sd*(Ro+w/2),ytop-.02,-3.5);o.push(fl);
+  const sw=new THREE.Mesh(new THREE.PlaneGeometry(7,1),new THREE.MeshStandardMaterial({color:0xd8a294,roughness:.85,side:THREE.DoubleSide}));sw.rotation.y=Math.PI/2;sw.position.set(sd*Xw,0,-3.5);o.push(sw);sws.push(sw);});
+ const bm=new THREE.Mesh(new THREE.CylinderGeometry(CRY.rl+CRY.H+.08,CRY.rl+CRY.H+.08,CRY.C,20,1,true,Math.PI/2,Math.PI),new THREE.MeshStandardMaterial({color:0xfff6e0,transparent:true,opacity:.35,side:THREE.DoubleSide,depthWrite:false}));bm.position.set(0,Yc-CRY.C/2,0);o.push(bm);
+ const mm=new THREE.Mesh(new THREE.BoxGeometry(2*Xw,1.6,7),new THREE.MeshStandardMaterial({color:0xb54a5c,roughness:.6}));mm.position.set(0,Yc-CRY.C-rC-3.2,-3.5);o.push(mm);const deep=[mm];
+ for(let k=0;k<26;k++){const s=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),new THREE.MeshStandardMaterial({color:0x5a2a6a}));s.scale.set(4,1,1);s.position.set(-CRY.vx-5+k*(2*CRY.vx+10)/25,Yc-CRY.C-rC-3.2+(k%2?.35:-.35),.05);o.push(s);deep.push(s);}
+ // a frame so the viewer scales the whole mucosa, invisible
+ const fr=new THREE.Mesh(new THREE.SphereGeometry(CRY.V*.62,6,4),new THREE.MeshBasicMaterial({visible:false}));o.push(fr);
+ // labels drawn as sprites
+ const lab=(txt,x,y,col='#ffe9c8')=>{const c=document.createElement('canvas');c.width=512;c.height=64;const g=c.getContext('2d');g.font='600 30px system-ui,sans-serif';g.fillStyle='rgba(20,8,12,.72)';const w=g.measureText(txt).width+28;g.fillRect(0,6,w,50);g.fillStyle=col;g.fillText(txt,14,42);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false,transparent:true}));sp.scale.set(8,1,1);sp.position.set(x+4-(512-w)/512*4*0,y,1);sp.renderOrder=99;o.push(sp);return sp;};
+ deep.push(lab('Paneth cells · granules',3.2,Yc-CRY.C-1.4,'#ffb08a'),lab('Lgr5⁺ stem cells',3.2,Yc-CRY.C+.8,'#a8f0b8'));const ta=lab('transit-amplifying zone',3.2,Yc-CRY.C+6,'#f0c8e0'),cl=lab('crypt of Lieberkühn',-11.5,Yc-CRY.C/2,'#ffe9c8');
+ st.vl=[lab('villus · enterocytes',CRY.vx+5.6,Yc+CRY.V*.55,'#ffe9c8'),lab('lacteal',CRY.vx+.2,Yc+CRY.V*.8,'#fff3c0'),lab('goblet cell',-CRY.vx-12,Yc+CRY.V*.35,'#d8e8ff')];st.vl.forEach(m=>m.userData.y0=m.position.y);st.shed=lab('shed at the tip',CRY.vx+3,Yc+CRY.V+5.5,'#ffe9c8');deep.push(lab('muscularis mucosae',-11.5,Yc-CRY.C-rC-3.2,'#ffb0c0'));
+ // crypt depth follows the disease: lengthen the crypt, redraw the section, move what sits below it
+ deep.forEach(m=>m.userData.y0=m.position.y);ta.userData.y0=ta.position.y;cl.userData.y0=cl.position.y;
+ st.setDepth=cd=>{const Hh=drawLP(cd),yc=Yc-Hh/2,dy=-CRY.C*(cd-1);lp.scale.y=lpb.scale.y=Hh;lp.position.y=lpb.position.y=yc;sws.forEach(m=>{m.scale.y=Hh;m.position.y=yc;});bm.scale.y=cd;bm.position.y=Yc-CRY.C*cd/2;deep.forEach(m=>m.position.y=m.userData.y0+dy);ta.position.y=ta.userData.y0+dy*.6;cl.position.y=cl.userData.y0+dy/2;st.lpcd=cd;};st.setDepth(1);
+ st.labels=o.filter(m=>m.isSprite);
+ return o;}
+// where a cell is, which way it faces (apical direction), and how it is shed
+const _cQv=new V3(),_cP2=new V3(),_cP3=new V3(),_cT=new V3(),_cB=new V3(),_cP=new V3(),_cN=new V3(),_cQ=new THREE.Quaternion(),_cS=new V3(),_cM=new THREE.Matrix4(),_cY=new V3(0,1,0),_cA=new V3(),_cC=new THREE.Color();
+function cryptPlace(c,sy){const Yc=CRY.Y0;
+ if(c.where==='c'){const r=CRY.rl+CRY.H/2,flat=CRY.C*(CRY.cd||1);let y,R,ny;if(c.s<r*Math.PI/2){const ph=c.s/r;y=Yc-flat-r*Math.cos(ph)+0;R=r*Math.sin(ph);ny=Math.cos(ph);}else{y=Yc-flat+(c.s-r*Math.PI/2);R=r;ny=0;}
+  _cP.set(Math.cos(c.th)*R,y,Math.sin(c.th)*R);_cN.set(-Math.cos(c.th)*(1-Math.abs(ny)),ny,-Math.sin(c.th)*(1-Math.abs(ny))).normalize();_cT.set(-Math.sin(c.th),0,Math.cos(c.th));_cB.crossVectors(_cT,_cN).normalize();_cT.crossVectors(_cN,_cB);return Math.max(.25,R/r);}   // apical faces the crypt lumen (inward / up)
+ const r=CRY.Rv-CRY.H/2,V=CRY.V*sy,cx=c.side*CRY.vx;let y,R,nr,ny;
+ if(c.s<=V){y=Yc+c.s;R=r;nr=1;ny=0;}else{const ph=Math.min(Math.PI/2,(c.s-V)/r);y=Yc+V+r*Math.sin(ph);R=r*Math.cos(ph);nr=Math.cos(ph);ny=Math.sin(ph);}
+ _cP.set(cx+Math.cos(c.th)*R,y,Math.sin(c.th)*R);_cN.set(Math.cos(c.th)*nr,ny,Math.sin(c.th)*nr).normalize();_cT.set(-Math.sin(c.th),0,Math.cos(c.th));_cB.crossVectors(_cT,_cN).normalize();_cT.crossVectors(_cN,_cB);return Math.max(.2,R/r);}
+function cryptAnim(dt,objs){const st=CRY.st;if(!st)return;st.t+=dt;
+ const par=objs&&objs[0]&&objs[0].parent;if(par&&st.clip){par.updateMatrixWorld(true);st.clip.copy(st.clip0).applyMatrix4(par.matrixWorld);}const M=typeof GI!=='undefined'&&typeof MARSH!=='undefined'?MARSH[GI.marsh]:{sy:1,k:0};const mk=M.k;const sy=mk==='gf'?(GI.regrow||1):(M.sy||1);
+ const cdT=mk===3||mk==='gf'?1+.55*clamp((1-sy)/.72,0,1):1;st.cd+=(cdT-st.cd)*Math.min(1,dt*1.5);CRY.cd=st.cd;if(Math.abs(st.cd-st.lpcd)>.012)st.setDepth(st.cd);   // crypt hyperplasia: crypts lengthen as the villi flatten
+ const vV=CRY.V/36,vC=CRY.C/22;                                                        // a villus cell climbs base → tip in ~36 s here (≈ 4 days)
+ const ielRate=mk===1||mk===3?1:.33,mit=mk===3?.16:.07;
+ const {bodyV,bodyC,brush,nuc,theca,gran,egr,iel}=st.m;let nv=0,nc=0,nbr=0,nn=0,nt=0,ng=0,ne=0;const Lv=CRY.V*sy+(CRY.Rv-CRY.H/2)*Math.PI/2*.94;
+ const put=(m,i,pos,sx,sy_,sz)=>{_cM.makeBasis(_cA.copy(_cT).multiplyScalar(sx),_cS.copy(_cN).multiplyScalar(sy_),_cQv.copy(_cB).multiplyScalar(sz));_cM.setPosition(pos);m.setMatrixAt(i,_cM);};
+ st.cores.forEach(k=>{k.face.scale.y=k.back.scale.y=k.bb.scale.y=sy;k.cap.position.y=CRY.Y0+CRY.V*sy;});
+ st.coff+=vC*dt*(mk===3?1.6:1);const nW=Math.max(1,Math.floor((CRY.C*st.cd+st.rC*Math.PI/2-2.6)/CRY.W)),per=nW*CRY.W;let pi=0;
+ st.cth.forEach((th,j)=>{for(let k=0;k<nW;k++){const u=k*CRY.W+st.coff,cyc=Math.floor(u/per);const c=st.pool[pi]||(st.pool[pi]={where:'c',proc:true});pi++;c.th=th;c.s=2.6+(u-cyc*per);const h=Math.sin(j*12.9898+k*78.233+cyc*37.719)*43758.5453;c.seed=h-Math.floor(h);}});
+ const cells=st.cells.concat(st.pool.slice(0,pi));
+ for(const c of cells){let shed=0;
+  if(c.where==='c'){}
+  else{c.s+=vV*dt*(mk===3?1.6:1);if(c.s>Lv){shed=clamp((c.s-Lv)/1.2,0,1);if(c.s>Lv+1.2){c.s=0;c.seed=Math.random();c.goblet=c.seed<.11;c.eec=!c.goblet&&c.seed>.985;}}}
+  const wf=cryptPlace(c,sy);
+  let typ=c.type;
+  if(c.where==='c'&&!c.fixed){typ=c.s<9*st.cd?'ta':c.seed<.16?'gob':c.seed>.97?'eec':'ent';}
+  if(c.where==='v')typ=c.goblet?'gob':c.eec?'eec':'ent';
+  const dividing=typ==='ta'&&((st.t*.35+c.seed*7)%1)<mit;
+  const col=typ==='paneth'?0xc88aa8:typ==='stem'?0xb0d8b4:typ==='ta'?0xe2a2c0:typ==='gob'?0xead6e4:typ==='eec'?0xf0c49a:0xeaa2b6;
+  const sc=1-shed;if(sc<=.02)continue;
+  const pos=_cP2.copy(_cP).addScaledVector(_cN,shed*2.4);
+  let len=1,wid=1;if(typ==='stem')wid=.7;if(typ==='paneth'){wid=1.15;}if(typ==='gob'){wid=.55;len=.55;}if(dividing){len=.8;}
+  const M=c.where==='c'?bodyC:bodyV;const bi=c.where==='c'?nc++:nv++;
+  const pb=_cP3.copy(pos).addScaledVector(_cN,-(1-len)*CRY.H/2);put(M,bi,pb,wf*wid*sc,len*sc,sc);M.setColorAt(bi,_cC.set(col));
+  if(c.where==='v'&&typ!=='gob'){put(brush,nbr++,_cP3.copy(pos).addScaledVector(_cN,CRY.H/2+.02),wf*1.02*sc*(CRY.Rv*Math.PI/(MOBILE?14:17))*.95,sc,sc);}
+  // nucleus: basal and oval, in a palisade; condensed chromosomes mid-cell in a dividing cell
+  put(nuc,nn,_cP3.copy(pos).addScaledVector(_cN,dividing?.1:typ==='paneth'?-.7:-.48),(dividing?1.6:.85)*sc,(dividing?.35:1.7)*sc,(dividing?1.6:.85)*sc);nuc.setColorAt(nn++,_cC.set(dividing?0x1a0830:typ==='stem'?0x34308a:0x4a2c86));
+  if(typ==='gob'&&nt<400){put(theca,nt++,_cP3.copy(pos).addScaledVector(_cN,.42),1.15*wf*sc,1.55*sc,1.1*sc);}
+  if(typ==='paneth')for(let g=0;g<10&&ng<500;g++){const a=g*2.4+c.seed*6,r=.12+.12*((g*7)%3);_cP3.copy(pos).addScaledVector(_cN,.12+(g%3)*.2).addScaledVector(_cT,Math.cos(a)*r*wf).addScaledVector(_cB,Math.sin(a)*r);put(gran,ng++,_cP3,1.3,1.3,1.3);}
+  if(typ==='eec')for(let g=0;g<8&&ne<200;g++){const a=g*.8;_cP3.copy(pos).addScaledVector(_cN,-.75+(g%3)*.1).addScaledVector(_cT,Math.cos(a)*.2).addScaledVector(_cB,Math.sin(a)*.2);put(egr,ne++,_cP3,sc,sc,sc);}
+ }
+ // IELs: small dark round cells nestled low between the enterocytes (healthy < 25 per 100; coeliac many more)
+ let ni=0;for(const L of st.ielsV){if(L.on>ielRate)continue;L.s+=vV*dt;if(L.s>CRY.V*sy)L.s=0;const c={where:'v',side:L.side,th:L.th,s:L.s};cryptPlace(c,sy);_cA.copy(_cP).addScaledVector(_cN,-.55);_cS.set(1,1,1);_cQ.identity();_cM.compose(_cA,_cQ,_cS);iel.setMatrixAt(ni++,_cM);}
+ bodyV.count=nv;bodyC.count=nc;brush.count=nbr;nuc.count=nn;theca.count=nt;gran.count=ng;egr.count=ne;iel.count=ni;
+ [bodyV,bodyC,brush,nuc,theca,gran,egr,iel].forEach(m=>{m.instanceMatrix.needsUpdate=true;if(m.instanceColor)m.instanceColor.needsUpdate=true;});
+ if(st.shed)st.shed.position.y=CRY.Y0+CRY.V*sy+5.5;if(st.vl)st.vl.forEach(m=>m.position.y=CRY.Y0+(m.userData.y0-CRY.Y0)*sy);}
+
+Object.assign(ENVBUILD,{crypt:cryptBuild});
+Object.assign(ENVANIM,{crypt:(dt,objs)=>cryptAnim(Math.min(dt,.1),objs)});
+Object.assign(ENV.crypt,{sub:'Lgr5⁺ stem cells between Paneth cells · dividing transit-amplifying cells · the conveyor up the villus',size:'1 unit ≈ 10 µm · crypt ≈ 150 µm · villus ≈ 480 µm · cell ≈ 20 × 8 µm · 1 s here ≈ 2½ h',view:{zoom:2.1,y:-17}});
+
 // airway and alveolar wall environments (inspect with E / click)
 Object.assign(ENV,{
  turbinate:{n:'Nasal mucosa over a turbinate',sub:'ciliated epithelium · goblet cells · erectile venous sinusoids · bone core',codex:'turbinate',size:'mucosa ≈ 1–3 mm · cilia 5–6 µm · surface ~150 cm² in all'},
@@ -4909,7 +5054,7 @@ Object.assign(ENVANIM,{
  urothelium(dt,objs,t){const s=1+.06*Math.sin(t*.6);objs.forEach(m=>{if(m.material&&m.material.color.getHex()===0xc8a8b8)m.rotation.z=(m.position.x%1.5>.75?1:-1)*.25*s;});}
 });
 function inspectEnv(e){
- const E=ENV[e.key];sfx('scan');if(e.key==='barrier')complete('dock');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
+ const E=ENV[e.key];sfx('scan');if(e.key==='barrier')complete('dock');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key),view:E.view});
  const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',e.name||(rg?rg.n:'—')],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
  $('cardKind').textContent=$('cardKind').textContent+' · wall inspected';$('cellSize').textContent=E.size;
 }
@@ -6104,7 +6249,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
