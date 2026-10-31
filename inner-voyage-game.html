@@ -237,8 +237,8 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 <div id="predict" class="hud panel"></div>
 
 <div id="obj" class="hud panel">
-  <div class="eyebrow">Case 01 · Objectives<span id="dueBadge"></span></div>
-  <h3>The patient who fainted on the stairs</h3>
+  <div class="eyebrow"><span id="objCase">Case 01 · Objectives</span><span id="dueBadge"></span></div>
+  <h3 id="objTitle">The patient who fainted on the stairs</h3>
   <ol id="objList"></ol>
 </div>
 
@@ -340,6 +340,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
   <p><b>Bedside exam (G)</b> is the real clinical skill: you listen through the chest wall at the standard landmarks, compare spots, and call where the murmur is loudest and when it happens. Outside to hear, inside to understand.</p>
   <p><b>Inside listening (hold H)</b> steadies the probe, quiets the engine and shows a live phonocardiogram. It is what the jet sounds like at the valve, which is <i>not</i> what a clinician hears; use it to understand the cause. Diaphragm favours high-pitched sounds (S1, S2, the AS murmur); bell favours low rumbles.</p>
   <p><b>The gut (Tab → Gastrointestinal)</b> is one open tube built to the living ~5 m: swallow waves, three sphincters that open on their real triggers, the antral grinder, a villus forest with two exits (press K at a villus: portal blood or lacteal lymph), the bacterial gradient, and Case 03 (coeliac disease; V cycles the Marsh stages on the villi).</p>
+  <p><b>The lungs (Tab → Pulmonary)</b> are the air side of the barrier you already crossed from the blood: nose → larynx → trachea → carina (stop thrusting: the airflow takes you right) → bronchi → bronchioles with the mucus escalator climbing past you → generation 17, where flow dies and you drift by diffusion → an alveolar sac. Breathing is the clock (exhalation pushes you back; Z coughs), E on the septum shows a red cell loading in 0.25 s, and the exit is through the wall into the blood. Case 04 (lobar pneumonia): V floods the acinus, O runs an oxygen trial, U changes posture.</p>
   <p><b>Your own Anki deck.</b> Study (T) ▸ “Load your Anki deck” reads your .apkg or .txt export in the browser and keeps it on this device only. Cards are placed at the structure they belong to (by tag path, or by an optional AI pass with your own API key) and appear on the Codex card and in Study.</p>
   <p><b>Patient course.</b> There is no ship hull to lose. Wrong calls at the bedside or on Rounds push Mr. Reyes's care off course, and the ending shows what happens to him.</p>
   <p><b>Reality checks.</b> Some Codex cards carry an amber note where the game bends physics or biology for playability, so you know exactly what is simplified.</p>
@@ -377,6 +378,7 @@ body.stethOn .vignette{background:radial-gradient(ellipse at center,transparent 
 <div class="modal" id="mDeck"><div class="sheet" id="deckSheet" style="max-width:820px"></div></div>
 <div class="modal" id="mFork"><div class="sheet" id="forkSheet" style="max-width:760px"></div></div>
 <div class="modal" id="mExamGI"><div class="sheet" id="examGISheet" style="max-width:820px"></div></div>
+<div class="modal" id="mExamLU"><div class="sheet" id="examLUSheet" style="max-width:880px"></div></div>
 
 <div class="modal" id="mExam"><div class="sheet">
   <button class="x" data-close>✕</button>
@@ -923,6 +925,229 @@ const CODEX={
   'Tonic circular smooth muscle (LES, pylorus, ileocaecal, internal anal) relaxed by inhibitory enteric neurons (NO, VIP). The external anal sphincter and upper oesophageal sphincter are skeletal.',
   'Achalasia (LES), hypertrophic pyloric stenosis, and Hirschsprung disease (internal anal sphincter fails to relax) are all failures of relaxation, not of contraction.'],
   rc:'Gates in the game open on their real triggers: the LES for the arriving wave, the pylorus with each antral wave, the ileocaecal valve with ileal waves.'},
+ // ---- pulmonary (from the pulmonary research document, 31 Oct 2026; sources OpenStax A&P 2e ch. 22, West's Respiratory Physiology, Weibel) ----
+ nose:{title:'Nose & turbinates',tag:'Airway · the air conditioner',src:REF.resp,L:[
+  'Air comes in through the nose, which warms it, wets it and cleans it before it goes any deeper.',
+  'Three scroll-shaped shelves (turbinates) on each side give ~150 cm² of wet, blood-rich surface so air leaves the nose at ~body temperature and saturated with water.',
+  'The nose contributes about half of total airway resistance; particles above ~10 µm impact on its walls and are swept to the throat. Respiratory epithelium (pseudostratified ciliated columnar with goblet cells) begins here and runs to the bronchioles.',
+  'Mouth breathing bypasses the conditioning: cold dry air reaching the lower airways is one trigger of exercise-induced bronchoconstriction. Nasal obstruction in infants matters because they are obligate nose breathers for the first months.'],
+  rc:'The turbinates are drawn as shelves in the wall here, at a fraction of their true relative size; the lumen is widened so a sub can fly it.'},
+ larynx:{title:'Larynx & vocal folds',tag:'Airway · the glottis',src:REF.resp,L:[
+  'The voice box is also a valve: open to breathe, shut to swallow, slammed shut to cough.',
+  'Two vocal folds meet at the midline. The gap between them (the glottis) is the narrowest part of the adult airway; in children it is the ring of cartilage just below.',
+  'A cough closes the glottis while chest pressure climbs to ~300 mmHg, then bursts it open: flow exceeds 500 L/min. Stridor is a high-pitched inspiratory noise from this level (upper-airway narrowing), a different emergency from wheeze.',
+  'Recurrent laryngeal nerve injury (thyroid surgery, apical lung tumour) paralyses a fold: hoarseness and an airway at risk. Laryngeal oedema in anaphylaxis is why adrenaline is given early.'],
+  rc:'The “800 km/h” cough figure quoted in textbooks is a local estimate at the glottis, not a tracheal flow speed.'},
+ trachea:{title:'Trachea',tag:'Generation 0 · Ø 18 mm · 10–12 cm',src:REF.resp,L:[
+  'The windpipe: a tube held open by rings of cartilage so it cannot collapse when you breathe in.',
+  '16–20 C-shaped cartilage rings, open at the back where a muscle (the trachealis) lies against the oesophagus. Total cross-section here is only ~2.5 cm².',
+  'Air moves fastest here, ~1–2 m/s at peak tidal flow, turbulent at exertion. The mucociliary escalator runs at 5–20 mm/min in the trachea versus 0.5–1 mm/min in small airways.',
+  'A tracheostomy sits below the 2nd–3rd ring. Tracheomalacia (soft rings) collapses on expiration. The posterior membranous wall is where oesophageal cancers and intubation injuries invade.'],
+  rc:'This trachea is drawn wider than 18 mm relative to the sub. The HUD states the real diameter and cross-section at every generation.'},
+ carina:{title:'Carina',tag:'T4/T5 · the fork',src:REF.resp,L:[
+  'Where the windpipe splits in two. Things you breathe in by mistake usually go right.',
+  'The right main bronchus is wider, shorter (~2.5 cm) and only ~25° off the midline; the left is ~5 cm and ~45°. Air and foreign bodies favour the straighter path.',
+  'The carina lies at the sternal angle (T4/T5), is richly innervated (touching it with a suction catheter provokes violent coughing), and is the landmark for the endotracheal tube tip (2–3 cm above).',
+  'A widened, blunted carina on bronchoscopy suggests subcarinal lymph-node enlargement (cancer, TB, sarcoid). Aspiration pneumonia in the supine patient favours the posterior segment of the right upper lobe and the apical segment of the right lower lobe.'],
+  rc:'The route follows the right side on purpose: it is the lesson. The left main bronchus is shown as the dark opening you did not take.'},
+ bronchus:{title:'Bronchi',tag:'Generations 1–4 · Ø 12 → 5 mm',src:REF.resp,L:[
+  'The main pipes into each lung, branching into one per lobe and then one per segment.',
+  'Main → lobar (three right, two left) → segmental bronchi (ten right, eight to ten left). Each branch is narrower but there are more of them, so the total width grows.',
+  'Below the trachea cartilage comes as irregular plates, not rings; seromucous glands and smooth muscle sit in the wall. Each bronchopulmonary segment has its own bronchus and artery, which is what makes segmental resection possible.',
+  'Bronchial arteries (systemic, ~1–2% of cardiac output) supply these walls and are the usual source of massive haemoptysis. Bronchiectasis is permanent dilatation of these airways from infection and failed clearance.'],
+  rc:'Only one path is modelled; the sibling branch at each generation appears as a dark side opening. Real paths run 8–24 generations: the symmetric model is a convenience, drawn honestly.'},
+ bronchiole:{title:'Bronchioles',tag:'Generations 5–16 · Ø <1 mm · no cartilage',src:REF.resp,L:[
+  'Tiny airways with no cartilage at all: a muscular tube that can squeeze itself shut.',
+  'By generation ~10 the diameter is under 1 mm. Walls are smooth muscle and elastic tissue only: no cartilage, no glands. Flow is laminar and slowing fast.',
+  'Club cells (formerly Clara) secrete protective proteins, detoxify inhaled chemicals and act as progenitors. The total cross-section has grown ~70-fold from the trachea by generation 16, so air here barely moves.',
+  'Asthma is bronchiolar smooth muscle plus inflammation: resistance disease with a normal exchange membrane (DLCO preserved). Small-airway disease is silent on spirometry until advanced, because these airways contribute little resistance: the “silent zone”.'],
+  rc:'The mucus rafts on the wall move at the real relative speed for this generation (0.5–1 mm/min): slow. Hover and watch.'},
+ tbronch:{title:'Terminal & respiratory bronchioles',tag:'Generations 17–19 · the crossover',src:REF.resp,L:[
+  'The last pure air pipes, then the first alveoli start budding in the walls.',
+  'Terminal bronchioles end the conducting zone (~150 mL of dead space in gens 0–16). Respiratory bronchioles carry scattered alveoli and begin gas exchange.',
+  'Here convection gives way to diffusion (Péclet number ≈ 1 near generation 16–17): the air is effectively still and oxygen moves by random walk. This is also where inhaled particles of 1–3 µm tend to settle.',
+  'Centrilobular emphysema (smokers) destroys these respiratory bronchioles first; panacinar emphysema (α1-antitrypsin deficiency) takes the whole acinus, worse at the bases.'],
+  rc:'The jiggling of everything around you is diffusion made visible, not turbulence.'},
+ acinus:{title:'Alveolar ducts',tag:'Generations 20–22 · the acinus',src:REF.resp,L:[
+  'Corridors whose walls are made entirely of air pockets, each wrapped in a sheet of blood.',
+  'An acinus is everything beyond one terminal bronchiole: ~10,000 alveoli. Alveolar ducts have no wall of their own, only the rims of alveoli opening off them.',
+  'Each alveolus is ~250 µm across, polyhedral, sharing septa with 7–9 neighbours. The septal wall holds a sheet-like capillary network rather than single loops (Mühlfeld 2015), with pores of Kohn between neighbours.',
+  'This is the unit of lobar pneumonia (acini flooded with exudate), of ARDS (diffuse alveolar damage) and of emphysema (septa destroyed, surface lost). Total cross-section here is ~11,000 cm².'],
+  rc:'Not a bunch of grapes: cut a grape bunch and it stays whole; cut this foam and every wall is shared.'},
+ sac:{title:'Alveolar sac',tag:'Generation 23 · the end of the tree',src:REF.resp,L:[
+  'The blind end: a cluster of air pockets where the journey of air stops and oxygen crosses into the blood.',
+  'About 480 million alveoli in all (range ~270–790 million). Bigger lungs have more alveoli, not bigger ones (Ochs 2004).',
+  'Surface area ~100 m² ±40% depending on method and inflation (older texts 70 m², EM stereology 120–140 m²). Gas crosses a barrier under 1 µm thick; a red cell is fully loaded ~0.25 s into its ~0.75 s transit.',
+  'Alveolar macrophages patrol the surface; type II cells make surfactant and regenerate type I cells after injury. Here is where the player docks (E) and crosses to the blood.'],
+  rc:'The game quotes ~100 m² ±40% rather than a false precision. Trachea (18 mm) to alveolus (0.25 mm) to barrier (0.5 µm) spans ~36,000×: this mode rescales at each generation and the scale readout always tells the truth.'},
+ airwaytree:{title:'The tree that slows the wind',tag:'Weibel generations 0–23',src:REF.resp,L:[
+  'Your airways branch about 23 times, and by the end the air has almost stopped moving.',
+  'Each branch is smaller but there are twice as many, so the total width of the tubes explodes.',
+  'Cross-section 2.5 cm² (trachea) → ~200 cm² (gen 16) → ~11,000 cm² (gen 23). Velocity falls in proportion; beyond gen ~16 diffusion, not flow, moves the gas.',
+  'That crossover decides where inhaled particles deposit (so particle size decides inhaler design) and why small-airway disease is silent until advanced.'],
+  rc:'Real lungs are asymmetric: paths run 8–24 generations. The Weibel model A tree is a model, drawn here as one chosen path.'},
+ deadspace:{title:'Dead space',tag:'~150 mL · the air that never arrives',src:REF.resp,L:[
+  'The first part of every breath never reaches the gas-exchange surface.',
+  'About 150 mL fills the conducting airways (generations 0–16) and is breathed straight back out.',
+  'Alveolar ventilation = (tidal volume − dead space) × rate = (500 − 150) × 12 ≈ 4.2 L/min, against a minute ventilation of 6.0 L/min.',
+  'Pulmonary embolism adds alveolar dead space (ventilated, not perfused); a VD/VT above 0.5 is severe. Rapid shallow breathing can move plenty of air and ventilate almost nothing: run the numbers.'],
+  rc:'Anatomical dead space is roughly 2 mL/kg; a snorkel or a long ventilator circuit adds to it.'},
+ alveolus:{title:'The alveolus',tag:'~480 million · ~250 µm · shared walls',src:REF.resp,L:[
+  'Half a billion tiny air pockets that share their walls like a foam.',
+  '~480 million alveoli, ~250 µm across, each wrapped in a capillary sheet; entrance rings of elastin and collagen hold them open.',
+  'Type I pneumocytes cover ~95% of the surface yet are a minority of cells; type II are about twice as numerous, cuboidal, with lamellar bodies, and they make surfactant and serve as progenitors.',
+  'Surface ~100 m² ±40% by method. Pores of Kohn let neighbours share air and, in pneumonia, exudate and bacteria: how lobar pneumonia spreads across a whole lobe.'],
+  rc:'Alveolar diameter is 200–300 µm in life and 50–150 µm in fixed, deflated tissue; the game uses ~250 µm.'},
+ surfactant:{title:'Surfactant',tag:'Type II cells · DPPC · Laplace defeated',src:REF.resp,L:[
+  'Soap for lungs: it stops the small air pockets emptying into the big ones.',
+  'Type II cells secrete a lipid film that lowers surface tension, and lowers it more as the alveolus shrinks.',
+  'Laplace (P = 2γ/r) predicts small alveoli collapse into large ones. Three things stop it: the compressed film\'s tension falls with radius; neighbours hold each other open (interdependence); pores of Kohn equalise pressure. ~85–90% lipid (DPPC the main film species), SP-B/C work the film, SP-A/D are immune collectins.',
+  'Deficiency = neonatal respiratory distress syndrome (made from ~34 weeks, lecithin:sphingomyelin >2); loss of function drives the mechanics of ARDS. Hysteresis of the pressure–volume loop comes from the film.'],
+  rc:'Healthy alveoli do not pop open with each breath: the film works continuously, and the shared-wall foam does much of the holding.'},
+ barrier:{title:'The blood–gas barrier',tag:'0.2–0.6 µm thin side · ~0.25 s to equilibrate',src:REF.resp,L:[
+  'Air and blood pass within a hair\'s breadth of each other: a five-hundredth of one.',
+  'Three fused layers under a micrometre thick: the flat type I cell, a shared basement membrane, and the capillary endothelium.',
+  'Thin side (0.2–0.6 µm) for exchange; thick side carries interstitium for fluid balance and support, roughly half and half along a septum. Oxygen equilibrates in ~0.25 s of a ~0.75 s resting transit; at maximal exercise transit falls to ~0.25 s and the margin is gone.',
+  'DLCO (~25 mL/min/mmHg) tests this membrane and the capillary blood volume together: it falls in emphysema and fibrosis, stays normal in pure asthma. Pulmonary oedema floods the thick side first.'],
+  rc:'Gases cross the barrier; the sub never does. This station is a window, not a door, and the exit to the blood is a story device.'},
+ vq:{title:'V/Q matching',tag:'0.8 overall · 3.3 apex · 0.6 base',src:REF.resp,L:[
+  'Air and blood must arrive at the same place in the right proportions.',
+  'Overall ventilation/perfusion ≈ 0.8. The top of the upright lung is air-rich (3.3), the bottom blood-rich (0.6).',
+  'Gravity sets West zones (1: PA > Pa > Pv, 2: Pa > PA > Pv, 3: Pa > Pv > PA) and the gradient; hypoxic pulmonary vasoconstriction diverts blood from unventilated units. A–a gradient ~5–15 mmHg when young, roughly age/4 + 4.',
+  'The two extremes name the diseases: shunt (V/Q = 0: pneumonia, atelectasis) and dead space (V/Q → ∞: pulmonary embolism). Shunt hypoxaemia corrects only partly with oxygen; V/Q scatter and hypoventilation correct well.'],
+  rc:'West zones are pressure regimes that move when the patient lies down or when volume changes. The game recomputes them (U); it does not repaint anatomy.'},
+ hpv:{title:'Hypoxic pulmonary vasoconstriction',tag:'Euler–Liljestrand · the local fix',src:REF.resp,L:[
+  'A lung vessel that senses no oxygen nearby squeezes itself shut, sending the blood somewhere useful.',
+  'Low alveolar oxygen (not arterial) constricts the small arteries feeding that unit: the opposite of what systemic arterioles do.',
+  'Brilliant when local (a consolidated lobe loses maybe half its flow); catastrophic when global (altitude, diffuse lung disease, hypoventilation) because the whole bed constricts and pulmonary pressure climbs.',
+  'Chronic HPV → pulmonary hypertension → cor pulmonale. Inhaled anaesthetics and vasodilators blunt it, worsening shunt; in pneumonia it only partly rescues the V/Q mismatch, which is why the A–a gradient stays wide.'],
+  rc:'Shown here as the capillary sheet fading in the flooded alveoli: the diverted flow is real, the drawing is a sketch.'},
+ pulmcirc:{title:'A low-pressure circuit',tag:'PA 25/8 · mean ~14 mmHg · PH > 20',src:REF.resp,L:[
+  'The lungs take the whole cardiac output at a tenth of the pressure the body uses.',
+  'Pulmonary artery ~25/8 mmHg, mean ~14–15; resistance about one tenth of systemic. Thin-walled vessels recruit and distend when flow rises, so pressure barely climbs on exercise.',
+  'Pulmonary hypertension is now defined as mean PAP > 20 mmHg (2022 ESC/ERS), not 25. Wedge pressure (~8 mmHg) estimates left atrial pressure. The endothelium is an organ: ACE conversion, mediator inactivation, barrier.',
+  'A massive PE adds resistance the thin right ventricle cannot pump against (acute cor pulmonale; the RV\'s ceiling is a mean of ~40 mmHg). Left heart failure raises wedge pressure and floods the thick side of the septum first.'],
+  rc:'Case 01 already taught the pressures from the blood side; this card belongs to both worlds.'},
+ co2drive:{title:'Breathing is a CO₂ sense',tag:'Central chemoreceptors · 70–80% of the drive',src:REF.resp,L:[
+  'You breathe to blow off carbon dioxide, not to fetch oxygen.',
+  'Sensors in the brainstem read CO₂ (as acid in the fluid around them) and set the rate; oxygen sensors only shout when oxygen is very low.',
+  'Central chemoreceptors give ~70–80% of the CO₂ response via CSF H⁺; carotid bodies sense PO₂ (not content) and fire steeply below ~60 mmHg. P50 ~26.6 mmHg; the Bohr effect (CO₂/H⁺ unloads O₂ in tissues) and the Haldane effect (deoxygenated blood carries more CO₂) are reciprocals.',
+  'CO₂ travels ~70% as bicarbonate, ~20–23% carbamino, ~7–10% dissolved. The “hypoxic drive” reason to withhold oxygen in COPD is a myth: give oxygen, titrate to 88–92%, and monitor CO₂. Saturation is not ventilation.'],
+  rc:'The “pneumotaxic/apneustic centre” boxes are a historical model; Hering–Breuer\'s threshold sits above normal tidal volume in awake adults.'},
+ breathsounds:{title:'Breath sounds',tag:'Filtered noise · the lung is the filter',src:REF.resp,L:[
+  'Chest sounds are turbulent noise from the big airways, muffled by the spongy lung on the way out.',
+  'Vesicular = soft, low (energy below ~200 Hz), inspiration louder. Bronchial = harsh, up to ~5 kHz, expiration as long as inspiration with a gap: normal over the trachea, abnormal over lung.',
+  'Wheeze: a musical sinusoid >80 ms from a narrowed tube, pitch rising with narrowing. Fine crackles ~650 Hz, ~5 ms, late inspiration: small airways snapping open. Coarse ~350 Hz: secretions. Stridor: inspiratory, over the neck. Rub: creaking, both phases.',
+  'Consolidation transmits voice (bronchophony, egophony E→A, whispered pectoriloquy); effusion blocks it; pneumothorax silences it. Percussion: resonant, hyperresonant (air), dull (solid), stony dull (fluid).'],
+  rc:'“Vesicular” sounds are not made by vesicles (alveoli): the name is a historical error the game keeps and corrects. Spectral characterisation after Bohadana, NEJM 2014.'},
+ escalator:{title:'The mucociliary escalator',tag:'Gel on brush · 10–15 Hz · mouth-ward',src:REF.resp,L:[
+  'A moving carpet of mucus carries dust and microbes up and out, all day, while you do nothing.',
+  'Cilia (~200 per cell, 5–6 µm) beat 10–15 times a second and push a layer of mucus toward the throat: 0.5–1 mm/min in small airways, 5–20 mm/min in the trachea.',
+  'The layer under the mucus is not watery “sol” but a brush of tethered mucins (20–40 nm mesh) that the gel rides on (Button 2012). CFTR secretes Cl⁻/HCO₃⁻ and ENaC absorbs Na⁺: hydration is a tug-of-war.',
+  'Cystic fibrosis and COPD dehydrate the brush and the gel collapses onto it: clearance fails, infection follows. Smoking paralyses cilia. Kartagener (primary ciliary dyskinesia): immotile cilia, bronchiectasis, situs inversus, infertility.'],
+  rc:'Airways are never dry pipes: there is always a moving mucus surface under the sub. The rafts here move at the real relative speed; be patient.'},
+ cough:{title:'Cough',tag:'Backup clearance · effective to gen ~7–8',src:REF.resp,L:[
+  'A cough is a controlled explosion that clears the big pipes, and only the big pipes.',
+  'Deep breath, glottis shuts, chest and belly muscles squeeze, glottis opens: a blast of air up the trachea.',
+  'Intrathoracic pressure reaches ~300 mmHg; flow exceeds 500 L/min; dynamic compression narrows the large airways so the air speeds up (the same mechanism that limits forced expiration). Useful only down to about generation 7–8.',
+  'Below that the escalator is the only way out, which is why secretions in bronchiolitis or paralysed cilia are so hard to clear. Chronic cough: asthma, reflux, post-nasal drip, ACE inhibitors (bradykinin).'],
+  rc:'Press Z: the cough hits you in the trachea and bronchi and does nothing in the bronchioles. That difference is the lesson.'},
+ westzones:{title:'West zones',tag:'Pressure regimes, not anatomy',src:REF.resp,L:[
+  'Blood pools at the bottom of a standing lung and barely reaches the top.',
+  'Three zones from apex to base: alveolar pressure wins at the top (little flow), arterial beats alveolar in the middle (flow set by that difference), and venous pressure exceeds alveolar at the base (flow set by the usual arteriovenous difference).',
+  'Zone 1 barely exists in health; haemorrhage or positive-pressure ventilation enlarges it (dead space). Ventilation also rises down the lung but less steeply than perfusion, giving V/Q 3.3 at the apex and 0.6 at the base.',
+  'Lie the patient flat and the gradient runs anterior→posterior; the sick lung should go up (“good lung down”) to send blood to the ventilated side. TB favours the high-V/Q apex; infarcts and aspiration favour the base.'],
+  rc:'Zone 4 (extra-alveolar vessel compression at low volumes) is real but left out of the HUD.'},
+ pneumonia:{title:'Lobar pneumonia & shunt',tag:'Case 04 · consolidation · partial O₂ response',src:REF.resp,L:[
+  'A whole lobe fills with pus, but blood keeps flowing past it, so the blood comes out blue.',
+  'Alveoli packed with exudate are perfused but not ventilated: V/Q = 0, a shunt. The oxygen level falls and more oxygen in the mask only partly helps.',
+  'Stages: congestion → red hepatisation (red cells, neutrophils, fibrin: day 2–3) → grey hepatisation (fibrin, lysed cells: day 4–6) → resolution (macrophage clearance). Shunt fraction 10–30%; HPV diverts some flow; A–a gradient wide; PaCO₂ usually low from tachypnoea.',
+  'Bedside cluster: dullness, bronchial breathing, increased vocal resonance and egophony, crackles. Streptococcus pneumoniae is the classic cause of lobar pneumonia (rusty sputum); CURB-65 scores severity. Mistaking this for PE physiology (dead space) is the mirror error.'],
+  rc:'The consolidated acinus here keeps its capillary sheet flowing (dimmed by HPV) so you can see the shunt: blood passing air that is not there.'},
+ case04:{title:'Case 04 · Tomás Herrera, 68',tag:'Fictional patient · “the cough that turned to rust”',src:REF.resp,L:[
+  'Three days of fever and cough, now breathless at rest; rusty sputum; a sharp pain on the right when he breathes in.',
+  'Fast breathing, low oxygen, and over the right lower zone at the back: dull to tap, harsh breath sounds, his voice carried straight to the stethoscope.',
+  'SpO₂ 88% on air with a wide A–a gradient and a low PaCO₂; CRP and neutrophils high. The signs localise a right lower lobe consolidation before the X-ray. Oxygen gives a partial response: the mechanism is shunt.',
+  'Plan: oxygen titrated, blood cultures, empiric antibiotics for community-acquired pneumonia, fluids, review at 48 h; the crackles turn fine as the lobe resolves over a week or two. He has never smoked: COPD is not the lesson here.'],
+  rc:'Fictional, assembled from textbook physiology for teaching; no real patient.'},
+ scalelung:{title:'Scale honesty',tag:'36,000× from trachea to barrier',src:REF.resp,L:[
+  'The airway shrinks from a garden hose to a hair to a soap film.',
+  'Trachea 18 mm → alveolus 0.25 mm → barrier 0.5 µm. No single picture can show all three at once.',
+  'This mode rescales at each generation; the HUD readout (generation, diameter, total cross-section) is true at every point, and sizes between neighbours are honest.',
+  'You dock at functional residual capacity on a held breath. A real breath-hold ends when CO₂, not lack of oxygen, demands it.'],
+  rc:'Absolute sizes are declared, never hidden: that is the deal this game makes with you.'},
+ mucus:{title:'Mucus raft',tag:'Gel layer · riding the escalator',src:REF.resp,L:[
+  'A blob of slime carrying trapped dust toward your throat, where you will swallow it without noticing.',
+  'Goblet cells and submucosal glands make the gel (MUC5AC, MUC5B); cilia beneath push it mouth-ward at up to 20 mm/min.',
+  'The gel sits on a tethered-mucin brush, not on water; its hydration depends on CFTR Cl⁻ secretion versus ENaC Na⁺ absorption. Roughly 10–100 mL of airway mucus is cleared and swallowed a day.',
+  'Mucus hypersecretion (chronic bronchitis), dehydration (CF) or paralysed cilia (smoke, PCD) turn the carpet into a swamp. Rusty sputum in Case 04 is blood from the alveolar exudate riding this same carpet up.'],
+  rc:'Drawn as flattened rafts; the real layer is continuous and a few micrometres thick.'},
+ dustL:{title:'Large particle (>10 µm)',tag:'Impaction in the nose',src:REF.resp,L:[
+  'Big bits of dust and pollen never get past the nose.',
+  'Air turns sharp corners in the nasal passages; heavy particles cannot follow and hit the wall.',
+  'Inertial impaction removes most particles above ~10 µm in the nose and pharynx; they are cleared to the throat and swallowed. Pollen grains (15–50 µm) stop here, which is why hay fever is a nose disease.',
+  'Mouth breathing in exercise sends larger particles deeper. Nasal filtration explains why toxic dusts matter less than fumes and fine particulates.'],rc:'Sizes are relative here; the sub is the size of a virus.'},
+ dustM:{title:'Medium particle (2–10 µm)',tag:'Sedimentation in the bronchi',src:REF.resp,L:[
+  'Mid-sized dust settles on the walls of the bronchi, where the escalator carries it back up.',
+  'As the air slows down the tree, these particles sink under gravity onto the mucus.',
+  'Sedimentation dominates for 1–5 µm particles in the bronchi and bronchioles; this is the size range inhaler drugs are engineered to (2–5 µm) so they reach the small airways rather than the throat or the alveoli.',
+  'Silica and coal dust in this range reach the respiratory bronchioles and start pneumoconiosis; asbestos fibres are long but thin enough to slip deeper still.'],rc:'Deposition fractions depend on breathing pattern: slow deep breaths deposit more peripherally.'},
+ dustS:{title:'Fine particle (<2 µm)',tag:'Diffusion into the alveoli',src:REF.resp,L:[
+  'The tiniest particles ride all the way down and some reach the air pockets.',
+  'Below about 1–2 µm particles move like gas molecules: diffusion carries them to the alveolar wall, or back out on the next breath.',
+  'PM2.5 pollution, smoke and viruses are in this range; alveolar macrophages engulf what lands. Ultrafine particles can cross into the blood, which is one link between air pollution and heart attacks.',
+  'Most of these are exhaled again: alveolar deposition peaks around 0.1–1 µm and is lower either side. Breath-holding increases it.'],rc:'The sub itself (a few µm in this mode) would deposit like one of these.'},
+ gas:{title:'Oxygen & carbon dioxide',tag:'Diffusion · Bohr & Haldane',src:REF.resp,L:[
+  'Oxygen wanders into the blood and carbon dioxide wanders out, both by random jiggling.',
+  'In the alveolus gas moves by diffusion. O₂ crosses the barrier down a ~60 mmHg gradient; CO₂ crosses the other way and, being 20× more soluble, needs only ~6 mmHg.',
+  'Haemoglobin loads O₂ to ~98% in ~0.25 s (P50 26.6 mmHg). CO₂ leaves as bicarbonate (~70%, via carbonic anhydrase and the chloride shift), carbamino (~20–23%) and dissolved (~7–10%). Bohr: CO₂/H⁺ lowers O₂ affinity in tissues. Haldane: deoxyhaemoglobin carries more CO₂.',
+  'Diffusion limitation appears only when the barrier thickens (fibrosis) or transit shortens (exercise at altitude); CO, which binds Hb avidly, is used to measure the membrane (DLCO).'],rc:'Drawn as pale sprites jiggling in the acinus; real molecules are a million times smaller and faster.'},
+ amac:{title:'Alveolar macrophage',tag:'Dust cell · the surface patrol',src:REF.resp,L:[
+  'A cleaner cell that crawls over the air pockets eating dust and germs.',
+  'It sits on the air side of the alveolus, engulfs particles and microbes, and is coughed up or carried off by lymph.',
+  'Derived mostly from fetal monocytes and self-renewing; sustained by GM-CSF (its failure causes pulmonary alveolar proteinosis). Sees everything that reaches the alveolus, so it is tolerant by default and tunes inflammation.',
+  'Carbon-laden macrophages = anthracosis; haemosiderin-laden “heart-failure cells” after pulmonary oedema; iron-laden cells in alveolar haemorrhage. In pneumonia resolution they clear the fibrin and debris.'],rc:'Scaled up for visibility; a macrophage is ~20 µm on a 250 µm alveolus.'},
+ neutA:{title:'Neutrophil in the exudate',tag:'Red hepatisation · the pus',src:REF.resp,L:[
+  'White cells that pour into the air pockets to fight the infection, and fill them up in the process.',
+  'Recruited through the capillary sheet by chemokines (IL-8), they crowd the alveoli with fibrin and fluid: the lobe becomes solid.',
+  'Neutrophil elastase and reactive oxygen species kill bacteria and damage the septum; in ARDS the same cells drive diffuse alveolar damage. Their lysis contributes to the grey stage.',
+  'Neutrophilia with left shift and raised CRP are the blood signature; pus in the alveoli is why consolidation is dull and transmits sound.'],rc:'Scaled up ~2× relative to the alveolus.'},
+ fibrin:{title:'Fibrin strand',tag:'The scaffold of consolidation',src:REF.resp,L:[
+  'Threads of clot protein that turn the liquid in the air pockets into a solid.',
+  'Leaky capillaries let fibrinogen into the alveoli; it polymerises into a mesh with the cells trapped in it.',
+  'Fibrin gives hepatisation its liver-like firmness and spreads through pores of Kohn to adjacent alveoli. Resolution needs plasmin and macrophages to digest it.',
+  'If it is organised by fibroblasts instead of cleared, the result is organising pneumonia, a cause of persistent consolidation and restriction.'],rc:'A few strands stand for a dense three-dimensional mesh.'},
+ rbcA:{title:'Red cell in the alveolus',tag:'Red hepatisation · rusty sputum',src:REF.resp,L:[
+  'Blood cells that leaked into the air pockets. Coughed up, they turn the sputum rust-coloured.',
+  'Early in lobar pneumonia the inflamed capillaries leak red cells into the alveoli.',
+  'Red hepatisation (day 2–3): alveoli full of red cells, neutrophils and fibrin; the lobe is red and firm. Over days the cells lyse and the lobe turns grey.',
+  'Haemosiderin from these cells ends up in macrophages. Frank haemoptysis is more often bronchial-artery bleeding (bronchiectasis, cancer) than alveolar.'],rc:'Red cells here are escaped, not exchanging gas.'},
+ turbinate:{title:'Nasal mucosa & turbinates',tag:'Respiratory epithelium · venous sinusoids',src:REF.resp,L:[
+  'Wet, warm, blood-filled shelves that condition each breath.',
+  'Ciliated epithelium with goblet cells over a thick vascular lamina propria; erectile venous sinusoids swell to narrow one side at a time (the nasal cycle).',
+  'The olfactory epithelium occupies the roof; its receptor neurons regenerate through life and their axons pass the cribriform plate. Nasal resistance is about half of the total, which is why nasal congestion feels like breathlessness.',
+  'Allergic rhinitis is IgE–mast cell inflammation here; epistaxis bleeds mostly from Kiesselbach\'s plexus; cocaine vasoconstricts the septum to necrosis.'],rc:'Scroll shelves are schematic.'},
+ ciliated:{title:'Ciliated epithelium & cartilage',tag:'Pseudostratified columnar · goblet · basal · C-ring',src:REF.resp,L:[
+  'Tall cells with waving hairs, mucus-making cells between them, and a hoop of cartilage behind.',
+  'Every cell touches the basement membrane but not all reach the surface, so nuclei sit at different heights (pseudostratified). Goblet cells secrete; basal cells replace.',
+  'Cilia beat 10–15 Hz in metachronal waves; the periciliary brush keeps the gel off the cilia tips. Hyaline cartilage rings (trachea) or plates (bronchi) prevent collapse; the trachealis bridges the ring\'s open back. Rare pulmonary ionocytes express much of the airway\'s CFTR.',
+  'Smoking converts this to squamous metaplasia (no cilia) and increases goblet cells: chronic bronchitis. Squamous and small-cell carcinomas arise centrally here; adenocarcinoma peripherally.'],rc:'Cilia are drawn far too few: there are ~200 per cell.'},
+ bronchiolewall:{title:'Bronchiolar wall',tag:'Club cells · smooth muscle · no cartilage',src:REF.resp,L:[
+  'A thin muscular tube lined with dome-topped cells, with nothing rigid to hold it open.',
+  'Simple cuboidal epithelium: ciliated cells and club cells (dome-shaped, secretory); a spiral of smooth muscle; no cartilage, no glands, few goblet cells.',
+  'Club cells secrete CC16 and surfactant proteins, detoxify via cytochrome P450, and regenerate the epithelium. Lumen stays open thanks to the elastic pull of surrounding alveoli (radial traction), lost in emphysema.',
+  'Asthma: smooth-muscle hypertrophy, mucus plugs, eosinophils. Bronchiolitis obliterans: fibrous obliteration of these tubes (transplant rejection, inhalation injury).'],rc:'Smooth muscle drawn as a visible spiral band.'},
+ vocalfold:{title:'Vocal fold',tag:'Stratified squamous · vocal ligament · thyroarytenoid',src:REF.resp,L:[
+  'Two shelves of muscle and ligament with a tough skin, meeting in the middle to make sound or seal the airway.',
+  'Covered by stratified squamous epithelium (it takes a beating), over the lamina propria and vocal ligament, with the thyroarytenoid muscle inside.',
+  'Abducted by the posterior cricoarytenoid (the only abductor), adducted by the lateral cricoarytenoids and interarytenoids; tension from cricothyroid (external laryngeal nerve). All other intrinsic muscles: recurrent laryngeal nerve.',
+  'Bilateral recurrent laryngeal injury leaves the folds near the midline: stridor and emergency airway. Reinke\'s oedema and nodules change the voice; squamous carcinoma arises here in smokers.'],rc:'The folds are modelled as two ellipsoids that part and meet.'},
+ pharynx:{title:'Pharynx',tag:'Shared corridor · air and food',src:REF.resp,L:[
+  'The throat: air from the nose and food from the mouth cross here, and must not mix.',
+  'Nasopharynx (adenoids, Eustachian tube openings), oropharynx (tonsils), laryngopharynx. A swallow lifts the larynx, tips the epiglottis and shuts the glottis for about a second.',
+  'The pharyngeal dilators (genioglossus above all) hold this soft tube open against the suction of each breath; they relax in sleep and under sedation. Waldeyer\'s ring is the lymphoid sentry for everything inhaled or eaten.',
+  'Obstructive sleep apnoea is collapse here; aspiration is failure of the swallow–breath coordination (stroke, sedation). The right main bronchus is where the aspirate ends up.'],
+  rc:'The pharynx is drawn as a short straight segment; the real one bends ~90° behind the tongue.'},
  endothelium:{title:'Endothelium',tag:'Vessel lining · one cell thick · structure',src:REF.vessels,L:[
   'The smooth inner skin of every blood vessel: a single layer of flat cells, like tiles, that the blood slides over.',
   'Endothelial cells are long and thin, lined up with the flow. They stop blood from clotting on the wall and control what passes through.',
@@ -1105,6 +1330,17 @@ const REGIONS={
  ileocaecal:{n:'Ileocaecal valve',s:'One-way into the colon · the clock slows 100×',b:'n'},
  colon:{n:'Colon',s:'Water back · bacteria 10¹¹–10¹²/g in the lumen, not on the wall',b:'n'},
  rectum:{n:'Rectum',s:'Defecation reflex · the way out',b:'n'},
+ // airway (b:'n' → no oxygen bookkeeping; the air side carries no haemoglobin)
+ nose:{n:'Nose & turbinates',s:'Warms, wets, filters · ~½ of all airway resistance',b:'n'},
+ pharynx:{n:'Pharynx',s:'Shared with food · a swallow shuts the airway for ~1 s',b:'n'},
+ larynx:{n:'Larynx · vocal folds',s:'The glottis: open to breathe, slammed shut to cough (Z)',b:'n'},
+ trachea:{n:'Trachea',s:'Ø 18 mm · 16–20 C-rings · escalator 5–20 mm/min',b:'n'},
+ carina:{n:'Carina',s:'T4/T5 · stop thrusting: the airflow goes RIGHT',b:'n'},
+ bronchus:{n:'Right bronchi',s:'Main → intermedius → lower lobe → segmental · plates, not rings',b:'n'},
+ bronchiole:{n:'Bronchioles',s:'Generations 5–16 · no cartilage, no glands · the flow is dying',b:'n'},
+ tbronch:{n:'Terminal & respiratory bronchioles',s:'Generations 17–19 · first alveoli · diffusion takes over',b:'n'},
+ acinus:{n:'Alveolar ducts',s:'Generations 20–22 · a capillary sheet in every wall',b:'n'},
+ sac:{n:'Alveolar sac',s:'Generation 23 · dock at a septum (E) · leave with the blood',b:'n'},
  ivc:{n:'Inferior vena cava',s:'Venous return · SO₂ ~75%',b:'v'},
  ra:{n:'Right atrium',s:'Wait here for the tricuspid valve to open (diastole)',b:'v'},
  tricuspid:{n:'Tricuspid valve',s:'Opens in diastole',b:'v'},
@@ -1292,8 +1528,33 @@ const GNODES=(()=>{const n=[],add=(x,y,z,r,k,g)=>n.push([x,y,z,r,k,g]);
  for(let j=1;j<=5;j++)add(1046,14-j*22,0,4.8,'colon','colon');
  add(1036,-108,4,4.5,'colon','colon');add(1016,-112,8,4.5,'colon','colon');add(1002,-118,6,4.2,'rectum','rectum');add(998,-134,2,4,'rectum','rectum');add(998,-146,0,3.5,'rectum','rectum');
  return n;})();
-const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false);GUT.gut=true;
-BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;
+// airway kinds: w = [tracheal C-rings, bronchial cartilage plates, bronchiolar smooth muscle, alveolar foam]; cw = how much this generation swells on inspiration; str = mucociliary escalator speed (units/s, mouth-ward)
+Object.assign(KIND,{
+ nose:{f:4,tint:[.86,.6,.6],w:[0,0,0,0],ew:.6,el:.5,nuc:.7,str:.12,cw:0},
+ larynx:{f:6,tint:[.84,.62,.62],w:[.4,0,0,0],ew:.6,el:.5,nuc:.6,str:.12,cw:0},
+ trachea:{f:6,tint:[.88,.64,.62],w:[1,0,0,0],ew:.6,el:.5,nuc:.7,str:.3,cw:.02},
+ bronchus:{f:4.5,tint:[.88,.62,.6],w:[0,1,0,0],ew:.6,el:.5,nuc:.7,str:.2,cw:.03},
+ bronchiole:{f:1.6,tint:[.9,.68,.64],w:[0,0,1,0],ew:.7,el:.6,nuc:.8,str:.07,cw:.06},
+ tbronch:{f:.35,tint:[.92,.7,.68],w:[0,0,.5,.5],ew:1,el:1,nuc:.6,str:.03,cw:.09},
+ acinus:{f:.06,tint:[.94,.72,.7],w:[0,0,0,1],ew:1.4,el:1.4,nuc:.5,str:0,cw:.12},
+});
+/* Airway: nostril → nasal cavity → pharynx → larynx → trachea → carina → RIGHT main bronchus → lower-lobe bronchi → bronchioles → one acinus (the sizes between neighbours are honest, absolute sizes are declared on the HUD) */
+const PNODES=(()=>{const n=[],add=(x,y,z,r,k,g)=>n.push([x,y,z,r,k,g]);
+ add(2000,262,16,4.5,'nose','nose');add(2000,266,8,6.5,'nose','nose');add(2000,266,0,6.8,'nose','nose');add(2000,262,-8,5,'nose','nose');     // vestibule, cavity with turbinates, choana
+ add(2000,252,-9,4.6,'nose','pharynx');add(2000,240,-7,4.4,'nose','pharynx');                                                              // nasopharynx, oropharynx
+ add(2000,230,-3,3.4,'larynx','larynx');add(2000,224,-2,2.6,'larynx','larynx');add(2000,218,-1,3.6,'larynx','larynx');                      // laryngeal inlet, glottis, subglottis
+ for(let j=0;j<=4;j++)add(2000+Math.sin(j*1.3)*.4,212-j*8.5,-1-j*.6,5,'trachea','trachea');                                                // ~11 cm of C-rings
+ add(2000,178,-4,5.2,'trachea','carina');add(1998.5,173,-4.5,4.6,'bronchus','carina');                                                     // the keel
+ add(1994,164,-5,4.2,'bronchus','bronchus');add(1990,154,-6,3.9,'bronchus','bronchus');                                                     // right main bronchus (~25° off the midline, 2.5 cm)
+ add(1987,142,-9,3.5,'bronchus','bronchus');add(1984,130,-12,3.1,'bronchus','bronchus');add(1981,119,-14,2.9,'bronchus','bronchus');       // intermedius → lower-lobe → segmental
+ let x=1977,y=109,z=-14;const wind=[[-5,-9,2],[-7,-8,-3],[-4,-9,3],[-6,-7,-3],[-3,-8,2],[-5,-7,-2],[-3,-7,3],[-4,-6,-2]];
+ wind.forEach(([dx,dy,dz],k)=>{x+=dx;y+=dy;z+=dz;add(x,y,z,2.7-k*.08,'bronchiole','bronchiole');});                                       // generations 5–16, winding laterally and down
+ add(x-3,y-6,z+2,2.3,'tbronch','tbronch');add(x-6,y-11,z-2,2.4,'tbronch','tbronch');add(x-8,y-16,z+1,2.6,'tbronch','tbronch');           // terminal and respiratory bronchioles
+ add(x-10,y-21,z-1,3.2,'acinus','acinus');add(x-12,y-26,z+2,3.4,'acinus','acinus');add(x-14,y-31,z,3.6,'acinus','acinus');                // alveolar ducts
+ add(x-15,y-36,z+1,4.2,'acinus','sac');add(x-16,y-42,z,4.6,'acinus','sac');add(x-16,y-47,z-1,4.4,'acinus','sac');                          // the alveolar sac
+ return n;})();
+const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false);GUT.gut=true;LUNG.lung=true;
+BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;
 useWorld(BLOOD);
 const heartC=new V3();[2,4,13,15].forEach(k=>heartC.add(new V3(NODES[k][0],NODES[k][1],NODES[k][2])));heartC.multiplyScalar(.25);
 
@@ -1307,6 +1568,7 @@ function scaleAt(i){
  if(W.lymph)return 1-CW[i]*.22*lymSq(i);
  if(W.nerve)return 1-KW[i*4]*.3*nodeAtS(i*DS);
  if(W.gut){const k=i*4;return 1-(.16+.14*KW[k+1])*gSlow(i)-.5*gWave(i);}
+ if(W.lung)return 1+CW[i]*BR.vol-KW[i*4+3]*.35*wallU.uCons.value;
  const v=bump(C.tc,.02,C.sys),a=bump(C.tc,C.T-.16,C.T-.02);
  let tp=C.tc-.05-PD[i]/C.PWV;tp=((tp%C.T)+C.T)%C.T;const p=bump(tp,0,.3);
  const k=i*4;return 1-KW[k+1]*.2*v+KW[k]*(.06*v-.14*a)+KW[k+2]*.07*p;
@@ -1331,7 +1593,7 @@ scene.add(new THREE.HemisphereLight(0x9a3a44,0x1a0306,.55));
 const headlight=new THREE.PointLight(0xffeee6,1.5,90,1.1);scene.add(headlight);
 
 /* --- vessel wall: one cheap custom shader (pulsing, bumpy, wet, fake SSS, endothelial cell mosaic) --- */
-const wallU={uGW:{value:160},uAP:{value:-999},uAP2:{value:-999},uTc:{value:0},uT:{value:1},uSys:{value:.32},uPwv:{value:60},uTime:{value:0},
+const wallU={uBr:{value:0},uCons:{value:0},uGrey:{value:0},uGW:{value:160},uAP:{value:-999},uAP2:{value:-999},uTc:{value:0},uT:{value:1},uSys:{value:.32},uPwv:{value:60},uTime:{value:0},
  uLight:{value:new V3()},uCam:{value:new V3()},uFog:{value:new THREE.Color(FOG)},uFogD:{value:.02}};
 const NOISE=`
 float h3(vec3 p){p=fract(p*0.3183099+.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
@@ -1355,11 +1617,12 @@ vec4 endo(vec2 x,float nc){
 const NODEFN=`float nodeF(float s){float f=mod(s,22.);float d=min(f,22.-f);return 1.-smoothstep(.5,1.4,d);}`;
 const wallMat=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},
  vertexShader:`
-uniform float uTc,uT,uSys,uPwv,uTime,uGW;
+uniform float uTc,uT,uSys,uPwv,uTime,uGW,uBr,uCons,uGrey;
 attribute vec3 aCenter,aDir,aTint,aUV,aX;attribute float aR,aPd,aS;attribute vec4 aKind;
 varying vec3 vPos,vN,vTint,vUV,vX;varying vec4 vKind;varying float vS;
 float bmp(float x,float a,float b){return (x<a||x>b)?0.:sin(3.14159265*(x-a)/(b-a));}
 ${NODEFN}
+${NOISE}
 void main(){
  float v=bmp(uTc,.02,uSys),a=bmp(uTc,uT-.16,uT-.02);
  float tp=mod(uTc-.05-aPd/uPwv,uT);float p=bmp(tp,0.,.3);
@@ -1380,27 +1643,39 @@ void main(){
   s-=aKind.y*.07*(.5+.5*sin(th*9.))*(1.-band);                           // rugae: longitudinal folds that flatten as the wall stretches
  }
 #endif
+#ifdef LUNG
+ {float th=aUV.x/aUV.z*6.2832;float post=smoothstep(.55,.9,-aDir.z);
+  s=1.+aX.z*uBr-aKind.w*.35*uCons;                                           // the tree swells on inspiration, most in the acinus; a consolidated acinus is airless and shrunken
+  s+=aKind.x*smoothstep(.3,.9,sin(aS*2.6))*.1*(1.-post)-aKind.x*post*.1;      // tracheal C-rings, open at the back where the trachealis lies flat
+  s+=aKind.y*.05*smoothstep(.55,.7,vn(vec3(th*.8,aS*.35,1.)));                 // cartilage plates in the bronchi
+  s-=aKind.z*.05*(.5+.5*sin(th*2.+aS*1.6))*(1.-uBr*.5);                        // bronchiolar smooth-muscle spiral, slackening as the lung fills
+  s+=aKind.w*smoothstep(.45,.75,vn(vec3(th*1.1,aS*.55,3.)))*.42*(1.-uCons);     // alveolar pockets opening off the duct
+ }
+#endif
  vec3 pos=aCenter+aDir*aR*s;
  vPos=pos;vN=-aDir;vTint=aTint;vKind=aKind;vS=aS;vUV=aUV;vX=aX;
  gl_Position=projectionMatrix*viewMatrix*vec4(pos,1.);
 }`,
  fragmentShader:`
-uniform vec3 uLight,uCam,uFog;uniform float uFogD,uTime,uAP,uAP2;
+uniform vec3 uLight,uCam,uFog;uniform float uFogD,uTime,uAP,uAP2,uCons,uGrey;
 varying vec3 vPos,vN,vTint,vUV,vX;varying vec4 vKind;varying float vS;
 ${NOISE}
 ${NODEFN}
 void main(){
- vec3 n=normalize(vN);
+ vec3 n=normalize(vN);float sk=vX.y;
+#ifdef LUNG
+ sk=0.;
+#endif
  float h=fbm(vPos*.45)+.15*vn(vPos*2.2);
- float cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.;
-#if !defined(NERVE) && !defined(GUT)
+ float cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.,lcart=0.,lraft=0.,lcapl=0.,lpocket=0.,lost=0.,lkohn=0.,lgob=0.;
+#if !defined(NERVE) && !defined(GUT) && !defined(LUNG)
  float ridge=1.-abs(vn(vPos*vec3(.16,.55,.16)+vec3(vS*.02))*2.-1.);   // trabeculae carneae in ventricles
  h+=vKind.y*ridge*ridge*1.4+vKind.x*.4*vn(vPos*vec3(.9,.25,.9)); // pectinate texture in atria
  cells=vn(vPos*1.6);h+=vKind.w*(1.-abs(cells*2.-1.))*.6;           // alveolar bubbles behind capillary wall
 #endif
  // endothelial lining: flat cells, raised oval nuclei, grooved junctions; fades out where it would shimmer
  float nc=max(1.,floor(vUV.z+.5));vec4 en=endo(vUV.xy,nc);
- float mos=(1.-smoothstep(.12,.42,length(fwidth(vUV.xy))))*(1.-vX.y);
+ float mos=(1.-smoothstep(.12,.42,length(fwidth(vUV.xy))))*(1.-sk);
 #ifdef NERVE
  mos*=vKind.w; // only the brain capillary has an endothelium
 #endif
@@ -1410,10 +1685,10 @@ void main(){
  jn=1.-smoothstep(.0,.03,en.x); // tight junctions: narrow, continuous seams
 #endif
  // smooth muscle and elastic lamina showing through: fine wavy rings in arteries, looser fibres elsewhere
- float fib=sin(vS*5.5+fbm(vPos*.7)*7.+vUV.x*.4)*.5+.5;fib=fib*fib*(1.-vKind.y)*(1.-vKind.w)*(.35+.65*vKind.z)*(1.-vX.y)*step(vX.x,1.5);
+ float fib=sin(vS*5.5+fbm(vPos*.7)*7.+vUV.x*.4)*.5+.5;fib=fib*fib*(1.-vKind.y)*(1.-vKind.w)*(.35+.65*vKind.z)*(1.-sk)*step(vX.x,1.5);
  // skeletal muscle fibres around the tissue space: bulging fibres with cross-striations
  float fu=sin(3.14159*fract(vUV.x*.5)),sarc=.5+.5*sin(vS*9.+fu);
- h+=mos*(nuc*.42-jn*.3+(en.y-.5)*.06)+fib*.12+vX.y*(fu*.7+sarc*.12);
+ h+=mos*(nuc*.42-jn*.3+(en.y-.5)*.06)+fib*.12+sk*(fu*.7+sarc*.12);
 #ifdef NERVE
  fib=0.;nodeR=nodeF(vS);
  // axon: microtubule and neurofilament tracks under the axolemma; at a node the bare membrane is studded with channels
@@ -1433,12 +1708,29 @@ void main(){
  gcr=smoothstep(.7,.78,vn(vPos*4.5+vec3(3.)));h-=vKind.z*gcr*.35;
  h+=vKind.w*.05*vn(vPos*2.);fib*=(1.-vKind.x)*(1.-vKind.w)*.5;
 #endif
+#ifdef LUNG
+ {float th=vUV.x/max(1.,vUV.z)*6.2832;float post=smoothstep(.55,.9,n.z);float cond=1.-vKind.w;
+  // ciliated epithelium: a lawn of cilia under a sliding gel, goblet cells between; the gel rafts ride mouth-ward at this generation's escalator speed
+  float cil=vn(vPos*22.)*.5+.5*vn(vPos*41.);float raft=smoothstep(.58,.7,vn(vec3(th*1.3,(vS+uTime*vX.y)*.7,2.)));float gob=smoothstep(.72,.78,vn(vec3(th*3.,vS*2.,5.)));
+  h+=cond*(cil*.16+raft*.25+gob*.3);
+  // cartilage: C-rings in the trachea (open at the back), plates in the bronchi; the smooth-muscle spiral of the bronchioles
+  float cart=vKind.x*smoothstep(.3,.9,sin(vS*2.6))*(1.-post)+vKind.y*smoothstep(.55,.7,vn(vec3(th*.8,vS*.35,1.)));h+=cart*.5;
+  h+=vKind.z*.1*(.5+.5*sin(th*2.+vS*1.6));
+  // the sibling branch at each generation: a dark ostium in the wall
+  float fk=floor(vS/13.);vec2 fo=vec2(mod(th-6.2832*h3(vec3(fk,1.,7.))+3.1416,6.2832)-3.1416,(mod(vS,13.)-6.5)*.8);float ost=(1.-smoothstep(.55,1.,length(fo)))*(vKind.y+vKind.z);h-=ost*1.2;
+  // alveoli: polyhedral pockets sharing septa, a capillary sheet in every wall, pores of Kohn between neighbours
+  float al=vn(vec3(th*1.1,vS*.55,3.));float pocket=smoothstep(.45,.75,al);float septa=1.-smoothstep(.0,.06,abs(al-.47));
+  float cn=vn(vPos*4.2);float capl=1.-smoothstep(.0,.08,abs(cn-.5));float kohn=smoothstep(.8,.86,vn(vPos*3.+vec3(9.)))*pocket;
+  h+=vKind.w*(pocket*.3-septa*.25+capl*.12*(1.-uCons)-kohn*.6);
+  lcart=cart;lraft=raft*cond;lgob=gob*cond;lost=ost;lcapl=capl*vKind.w;lpocket=pocket*vKind.w;lkohn=kohn*vKind.w;fib=0.;
+ }
+#endif
  vec3 dpx=dFdx(vPos),dpy=dFdy(vPos);float dhx=dFdx(h),dhy=dFdy(h);
  vec3 r1=cross(dpy,n),r2=cross(n,dpx);float det=dot(dpx,r1);
  n=normalize(abs(det)*n-sign(det)*(dhx*r1+dhy*r2)*1.6);
  vec3 base=vTint*(.7+.55*fbm(vPos*.9));
  base*=1.-.12*fib;
- base*=mix(1.,(.72+.28*fu)*(.86+.14*sarc),vX.y);
+ base*=mix(1.,(.72+.28*fu)*(.86+.14*sarc),sk);
  base*=mix(1.,.9+.2*en.y,mos);                                        // each cell a slightly different tone
  base=mix(base,base*vec3(.5,.36,.5),jn*mos*.8);                       // cell junctions
  base=mix(base,base*vec3(1.05,.9,1.25)*(.95+.25*vn(vPos*9.)),smoothstep(.0,.35,nuc)*mos*.75); // nuclei with chromatin speckle
@@ -1454,6 +1746,15 @@ void main(){
  base=mix(base,mix(vec3(.86,.76,.7),vec3(.48,.4,.72),nis),vKind.z);          // Nissl substance stains violet
  base=mix(base,base*vec3(.8,.85,1.),vKind.w*jn*mos);
 #endif
+#ifdef LUNG
+ base=mix(base,vec3(.86,.9,.92),lcart*.85);                                                        // hyaline cartilage: glassy blue-white
+ base=mix(base,vec3(.8,.9,.95),lraft*.6);base=mix(base,vec3(.9,.95,.98),lgob*.6);                   // mucus gel · goblet cells
+ base=mix(base,vec3(.06,.03,.04),lost*.95);                                                        // the dark mouth of a side branch
+ base*=1.-lpocket*.12;base=mix(base,vec3(.72,.14,.17)*(.75+.35*sin(uTime*2.6+vS*3.)),lcapl*.8*(1.-uCons)); // the capillary sheet, red cells flickering through
+ base=mix(base,vec3(.02,.01,.015),lkohn);                                                          // pores of Kohn
+ base=mix(base,mix(vec3(.62,.16,.18),vec3(.58,.5,.46),uGrey)*(.8+.3*vn(vPos*6.)),vKind.w*uCons*(.55+.45*lpocket)); // exudate: red → grey hepatisation
+ vline=0.;
+#endif
  base=mix(base,base*vec3(.45,.18,.3),vline*.7*(1.-vKind.w));
  vec3 L=uLight-vPos;float d=length(L);L/=d;
  float att=1./(1.+d*d*.0035);
@@ -1462,6 +1763,9 @@ void main(){
  float spec=pow(max(dot(n,H),0.),48.)*.8;
 #ifdef GUT
  spec*=1.+gcr*2.5+gvf*.8+vKind.z*1.2;
+#endif
+#ifdef LUNG
+ spec*=1.+lcart*1.5+lraft*3.+lgob*1.5;
 #endif
  float fres=pow(1.-max(dot(n,V),0.),3.);
  vec3 sss=vec3(1.,.18,.12)*pow(1.-abs(ndl),2.)*.35;
@@ -1520,7 +1824,9 @@ function buildWalls(Wd,mat){ // build the tube in chunks so the GPU can frustum-
 const wallMatL=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LYMPH:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatN=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{NERVE:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatG=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{GUT:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
-buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group);
+const wallMatP=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LUNG:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
+const wallMatCap=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LUNG:1},side:THREE.BackSide,vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
+buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);buildWalls(LUNG,wallMatP);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group,LUNG.group);
 
 /* --- valves, built from real anatomy: unequal leaflets, scalloped posterior mitral leaflet, branching chordae on
        papillary muscles, a crown-shaped (semilunar) or saddle-shaped (mitral) annulus, lunulae, nodules and coronary ostia --- */
@@ -1598,7 +1904,7 @@ VALVES.forEach(vl=>{
 }
 const _u=new V3(),_h=new V3(),_p=new V3(),_e=new V3(),_e2=new V3(),_q3=new V3();
 const uAt=(vl,th,out)=>out.copy(vl.n).multiplyScalar(Math.cos(th)).addScaledVector(vl.b,Math.sin(th));
-[BLOOD,LYMPH,NERVE,GUT].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
+[BLOOD,LYMPH,NERVE,GUT,LUNG].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
 const AOV=BLOOD.VALVES[3];
 // one point on leaflet l: f runs commissure→commissure along the edge, rho = 1 at the hinge, 0 at the free edge
 function leafPoint(vl,l,f,rho,out){
@@ -1877,7 +2183,154 @@ function gutSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a
 function gutAmbience(now,rnd,reg){let o={turb:0,hush:0,air:0};const sq=gSlow(S.idx);if(amb.prevG<.3&&sq>=.3){if(reg==='stomach'||reg==='antrum'){pop(60,34,.6,.32);burst(120,1.2,.6,.25);}else if(reg==='colon'||reg==='rectum'){pop(70,40,.45,.2);burst(90,1.5,.5,.2);}else glug(.14);}amb.prevG=sq;
  const wv=gWave(S.idx);if(amb.prevW<.4&&wv>=.4)burst(320,1,.7,.22);amb.prevW=wv;
  if(reg==='stomach'||reg==='antrum')o.hush=.07+.03*Math.sin(now*.6);if((reg==='colon'||reg==='rectum')&&rnd(.25))pop(240,120,.12,.06);if(reg==='mouth')o.air=.03;return o;}
-Object.assign(CELLS,CELLS_GI);buildSphincters();
+Object.assign(CELLS,CELLS_GI);
+/* ===== Pulmonary world: breathing clock, cough, escalator, the barrier, case 04 ===== */
+const LU={stage:0,fio2:.21,supine:0,cough:0,escT:0,carT:0};
+const BR={rate:12,T:5,ph:0,vol:0,flow:0,I:.36}; // one breath: rate/min · period · phase 0–1 · volume above FRC (0–1) · signed airflow (+ in, − out) · inspiratory fraction (I:E ≈ 1:2)
+function brTick(dt){const rate=LU.stage===1||LU.stage===2?26:LU.stage===3?18:12;BR.rate+=(rate-BR.rate)*Math.min(1,dt*.5);BR.T=60/BR.rate;BR.ph=(BR.ph+dt/BR.T)%1;
+ const I=BR.I,ph=BR.ph;if(ph<I){BR.vol=.5-.5*Math.cos(Math.PI*ph/I);BR.flow=Math.sin(Math.PI*ph/I);}else{const e=(ph-I)/(1-I);BR.vol=.5+.5*Math.cos(Math.PI*e);BR.flow=-.6*Math.sin(Math.PI*e);}
+ if(LU.cough>0)LU.cough-=dt;
+ if(!C.exercise)C.hrT=(LU.stage===1||LU.stage===2?106:LU.stage===3?84:72)+(ph<I?4:-3); // respiratory sinus arrhythmia: the heart quickens on inspiration
+ wallU.uBr.value=BR.vol;wallU.uCons.value=LU.stage===0?0:LU.stage===3?.45:1;wallU.uGrey.value=LU.stage===2?1:LU.stage===3?.6:0;}
+function coughPhase(){const c=LU.cough;return c<=0?0:c>.3?1:2;} // 1 = compressive (glottis shut, pressure climbing) · 2 = expulsive
+function genAt(i){const r=REG[i],[a,b]=RANGE[r]||[i,i],f=(i-a)/Math.max(1,b-a);return r==='trachea'?0:r==='carina'?1:r==='bronchus'?1+3*f:r==='bronchiole'?5+11*f:r==='tbronch'?17+2*f:r==='acinus'?20+2.5*f:r==='sac'?23:-1;}
+function genDiam(g){return g<0?null:g<=16?18*Math.pow(2,-g/3.3):Math.max(.41,.62-.03*(g-16));}          // mm · Weibel model A: 18 mm → 0.6 mm by gen 16, ~0.4 mm at gen 23
+function genArea(g){const d=genDiam(g);return d===null?null:2.5*Math.pow(2,g)*Math.pow(d/18,2);}        // cm² total cross-section: 2.5 → ~200 (gen 16) → ~11,000 (gen 23)
+function airVel(i){const g=genAt(i);if(g<0)return null;const A=genArea(g);return 460/A;}                  // cm/s at peak tidal flow (~0.46 L/s)
+function brFlow(i){const cp=coughPhase();if(cp===1)return 0;if(cp===2){const g=genAt(i);return g<=8?-14:BR.flow*.5;}return BR.flow;}
+// the glottis: two vocal folds, abducted to breathe, slammed shut for the compressive phase of a cough
+const GLOT={i:0,o:1};
+function buildGlottis(){const [a,b]=LUNG.RANGE.larynx;GLOT.i=Math.floor(a+(b-a)*.5);GLOT.c=gv(LUNG.P,GLOT.i,new V3());GLOT.t=gv(LUNG.T,GLOT.i,new V3());GLOT.n=gv(LUNG.NR,GLOT.i,new V3());GLOT.b=gv(LUNG.BN,GLOT.i,new V3());GLOT.r=LUNG.R0[GLOT.i];
+ GLOT.m=new THREE.InstancedMesh(new THREE.SphereGeometry(1,12,8),new THREE.MeshStandardMaterial({color:0xe9dcd6,roughness:.45,emissive:0x1a1010}),2);GLOT.m.frustumCulled=false;LUNG.group.add(GLOT.m);
+ const [a2,b2]=LUNG.RANGE.tbronch;for(let i=a2;i<LUNG.N;i++)LUNG.TURB[i]=i<b2?.25:.4; // past generation 16 the air is still and everything jiggles: diffusion
+}
+const _gp=new V3(),_gq=new THREE.Quaternion(),_gs=new V3();
+function updateGlottis(){const cp=coughPhase();const target=cp===1?.08:1;GLOT.o+=(target-GLOT.o)*Math.min(1,dtLast*(cp===1?30:14));const R=GLOT.r,o=GLOT.o;
+ for(let k=0;k<2;k++){const sgn=k?1:-1;_gp.copy(GLOT.c).addScaledVector(GLOT.n,sgn*R*(.18+.78*o));_m.compose(_gp,_gq.setFromUnitVectors(_vY,GLOT.n),_gs.set(R*.35,R*.6,R*1.1));GLOT.m.setMatrixAt(k,_m);}
+ GLOT.m.instanceMatrix.needsUpdate=true;}
+let dtLast=1/60;
+// the alveolar sac is a blind end: close the tube with a dome that wears the same alveolar wall
+function buildSacCap(){const Wd=LUNG,i=Wd.N-1,t=gv(Wd.T,i,new V3()),R=Wd.R0[i]*1.3,c=gv(Wd.P,i,new V3()).addScaledVector(t,-Wd.R0[i]*.4);
+ const g=new THREE.SphereGeometry(1,32,16,0,Math.PI*2,0,Math.PI/2);g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new V3(0,1,0),t));
+ const pos=g.attributes.position,uv=g.attributes.uv,n=pos.count;const aC=new Float32Array(n*3),aD=new Float32Array(n*3),aT=new Float32Array(n*3),aU=new Float32Array(n*3),aXa=new Float32Array(n*3),aR=new Float32Array(n),aP=new Float32Array(n),aS=new Float32Array(n),aK=new Float32Array(n*4);
+ const ncell=Math.max(2,Math.round(Math.PI*2*R/Wd.EW[i]));
+ for(let v=0;v<n;v++){const x=pos.getX(v),y=pos.getY(v),z=pos.getZ(v);aC.set([c.x,c.y,c.z],v*3);aD.set([x,y,z],v*3);aT.set([Wd.TINT[i*3],Wd.TINT[i*3+1],Wd.TINT[i*3+2]],v*3);
+  aU.set([uv.getX(v)*ncell,i*Wd.DS/Wd.EL[i]+uv.getY(v)*3,ncell],v*3);aXa.set([Wd.NUC[i],0,Wd.CW[i]],v*3);aR[v]=R;aP[v]=9999;aS[v]=i*Wd.DS+uv.getY(v)*R;aK.set([0,0,0,1],v*4);
+  pos.setXYZ(v,c.x+x*R,c.y+y*R,c.z+z*R);}
+ g.setAttribute('aCenter',new THREE.BufferAttribute(aC,3));g.setAttribute('aDir',new THREE.BufferAttribute(aD,3));g.setAttribute('aTint',new THREE.BufferAttribute(aT,3));g.setAttribute('aUV',new THREE.BufferAttribute(aU,3));g.setAttribute('aX',new THREE.BufferAttribute(aXa,3));g.setAttribute('aR',new THREE.BufferAttribute(aR,1));g.setAttribute('aPd',new THREE.BufferAttribute(aP,1));g.setAttribute('aS',new THREE.BufferAttribute(aS,1));g.setAttribute('aKind',new THREE.BufferAttribute(aK,4));
+ const m=new THREE.Mesh(g,wallMatCap);m.frustumCulled=false;Wd.group.add(m);
+ // turbinates: three scroll shelves on each lateral wall of the nasal cavity
+ const tm=new THREE.MeshStandardMaterial({color:0xd98f8f,roughness:.5,emissive:0x1a0808});const [a,b]=Wd.RANGE.nose;const ci=Math.floor(a+(b-a)*.5),cc=gv(Wd.P,ci,new V3()),r=Wd.R0[ci];
+ [[2.8,-2.8],[2.5,0],[2.1,2.6]].forEach(([len,dy])=>{for(const sx of[-1,1]){const sh=new THREE.Mesh(new THREE.SphereGeometry(1,16,10),tm);sh.position.set(cc.x+sx*(r-len*.45),cc.y+dy,cc.z);sh.scale.set(len,.6,r*1.3);Wd.group.add(sh);}});}
+function luGateSlow(){const o=Math.max(.05,GLOT.o);for(let j=-16;j<=2;j++)valveSlow[wrapI(GLOT.i+j)]=j>0?o:lerp(o,1,-j/16);}
+function luGates(prevS,prevPos){const a=prevS-GLOT.i,b=S.sF-GLOT.i;if(Math.abs(a)>40||Math.abs(b)>40)return;
+ if(((a<0&&b>=0)||(a>=0&&b<0))&&GLOT.o<.35){S.pos.copy(prevPos);const vt=S.vel.dot(GLOT.t);S.vel.addScaledVector(GLOT.t,-vt*1.6);S.idx=nearestIdx(S.pos,S.idx);S.sF=prevS;S.bumpT=.25;sfx('bonk');toastOnce('glot','The vocal folds are shut: this is the compressive phase of a cough. Hold on.','warn');}}
+function cough(){if(LU.cough>0||W!==LUNG)return;LU.cough=.55;const g=genAt(S.idx),r=REG[S.idx];const up=g<0||g<=8;
+ toast(up?'Cough: the glottis slams shut, chest pressure climbs to ~300 mmHg, then it bursts open at >500 L/min. Hold on.':'Cough: you hear it above you, but down here nothing moves. A cough clears the airways only to about generation 7–8. Below that the mucociliary escalator is the only way out.',up?'warn':'');
+ setTimeout(()=>{burst(300,.7,.35,.9);pop(130,60,.3,.5);},300);if(!up)complete('cough');else LU.coughUp=1;}
+// cells of the airway and the alveolus
+const mucusMat=new THREE.MeshStandardMaterial({color:0xdfe9ef,roughness:.22,transparent:true,opacity:.7,emissive:0x0a1418});
+const dustMat=c=>new THREE.MeshStandardMaterial({color:c,roughness:.9,emissive:0x0a0806});
+const CELLS_LU={
+ mucus:{world:'lung',n:90,ahead:60,behind:25,speedK:1,esc:1,wall:true,clear:0,size:.5,spin:0,dens:{nose:.4,pharynx:.3,larynx:.3,trachea:1,carina:1,bronchus:.9,bronchiole:.6,tbronch:.12},
+  meshes:[new THREE.InstancedMesh(at(blob(.5,.12,5,7,14,10),0,0,0).scale(1.5,.32,1),mucusMat,90)]},
+ dustL:{world:'lung',n:24,ahead:60,behind:25,rmax:.95,speedK:1,clear:.3,size:.3,confine:1,dens:{nose:1},
+  meshes:[new THREE.InstancedMesh(blob(.26,.1,4,3,10,8),dustMat(0x9a8a70),24)]},
+ dustM:{world:'lung',n:40,ahead:70,behind:30,rmax:.95,speedK:1,clear:.2,size:.2,confine:1,dens:{nose:.5,pharynx:.5,larynx:.5,trachea:.5,carina:.5,bronchus:.5,bronchiole:.45},
+  meshes:[new THREE.InstancedMesh(blob(.14,.08,4,5,10,8),dustMat(0x8c8070),40)]},
+ dustS:{world:'lung',n:50,ahead:60,behind:25,rmax:.95,speedK:1,clear:.1,size:.12,dens:{nose:.5,pharynx:.5,larynx:.5,trachea:.5,carina:.5,bronchus:.5,bronchiole:.5,tbronch:.6,acinus:.8,sac:1},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.07,6,5),dustMat(0x7a7470),50)]},
+ gas:{world:'lung',n:180,ahead:36,behind:18,rmax:.96,speedK:1,spin:3,clear:.05,size:.1,confine:1,dens:{tbronch:.5,acinus:1,sac:1},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.07,6,5),new THREE.MeshStandardMaterial({color:0xbfe8ff,roughness:.3,emissive:0x0e2a3a}),180)]},
+ amac:{world:'lung',n:9,ahead:90,behind:40,speedK:0,wall:true,clear:0,size:.55,dens:{tbronch:.3,acinus:.7,sac:1},
+  meshes:[new THREE.InstancedMesh(at(blob(.5,.12,7,9,14,10),0,0,0).scale(1.2,.5,1.2),new THREE.MeshStandardMaterial({color:0xd8cfe0,roughness:.55,emissive:0x100a16}),9)]},
+ neutA:{world:'lung',n:70,ahead:46,behind:22,rmax:.9,speedK:.15,clear:.3,size:.3,confine:1,cap:1,dens:{acinus:0,sac:0},
+  meshes:[new THREE.InstancedMesh(blob(.28,.06,9,4,12,9),new THREE.MeshStandardMaterial({color:0xe6dfe8,roughness:.5,emissive:0x16101a}),70)]},
+ fibrin:{world:'lung',n:60,ahead:46,behind:22,rmax:.95,speedK:.05,clear:.2,size:.5,confine:1,cap:1,spin:.1,dens:{acinus:0,sac:0},
+  meshes:[new THREE.InstancedMesh(new THREE.CapsuleGeometry(.025,1.1,3,6),new THREE.MeshStandardMaterial({color:0xf3e2b0,roughness:.6,emissive:0x1c1608}),60)]},
+ rbcA:{world:'lung',n:90,ahead:46,behind:22,rmax:.95,speedK:.1,clear:.2,size:.3,confine:1,cap:1,dens:{acinus:0,sac:0},
+  meshes:[new THREE.InstancedMesh(at(rbcGeometry(),0,0,0).scale(.42,.42,.42),new THREE.MeshStandardMaterial({color:0xb3121a,roughness:.4,emissive:0x1a0000}),90)]},
+};
+// case 04 toggle (V): ventilated → red hepatisation → grey hepatisation → resolving
+const CONS=[{n:'VENTILATED',t:'Healthy acinus: air on one side of the septum, blood on the other, half a micrometre apart.'},
+ {n:'CONSOLIDATED · red hepatisation',t:'Day 2–3 of lobar pneumonia: the alveoli fill with red cells, neutrophils and fibrin. The capillaries beside them still flow. Perfused but not ventilated: shunt.'},
+ {n:'CONSOLIDATED · grey hepatisation',t:'Day 4–6: the red cells have lysed; fibrin and neutrophils remain and the lobe is firm and grey. Still shunting. Hypoxic vasoconstriction has clamped the feeding arteriole, but only partly.'},
+ {n:'RESOLVING',t:'Day 7 on: macrophages clear the exudate and air returns. Fine crackles as closed units snap open late in each breath. Shunt fraction falling.'}];
+function luToggle(){LU.stage=(LU.stage+1)%4;const c=CONS[LU.stage];toast(c.t,LU.stage===0?'good':LU.stage===3?'':'warn');luCaseTag();if(LU.stage===1)complete('cons');if(!scanned.has('pneumonia'))addCodex('pneumonia');}
+function luCaseTag(){const c=CONS[LU.stage];$('caseTag').textContent='Case 04 · acinus: '+c.n+' · FiO₂ '+Math.round(LU.fio2*100)+'%';$('caseTag').style.color=LU.stage===0?'var(--green)':LU.stage===3?'var(--cyan)':'var(--amber)';}
+// gas exchange with a true shunt: the numbers the bedside sees
+function hill(p){const x=Math.pow(p/26.6,2.7);return x/(1+x);}                   // O₂ dissociation curve: P50 26.6 mmHg, Hill n 2.7
+function gasCalc(){const sh=[.03,.3,.25,.1][LU.stage];                             // shunt fraction: anatomical ~3% · lobar consolidation 25–30% · resolving ~10%
+ const paco2=LU.stage===1||LU.stage===2?34:40;const PAO2=LU.fio2*(760-47)-paco2/.8;  // alveolar gas equation at sea level, R 0.8
+ const cont=p=>1.34*14*hill(p)+.003*p;const cc=cont(PAO2);const ca=cc-5*sh/(1-sh);  // shunt equation with a 5 mL/dL arteriovenous difference, Hb 14 g/dL
+ let lo=10,hi=700;for(let k=0;k<36;k++){const m=(lo+hi)/2;if(cont(m)<ca)lo=m;else hi=m;}const pao2=(lo+hi)/2;
+ return {pao2:Math.round(pao2),spo2:Math.round(hill(pao2)*100),aa:Math.round(PAO2-pao2),PAO2:Math.round(PAO2),sh:Math.round(sh*100),paco2};}
+function o2Trial(){if(W!==LUNG)return;LU.fio2=LU.fio2<.3?.6:LU.fio2<.8?1:.21;const g=gasCalc();luCaseTag();const cons=LU.stage===1||LU.stage===2;
+ toast(`FiO₂ ${Math.round(LU.fio2*100)}%: PaO₂ ${g.pao2} mmHg · SpO₂ ${g.spo2}% · A–a ${g.aa} mmHg. ${cons?(LU.fio2>.3?'A partial response only: blood that never meets air cannot be oxygenated by giving more of it. That is shunt, not dead space.':'Back on air.'):LU.stage===3?'Recovering as units reopen.':'Healthy lungs: PaO₂ follows the alveolar value up.'}`,cons&&LU.fio2>.3?'warn':'good');
+ if(cons&&LU.fio2>.3)complete('o2trial');}
+function posture(){if(W!==LUNG)return;LU.supine=!LU.supine;complete('zone');
+ toast(LU.supine?'Lying flat: gravity now runs front to back. Almost the whole lung is zone 3, V/Q evens out toward 0.8, and the dependent posterior segments (yours) get the most blood. This is also why a sick lung should go up, not down.':'Standing: the apex is zone 1–2 with V/Q ≈ 3.3; your acinus at the base is zone 3, V/Q ≈ 0.6, perfusion-rich. West zones are pressure regimes, not anatomy: they moved when he did.','good');}
+function luTick(dt){dtLast=dt;brTick(dt);updateGlottis();luGateSlow();
+ const r=REG[S.idx],g=genAt(S.idx);
+ if(coughPhase()===2&&(g<0||g<=8)){gv(T,S.idx,_t);S.pos.addScaledVector(_t,-70*dt);S.vel.addScaledVector(_t,-30*dt);S.bumpT=.1;if(S.sF<4&&LU.coughUp){LU.coughUp=0;toast('Coughed out to the nostril. Airflow in a cough reaches ~500 L/min in the trachea; nothing of your size stays put.','warn');}}
+ if(r==='bronchiole'){LU.escT+=dt;if(LU.escT>5&&!done.has('escalator')){complete('escalator');toast('The mucus rafts around you are climbing against your direction of travel on a lawn of cilia beating 10–15 times a second. They are not floating on water: they ride a tethered-mucin brush (Button 2012).','good');}}
+ if(r==='bronchus'&&!done.has('carina')){complete('carina');toast(keys.KeyW?'You powered through the carina into the RIGHT main bronchus. Next time stop thrusting: the airflow splits unevenly and carries you right on its own.':'You drifted RIGHT. The right main bronchus is wider, shorter and only ~25° off the midline (left: ~45°, 5 cm). Aspirated food and foreign bodies take exactly this path, most often into the lower lobe.','good');}
+ if((r==='tbronch'||r==='acinus'||r==='sac')&&!done.has('diffuse')){complete('diffuse');toast('Generation 17. Total cross-section is now ~200 cm² and bulk flow has died: gas moves by diffusion from here, and so do you. Drift; thrust gently.','good');}
+ const st=LU.stage,nd=CELLS.neutA.dens,fd=CELLS.fibrin.dens,rd=CELLS.rbcA.dens;
+ nd.acinus=nd.sac=st===1?.6:st===2?1:st===3?.35:0;fd.acinus=fd.sac=st===1?.5:st===2?1:st===3?.3:0;rd.acinus=rd.sac=st===1?1:0;}
+function luDetour(){const r=REG[S.idx];
+ if(r==='carina'||r==='trachea')toastOnce('lk','The dark opening on your left is the left main bronchus (longer, 45°). This route follows the right side down to the lower lobe. Stop thrusting here and see which way the air takes you.','warn');
+ else if(r==='acinus'||r==='sac')toastOnce('lk','The way out is through the wall, not a door: ride to the end of the sac and you cross the barrier with the oxygen into a red cell. To look at the septum first, press E.','warn');
+ else toastOnce('lk','The air side has one exit: the blood. Keep going down the tree to an alveolar sac and cross the barrier there.','warn');}
+function exitLung(){if(warping)return;warp('Across the barrier with the oxygen: type I cell, fused basement membrane, endothelium, plasma, and into a red cell within 0.25 s…',()=>{complete('lexit');if(!C.exercise)C.hrT=72;switchWorld(BLOOD,BLOOD.RANGE.lungcap[0]+1);addCodex('barrier');
+ toast('The blood side of the same wall. Watch the red cells brighten as they load: you are riding one to the pulmonary vein and the left heart. Air in, blood out.','good');});}
+function enterLung(){switchWorld(LUNG,LUNG.nodeIdx[1]);complete('lung');LU.escT=0;setTimeout(()=>{if(W===LUNG)addCodex('case04');},900);}
+// bedside for case 04: the consolidation cluster, with the sounds synthesised
+function playBreath(kind){if(!AC)return;const t0=AC.currentTime+.05,T=LU.stage===1||LU.stage===2?2.3:4.6,I=T*.36;
+ const n=AC.createBufferSource();n.buffer=A.noiseBuf;n.loop=true;const bp=AC.createBiquadFilter();bp.type='bandpass';const g=AC.createGain();g.gain.value=0;n.connect(bp);bp.connect(g);g.connect(A.out);
+ if(kind==='bronchial'){bp.frequency.value=800;bp.Q.value=.35;g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.8,t0+I*.5);g.gain.linearRampToValueAtTime(0,t0+I);g.gain.setValueAtTime(0,t0+I+.12);g.gain.linearRampToValueAtTime(.95,t0+I+.12+(T-I)*.4);g.gain.linearRampToValueAtTime(0,t0+T);} // harsh, a gap between the phases, expiration as long and loud
+ else{bp.frequency.value=170;bp.Q.value=.5;g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(1,t0+I*.5);g.gain.linearRampToValueAtTime(.3,t0+I);g.gain.linearRampToValueAtTime(0,t0+I+(T-I)*.4);}                                                    // vesicular: soft, low-passed, inspiration louder, expiration fades early
+ n.start(t0);n.stop(t0+T+.1);
+ if(kind==='crackles')for(let k=0;k<18;k++){const dt=(I*(.5+.5*Math.random())+.05)*1000;setTimeout(()=>pop(700+Math.random()*140,520,.006,.24),dt);} // fine crackles: late-inspiratory reopening pops
+ if(kind==='coarse')for(let k=0;k<8;k++){const dt=(Math.random()*T)*1000;setTimeout(()=>pop(380,240,.014,.18),dt);}}
+const LZONES=[['rul','Right upper zone (front)',{perc:'resonant',bs:'vesicular',vr:'normal',add:'none',snd:'vesicular'}],['rll','Right lower zone (back)',{perc:'DULL',bs:'BRONCHIAL',vr:'INCREASED · egophony (E→A) · whispered pectoriloquy',add:'coarse → fine crackles',snd:'bronchial'}],['lul','Left upper zone (front)',{perc:'resonant',bs:'vesicular',vr:'normal',add:'none',snd:'vesicular'}],['lll','Left lower zone (back)',{perc:'resonant',bs:'vesicular',vr:'normal',add:'none',snd:'vesicular'}]];
+function openExamLU(){if(!started||anyModal())return;closeModals();const sh=$('examLUSheet');const g=gasCalc();
+ sh.innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Bedside · Case 04</div><h1 style="font-size:28px">Tomás Herrera, 68</h1>
+ <p class="small">Three days of fever and cough, now breathless at rest with a sharp pain on the right when he breathes in. The sputum has turned rust-coloured. Lifelong non-smoker.</p>
+ <div class="exgrid"><div><b>Observations</b><br>T 38.9 °C · RR 28/min · SpO₂ 88% on air · HR 108 · BP 118/74. Splinting the right side. Pleuritic pain, worse on inspiration.</div>
+ <div><b>Gas (air)</b><br>PaO₂ ${g.pao2} mmHg · PaCO₂ 34 · pH 7.47 · A–a gradient ${g.aa} mmHg (expected ≈ ${Math.round(68/4+4)} at 68).</div>
+ <div><b>Bloods</b><br>WCC 18 × 10⁹/L, neutrophils 15 · CRP 240 · urea 9 · lactate 1.8 · blood cultures sent.</div>
+ <div><b>Listen · pick a zone</b><br>${LZONES.map(([id,n])=>`<button class="btn ghost zone" data-z="${id}" style="margin:2px 0;font-size:12px">${n}</button>`).join('<br>')}</div></div>
+ <div id="exlFind" class="small" style="min-height:36px;color:var(--muted)">Percussion, breath sounds, vocal resonance and added sounds appear here, and you hear the breath sounds as you pick.</div>
+ <p><b>Where is the consolidation?</b> The cluster localises the lobe before the X-ray does.</p>
+ <div id="exlQ">${shuffle([['rll','Right lower lobe',1],['lll','Left lower lobe',0],['rul','Right upper lobe',0],['bi','Both bases (bilateral)',0]]).map(([id,t,ok])=>`<button class="opt" data-ok="${ok}">${t}</button>`).join('')}</div><div id="exlFb"></div>`;
+ sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ sh.querySelectorAll('.zone').forEach(b=>b.onclick=()=>{const z=LZONES.find(x=>x[0]===b.dataset.z)[2];sh.querySelectorAll('.zone').forEach(x=>x.classList.toggle('on',x===b));
+  $('exlFind').innerHTML=`<b>Percussion:</b> ${z.perc} · <b>Breath sounds:</b> ${z.bs} · <b>Vocal resonance:</b> ${z.vr} · <b>Added:</b> ${z.add}`;playBreath(z.snd);if(z.snd==='bronchial')setTimeout(()=>playBreath('coarse'),50);});
+ sh.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const ok=b.dataset.ok==='1';sfx(ok?'chime':'buzz');sh.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right');});if(!ok)b.classList.add('wrong');
+  $('exlFb').innerHTML=`<div class="expl">${ok?'✓ ':'✗ '}Dullness with <i>bronchial</i> breathing and <i>increased</i> vocal resonance is consolidation: solid lung transmits the unfiltered airway sound and the voice straight to the chest wall. (An effusion is dull too, but it blocks voice sounds; a pneumothorax silences everything.) Right lower zone at the back = right lower lobe, which is also where aspirated material lands. The hypoxaemia with a wide A–a gradient and a low CO₂ says blood is passing unventilated alveoli: shunt. Expect only a partial response to oxygen.</div><button class="btn" data-close>Fly in ▸</button>`;
+  $('exlFb').querySelector('[data-close]').onclick=closeModals;complete('lexam');addCodex('case04');});
+ show('mExamLU');}
+// vitals, trace, route, sub-locations, ambience
+function luVitals(){const g=gasCalc();const i=S.idx,r=REG[i],gen=genAt(i),d=genDiam(gen),A=genArea(gen),cp=coughPhase(),insp=BR.ph<BR.I;
+ $('vBr').textContent=`${Math.round(BR.rate)}/min · ${cp===1?'COUGH · glottis shut':cp===2?'COUGH · expulsive':insp?'INSPIRATION':'expiration'}`;$('vBr').style.color=cp?'var(--amber)':insp?'var(--cyan)':'';
+ const v=airVel(i);$('vAf').textContent=cp===2&&(gen<=8)?'>500 L/min, outward':gen>=17?'≈ 0 · diffusion':v===null?(insp?'in · turbulent':'out'):`${(v*Math.abs(BR.flow)/100).toFixed(2)} m/s ${BR.flow>0?'in':'out'} (peak ${v>=100?(v/100).toFixed(1)+' m/s':Math.round(v)+' cm/s'})`;
+ $('vGen').textContent=gen<0?(r==='nose'?'nose · ~½ of all resistance':r==='larynx'?'glottis · narrowest point':'pharynx'):`gen ${Math.round(gen)} · ${d>=1?d.toFixed(gen>12?1:0)+' mm':Math.round(d*1000)+' µm'} · ${A<100?A.toFixed(1):Math.round(A).toLocaleString()} cm²`;
+ $('vGas').textContent=`${g.spo2}% · ${g.pao2} · A–a ${g.aa} mmHg`;$('vGas').style.color=g.spo2<90?'var(--amber)':g.spo2<94?'var(--cyan)':'';
+ const vq=LU.stage===1||LU.stage===2?'0 (shunt) · lobe '+g.sh+'%':LU.stage===3?'recovering · '+g.sh+'% shunt':LU.supine?'zone 3 · 0.8 (supine)':'zone 3 · 0.6 (standing)';$('vVQ').textContent=vq;}
+function luTrace(){const cp=coughPhase();return cp===1?.95:cp===2?.05:.18+.62*BR.vol;}
+const LSHOW=[['nose','Nose'],['larynx','Larynx'],['trachea','Trachea'],['bronchus','Bronchi'],['bronchiole','Bronchioles'],['tbronch','Gen 17'],['acinus','Ducts'],['sac','Sac']];
+function luSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
+ if(r==='nose')return f<.3?'nasal vestibule':f<.75?'nasal cavity · turbinates':'choana';if(r==='pharynx')return f<.5?'nasopharynx':'oropharynx';if(r==='larynx')return f<.35?'laryngeal inlet':f<.65?'glottis':'subglottis';
+ if(r==='trachea')return f<.5?'cervical trachea':'thoracic trachea';if(r==='bronchus')return f<.3?'right main bronchus':f<.55?'bronchus intermedius':f<.8?'right lower lobe bronchus':'posterior basal segmental bronchus';
+ if(r==='bronchiole')return 'generation '+Math.round(5+11*f);if(r==='tbronch')return f<.4?'terminal bronchiole (gen 17)':'respiratory bronchiole (gen 18–19)';if(r==='acinus')return 'alveolar duct · gen '+Math.round(20+2*f);return 'alveolar sac · gen 23';}
+function luAmbience(now,rnd,reg){const o={turb:0,hush:0,air:0};const g=genAt(S.idx),insp=BR.ph<BR.I,env=Math.abs(BR.flow),cp=coughPhase();
+ const f=g<0?1100:g<2?900:g<5?650:g<12?380:g<17?220:150;A.airBP.frequency.setTargetAtTime(f,AC.currentTime,.2); // breath sounds are made in the large airways; lung tissue low-passes them
+ o.air=(g<0?.09:g<5?.11:g<17?.05:.025)*(env+.12)*(insp?1:.7);if(cp===2)o.air=.5;else if(cp===1)o.air=0;
+ if(LU.stage===3&&insp&&BR.ph>BR.I*.55&&rnd(16))pop(760,560,.006,.16);                    // fine crackles: small airways snapping open late in inspiration
+ if((LU.stage===1||LU.stage===2)&&g>=0&&rnd(insp?3:1.5))pop(380,240,.014,.1);              // coarse crackles: secretions
+ if(reg==='sac'||reg==='acinus')o.hush=.04;return o;}
+Object.assign(CELLS,CELLS_LU);buildSphincters();buildGlottis();buildSacCap();
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
  D.meshes.forEach((m,mi)=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);m.frustumCulled=false;m.renderOrder=mi;scene.add(m);});return D;});
@@ -1887,7 +2340,7 @@ let playerS=0; // continuous sample index of the probe
 let _avO=0,_sys=0;
 const pulseShape=x=>(x<0||x>.42)?0:Math.pow(Math.sin(Math.PI*x/.42),2); // smooth raised-cosine pulse, no hard edges
 function pulseAt(i){let tp=C.tc-.05-PD[i]/C.PWV;tp=((tp%C.T)+C.T)%C.T;return pulseShape(tp);}
-function flowMul(i){if(W.nerve)return 1;if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
+function flowMul(i){if(W.nerve)return 1;if(W.lung)return brFlow(i);if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
  const k=i*4,a=KW[k],v=KW[k+1],ar=KW[k+2],cp=KW[k+3],rest=Math.max(0,1-a-v-ar-cp);
  return rest*(.82+.28*_avO)+a*(.6+.6*_avO)+v*(.65+.85*_sys+.2*_avO)+ar*(.65+1.05*pulseAt(i))+cp;}
 // turbulence lives where it does in a real body: jets and eddies just past valves, worst through the stenosis
@@ -1923,7 +2376,7 @@ function updateCells(D,dt,time){
   let prof=D.wall?1:Math.max(.1,1-p.rf*p.rf)*1.6;
   if(tb>.03)prof*=1+tb*(p.rf<.4?2.2:0)-tb*1.15*(.5+.5*Math.sin(time*6+p.tw*3+p.s*.2))*(p.rf>.35?1:.3); // central jet + eddies that can briefly reverse
   // blood has inertia: each cell eases toward the local speed instead of jumping with the pulse
-  const vt=FLOW[i]*valveSlow[i]*flowMul(i)*D.speedK*(C.exercise?1.5:1);p.vb=p.vb===undefined?vt:p.vb+(vt-p.vb)*(1-Math.exp(-dt/.22));
+  const vt=D.esc?-W.STR[i]*valveSlow[i]:FLOW[i]*valveSlow[i]*flowMul(i)*D.speedK*(C.exercise?1.5:1);p.vb=p.vb===undefined?vt:p.vb+(vt-p.vb)*(1-Math.exp(-dt/.22));
   p.s+=p.vb*prof*dt/DS;
   if(D.confine&&!(D.dens[REG[wrapI(Math.floor(p.s))]]>0)){p.live=false;hideCell(D,k);continue;}
   if(W.closed){if(p.s>=N)p.s-=N;if(p.s<0)p.s+=N;}else if(p.s>N-1.05||p.s<0){p.live=false;hideCell(D,k);continue;}
@@ -2137,11 +2590,11 @@ function placeAt(i){
 const camPos=new V3();
 // swap the active world: its tube, valves, cells, fog and labels
 function switchWorld(w,idx){
- exitStudy();useWorld(w);if(typeof hidePredict==='function')hidePredict();
- BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;
+ exitStudy();useWorld(w);if(typeof hidePredict==='function')hidePredict();if(w!==LUNG&&!C.exercise)C.hrT=72;
+ BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;LUNG.group.visible=w===LUNG;
  ALL.forEach(D=>{D.on=D.world===w.name;D.meshes.forEach(m=>m.visible=D.on);D.a.forEach(p=>{p.live=false;p.sc=0;});});
  FOG.set(w.fog);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);
- motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:0xffc9a8);
+ motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:w.lung?0xe8eef4:0xffc9a8);
  placeAt(idx);curReg=null;target=null;if(started)buildLabels();
 }
 let warping=false;
@@ -2151,6 +2604,7 @@ function warp(msg,fn){
 }
 function detour(){
  if(W===GUT){gutDetour();return;}
+ if(W===LUNG){luDetour();return;}
  const r=REG[S.idx];
  if(!W.lymph&&(r==='syscap'||r==='venule')){
   warp('Squeezing out through a gap between two endothelial cells…',()=>{switchWorld(LYMPH,8);complete('leak');addCodex('leak');
@@ -2158,6 +2612,9 @@ function detour(){
  }else if(W===BLOOD&&(r==='arch'||r==='asc')){
   warp('Up the left common carotid, through the circle of Willis, into a cortical capillary…',()=>{switchWorld(NERVE,4);complete('carotid');addCodex('carotid');
    toast('A brain capillary. These endothelial cells are sealed by tight junctions: the blood-brain barrier. Press K to cross it.');});
+ }else if(W===BLOOD&&r==='lungcap'){
+  warp('Back across the barrier: endothelium, fused basement membrane, type I cell, out into the air…',()=>{switchWorld(LUNG,LUNG.RANGE.acinus[1]-8);complete('lung');addCodex('barrier');
+   toast('The air side of the same septum. You are in an alveolar duct, ~250 µm pockets all around; the blood you left is one wall away. Press E on the wall to see the barrier in section.');});
  }else if(W===NERVE&&(r==='braincap'||r==='bbb')){
   warp('Across the blood-brain barrier: through the endothelial cell, the basement membrane and an astrocyte end-foot…',()=>{placeAt(RANGE.cortex[0]+4);complete('bbb');addCodex('bbb');
    toast('Motor cortex. Hover over the cells: pyramidal neurons, astrocytes, microglia. A pyramidal cell\'s axon leads on ahead.');});
@@ -2246,16 +2703,30 @@ const OBJ=[
  {id:'marsh',gi:1,t:'Case toggle: in the jejunum press V until the villi flatten (Marsh 3)'},
  {id:'colon',gi:1,t:'Cross the colon to the rectum: transit slows ~100×, bacteria stay off the wall'},
  {id:'grounds',gi:1,t:'Present Ms. Nair on Rounds (R)'},
+ {id:'lung',lu:1,t:'Enter the lungs (Tab → Pulmonary)'},
+ {id:'lexam',lu:1,t:'Bedside: examine Mr. Herrera and localise the consolidation (G)'},
+ {id:'carina',lu:1,t:'Carina: stop thrusting and let the airflow choose your bronchus'},
+ {id:'escalator',lu:1,t:'Bronchiole: hover 5 s and watch the mucus climb past you'},
+ {id:'cough',lu:1,t:'Cough (Z) in the trachea, then again below generation 8'},
+ {id:'diffuse',lu:1,t:'Cross generation 16: bulk flow dies, diffusion takes over'},
+ {id:'dock',lu:1,t:'Alveolar sac: inspect the septum (E), watch a red cell load O₂ in 0.25 s'},
+ {id:'zone',lu:1,t:'Stand him up, lie him down (U): West zone and V/Q change'},
+ {id:'cons',lu:1,t:'Case toggle (V): flood the acinus and read the SpO₂'},
+ {id:'o2trial',lu:1,t:'Oxygen trial (O) while consolidated: prove shunt, not dead space'},
+ {id:'lexit',lu:1,t:'Exit by the blood: cross the barrier at the sac, ride the pulmonary vein'},
+ {id:'lrounds',lu:1,t:'Present Mr. Herrera on Rounds (R)'},
 ];
+const OBJHEAD={blood:['Case 01 · Objectives','The patient who fainted on the stairs'],lymph:['Lymph detour · Objectives','Where the leaked plasma goes'],nerve:['Nervous system · Objectives','From cortex to muscle'],gut:['Case 03 · Objectives','The anaemia that kept coming back'],lung:['Case 04 · Objectives','The cough that turned to rust']};
 const done=new Set();
 function renderObj(){
  // finished steps fold into one line so the open ones stay visible; the section you're in comes first
  const sec=(list,title)=>{const next=list.find(o=>!done.has(o.id)),nd=list.filter(o=>done.has(o.id)).length;
-  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
+  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':list[0].lu?'lung':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
   return (title?`<li class="sec">${title}</li>`:'')+(nd?`<li class="sum">${nd} done</li>`:'')+shown.map(o=>{let t=o.t;if(o.id==='scan')t+=` · ${Math.min(scanned.size,6)}/6`;return `<li class="${o===next?'next':''}">${t}</li>`;}).join('');};
- const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03');
- const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
- $('objList').innerHTML=W&&W.gut?gi+ly+main:W&&W.lymph?ly+ns+gi+main:W&&W.nerve?ns+ly+gi+main:main+ly+ns+gi;
+ const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03'),lu=sec(OBJ.filter(o=>o.lu),'Lungs · Case 04');
+ if(W){const hh=OBJHEAD[W.name]||OBJHEAD.blood;$('objCase').textContent=hh[0];$('objTitle').textContent=hh[1];}
+ const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi&&!o.lu),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
+ $('objList').innerHTML=W&&W.lung?lu+main+ly+ns+gi:W&&W.gut?gi+ly+main+lu:W&&W.lymph?ly+ns+gi+main+lu:W&&W.nerve?ns+ly+gi+main+lu:main+ly+ns+gi+lu;
 }
 function complete(id){
  if(done.has(id)||!OBJ.some(o=>o.id===id))return;done.add(id);renderObj();
@@ -2353,6 +2824,11 @@ Object.assign(PROV,{mouth:['gi','Oral cavity · saliva'],oesoph:['gi','Oesophagu
  gutlength:['gi','Gut length (living vs cadaveric)'],gutsurface:['gi','Absorptive surface area'],villusfork:['gi','Portal vs lymphatic absorption'],acid:['gi','Gastric acid secretion and mucosal defence'],slowwave:['gi','Slow waves, MMC, motility'],microbiome:['gi','Microbiome density gradient'],ens:['gi','Enteric nervous system, serotonin'],bileacids:['gi','Enterohepatic circulation'],coeliac:['gi','Coeliac disease · Marsh classification'],appendix:['gi','Appendix · GALT'],case03:['gi','Case 03 · coeliac disease presentation'],
  villus:['gi','Villus histology · enterocyte turnover'],gbact:['gi','Gut microbiota'],bolus:['gi','Swallowing · oesophageal transit'],chyme:['gi','Gastric emptying · dumping'],micelle:['gi','Fat digestion · micelles, chylomicrons'],peyer:['immuno','Peyer’s patches · M cells, IgA'],
  squamous:['gi','Oesophageal mucosa histology'],gastricmucosa:['gi','Gastric gland histology'],crypt:['gi','Crypt of Lieberkühn · stem cells, Paneth cells'],colonmucus:['gi','Colonic mucosa · mucus bilayer'],sphinctermusc:['gi','GI sphincters · relaxation disorders']});provIndex();
+Object.assign(PROV,{nose:['resp','Upper airway · nasal conditioning'],pharynx:['resp','Pharynx · swallowing, OSA'],larynx:['resp','Larynx · glottis, stridor'],trachea:['resp','Trachea · conducting zone anatomy'],carina:['resp','Bronchial anatomy · aspiration'],bronchus:['resp','Bronchi · bronchopulmonary segments'],bronchiole:['resp','Bronchioles · club cells, asthma'],tbronch:['resp','Respiratory zone · convection–diffusion crossover'],acinus:['resp','Acinus · alveolar structure'],sac:['resp','Alveoli · number and surface area'],
+ airwaytree:['resp','Airway generations · cross-section and velocity'],deadspace:['resp','Dead space · alveolar ventilation'],alveolus:['resp','Alveolar structure · pneumocytes'],surfactant:['resp','Surfactant · Laplace, NRDS'],barrier:['resp','Blood–gas barrier · diffusion, DLCO'],vq:['resp','V/Q matching · shunt vs dead space'],hpv:['resp','Hypoxic pulmonary vasoconstriction'],pulmcirc:['resp','Pulmonary circulation pressures · PH definition'],co2drive:['resp','Control of breathing · chemoreceptors'],breathsounds:['resp','Breath sounds · chest examination'],escalator:['resp','Mucociliary clearance · CF, PCD'],cough:['resp','Cough reflex · airway clearance'],westzones:['resp','West zones · regional V/Q'],pneumonia:['resp','Lobar pneumonia · stages, shunt physiology'],case04:['resp','Case 04 · community-acquired pneumonia presentation'],scalelung:['resp','Airway dimensions'],
+ mucus:['resp','Airway mucus · goblet cells, CFTR'],dustL:['resp','Particle deposition · impaction'],dustM:['resp','Particle deposition · sedimentation, pneumoconiosis'],dustS:['resp','Particle deposition · diffusion, PM2.5'],gas:['resp','Gas transport · Bohr, Haldane, CO₂ carriage'],amac:['resp','Alveolar macrophage · PAP, heart-failure cells'],neutA:['resp','Neutrophils in pneumonia · ARDS'],fibrin:['resp','Exudate · organising pneumonia'],rbcA:['resp','Red hepatisation · haemoptysis'],
+ turbinate:['resp','Nasal mucosa histology · rhinitis, epistaxis'],ciliated:['resp','Respiratory epithelium histology · metaplasia, lung cancer sites'],bronchiolewall:['resp','Bronchiolar histology · bronchiolitis obliterans'],vocalfold:['resp','Laryngeal anatomy · recurrent laryngeal nerve']});
+provIndex();
 function provSummary(){const by={};let n=0,v=0;for(const k in PROV){const s=PROV_SYS[PROV[k][0]].sys;by[s]=(by[s]||0)+1;n++;}return {n,v,by};}
 /* ---- Bring-your-own Anki deck (Jon, 31 Oct 2026) ----
    The player loads their OWN .apkg (or a "Notes in Plain Text" .txt export) in the browser. Everything is parsed
@@ -2564,6 +3040,10 @@ function renderDeckCard(c,head,grades,sh,st){const n=DECK.byId.get(c.nid);if(!n)
   sh.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;if(g>=3)st.ok++;srsGrade(c.id,g);sfx(g>=3?'chime':'click');st.i++;renderStudyCard();});
   sh.querySelectorAll('[data-fly]').forEach(b=>b.onclick=()=>flyToKey(b.dataset.fly));sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);};}
 function deckHereToast(reg){if(!DECK.loaded)return;const n=deckCardsFor(reg).length;if(n)toastOnce('deck:'+reg,`${n} card${n>1?'s':''} from your deck belong here — open the Codex entry or press T`,'',600);}
+Object.assign(DECKKW,{nose:['nasal','nose','turbinate','rhinitis','epistaxis','olfact','sinus'],pharynx:['pharyn','tonsil','adenoid','sleep apnea','sleep apnoea','osa','swallow','aspiration'],larynx:['larynx','laryng','vocal','glottis','stridor','croup','epiglott','recurrent laryngeal'],trachea:['trachea','tracheo','c-ring','trachealis','intubation'],carina:['carina','right main','main bronchus','aspirat','foreign body'],bronchus:['bronchus','bronchi ','bronchial','lobar','segmental','bronchiectasis','hemoptysis','haemoptysis'],bronchiole:['bronchiol','club cell','clara','asthma','bronchoconstrict','bronchodilat','beta-2','beta2','small airway'],tbronch:['terminal bronchiole','respiratory bronchiole','acinus','centrilobular','centriacinar','emphysema'],acinus:['alveolar duct','acinus','acinar','panacinar','alpha-1','alpha1 antitrypsin'],sac:['alveol','pneumocyte','type i','type ii','surface area'],
+ airwaytree:['generation','weibel','conducting zone','respiratory zone','cross-section','airway resistance'],deadspace:['dead space','alveolar ventilation','minute ventilation','tidal volume','vd/vt','bohr equation'],alveolus:['alveol','pneumocyte','type i','type ii','lamellar','pores of kohn'],surfactant:['surfactant','dppc','lecithin','sphingomyelin','laplace','nrds','respiratory distress','atelectasis','compliance'],barrier:['blood-gas','blood gas barrier','diffusion','dlco','fick','transit time','perfusion limited','diffusion limited','basement membrane'],vq:['v/q','ventilation/perfusion','ventilation-perfusion','shunt','dead space','a-a gradient','alveolar gas equation','hypoxemia','hypoxaemia'],hpv:['hypoxic pulmonary vasoconstriction','hpv','pulmonary vasoconstriction','euler'],pulmcirc:['pulmonary artery pressure','pulmonary hypertension','wedge','pcwp','cor pulmonale','pulmonary vascular resistance'],co2drive:['chemoreceptor','carotid body','medulla','respiratory center','respiratory centre','hypercapnia','hypoxic drive','bohr effect','haldane','bicarbonate','carbamino','oxygen-hemoglobin','dissociation curve','p50'],breathsounds:['breath sounds','crackles','rales','wheez','stridor','egophony','bronchophony','pectoriloquy','percussion','dullness','pleural rub','auscultation'],escalator:['mucociliary','cilia','ciliary','kartagener','primary ciliary','cftr','cystic fibrosis','mucus'],cough:['cough','ace inhibitor','bradykinin','pertussis','dynamic compression','forced expiration'],westzones:['west zone','zone 1','zone 2','zone 3','apex','base','gravity','posture'],pneumonia:['pneumonia','consolidation','hepatization','hepatisation','lobar','streptococcus pneumoniae','pneumococc','curb','rusty sputum','community-acquired'],case04:['pneumonia','consolidation','shunt','hypoxemia','hypoxaemia','fever','tachypnea','tachypnoea'],scalelung:['airway diameter','trachea diameter'],
+ mucus:['mucus','mucin','muc5','goblet','chronic bronchitis','sputum'],dustL:['particle','pollen','allergic rhinitis','impaction'],dustM:['pneumoconiosis','silicosis','coal worker','asbestos','inhaler','particle size','sedimentation'],dustS:['pm2.5','particulate','air pollution','smoke','alveolar deposition'],gas:['oxygen transport','co2 transport','carbonic anhydrase','chloride shift','bohr','haldane','hemoglobin','haemoglobin','carbon monoxide','methemoglobin'],amac:['alveolar macrophage','dust cell','heart failure cell','hemosiderin','haemosiderin','pulmonary alveolar proteinosis','gm-csf'],neutA:['neutrophil','elastase','ards','acute respiratory distress','diffuse alveolar damage','il-8'],fibrin:['fibrin','organizing pneumonia','organising pneumonia','exudate','hyaline membrane'],rbcA:['hemoptysis','haemoptysis','rusty','red hepatization','red hepatisation','alveolar hemorrhage','alveolar haemorrhage'],
+ turbinate:['nasal','turbinate','rhinitis','olfactory','epistaxis','kiesselbach','cribriform'],ciliated:['pseudostratified','ciliated','goblet','basal cell','squamous metaplasia','ionocyte','respiratory epithelium','squamous cell carcinoma','small cell'],bronchiolewall:['club cell','clara','bronchiolitis','smooth muscle','cuboidal','radial traction'],vocalfold:['vocal cord','vocal fold','recurrent laryngeal','cricoarytenoid','cricothyroid','hoarse','laryngeal']});
 Object.assign(DECKKW,{mouth:['saliva','salivary','parotid','amylase','xerostomia','taste'],oesoph:['esophag','oesophag','achalasia','barrett','peristalsis','dysphagia'],les:['lower esophageal','les ','gerd','gord','reflux','hiatal'],stomach:['stomach','gastric','fundus','accommodation','gastroparesis','gastric emptying'],antrum:['antrum','gastrin','g cell','trituration','motilin'],pylorus:['pylor','pyloric stenosis','gastric outlet'],
  duodenum:['duoden','secretin','cck','cholecystokinin','brunner','iron absorption','dmt1','hepcidin','ampulla'],jejunum:['jejun','sglt1','glut2','glut5','villi','brush border','disaccharidase','lactase','pept1'],ileum:['ileum','ileal','b12','cobalamin','intrinsic factor','bile acid','asbt','terminal ileum'],ileocaecal:['ileocecal','ileocaecal','sibo','bacterial overgrowth'],colon:['colon','colonic','haustra','large intestine','butyrate','short-chain','taeniae','diverticul'],rectum:['rectum','rectal','anal','defecation','hirschsprung','hemorrhoid','dentate'],
  gutlength:['intestinal length','small intestine length'],gutsurface:['surface area','plicae','microvilli'],villusfork:['lacteal','chylomicron','portal vein','apob-48','apo b-48','first pass','first-pass'],acid:['parietal','h+/k+','proton pump','ppi','h2 blocker','histamine','pepsin','mucus','bicarbonate','nsaid','ulcer','helicobacter','h. pylori','urease'],slowwave:['slow wave','interstitial cells of cajal','migrating motor','mmc','peristalsis','segmentation','motilin'],microbiome:['microbiome','microbiota','gut flora','c. difficile','clostridioides','dysbiosis'],ens:['enteric nervous','myenteric','auerbach','meissner','submucosal plexus','serotonin','enterochromaffin','5-ht'],bileacids:['bile acid','bile salt','enterohepatic','cholesterol 7','cyp7a1','gallstone','cholestyramine','sequestrant'],coeliac:['celiac','coeliac','gluten','ttg','transglutaminase','dermatitis herpetiformis','villous atrophy','hla-dq2','dq8','marsh'],appendix:['appendix','appendicitis','mcburney','galt'],case03:['celiac','coeliac','iron deficiency','anemia','anaemia'],
@@ -2638,13 +3118,15 @@ const TOPICS=[
  ['cells','Blood cells',['rbc','wbc','platelet','lymph','mono','eos']],
  ['lymph','Lymphatics & immunity',['interstitium','lymphcap','collecting','subcap','cortsinus','medsinus','efferent','cisterna','thoracic','venangle','macro','dc','bact','chylo']],
  ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle']],
- ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc']]];
+ ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc']],
+ ['lung','Lungs & the pneumonia case',['nose','pharynx','larynx','trachea','carina','bronchus','bronchiole','tbronch','acinus','sac','airwaytree','deadspace','alveolus','surfactant','barrier','vq','hpv','pulmcirc','co2drive','breathsounds','escalator','cough','westzones','pneumonia','case04','scalelung','mucus','dustL','dustM','dustS','gas','amac','neutA','fibrin','rbcA','turbinate','ciliated','bronchiolewall','vocalfold']]];
 const topicOf=k=>{const t=TOPICS.find(t=>t[2].includes(k));return t?t[0]:'heart';};
 // where to fly to see a card's subject again
 const CELLHOME={rbc:'desc',wbc:'venule',platelet:'syscap',lymph:'cortsinus',mono:'venule',eos:'venule',macro:'medsinus',dc:'subcap',bact:'lymphcap',chylo:'cisterna',neuron:'cortex',astro:'cortex',microglia:'cortex',oligo:'axon',schwann:'pnerve',mito:'axon',vesicle:'axon',transport:'axon',ranvier:'axon',synapse:'bouton',murmur:'aortic',bedside:'aortic',exercise:'lv',leak:'syscap',carotid:'arch',bbb:'braincap',aorticN:'aortic',lyvalve:'collecting'};
 Object.assign(CELLHOME,{villus:'jejunum',gbact:'colon',bolus:'oesoph',chyme:'antrum',micelle:'jejunum',peyer:'ileum',gutlength:'jejunum',gutsurface:'jejunum',villusfork:'jejunum',acid:'stomach',slowwave:'antrum',microbiome:'colon',ens:'jejunum',bileacids:'ileum',coeliac:'jejunum',appendix:'colon',case03:'duodenum',squamous:'oesoph',gastricmucosa:'stomach',crypt:'jejunum',colonmucus:'colon',sphinctermusc:'pylorus'});
+Object.assign(CELLHOME,{mucus:'trachea',dustL:'nose',dustM:'bronchus',dustS:'sac',gas:'acinus',amac:'sac',neutA:'sac',fibrin:'sac',rbcA:'sac',airwaytree:'bronchiole',deadspace:'trachea',alveolus:'sac',surfactant:'sac',barrier:'sac',vq:'acinus',hpv:'acinus',pulmcirc:'acinus',co2drive:'larynx',breathsounds:'bronchus',escalator:'bronchiole',cough:'trachea',westzones:'acinus',pneumonia:'sac',case04:'nose',scalelung:'trachea',turbinate:'nose',ciliated:'trachea',bronchiolewall:'bronchiole',vocalfold:'larynx'});
 function flyToKey(k){
- const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT].find(w=>w.RANGE[r]);if(!w)return false;
+ const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT,LUNG].find(w=>w.RANGE[r]);if(!w)return false;
  const [a,b]=w.RANGE[r];closeModals();switchWorld(w,Math.floor(a+(b-a)*.3));toast('Flew to '+(REGIONS[r]?REGIONS[r].n:r)+' — look around, then review again later','good');return true;
 }
 // regions in flow order, per world, for "what comes next" cards
@@ -2652,6 +3134,9 @@ function regionSeq(w){const out=[];for(let i=0;i<w.N;i++){const r=w.REG[i];if(ou
 Object.assign(CELLNAME,{villus:'Villus',gbact:'Gut bacterium',bolus:'Food bolus',chyme:'Chyme particle',micelle:'Mixed micelle',peyer:'Peyer’s patch'});
 Object.assign(CELLSUB,{villus:'absorptive finger · enterocytes, goblet, Paneth · lacteal inside',gbact:'anaerobe · fibre fermenter · 10³ → 10¹²/g along the gut',bolus:'chewed food · seconds to the stomach',chyme:'ground to 1–2 mm · acid, then neutralised',micelle:'bile salts carrying fat to the brush border',peyer:'lymphoid follicles under M cells'});
 Object.assign(CELLSIZE,{villus:'0.5–1 mm tall',gbact:'≈ 1–3 µm',bolus:'≈ 1–2 cm',chyme:'≤ 1–2 mm',micelle:'≈ 4–8 nm',peyer:'patch ≈ 1–3 cm'});
+Object.assign(CELLNAME,{mucus:'Mucus raft',dustL:'Large particle (>10 µm)',dustM:'Particle (2–10 µm)',dustS:'Fine particle (<2 µm)',gas:'Gas molecules · O₂, CO₂',amac:'Alveolar macrophage',neutA:'Neutrophil',fibrin:'Fibrin strand',rbcA:'Red cell · escaped'});
+Object.assign(CELLSUB,{mucus:'gel on a mucin brush · riding the escalator mouth-ward',dustL:'pollen, grit · impacts in the nose',dustM:'inhaler range · settles in the bronchi',dustS:'PM2.5, smoke, viruses · reaches the alveoli',gas:'diffusing across the barrier',amac:'dust cell · patrols the air surface',neutA:'pus · red/grey hepatisation',fibrin:'clot mesh · makes the lobe solid',rbcA:'leaked into the alveolus · rusty sputum'});
+Object.assign(CELLSIZE,{mucus:'layer ≈ 5–10 µm · rafts drawn',dustL:'> 10 µm',dustM:'2–10 µm',dustS:'< 2 µm',gas:'≈ 0.3 nm',amac:'≈ 15–25 µm',neutA:'≈ 12–15 µm',fibrin:'fibre ≈ 0.1 µm',rbcA:'≈ 7.5 µm'});
 const CELLKINDS=Object.keys(CELLNAME);
 // the deck: everything unlocked this session plus anything already in the SRS file (so it survives a reload)
 function srsDeck(){
@@ -2661,9 +3146,10 @@ function srsDeck(){
   deck.push({id:'recall:'+k,type:'recall',k,topic:topicOf(k)});
   if(c.rc)deck.push({id:'rc:'+k,type:'rc',k,topic:topicOf(k)});});
  CELLKINDS.forEach(kd=>{const ck=CODEXKEY[kd]||kd;if(keys.has(ck)||keys.has(kd))deck.push({id:'cell:'+kd,type:'cell',k:kd,topic:topicOf(ck)});});
- [BLOOD,LYMPH,NERVE,GUT].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
+ [BLOOD,LYMPH,NERVE,GUT,LUNG].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
  if(done.has('exam')||done.has('rounds'))QUIZ.forEach((q,i)=>deck.push({id:'quiz:'+i,type:'quiz',q,k:'aortic',topic:'heart'}));
  if(done.has('grounds')||done.has('gexam'))QUIZ_GI.forEach((q,i)=>deck.push({id:'gquiz:'+i,type:'quiz',q,k:'jejunum',topic:'gut'}));
+ if(done.has('lrounds')||done.has('lexam'))QUIZ_LU.forEach((q,i)=>deck.push({id:'lquiz:'+i,type:'quiz',q,k:'sac',topic:'lung'}));
  PREDICT.forEach(p=>{if(SRS.cards['pred:'+p.id])deck.push({id:'pred:'+p.id,type:'pred',p,k:p.k,topic:topicOf(p.k)});});
  deckCardsForStudy().forEach(c=>deck.push(c));
  return deck;
@@ -2754,7 +3240,22 @@ const QUIZ_GI=[
  {q:'Crohn disease vs ulcerative colitis: the clean discriminator is…',a:['Crohn is transmural with skip lesions anywhere from mouth to anus; UC is mucosal, continuous, colon only, from the rectum up','UC causes fistulae, Crohn does not','Crohn never affects the colon','UC causes villous atrophy'],e:'Distribution plus depth separate them.'},
  {q:'Testing for coeliac disease should happen…',a:['While the patient still eats gluten, with anti-tTG IgA plus total IgA','After six months gluten-free','By HLA typing alone','Only if villi look flat at endoscopy'],e:'Diet first normalises serology and histology: a lost diagnosis. HLA is a rule-out, not a diagnosis.'},
 ];
+const QUIZ_LU=[
+ {q:'Blood leaving a consolidated, airless lobe has a low PO₂ mainly because of…',a:['Shunt: perfusion of unventilated alveoli that HPV only partly diverts','Dead space','Hypoventilation alone','A thickened barrier'],e:'Perfused-but-not-ventilated is V/Q = 0. It is also why the hypoxaemia corrects only partly with oxygen.'},
+ {q:'Foreign bodies aspirated by adults most often lodge in…',a:['The right main bronchus: wider, shorter and only ~25° off the midline','The left main bronchus','Either side equally','The trachea, above the carina'],e:'Anatomy decides, and the game made you drift there yourself.'},
+ {q:'Alveolar ventilation at rest (tidal volume 500 mL, dead space 150 mL, rate 12/min) is…',a:['(500 − 150) × 12 ≈ 4.2 L/min','6.0 L/min','150 × 12 = 1.8 L/min','500 × 12 with nothing subtracted'],e:'6.0 L/min is minute ventilation; the first 150 mL of each breath never reaches an alveolus.'},
+ {q:'Mean pulmonary artery pressure is normally…',a:['~14–15 mmHg: a low-pressure circuit with about a tenth of systemic resistance','~90 mmHg','~120/80 mmHg','Equal to the wedge pressure'],e:'Pulmonary hypertension is now defined from a mean above 20 mmHg (2022 ESC/ERS), not 25.'},
+ {q:'Small alveoli do not empty into large ones because…',a:['Surfactant lowers surface tension more as the radius falls, and neighbouring alveoli hold each other open','Air cannot pass between alveoli','Large alveoli have the higher pressure','Cartilage holds them open'],e:'Laplace alone predicts collapse; a dynamic film and shared walls defeat it, and pores of Kohn do connect neighbours.'},
+ {q:'Egophony and bronchial breathing over a dull area indicate…',a:['Consolidation transmitting unfiltered sound and voice','Pleural effusion','Pneumothorax','Normal lung'],e:'Effusion is dull too but blocks voice sounds; it is the pairing that localises, not one sign.'},
+ {q:'The normal driver of ventilation is…',a:['CO₂, sensed as H⁺ by central chemoreceptors','Oxygen at the carotid body','Lung stretch (Hering–Breuer) at normal tidal volumes','Voluntary control'],e:'Carotid O₂ sensing is the emergency back-up below ~60 mmHg; Hering–Breuer\'s threshold exceeds a normal breath in awake adults.'},
+ {q:'DLCO is normal in pure asthma but falls in emphysema because…',a:['Asthma narrows airways without destroying the exchange membrane; emphysema destroys septa and capillary surface','Asthma patients are younger','DLCO only measures airways','Higher compliance in emphysema stops gas diffusing'],e:'Resistance versus membrane: the spirometry/DLCO pairing separates them.'},
+ {q:'At maximal exercise, pulmonary capillary transit time…',a:['Falls to ~0.25 s, right at the equilibration limit, so diffusion limitation can appear','Rises to ~2 s','Stays at 0.75 s regardless','Stops mattering'],e:'Rest has a threefold safety margin (0.75 vs 0.25 s); exercise spends it. Case 01\'s stairs, seen from the air side.'},
+ {q:'Fine late-inspiratory crackles are generated by…',a:['Explosive reopening of small airways late in inspiration','Bubbles through mucus','Alveoli filling with fluid','The pleural layers rubbing'],e:'Coarse crackles are the secretions sound; a rub is biphasic and creaking. Three mechanisms, three sounds.'},
+];
 const PREDICT=[
+ {id:'lcar',k:'carina',at:'trachea',short:'the carina',q:'Prediction — stop thrusting at the carina ahead and the airflow carries you into…',a:['The right main bronchus: wider, shorter and only ~25° off the midline','The left main bronchus: the heart pushes the flow that way'],e:'The right main bronchus is the straighter continuation of the trachea, which is why aspirated food and foreign bodies usually end up in the right lung, most often the lower lobe.'},
+ {id:'ldiff',k:'airwaytree',at:'bronchiole',short:'gas movement past gen 16',q:'Prediction — by generation 17 the air around you will be…',a:['Almost still: total cross-section has grown ~70-fold and diffusion now moves the gas','Faster than in the trachea, because the tubes are narrower'],e:'Each generation halves the tube but doubles the count. Cross-section 2.5 cm² → ~200 cm² by gen 16 → ~11,000 cm² at gen 23; bulk flow dies and diffusion takes over (Péclet ≈ 1 at gen 16–17).'},
+ {id:'lload',k:'barrier',at:'acinus',short:'O₂ loading time',q:'Prediction — a red cell spends ~0.75 s in the capillary a wall away. It is fully loaded with O₂ after…',a:['About 0.25 s: the first third of its transit','The full 0.75 s: it needs every moment'],e:'Equilibration takes ~0.25 s across a barrier under 1 µm thick. The spare two-thirds is the safety margin that exercise spends: at maximal effort transit falls to ~0.25 s.'},
  {id:'gfork',k:'villusfork',at:'duodenum',short:'villus exits',q:'Prediction — a glucose molecule absorbed in the jejunum ahead reaches the systemic circulation via…',a:['The villus capillary → portal vein → liver first','The lacteal → thoracic duct → subclavian vein'],e:'Water-soluble nutrients take the portal route and meet the liver first. Only long-chain fat (as chylomicrons) takes the lacteal and the lymph.'},
  {id:'gbac',k:'microbiome',at:'ileum',short:'bacterial density',q:'Prediction — per gram of contents, the colon ahead holds…',a:['About 10⁸–10⁹ times more bacteria than the duodenum (10¹¹–10¹²/g vs ~10³/g)','About the same number; the whole gut is uniformly colonised'],e:'The gradient is steep: acid, bile, IgA and the fasting MMC keep the upper gut sparse; the colon is where the microbiome lives.'},
  {id:'tri',k:'tricuspid',at:'ra',short:'tricuspid timing',q:'Prediction — the tricuspid valve ahead opens in…',a:['Diastole, after S2, when the atrium empties into the ventricle','Systole, right after S1, as the ventricle squeezes'],e:'AV valves (tricuspid, mitral) open in diastole: ventricular pressure falls below atrial pressure after S2. They close at S1.'},
@@ -2941,6 +3442,7 @@ function envKeyAt(i){
  if(W===NERVE){if(r==='braincap'||r==='bbb')return 'bbbendo';if(r==='cortex')return 'neuropil';const kind=NNODES[Math.max(0,nodeIdx.findIndex(x=>x>i)-1)][4];
   if(kind==='hillock')return 'hillock';if(r==='axon'||r==='decuss'||r==='cord'||r==='pnerve'){const f=nodeAtS(i*DS);return f>.5?'node':f>.08?'paranode':'myelin';}
   if(r==='bouton'||r==='cleft')return 'activezone';if(r==='soma')return 'somamem';if(r==='nmj')return 'endplate';}
+ if(W===LUNG){if(Math.abs(i-GLOT.i)<5)return 'vocalfold';if(r==='nose')return 'turbinate';if(r==='bronchiole')return 'bronchiolewall';if(r==='tbronch'||r==='acinus'||r==='sac')return 'barrier';return 'ciliated';}
  if(W===GUT){if(SPH.some(sp=>Math.abs(i-sp.i)<4))return 'gsphinc';if(r==='mouth'||r==='oesoph')return 'squamous';if(r==='stomach'||r==='antrum')return 'gastricpit';if(/duodenum|jejunum|ileum/.test(r))return 'crypt';return 'colonwall';}
  return null;
 }
@@ -3010,8 +3512,91 @@ Object.assign(ENVANIM,{
  crypt(dt,objs){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();if(c===0xfff0c0){m.position.y+=dt*1.2;if(m.position.y>7)m.position.y=-2;}else if(c===0x3ee6d8){m.position.x+=(m.position.x>0?-1:1)*dt*.6;if(Math.abs(m.position.x)<5.6){m.position.x=(m.position.x>0?1:-1)*7.8;}}});},
  gsphinc(dt,objs,t){const o=.5+.5*Math.sin(t*.9);objs.forEach(m=>{if(m.geometry&&m.geometry.type==='TorusGeometry'&&m.geometry.parameters.radius===4.5){m.scale.setScalar(.8+.2*o);}});}
 });
+// airway and alveolar wall environments (inspect with E / click)
+Object.assign(ENV,{
+ turbinate:{n:'Nasal mucosa over a turbinate',sub:'ciliated epithelium · goblet cells · erectile venous sinusoids · bone core',codex:'turbinate',size:'mucosa ≈ 1–3 mm · cilia 5–6 µm · surface ~150 cm² in all'},
+ ciliated:{n:'Respiratory epithelium & cartilage',sub:'pseudostratified ciliated columnar · goblet · basal cells · gel on a mucin brush · hyaline C-ring behind',codex:'ciliated',size:'epithelium ≈ 50–60 µm · cilia 5–6 µm, ~200 per cell · ring ≈ 2 mm thick'},
+ bronchiolewall:{n:'Bronchiolar wall',sub:'simple cuboidal · ciliated + club cells · spiral smooth muscle · no cartilage',codex:'bronchiolewall',size:'wall ≈ 50–100 µm · lumen < 1 mm · club cell ≈ 10 µm'},
+ vocalfold:{n:'Vocal fold',sub:'stratified squamous cover · lamina propria · vocal ligament · thyroarytenoid muscle',codex:'vocalfold',size:'fold ≈ 15–20 mm long · cover ≈ 0.1 mm · glottis ≈ 8 mm open'},
+ barrier:{n:'The blood–gas barrier · septum in section',sub:'type I cell · fused basement membrane · endothelium (thin side) · interstitium (thick side) · capillary sheet · type II · macrophage',codex:'barrier',size:'thin side 0.2–0.6 µm · red cell 7.5 µm · transit ~0.75 s, loaded by ~0.25 s'},
+});
+Object.assign(ENVBUILD,{
+ turbinate(){const o=[];o.push(part(new THREE.BoxGeometry(30,1.2,12),0xcfc3b8,{p:[0,-5.2,0],rough:.8}));                       // bone core of the turbinate
+  o.push(part(new THREE.BoxGeometry(30,5,12),0x8e2a3c,{p:[0,-2.2,0],o:.9}));                                               // lamina propria with venous sinusoids
+  for(let k=0;k<9;k++)o.push(part(new THREE.CylinderGeometry(.9+.3*(k%3),.9+.3*(k%3),12,12),0x5a1420,{p:[-13+k*3.2,-2.3+(k%2)*.8,0],r:[Math.PI/2,0,0],e:0x200408,o:.9})); // erectile sinusoids
+  for(let k=0;k<17;k++)for(let j=0;j<7;j++){const x=-14+k*1.75,z=-5.3+j*1.75,g=(k*7+j)%6===0;o.push(part(new THREE.BoxGeometry(1.6,g?2.4:2.2,1.6),g?0xcfe4f0:0xe9b8b4,{p:[x,1.4,z],rough:.6}));
+   if(!g)for(let c=0;c<4;c++)o.push(part(new THREE.CylinderGeometry(.045,.045,.9,4),0xf5e6e2,{p:[x-.5+c*.33,3.0,z+(c%2?.3:-.3)],r:[.15*(c%2?1:-1),0,.1]}));} // ciliated cells (cilia) and goblet cells
+  o.push(part(new THREE.BoxGeometry(30,.5,12),0xd9e8ef,{p:[0,3.7,0],o:.35}));                                             // mucus gel on the brush
+  o.push(part(new THREE.BoxGeometry(30,4,12),0xbcd6ff,{p:[0,6.2,0],o:.06}));return o;},
+ ciliated(){const o=[];o.push(part(new THREE.BoxGeometry(30,2.4,12),0xdfe9ee,{p:[0,-6.6,0],rough:.3}));                      // hyaline cartilage C-ring
+  o.push(part(new THREE.BoxGeometry(30,.4,12),0xc6b8c8,{p:[0,-5.2,0]}));                                                 // perichondrium
+  o.push(part(new THREE.BoxGeometry(30,2.6,12),0xa3485a,{p:[0,-3.7,0],o:.9}));                                            // submucosa with glands and vessels
+  for(let k=0;k<3;k++){o.push(part(new THREE.SphereGeometry(1.1,12,8),0xd9c9d6,{p:[-9+k*9,-3.5,-2],s:[1.4,.8,1]}));o.push(part(new THREE.CylinderGeometry(.22,.22,3,8,1,true),0xd9c9d6,{p:[-9+k*9,-1.7,-2],side:THREE.DoubleSide,o:.8}));} // seromucous glands with ducts
+  o.push(part(new THREE.BoxGeometry(30,.3,12),0xf3e8e4,{p:[0,-2.3,0]}));                                                 // thick basement membrane (reticular lamina)
+  for(let k=0;k<17;k++)for(let j=0;j<7;j++){const x=-14+k*1.75,z=-5.3+j*1.75,t=(k*5+j)%7;const gob=t===0,bas=t===3;
+   if(bas){o.push(part(new THREE.SphereGeometry(.7,8,6),0xe3c6c6,{p:[x,-1.4,z]}));continue;}                               // basal cells: short, on the membrane only
+   o.push(part(new THREE.BoxGeometry(1.6,4.2,1.6),gob?0xcfe4f0:0xe9b8b4,{p:[x,0,z],rough:.6}));o.push(part(new THREE.SphereGeometry(.42,8,6),0x6a3a5a,{p:[x,gob?-1:(k%2?.6:-.4),z],s:[1,1.4,1]})); // columnar cells, nuclei at different heights
+   if(gob)o.push(part(new THREE.SphereGeometry(.6,8,6),0xe6f2f8,{p:[x,1.3,z],o:.8}));
+   else for(let c=0;c<6;c++)o.push(part(new THREE.CylinderGeometry(.04,.04,1.1,4),0xf7ebe7,{p:[x-.6+c*.24,2.65,z+((c%3)-1)*.4],r:[.12,0,.08*((c%2)*2-1)]}));} // cilia
+  o.push(part(new THREE.BoxGeometry(30,.22,12),0xeaf3f7,{p:[0,3.3,0],o:.3}));                                            // periciliary brush
+  for(let k=0;k<6;k++)o.push(part(at(blob(1.2,.15,4,k,12,8),0,0,0).scale(1.6,.35,1),0xd9e8ef,{p:[-12+k*5,3.85,(k%2?2:-2)],o:.7,rough:.2,e:0x0a1418})); // mucus rafts riding the escalator
+  o.push(part(new THREE.BoxGeometry(30,4,12),0xbcd6ff,{p:[0,6.4,0],o:.06}));return o;},
+ bronchiolewall(){const o=[];o.push(part(new THREE.BoxGeometry(30,3,12),0xd9b8b8,{p:[0,-6,0],o:.6}));                          // alveolar tissue outside: the radial traction that holds the tube open
+  o.push(part(new THREE.BoxGeometry(30,.6,12),0xe8d8c0,{p:[0,-4.2,0],o:.8}));                                              // elastic fibres
+  for(let k=0;k<4;k++)o.push(part(new THREE.CylinderGeometry(.9,.9,13,12),0xa84a5a,{p:[-11+k*7.3,-3,0],r:[Math.PI/2,0,.5],e:0x200608})); // spiral smooth muscle bundles
+  o.push(part(new THREE.BoxGeometry(30,.25,12),0xf3e8e4,{p:[0,-1.9,0]}));
+  for(let k=0;k<17;k++)for(let j=0;j<7;j++){const x=-14+k*1.75,z=-5.3+j*1.75,club=(k+j)%3===0;
+   o.push(part(new THREE.BoxGeometry(1.6,1.8,1.6),club?0xf0d0c0:0xe9b8b4,{p:[x,-.9,z],rough:.6}));
+   if(club){o.push(part(new THREE.SphereGeometry(.8,10,8),0xf0d0c0,{p:[x,.1,z],s:[1,.7,1]}));for(let g=0;g<3;g++)o.push(part(new THREE.SphereGeometry(.14,6,5),0xf6ecb0,{p:[x-.3+g*.3,.3,z+(g%2?.3:-.3)],e:0x302808}));} // club cells: dome apex with secretory granules
+   else for(let c=0;c<5;c++)o.push(part(new THREE.CylinderGeometry(.04,.04,1,4),0xf7ebe7,{p:[x-.5+c*.25,.5,z+((c%2)-.5)*.5],r:[.1,0,.06]}));}
+  o.push(part(new THREE.BoxGeometry(30,4,12),0xbcd6ff,{p:[0,3.2,0],o:.06}));return o;},
+ vocalfold(){const o=[];for(const s of[-1,1]){o.push(part(new THREE.SphereGeometry(1,20,14),0xe9dcd6,{p:[s*4.6,0,0],s:[4.2,2.2,6.5],rough:.45}));        // the fold: squamous cover
+   o.push(part(new THREE.SphereGeometry(1,16,12),0xd8c2a0,{p:[s*5.2,0,0],s:[3,1.2,6.2],o:.9}));                                                    // vocal ligament
+   o.push(part(new THREE.SphereGeometry(1,16,12),0xb05060,{p:[s*6.4,-.2,0],s:[2.6,1.4,6],e:0x1c0608}));}                                           // thyroarytenoid muscle
+  o.push(part(new THREE.TorusGeometry(9.5,.9,10,40),0xdfe9ee,{r:[Math.PI/2,0,0],rough:.3}));                                                           // thyroid/cricoid cartilage frame
+  o.push(part(new THREE.BoxGeometry(5,.3,12),0x7a1e2a,{p:[0,-5,0],o:.5}));return o;},
+ barrier(){const o=[];const L=18;const st=LU.stage;
+  o.push(part(new THREE.BoxGeometry(L,4.6,12),0xbcd6ff,{p:[0,4.1,0],o:.07}));o.push(part(new THREE.BoxGeometry(L,4.6,12),0xbcd6ff,{p:[0,-4.1,0],o:.07}));   // two alveoli, one above and one below the septum
+  o.push(part(new THREE.BoxGeometry(L,.1,12),0xe8f4ff,{p:[0,1.85,0],o:.35}));o.push(part(new THREE.BoxGeometry(L,.1,12),0xe8f4ff,{p:[0,-1.85,0],o:.35}));   // surfactant film
+  // thin side (left half): type I sheet · fused basement membrane · endothelium, under a micrometre in all
+  o.push(part(new THREE.BoxGeometry(9,.22,12),0xf0c8c0,{p:[-4.5,1.65,0]}));o.push(part(new THREE.BoxGeometry(9,.14,12),0xf7ead8,{p:[-4.5,1.47,0]}));o.push(part(new THREE.BoxGeometry(9,.2,12),0xd99a94,{p:[-4.5,1.3,0]}));
+  o.push(part(new THREE.BoxGeometry(9,.22,12),0xf0c8c0,{p:[-4.5,-1.65,0]}));o.push(part(new THREE.BoxGeometry(9,.14,12),0xf7ead8,{p:[-4.5,-1.47,0]}));o.push(part(new THREE.BoxGeometry(9,.2,12),0xd99a94,{p:[-4.5,-1.3,0]}));
+  // thick side (right half): the same layers with interstitium between: collagen, elastin, a fibroblast
+  o.push(part(new THREE.BoxGeometry(9,.22,12),0xf0c8c0,{p:[4.5,1.75,0]}));o.push(part(new THREE.BoxGeometry(9,.7,12),0xe6d4c4,{p:[4.5,1.3,0],o:.85}));o.push(part(new THREE.BoxGeometry(9,.2,12),0xd99a94,{p:[4.5,.85,0]}));
+  o.push(part(new THREE.BoxGeometry(9,.22,12),0xf0c8c0,{p:[4.5,-1.75,0]}));o.push(part(new THREE.BoxGeometry(9,.7,12),0xe6d4c4,{p:[4.5,-1.3,0],o:.85}));o.push(part(new THREE.BoxGeometry(9,.2,12),0xd99a94,{p:[4.5,-.85,0]}));
+  for(let k=0;k<5;k++){o.push(part(new THREE.CylinderGeometry(.06,.06,12,5),0xf2e2c0,{p:[1+k*1.7,1.3,0],r:[Math.PI/2,0,0]}));o.push(part(new THREE.CylinderGeometry(.06,.06,12,5),0xf2e2c0,{p:[1+k*1.7,-1.3,0],r:[Math.PI/2,0,0]}));} // collagen
+  o.push(part(new THREE.SphereGeometry(.5,10,8),0xc8b4d8,{p:[5.5,1.3,-3],s:[2.4,.6,1]}));                                                     // fibroblast in the interstitium
+  // the capillary sheet between the two septal faces: red cells in single file, loading as they pass the thin side
+  o.push(part(new THREE.CylinderGeometry(1.1,1.1,L,22,1,true),0xd99a94,{r:[0,0,Math.PI/2],side:THREE.DoubleSide,o:.28}));
+  const prof=[[0,1.9],[1.1,1.75],[2.1,1.25],[2.75,.5],[3.0,-.45],[2.85,-1.05],[2.3,-.95],[1.6,-.3],[.9,.25],[0,.45]].map(([r,y])=>new THREE.Vector2(r*.34,y*.34));
+  for(let k=0;k<6;k++){const g=new THREE.LatheGeometry(prof,22);g.rotateZ(-Math.PI/2);o.push(part(g,0x7a1f3a,{p:[-8+k*3.2,0,0],e:0x1a0206,rough:.5}));}
+  o.push(part(new THREE.SphereGeometry(.42,10,8),0x8c3a4a,{p:[-3,-.9,.5],s:[2.2,.55,1.4]}));                                                  // an endothelial nucleus bulging into the capillary
+  // type II cell in the corner with lamellar bodies · alveolar macrophage on the surface
+  o.push(part(new THREE.SphereGeometry(1.5,14,10),0xf2d2c4,{p:[-7.5,2.9,3],s:[1,.9,1],rough:.6}));for(let k=0;k<6;k++)o.push(part(new THREE.TorusGeometry(.26,.1,6,12),0xe0b8c8,{p:[-8.1+(k%3)*.6,2.5+(k>2?.8:0),2.6+(k%2)*.7],r:[.5*k,.3*k,0]}));
+  o.push(part(at(blob(1.1,.14,7,9,14,10),0,0,0).scale(1.2,.55,1.2),0xd8cfe0,{p:[4,2.5,-3],rough:.55,e:0x100a16}));
+  // gas: O₂ (pale cyan) crossing into the blood, CO₂ (grey) crossing out
+  for(let k=0;k<12;k++)o.push(part(new THREE.SphereGeometry(.11,6,5),0xbfe8ff,{p:[-8+Math.random()*7,(k%2?1:-1)*(2.2+Math.random()*2),(Math.random()-.5)*8],e:0x0e2a3a}));
+  for(let k=0;k<8;k++)o.push(part(new THREE.SphereGeometry(.11,6,5),0xb0a8a0,{p:[-8+Math.random()*7,(Math.random()-.5)*1.2,(Math.random()-.5)*8],e:0x1a1816}));
+  if(st>0){const red=st===1,o2=st===3?.35:.75;o.push(part(new THREE.BoxGeometry(L,3.8,12),red?0x7a2630:st===2?0x8c7a70:0x9c8a84,{p:[0,4.2,0],o:o2}));o.push(part(new THREE.BoxGeometry(L,3.8,12),red?0x7a2630:0x8c7a70,{p:[0,-4.2,0],o:o2})); // exudate filling both alveoli
+   for(let k=0;k<14;k++)o.push(part(blob(.42,.06,9,k,10,8),0xe6dfe8,{p:[-8+Math.random()*16,(k%2?1:-1)*(2.5+Math.random()*2.5),(Math.random()-.5)*8],e:0x16101a}));             // neutrophils
+   for(let k=0;k<10;k++)o.push(part(new THREE.CapsuleGeometry(.04,2.5,3,6),0xf3e2b0,{p:[-8+Math.random()*16,(k%2?1:-1)*(2.5+Math.random()*2.5),(Math.random()-.5)*8],r:[Math.random()*3,Math.random()*3,0]}));  // fibrin
+   if(red)for(let k=0;k<10;k++){const g=new THREE.LatheGeometry(prof,16);o.push(part(g,0xb3121a,{p:[-8+Math.random()*16,(k%2?1:-1)*(2.5+Math.random()*2.5),(Math.random()-.5)*8],r:[Math.random()*3,0,Math.random()*3],e:0x1a0000}));}}
+  return o;}
+});
+Object.assign(ENVANIM,{
+ ciliated(dt,objs,t){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();if(c===0xd9e8ef&&m.position.y>3){m.position.x-=dt*.9;if(m.position.x<-15.5)m.position.x+=31;}      // rafts ride mouth-ward
+   else if(c===0xf7ebe7)m.rotation.z=.25*Math.sin(t*75+m.position.x*4+m.position.z*3);});},                                                                         // cilia beating ~12 Hz in a metachronal wave
+ turbinate(dt,objs,t){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();if(c===0xd9e8ef){m.position.x-=dt*.4;if(m.position.x<-15.5)m.position.x+=31;}else if(c===0xf5e6e2)m.rotation.z=.25*Math.sin(t*75+m.position.x*4);});},
+ bronchiolewall(dt,objs,t){objs.forEach(m=>{if(m.material&&m.material.color.getHex()===0xf7ebe7)m.rotation.z=.25*Math.sin(t*75+m.position.x*4+m.position.z*3);});},
+ vocalfold(dt,objs,t){const o=.5+.5*Math.sin(t*1.25);objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();if(c===0xe9dcd6||c===0xd8c2a0||c===0xb05060){const s=Math.sign(m.position.x);const base=c===0xe9dcd6?4.6:c===0xd8c2a0?5.2:6.4;m.position.x=s*(base-1.6*(1-o));}});}, // folds part and meet with the breath
+ barrier(dt,objs,t){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();
+  if(c===0x7a1f3a||c===0xd0444a||m.userData.rbc){m.userData.rbc=1;m.position.x+=dt*4;if(m.position.x>9.5)m.position.x-=19;const f=clamp((m.position.x+9)/6,0,1);m.material.color.setRGB(lerp(.48,.82,f),lerp(.12,.27,f),lerp(.23,.29,f));m.material.emissive.setRGB(.1*f,0,0);} // a red cell loads to full in the first third (~0.25 s of 0.75 s)
+  else if(c===0xbfe8ff){const dir=m.position.y>0?-1:1;m.position.y+=dir*dt*1.6;m.position.x+=(Math.random()-.5)*dt*3;if(Math.abs(m.position.y)<.3){m.position.y=dir*-4;m.position.x=-8+Math.random()*7;}}
+  else if(c===0xb0a8a0){const dir=m.userData.d||(m.userData.d=m.position.z>0?1:-1);m.position.y+=dir*dt*1.4;m.position.x+=(Math.random()-.5)*dt*3;if(Math.abs(m.position.y)>4.2){m.position.y=0;m.position.x=-8+Math.random()*7;}}
+  else if(c===0xd8cfe0){m.position.x+=Math.sin(t*.4)*dt*.6;}});}
+});
 function inspectEnv(e){
- const E=ENV[e.key];sfx('scan');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
+ const E=ENV[e.key];sfx('scan');if(e.key==='barrier')complete('dock');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key)});
  const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',rg?rg.n:'—'],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
  $('cardKind').textContent=$('cardKind').textContent+' · wall inspected';$('cellSize').textContent=E.size;
 }
@@ -3022,19 +3607,21 @@ const VROWS={
  lymph:[['Pump rate','vLyR'],['This segment','vLyPh'],['Interstitial P','vIntP'],['Lymph protein','vLyPr'],['Flow here','vLyF']],
  nerve:[['Vm here','vVm'],['Conduction','vCV'],['Spike rate','vSpk'],['Myelin','vMy'],['GCS · reflexes','vGCS']],
  gut:[['Slow wave','vSW'],['Wall','vSWph'],['Lumen pH','vpH'],['Transit here','vTr'],['Bacteria','vBac']],
+ lung:[['Breath','vBr'],['Airflow','vAf'],['Generation','vGen'],['SpO₂ · PaO₂','vGas'],['Zone · V/Q','vVQ']],
 };
-const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position'};
+const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position',lung:'spirogram · lung volume above FRC'};
 let vitalsWorld='';
 function setVitals(){
  const wn=W.name;if(vitalsWorld===wn)return;vitalsWorld=wn;
  $('vrows').innerHTML=VROWS[wn].map(([l,id])=>id==='phase'?`<div class="vrow"><span>${l}</span><span id="phase" class="dia">DIASTOLE</span></div>`:`<div class="vrow"><span>${l}</span><b id="${id}">—</b></div>`).join('');
- $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
+ $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract',lung:'respiration'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut'||wn==='lung')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='lung')luCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
 }
 function vmHere(){const [a1,a2]=apPositions(),s=S.idx*DS;let v=-70;[a1,a2].forEach(a=>{const d=a-s;v+=105*Math.exp(-Math.pow((d-.5)/2.2,2))-12*Math.exp(-Math.pow((d+7)/5,2));});return v;}
-function traceVal(){if(W===GUT)return gutTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
+function traceVal(){if(W===GUT)return gutTrace();if(W===LUNG)return luTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
 function vitalsTick(){
  setVitals();
  if(W===GUT)gutVitals();
+ else if(W===LUNG)luVitals();
  else if(W===LYMPH){$('vLyR').textContent='≈17/min (sped up)';const q=lymSq(S.idx);$('vLyPh').textContent=q>0?'CONTRACTING':'FILLING';$('vLyPh').style.color=q>0?'var(--amber)':'';$('vIntP').textContent='−2 mmHg';$('vLyPr').textContent=/sinus|subcap|efferent|cisterna|thoracic|venangle/.test(REG[S.idx])?'3–4 g/dL':'≈2 g/dL';$('vLyF').textContent=(FLOW[S.idx]*flowMul(S.idx)).toFixed(1)+' units/s';}
  else if(W===NERVE){const r=REG[S.idx],v=vmHere();$('vVm').textContent=Math.round(v)+' mV';$('vVm').style.color=v>-20?'var(--cyan)':'';
   $('vCV').textContent=/axon|decuss|cord|pnerve/.test(r)?'Aα 80–120 m/s':r==='cortex'||r==='soma'?'graded EPSPs':r==='nmj'||r==='bouton'||r==='cleft'?'delay 0.5–1 ms':'CBF 50 mL/100g/min';
@@ -3066,7 +3653,7 @@ if(MOBILE){
    }}};
  canvas.addEventListener('touchend',endT,{passive:false});canvas.addEventListener('touchcancel',endT,{passive:false});
  // key buttons
- const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyP','❚❚','pause'],['F1','?','help']];
+ const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyV','⇅','case'],['KeyO','O₂','oxygen'],['KeyZ','💨','cough'],['KeyU','⇵','posture'],['KeyP','❚❚','pause'],['F1','?','help']];
  $('touchBar').innerHTML=BTNS.map(([c,ic,l])=>`<button data-code="${c}"><span>${ic}</span><small>${l}</small></button>`).join('');
  $('touchBar').querySelectorAll('button').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();unlock();const code=b.dataset.code;
   if(code==='KeyG'&&!started)return;
@@ -3097,12 +3684,16 @@ function onKey(e){
  if(k==='KeyE')scan();
  else if(k==='KeyH')setSteth(true);
  else if(k==='KeyB')toggleBell();
- else if(k==='KeyG'){if(W===GUT)openExamGI();else openExam();}
+ else if(k==='KeyG'){if(W===GUT)openExamGI();else if(W===LUNG)openExamLU();else openExam();}
+ else if(k==='KeyZ'&&W===LUNG)cough();
+ else if(k==='KeyO'&&W===LUNG)o2Trial();
+ else if(k==='KeyU'&&W===LUNG)posture();
  else if(k==='KeyF'){S.auto=!S.auto;toast(S.auto?'Autopilot on — follows the centreline, waits for valves':'Autopilot off');}
  else if(k==='KeyX'){C.exercise=!C.exercise;C.hrT=C.exercise?118:72;
   if(C.exercise){toast('Flashback: last week, Mr. Reyes climbs the stairs…','warn');if(C.stenosis)setTimeout(()=>{if(C.exercise){toast('“I feel light-headed…” — BP is falling','warn');unlocked.add('exercise');scanned.add('exercise');openCard('exercise',true);renderObj();}},4500);}
   else toast('He sits down to rest. Heart rate settling.');}
  else if(k==='KeyV'&&W===GUT)gutToggle();
+ else if(k==='KeyV'&&W===LUNG)luToggle();
  else if(k==='KeyV'){C.stenosis=!C.stenosis;$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';toast(C.stenosis?'Back to Mr. Reyes\' stenotic valve':'Comparison: a healthy aortic valve. Listen and look again.');}
  else if(k==='KeyJ')openJournal();
  else if(k==='KeyT')openStudy();
@@ -3137,7 +3728,7 @@ function openJournal(){
 // depth picker on start screen
 $('lvPick').innerHTML=[['L1 Curious','kids & curious adults'],['L2 School','secondary-school biology'],['L3 Pre-med','undergrad physiology'],['L4 Med school','pathology & clinical reasoning']].map((l,i)=>`<button class="lv ${i===depth?'on':''}" data-l="${i}"><b>${l[0]}</b>${l[1]}</button>`).join('');
 let startSys='circ';
-$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
+$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease'],['lung','Lungs','Case 04 · lobar pneumonia']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
 $('sysPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;startSys=b.dataset.s;$('sysPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 $('lvPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;depth=+b.dataset.l;$('lvPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 
@@ -3199,9 +3790,9 @@ function openExam(){
 /* --- Rounds (quiz) --- */
 let qi=0,qScore=0,qOrder=[],roundsTry=0;
 function openQuiz(){
- qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
+ qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:W===LUNG?QUIZ_LU:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
  const pending=['exam','ra','tricuspid','pulmonic','lungcap','mitral','steth','aortic'].filter(k=>!done.has(k));
- $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':'Mr. Reyes'}</h1>
+ $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':W===LUNG?'Mr. Herrera':'Mr. Reyes'}</h1>
  <p>The consultant asks you ${QZ.length} questions about what you saw and heard inside. ${pending.length?`<br><span style="color:var(--amber)">Tip: you still have ${pending.length} exploration objective${pending.length>1?'s':''} open — the answers are easier if you've seen it.</span>`:'You have seen the whole circuit. Go.'}</p>
  <button class="btn" id="qStart">Start Rounds ▸</button> <button class="btn ghost" data-close>Keep exploring</button>`;
  $('quizSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
@@ -3222,7 +3813,7 @@ function renderQ(){
  });
 }
 function finishQuiz(){
- complete(W===GUT?'grounds':'rounds');
+ complete(W===GUT?'grounds':W===LUNG?'lrounds':'rounds');
  const pct=Math.round(qScore/qOrder.length*100);
  const expl=[...done].length;
  $('quizSheet').innerHTML=`<div class="eyebrow">Rounds complete</div><h1 style="font-size:34px">${qScore}/${qOrder.length} · ${pct}%</h1>
@@ -3305,8 +3896,9 @@ function ambience(t){ // what each place sounds like
   if(reg==='bouton'||reg==='nmj'){if(rnd(4))pop(900,480,.06,.07);}
   if(reg==='nmj'){const [a1,a2]=apPositions(),e=N*DS,near=Math.min(Math.abs(a1-e),Math.abs(a2-e))<3;if(near&&!amb.apEnd){pop(70,38,.5,.5);burst(90,1,.5,.35);}amb.apEnd=near;} // the muscle fibre twitches
   if(reg==='braincap')turb=.02;
- }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
- set(A.turbG,turb,.1);set(A.humG,hum,.08);set(A.hushG,hush);set(A.gamG,gam);set(A.somaG,soma);set(A.airG,air*(steth?.3:1),.2);
+ }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===LUNG){const g=luAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
+ if(W!==LUNG)A.airBP.frequency.setTargetAtTime(900,t,.3);
+ set(A.turbG,turb,.1);set(A.humG,hum,.08);set(A.hushG,hush);set(A.gamG,gam);set(A.somaG,soma);set(A.airG,air*(steth?(W===LUNG?2.2:.3):1),.2);
 }
 function thump(t,f,dur,g){
  const o=AC.createOscillator(),og=AC.createGain();o.type='sine';
@@ -3342,13 +3934,13 @@ function updateAudio(flowLocal,thrust){
  const dH=S.pos.distanceTo(heartC);
  const av=AOV;_t.copy(av.c).addScaledVector(av.t,5);const dA=S.pos.distanceTo(_t);
  A.heartLP.frequency.setTargetAtTime(lerp(1800,200,clamp(dH/160,0,1)),t,k);
- A.heart.gain.setTargetAtTime(((W===BLOOD?.25:W===LYMPH?.08:REG[S.idx]==='braincap'?.14:.03)+1.1*Math.exp(-dH/45))*(steth?1.9:1),t,k);
+ A.heart.gain.setTargetAtTime(((W===BLOOD?.25:W===LYMPH?.08:W===LUNG?.12:REG[S.idx]==='braincap'?.14:.03)+1.1*Math.exp(-dH/45))*(steth?1.9:1),t,k);
  A.murLoc.gain.setTargetAtTime(Math.exp(-dA/24)*1.4+.04,t,k);
  const reg=REG[S.idx];const art=KW[S.idx*4+2];
  const surge=art*bump(((C.tc-.05-PD[S.idx]/C.PWV)%C.T+C.T)%C.T,0,.3);
  A.flowG.gain.setTargetAtTime((W===NERVE?.004:.02+.012*flowLocal+.18*surge)*(steth?.2:1),t,.05);
  A.flowLP.frequency.setTargetAtTime(R0[S.idx]<2.2?900:380,t,.2); // a tighter hiss in capillaries
- A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:27,t,.5);
+ A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:W===LUNG?29:27,t,.5);
  ambience(t);
  A.engG.gain.setTargetAtTime(steth?0:.012*thrust,t,.15);A.eng.frequency.setTargetAtTime(40+18*thrust,t,.1);
  // stethoscope chest piece: diaphragm passes highs, bell passes lows
@@ -3366,7 +3958,7 @@ function ecgVal(tc,T){
  return .15*g(tc,T-.17,.025)-.12*g(x,-.035,.006)+1*g(x,-.022,.007)-.25*g(x,-.008,.007)+.3*g(tc,C.sys-.11,.04);
 }
 function drawECG(){
- const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
+ const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===LUNG?'rgba(160,210,255,.9)':W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
  for(let i=0;i<ECGN;i++){const v=ecgBuf[(ecgHead+i)%ECGN];const x=i/(ECGN-1)*w,y=h*.72-v*h*.6;i?ecgC.lineTo(x,y):ecgC.moveTo(x,y);}ecgC.stroke();
 }
 function drawPCG(pcgC=pcgC0){
@@ -3381,10 +3973,10 @@ function drawPCG(pcgC=pcgC0){
 let routeDirty=true;
 function drawRoute(){
  const w=1520,h=68,c=routeC;c.clearRect(0,0,w,h);
- if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
+ if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':W.lung?'rgb(120,170,220)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
  else for(let x=0;x<w;x+=2){const i=Math.floor(x/w*N);const f=(SAT[i]-75)/23;c.fillStyle=`rgb(${Math.round(lerp(70,230,f))},${Math.round(lerp(60,40,f))},${Math.round(lerp(150,60,f))})`;c.fillRect(x,30,2,10);}
  c.font='600 17px system-ui,sans-serif';c.textAlign='center';
- const show=W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
+ const show=W.lung?LSHOW:W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
  show.forEach(([r,l])=>{const [a,b]=RANGE[r];const x=(a+b)/2/N*w;c.fillStyle=scanned.has(r)?'#8f747a':'#c9aeb2';c.fillText(l,x,22);});
  VALVES.forEach(v=>{const x=v.i/N*w;c.fillStyle=done.has(v.id)?'#6ee7a0':'#ffb547';c.fillRect(x-2,26,4,18);});
  const px=S.idx/N*w;c.fillStyle='#3ee6d8';c.beginPath();c.moveTo(px,46);c.lineTo(px-9,64);c.lineTo(px+9,64);c.fill();
@@ -3534,6 +4126,7 @@ const MAPCTX={
 function mapSubloc(){
  const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
  if(W===GUT)return gutSubloc();
+ if(W===LUNG)return luSubloc();
  if(W===NERVE){
   if(r==='axon')return f<.3?'corona radiata':f<.6?'internal capsule':f<.85?'cerebral peduncle':'pons';
   if(r==='decuss')return f<.6?'medullary pyramid':'pyramidal decussation';
@@ -3559,6 +4152,36 @@ MAPCTX.gut={title:'Gut · mouth to rectum',draw(c){
  c.strokeStyle='rgba(230,160,120,.55)';for(let k=0;k<GBODY2D.length-1;k++){const [x0,y0]=GBODY2D[k],[x1,y1]=GBODY2D[k+1];c.lineWidth=Math.max(1.2,GNODES[k][3]*.7);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
  c.fillStyle=ink+'.45)';c.font='7px system-ui,sans-serif';c.textAlign='left';
  [['stomach',[122,112]],['liver',[66,106]],['colon',[128,150]],['caecum',[50,212]],['rectum',[104,236]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
+ c.restore();}};
+const PBODY2D=PNODES.map(n=>[100+(n[0]-2000)*.88,14+(262-n[1])*.88]);
+LUNG.views=[mapView(LUNG,'lung',0,PNODES.length-1,PBODY2D,2)];
+MAPCTX.lung={title:'Chest · airway and blood trees',draw(c){
+ const ink='rgba(246,236,236,';c.save();c.lineJoin='round';c.lineCap='round';
+ // head and neck profile hint, then the thorax: patient's right on the viewer's left
+ c.fillStyle=ink+'.06)';c.strokeStyle=ink+'.25)';c.lineWidth=1;
+ c.beginPath();c.ellipse(100,16,14,16,0,0,Math.PI*2);c.fill();c.stroke();
+ c.beginPath();c.moveTo(92,32);c.lineTo(92,50);c.lineTo(40,62);c.bezierCurveTo(26,100,22,170,30,236);c.lineTo(170,236);c.bezierCurveTo(178,170,174,100,160,62);c.lineTo(108,50);c.lineTo(108,32);c.closePath();c.fill();c.stroke();
+ // ribs, faint
+ c.strokeStyle=ink+'.1)';c.lineWidth=.8;for(let k=0;k<8;k++){const y=70+k*20;c.beginPath();c.moveTo(100,y);c.quadraticCurveTo(50,y+4,38,y+26);c.moveTo(100,y);c.quadraticCurveTo(150,y+4,162,y+26);c.stroke();}
+ // lungs: right (viewer's left) with oblique and horizontal fissures → three lobes; left with oblique fissure and cardiac notch
+ c.fillStyle='rgba(122,162,255,.11)';c.strokeStyle='rgba(122,162,255,.4)';c.lineWidth=.9;
+ c.beginPath();c.moveTo(94,66);c.bezierCurveTo(60,62,36,100,36,150);c.bezierCurveTo(36,190,44,222,56,228);c.quadraticCurveTo(80,226,92,214);c.quadraticCurveTo(96,150,94,66);c.closePath();c.fill();c.stroke();
+ c.beginPath();c.moveTo(106,66);c.bezierCurveTo(140,62,164,100,164,150);c.bezierCurveTo(164,190,156,222,144,228);c.quadraticCurveTo(122,226,112,214);c.quadraticCurveTo(104,180,116,160);c.quadraticCurveTo(122,140,108,120);c.lineTo(106,66);c.closePath();c.fill();c.stroke();
+ c.beginPath();c.moveTo(42,128);c.lineTo(90,196);c.moveTo(62,150);c.lineTo(94,142);c.moveTo(158,128);c.lineTo(114,196);c.stroke(); // fissures
+ // the right lower lobe shades when consolidated
+ if(typeof LU!=='undefined'&&LU.stage){c.fillStyle=LU.stage===1?'rgba(200,60,70,.32)':LU.stage===2?'rgba(170,150,140,.35)':'rgba(200,120,90,.18)';c.beginPath();c.moveTo(42,128);c.lineTo(90,196);c.quadraticCurveTo(92,210,92,214);c.quadraticCurveTo(80,226,56,228);c.bezierCurveTo(44,222,36,190,36,150);c.closePath();c.fill();}
+ // heart, diaphragm
+ c.fillStyle='rgba(255,77,94,.16)';c.strokeStyle='rgba(255,77,94,.45)';c.beginPath();c.moveTo(96,134);c.bezierCurveTo(84,136,80,150,88,166);c.bezierCurveTo(98,184,116,196,134,190);c.bezierCurveTo(140,170,130,146,112,136);c.closePath();c.fill();c.stroke();
+ c.strokeStyle=ink+'.25)';c.lineWidth=1;c.beginPath();c.moveTo(36,232);c.quadraticCurveTo(66,206,96,226);c.moveTo(104,228);c.quadraticCurveTo(134,210,164,232);c.stroke();
+ // blood tree, faint: pulmonary arteries (violet) and veins (red) interleaved with the airway
+ c.lineWidth=1.4;c.strokeStyle='rgba(120,100,200,.45)';c.beginPath();c.moveTo(104,142);c.quadraticCurveTo(96,112,80,108);c.lineTo(60,124);c.moveTo(80,108);c.lineTo(64,160);c.moveTo(104,142);c.quadraticCurveTo(120,112,134,112);c.lineTo(146,134);c.moveTo(134,112);c.lineTo(140,160);c.stroke();
+ c.strokeStyle='rgba(255,90,100,.45)';c.beginPath();c.moveTo(102,150);c.lineTo(76,130);c.moveTo(102,152);c.lineTo(70,176);c.moveTo(108,150);c.lineTo(128,130);c.moveTo(108,152);c.lineTo(132,176);c.stroke();
+ // the airway tree: trachea, both main bronchi, lobar branches (the left side is the path not taken)
+ c.strokeStyle='rgba(230,200,170,.5)';c.lineWidth=3;c.beginPath();c.moveTo(100,44);c.lineTo(100,88);c.stroke();c.lineWidth=2.2;c.beginPath();c.moveTo(100,88);c.lineTo(118,112);c.lineTo(124,122);c.moveTo(118,112);c.lineTo(134,108);c.moveTo(124,122);c.lineTo(132,160);c.stroke();
+ // the route itself from the same anchors the probe moves along
+ c.strokeStyle='rgba(230,170,120,.65)';for(let k=0;k<PBODY2D.length-1;k++){const [x0,y0]=PBODY2D[k],[x1,y1]=PBODY2D[k+1];c.lineWidth=Math.max(1.2,PNODES[k][3]*.5);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+ c.fillStyle=ink+'.45)';c.font='7px system-ui,sans-serif';c.textAlign='left';
+ [['carina',[104,88]],['RUL',[48,100]],['RML',[72,160]],['RLL',[46,196]],['LUL',[140,100]],['LLL',[142,200]],['heart',[112,176]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
  c.restore();}};
 function curView(){return (W.views||[]).find(v=>S.idx>=v.s0&&S.idx<v.s1)||W.views[0];}
 function drawBody(){
@@ -3607,14 +4230,14 @@ const SYSTEMS=[
  {id:'lymph',name:'Lymphatics & immunity',sub:'Detour · interstitium → node → thoracic duct',desc:'Leak out with the plasma, slip into a blind-ended lymphatic, ride the lymphangion pumps through a node and back into the blood at the venous angle.',go:()=>switchWorld(LYMPH,4),ready:1},
  {id:'nerve',name:'Nervous system',sub:'Brain capillary → motor cortex → corticospinal tract → NMJ',desc:'Cross the blood-brain barrier, follow a pyramidal cell\'s axon through nodes of Ranvier, the decussation and a synapse to the lower motor neuron, the femoral nerve and the muscle end plate.',go:()=>switchWorld(NERVE,NERVE.nodeIdx[3]+4),ready:1},
  {id:'gi',name:'Gastrointestinal',sub:'Case 03 · Ms. Nair · coeliac disease',desc:'The living 5 m gut as one tube: ride a swallow through the LES, wait on the pylorus, fly a villus forest and take either exit (portal blood or lacteal lymph), count the bacteria rise 10⁹-fold into the colon.',go:enterGut,ready:1},
- {id:'lung',name:'Pulmonary',sub:'Nose → airway tree → alveolus · pneumonia case',desc:'In build from the pulmonary research document: the air side of the barrier you already crossed from the blood, the breathing clock, shunt.',ready:0},
+ {id:'lung',name:'Pulmonary',sub:'Case 04 · Mr. Herrera · lobar pneumonia',desc:'The air side of the barrier you crossed from the blood: ride one breath from the nose down 23 generations, let the carina take you right, watch the escalator climb past you, feel the flow die at generation 17, dock at a septum, and leave with the oxygen in a red cell.',go:enterLung,ready:1},
  {id:'renal',name:'Kidney',sub:'Glomerulus → nephron → collecting duct',ready:0,desc:'Planned: filtration, the loop of Henle counter-current, tubular transport.'},
  {id:'liver',name:'Liver & biliary',sub:'Portal triad → sinusoid → central vein · gallbladder',ready:0,desc:'Planned: the lobule, hepatocytes, Kupffer cells, bile canaliculi, the gallbladder and sphincter of Oddi.'},
  {id:'pancreas',name:'Pancreas',sub:'Acinus & islet',ready:0,desc:'Planned: exocrine zymogen cascade and the islet of Langerhans.'},
  {id:'pituitary',name:'Pituitary',sub:'Portal system & axes',ready:0,desc:'Planned: the hypothalamo-hypophyseal portal system and the endocrine axes.'},
 ];
 function openSystems(){
- const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':'';
+ const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':W===LUNG?'lung':'';
  $('sysSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Systems</div><h1 style="font-size:30px">Choose a system to explore</h1>
  <p class="small" style="margin-top:0">Each system is its own flyable world with its own cells, clock and Codex. Jump straight in, or find the natural doorway between systems while flying (K at the labelled junctions).</p>
  <div class="sysgrid">${SYSTEMS.map(s=>`<button class="sys ${s.ready?'':'soon'} ${s.id===cur?'cur':''}" data-s="${s.id}" ${s.ready?'':'disabled'}><b>${s.name}</b><small>${s.sub}</small><span>${s.desc}</span>${s.ready?(s.id===cur?'<em>you are here</em>':'<em>enter ▸</em>'):'<em>in build</em>'}</button>`).join('')}</div>`;
@@ -3877,7 +4500,7 @@ function stepShip(dt,time){
  S.sF=S.idx+d.dot(_t)/DS;
  if(!W.closed&&S.sF<3){S.pos.addScaledVector(_t,(3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb<0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=3;}
  if(!W.closed&&S.sF>N-3){S.pos.addScaledVector(_t,(N-3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb>0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=N-3;}
- if(W===GUT)gutGates(prevS,prevPos);
+ if(W===GUT)gutGates(prevS,prevPos);else if(W===LUNG)luGates(prevS,prevPos);
  // valves: one-way doors with timing
  for(const v of VALVES){
   const a=wrapD(prevS-v.i),b=wrapD(S.sF-v.i);
@@ -4038,7 +4661,7 @@ function frame(now){
 }
 function update(dt){
  time+=dt;
- if(W===GUT){gutTick(dt);gutGateSlow();}
+ if(W===GUT){gutTick(dt);gutGateSlow();}else if(W===LUNG)luTick(dt);
  if(started&&dt>0&&(time%1)<dt)checkPredict();
  stepCycle(dt);
  if(!started){S.auto=true;}
@@ -4049,6 +4672,7 @@ function update(dt){
  ALL.forEach(D=>{if(D.on)updateCells(D,dt,time);});updateLeak(dt);updateFlaps();
  if(started&&W===LYMPH&&S.sF>=N-8)exitLymph();
  if(started&&W===GUT&&S.sF>=N-8)exitGut();
+ if(started&&W===LUNG&&S.sF>=N-8)exitLung();
  updateNerve(dt);
  if(started&&W===NERVE){if(REG[S.idx]==='bouton'&&S.sF>=RANGE.cleft[0]-5)crossSynapse();else if(S.sF>=N-8)exitNerve();}
  // motes ride the local flow and wrap around the camera
@@ -4123,12 +4747,12 @@ $('go').onclick=()=>{
  placeAt(Math.floor(nodeIdx[1]-20));renderObj();buildLabels();
  if(startSys!=='circ'){const s=SYSTEMS.find(x=>x.id===startSys);setTimeout(()=>warp('Entering: '+s.name,()=>{s.go();buildLabels();renderObj();toast(s.name+' — '+s.sub,'good');}),300);}
  setTimeout(()=>toast('Your back thrusters hold you still against the current. W to fly, drag the view to steer, F for autopilot. Hover over any cell to see what it is; click it for details.'),600);
- setTimeout(()=>toast('Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
+ setTimeout(()=>toast(startSys==='lung'?'Start at the bedside: press G to examine Mr. Herrera\'s chest. Then fly in to see why he is blue.':startSys==='gi'?'Start at the bedside: press G to examine Ms. Nair. Then fly in.':'Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={addCodex,flyToKey,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={addCodex,flyToKey,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
