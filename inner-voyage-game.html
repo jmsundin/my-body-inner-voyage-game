@@ -247,6 +247,12 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 #slideView img{max-width:min(96vw,1400px);max-height:62vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 40px #000}#slideView .info{max-width:min(96vw,820px);color:#f4e6e0;font-size:14px;line-height:1.45;overflow-y:auto;max-height:30vh}
 #slideView h3{margin:0 0 2px;font-size:16px}#slideView .meta{opacity:.7;font-size:12px;margin-bottom:6px}#slideView ul{margin:4px 0 6px 18px;padding:0}#slideView .cr{font-size:11.5px;color:#f4e6e0;opacity:.85;max-width:min(96vw,820px);text-align:center;margin-top:-4px}
 #slideView .nav{position:absolute;top:10px;right:12px;display:flex;gap:8px}#slideView .nav button{background:#ffffff18;color:#fff;border:0;border-radius:6px;padding:6px 10px;font-size:14px;cursor:pointer}
+#brainRounds{left:16px;top:118px;width:min(360px,calc(100vw - 32px));max-height:calc(100vh - 210px);overflow:auto}#brainRounds h3{margin:4px 0 6px;font-size:17px}#brainRounds .small{font-size:12.5px;line-height:1.45;margin:6px 0}#brainRounds .ask{color:var(--cyan)}#brainRounds .fb{color:#ffe2b8}
+.bmis{display:flex;flex-direction:column;gap:5px;margin-top:6px}.bmis button{display:flex;align-items:center;gap:8px;text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:7px 9px;font:12.5px var(--sans);cursor:pointer}.bmis button:hover{border-color:var(--cyan)}
+.bmis .bt{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);min-width:54px}.bmis .bs{margin-left:auto;color:#ffd060;white-space:nowrap}.brow{display:flex;flex-wrap:wrap;gap:6px}.brow .btn{margin-top:6px}
+#brainBar button.hot{border-color:var(--amber);color:var(--amber)}.blab.bst{color:#9ff0ff;font-weight:500;font-size:10.5px}.blab.btr{color:#e8e0ff;font-weight:500;font-size:10.5px;opacity:.85}.blab.blay{font-size:11px;color:#f0e4ff;transform:translate(0,-50%);font-weight:500}.blab.blay.dim{opacity:.6}
+.bleg{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11px;margin:6px 0}.bleg i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+@media (max-width:760px){#brainRounds{left:10px;right:10px;width:auto;top:84px;max-height:34vh;padding:9px 11px}body.bgRoundsOn #brainLegend{display:none}#brainRounds h3{font-size:15px}}
 </style>
 </head>
 <body>
@@ -404,7 +410,8 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 <div class="modal" id="mBrain"><div id="brainLabels"></div><div id="brainTip"></div>
  <div class="bpanel" id="brainTop"><div class="eyebrow">Zoom out · brain atlas</div><div id="brainWhere"></div><div id="brainScale"></div></div>
  <div class="bpanel" id="brainInfo"></div><div class="bpanel" id="brainLegend"></div>
- <div id="brainBar"><button data-b="surface">Surface</button><button data-b="lobes">Lobes</button><button data-b="func">Functional areas</button><span class="sep"></span><button data-b="glass">Glass (G)</button><button data-b="cut">Midline cut (C)</button><button data-b="art">Arteries (A)</button><button data-b="route">Your route</button><button data-b="labels">Labels (L)</button><span class="sep"></span><button data-v="lateralL">Left</button><button data-v="lateralR">Right</button><button data-v="superior">Top</button><button data-v="anterior">Front</button><button data-v="posterior">Back</button><button data-v="inferior">Base</button><button data-v="medial">Medial</button><span class="sep"></span><button id="brainClose">✕ Shrink back (Q)</button></div>
+ <div class="bpanel" id="brainRounds" style="display:none"></div>
+ <div id="brainBar"><button id="bgRoundsBtn" class="hot">Neuro rounds (R)</button><span class="sep"></span><button data-b="surface">Surface</button><button data-b="lobes">Lobes</button><button data-b="func">Functional areas</button><span class="sep"></span><button data-b="glass">Glass (G)</button><button data-b="cut">Midline cut (C)</button><button data-b="art">Arteries (A)</button><button data-b="wire">Wiring (W)</button><button data-b="route">Your route</button><button data-b="labels">Labels (L)</button><span class="sep"></span><button data-v="lateralL">Left</button><button data-v="lateralR">Right</button><button data-v="superior">Top</button><button data-v="anterior">Front</button><button data-v="posterior">Back</button><button data-v="inferior">Base</button><button data-v="medial">Medial</button><span class="sep"></span><button id="brainClose">✕ Shrink back (Q)</button></div>
 </div>
 <div class="modal" id="mExamLU"><div class="sheet" id="examLUSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamRN"><div class="sheet" id="examRNSheet" style="max-width:880px"></div></div>
@@ -3620,10 +3627,10 @@ function bBuild(){
  BRAIN.anch={};for(const m of[BRAIN.L,BRAIN.R]){const p=m.geometry.attributes.position,acc={};m.userData.reg.forEach((r,i)=>{(acc[r]=acc[r]||[0,0,0,0]);acc[r][0]+=p.getX(i);acc[r][1]+=p.getY(i);acc[r][2]+=p.getZ(i);acc[r][3]++;});
   for(const r in acc){const a=acc[r],c=new V3(a[0]/a[3],a[1]/a[3],a[2]/a[3]);let best=null,bd=1e9;m.userData.reg.forEach((rr,i)=>{if(rr!==r)return;const d=(p.getX(i)-c.x)**2+(p.getY(i)-c.y)**2+(p.getZ(i)-c.z)**2;if(d<bd){bd=d;best=i;}});BRAIN.anch[r+(m.userData.s>0?'L':'R')]=new V3(p.getX(best),p.getY(best),p.getZ(best));}}
  BRAIN.anch.cerebellumR=new V3(-4.2,-3.6,-5.4);BRAIN.anch.cerebellumL=new V3(4.2,-3.6,-5.4);BRAIN.anch.pons=new V3(0,-2.9,.6);BRAIN.anch.medulla=new V3(0,-5.3,-.6);BRAIN.anch.cord=new V3(0,-8.8,-1.2);BRAIN.anch.midbrain=new V3(0,-1.1,-.4);
- BRAIN.built=true;}
+ bgBuild();BRAIN.built=true;}
 // ---- labels ----
 const BLAB=['prefrontal','premotor','motor','sensory','parietal','ipl','temporal','auditory','visual','broca','wernicke','orbito','cingulate','paracentral','precuneus','cuneus','lingual','medtemporal'];
-function bLabels(){const box=$('brainLabels');if(!BRAIN.labels){box.innerHTML='';return;}const cam=BRAIN.cam,out=[],v=new V3(),cp=cam.position;
+function bLabels(){const box=$('brainLabels');if(BG.cellOn){box.innerHTML=bgCellLabels();return;}if(!BRAIN.labels){box.innerHTML='';return;}const cam=BRAIN.cam,out=[],v=new V3(),cp=cam.position;
  const add=(key,p,txt)=>{v.copy(p).project(cam);if(v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05)return;out.push(`<div class="blab${BRAIN.sel===key?' on':''}" style="left:${(v.x*.5+.5)*innerWidth}px;top:${(-v.y*.5+.5)*innerHeight}px">${txt}</div>`);};
  for(const side of['L','R']){const m=side==='L'?BRAIN.L:BRAIN.R;if(!m.visible)continue;const cx=side==='L'?2.25:-2.25;
   for(const r of BLAB){const p=BRAIN.anch[r+side];if(!p)continue;const isMed=['cingulate','paracentral','precuneus','cuneus','lingual','medtemporal'].includes(r);
@@ -3633,24 +3640,24 @@ function bLabels(){const box=$('brainLabels');if(!BRAIN.labels){box.innerHTML=''
  if(BRAIN.cb.visible){const toCam=new V3().subVectors(cp,new V3(0,-3,-5)).normalize();add('cerebellum',BRAIN.anch[toCam.x>0?'cerebellumL':'cerebellumR'],'Cerebellum');}
  if(BRAIN.cut||BRAIN.glass||BRAIN.pitch<-.5)['pons','medulla','midbrain'].forEach(k=>add(k,BRAIN.anch[k],BREG[k].n));
  if(BRAIN.route&&BRAIN.me.visible)add('route',BRAIN.me.position,'● you are here');
- box.innerHTML=out.join('');}
+ box.innerHTML=out.join('')+bgLabelsHTML();}
 // ---- info panel ----
 function bInfo(key){const r=BREG[key];const p=$('brainInfo');if(!r){p.classList.add('idle');p.innerHTML=`<div class="eyebrow">Brain atlas</div><h3>Pick a region</h3><p class="small">Hover to name a region, click to read it. Drag to turn the brain, scroll or pinch to zoom.</p>`;return;}p.classList.remove('idle');
  p.innerHTML=`<div class="eyebrow">${r.lobe}</div><h3>${r.n}</h3><p class="small">${r.fn}</p><p class="small"><b>Blood supply</b> · ${r.blood}</p><p class="small"><b>Lesion</b> · ${r.lesion}</p>${r.dive?`<button class="btn" id="bDive">Shrink back in here ▸</button>`:''}<p class="small" style="color:var(--faint);margin-top:8px">Sources · ${REF.neuro} · unverified, pending clinical review</p>`;
- if(r.dive)$('bDive').onclick=()=>bDive(r.dive);}
+ if(r.dive)$('bDive').onclick=()=>bDive(r.dive);bgInfoExtra(key);}
 function bDive(where){const rng=NERVE.RANGE[where]||NERVE.RANGE.cortex;bClose(true);warp('Shrinking: 18 cm → 1 mm → 100 µm → the width of one axon…',()=>{switchWorld(NERVE,rng[0]+4);toast(BREG[where==='cortex'?'motor':where==='decuss'?'medulla':where==='cord'?'cord':'capsule'].n+'. Q zooms out again.');});}
 // ---- picking ----
-function bPick(cx,cy){const rc=new THREE.Raycaster(),v=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeight)*2+1);rc.setFromCamera(v,BRAIN.cam);
+function bPick(cx,cy){const rc=new THREE.Raycaster(),v=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeight)*2+1);rc.setFromCamera(v,BRAIN.cam);const gk=bgPick(rc);if(gk)return gk.k;
  const objs=[BRAIN.L,BRAIN.R,BRAIN.cb,BRAIN.stem].filter(o=>o.visible&&o.material.opacity>.5);if(BRAIN.deep.visible)objs.push(...BRAIN.deep.children);if(BRAIN.arts.visible)objs.push(...BRAIN.arts.children);if(BRAIN.routeM.visible)objs.push(BRAIN.routeM);if(BRAIN.caps.visible)objs.push(...BRAIN.caps.children);
- const hits=rc.intersectObjects(objs,false).filter(h=>!(BRAIN.cut&&h.point.x>.01&&h.object.material.clippingPlanes&&h.object.material.clippingPlanes.length));const h=hits[0];if(!h)return null;const u=h.object.userData;
+ const hits=rc.intersectObjects(objs,false).filter(h=>!(BRAIN.cut&&h.point.x>.01&&h.object.material.clippingPlanes&&h.object.material.clippingPlanes.length));const h=hits[0];BRAIN.hit=h?{p:h.point.clone(),n:h.face?h.face.normal.clone():null,kind:h.object.userData.kind}:null;if(!h)return null;const u=h.object.userData;
  if(u.kind==='hemi'||u.kind==='cb'||u.kind==='stem')return u.reg[h.face.a];return u.key;}
 function bSetHover(k){if(k===BRAIN.hover)return;BRAIN.hover=k;if(BRAIN.L.visible)bPaint(BRAIN.L);if(BRAIN.R.visible)bPaint(BRAIN.R);const t=$('brainTip');t.textContent=k&&BREG[k]?BREG[k].n:'';t.style.display=k?'block':'none';}
 // ---- view state ----
-function bApply(){const glass=BRAIN.glass;for(const m of[BRAIN.L,BRAIN.R]){m.material.transparent=glass;m.material.opacity=glass?.16:1;m.material.depthWrite=!glass;m.material.needsUpdate=true;}
- BRAIN.L.visible=!BRAIN.cut;BRAIN.deep.visible=glass||BRAIN.cut;BRAIN.arts.visible=BRAIN.art;BRAIN.caps.visible=BRAIN.cut;
+function bApply(){const glass=BRAIN.glass||BRAIN.wire||BG.cellOn;for(const m of[BRAIN.L,BRAIN.R]){m.material.transparent=glass;m.material.opacity=glass?(BG.cellOn?.05:.16):1;m.material.depthWrite=!glass;m.material.needsUpdate=true;}
+ BRAIN.L.visible=!BRAIN.cut;BRAIN.deep.visible=(glass||BRAIN.cut)&&!BG.cellOn;BRAIN.arts.visible=BRAIN.art&&!BG.cellOn;BRAIN.caps.visible=BRAIN.cut;
  BRAIN.deep.children.forEach(m=>{m.material.clippingPlanes=BRAIN.cut?[BRAIN.clip]:[];m.material.needsUpdate=true;});
  BRAIN.cb.material.clippingPlanes=BRAIN.cut?[BRAIN.clip]:[];BRAIN.stem.material.clippingPlanes=BRAIN.cut?[BRAIN.clip]:[];BRAIN.cb.material.needsUpdate=BRAIN.stem.material.needsUpdate=true;
- BRAIN.routeM.visible=BRAIN.route;BRAIN.cb.material.transparent=glass;BRAIN.cb.material.opacity=glass?.3:1;BRAIN.cb.material.depthWrite=!glass;
+ BRAIN.routeM.visible=BRAIN.route&&!BG.cellOn;if(BRAIN.wireG)BRAIN.wireG.visible=!!BRAIN.wire&&!BG.cellOn;BRAIN.cb.material.transparent=glass;BRAIN.cb.material.opacity=glass?.3:1;BRAIN.cb.material.depthWrite=!glass;
  bPaint(BRAIN.L);bPaint(BRAIN.R);
  document.querySelectorAll('#brainBar [data-b]').forEach(b=>{const k=b.dataset.b;b.classList.toggle('on',k===BRAIN.mode||BRAIN[k]===true);});
  $('brainLegend').innerHTML=BRAIN.mode==='lobes'?Object.entries(BLOBECOL).filter(([k])=>k!=='Cut').map(([k,c])=>`<span><i style="background:rgb(${c.map(v=>v*255|0)})"></i>${k}</span>`).join(''):BRAIN.mode==='func'?[['motor','Motor'],['sensory','Sensory'],['premotor','Premotor'],['prefrontal','Prefrontal'],['broca','Broca'],['wernicke','Wernicke'],['auditory','Auditory'],['visual','Visual (V1)'],['ipl','Inferior parietal']].map(([k,t])=>`<span><i style="background:rgb(${BFUNCOL[k].map(v=>v*255|0)})"></i>${t}</span>`).join(''):'';}
@@ -3672,7 +3679,7 @@ function openBrain2(){BRAIN.open=true;$('mBrain').classList.add('show');document
  BRAIN.yaw=w?-Math.PI/2-.3:Math.PI/2;BRAIN.pitch=w?.9:.15;BRAIN.tgt.copy(start);BRAIN.dist=.05;
  BRAIN.anim={t:0,T:3.2,zoom:1,d0:.05,d1:bFit(),tg0:start.clone(),tg1:new V3(0,0,-.6),y0:BRAIN.yaw,y1:-Math.PI/2-.45,p0:BRAIN.pitch,p1:.42};
  sfx&&sfx('scan');}
-function bClose(quiet){BRAIN.open=false;$('mBrain').classList.remove('show');document.body.classList.remove('brainOn');renderer.localClippingEnabled=false;$('brainLabels').innerHTML='';if(!quiet)toast('Back to your own size. Q zooms out again.');}
+function bClose(quiet){bgClose();BRAIN.open=false;$('mBrain').classList.remove('show');document.body.classList.remove('brainOn');renderer.localClippingEnabled=false;$('brainLabels').innerHTML='';if(!quiet)toast('Back to your own size. Q zooms out again.');}
 function bScale(d){const w=2*d*Math.tan(BRAIN.cam.fov*Math.PI/360)*BRAIN.cam.aspect;const f=w<.1?Math.round(w*1e4)+' µm':w<1?(w*10).toFixed(1)+' mm':w.toFixed(0)+' cm';const x=w/.005;return `field of view ${f} · ${x<10?x.toFixed(1):Math.round(x).toLocaleString()}× the view from the ship`;}
 function brainFrame(dt){const B=BRAIN;if(B.anim){const a=B.anim;a.t+=dt;const f=clamp(a.t/a.T,0,1),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;
   B.dist=a.zoom?a.d0*Math.pow(a.d1/a.d0,e):lerp(a.d0,a.d1,e);B.yaw=lerp(a.y0,a.y1,e);B.pitch=lerp(a.p0,a.p1,e);B.tgt.lerpVectors(a.tg0,a.tg1,a.zoom?Math.pow(e,.5):e);if(f>=1)B.anim=null;}
@@ -3682,22 +3689,383 @@ function brainFrame(dt){const B=BRAIN;if(B.anim){const a=B.anim;a.t+=dt;const f=
  const pul=1+.25*Math.sin(performance.now()/260);B.me.scale.setScalar(pul*Math.max(.05,Math.min(1,B.dist/20)));B.ring.scale.setScalar(pul*Math.max(.05,Math.min(1,B.dist/20)));B.ring.lookAt(c.position);
  $('brainScale').textContent=bScale(B.dist);
  const off=new V3(-.45,.75,.35).applyQuaternion(c.quaternion);B.key.position.copy(c.position).addScaledVector(off,B.dist*.6);B.key.target.position.copy(B.tgt);B.rim.position.copy(B.tgt).addScaledVector(new V3().subVectors(B.tgt,c.position),1).add(new V3(0,B.dist*.3,0));B.rim.target.position.copy(B.tgt);
- renderer.render(B.scene,c);bLabels();}
+ bgFrame(dt);renderer.render(B.scene,c);bLabels();}
 function brainKey(k){const B=BRAIN;if(k==='KeyQ'||k==='Escape'){bClose();return;}
  const v={Digit1:'lateralL',Digit2:'lateralR',Digit3:'superior',Digit4:'anterior',Digit5:'posterior',Digit6:'inferior',Digit7:'medial'}[k];if(v){bView(v);return;}
  if(k==='KeyL'){B.labels=!B.labels;bApply();}else if(k==='KeyG'){B.glass=!B.glass;bApply();}else if(k==='KeyC'){B.cut=!B.cut;bApply();}else if(k==='KeyA'){B.art=!B.art;bApply();}
- else if(k==='KeyM'){B.mode=B.mode==='surface'?'lobes':B.mode==='lobes'?'func':'surface';bApply();}else if(k==='Equal'||k==='NumpadAdd')B.dist=Math.max(1.2,B.dist*.85);else if(k==='Minus'||k==='NumpadSubtract')B.dist=Math.min(80,B.dist*1.18);}
+ else if(k==='KeyW'){B.wire=!B.wire;bApply();}else if(k==='KeyR'){bgRounds();}else if(k==='KeyM'){B.mode=B.mode==='surface'?'lobes':B.mode==='lobes'?'func':'surface';bApply();}else if(k==='Equal'||k==='NumpadAdd')B.dist=Math.max(bMinD(),B.dist*.85);else if(k==='Minus'||k==='NumpadSubtract')B.dist=Math.min(80,B.dist*1.18);}
 function bWire(){const el=$('mBrain');let drag=null,pinch=null;const pts=new Map();
  el.addEventListener('pointerdown',e=>{if(e.target.closest('.bpanel,#brainBar,button'))return;pts.set(e.pointerId,[e.clientX,e.clientY]);el.setPointerCapture(e.pointerId);if(pts.size===1)drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};else if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),dist:BRAIN.dist};drag=null;}});
  el.addEventListener('pointermove',e=>{if(pts.has(e.pointerId))pts.set(e.pointerId,[e.clientX,e.clientY]);
-  if(pinch&&pts.size===2){const [a,b]=[...pts.values()];BRAIN.dist=clamp(pinch.dist*pinch.d/Math.max(10,Math.hypot(a[0]-b[0],a[1]-b[1])),1.2,80);BRAIN.anim=null;return;}
+  if(pinch&&pts.size===2){const [a,b]=[...pts.values()];BRAIN.dist=clamp(pinch.dist*pinch.d/Math.max(10,Math.hypot(a[0]-b[0],a[1]-b[1])),bMinD(),80);BRAIN.anim=null;return;}
   if(drag){BRAIN.yaw-=(e.clientX-drag.x)*.006;BRAIN.pitch=clamp(BRAIN.pitch+(e.clientY-drag.y)*.005,-1.5,1.5);drag.x=e.clientX;drag.y=e.clientY;BRAIN.anim=null;return;}
   const t=performance.now();if(t-BRAIN.lastPick>90&&!e.target.closest('.bpanel,#brainBar')){BRAIN.lastPick=t;bSetHover(bPick(e.clientX,e.clientY));const tip=$('brainTip');tip.style.left=e.clientX+14+'px';tip.style.top=e.clientY+12+'px';}});
- const up=e=>{const d=drag;pts.delete(e.pointerId);if(pts.size<2)pinch=null;drag=null;if(d&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)<6){const k=bPick(e.clientX,e.clientY);BRAIN.sel=k;bInfo(k);bPaint(BRAIN.L);bPaint(BRAIN.R);}};
+ const up=e=>{const d=drag;pts.delete(e.pointerId);if(pts.size<2)pinch=null;drag=null;if(d&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)<6){const k=bPick(e.clientX,e.clientY);if(bgClick(k))return;BRAIN.sel=k;bInfo(k);bPaint(BRAIN.L);bPaint(BRAIN.R);}};
  el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
- el.addEventListener('wheel',e=>{e.preventDefault();BRAIN.dist=clamp(BRAIN.dist*(e.deltaY>0?1.1:.9),1.2,80);BRAIN.anim=null;},{passive:false});
+ el.addEventListener('wheel',e=>{e.preventDefault();BRAIN.dist=clamp(BRAIN.dist*(e.deltaY>0?1.1:.9),bMinD(),80);BRAIN.anim=null;},{passive:false});
  document.querySelectorAll('#brainBar [data-b]').forEach(b=>b.onclick=()=>{const k=b.dataset.b;if(['surface','lobes','func'].includes(k))BRAIN.mode=k;else BRAIN[k]=!BRAIN[k];bApply();});
- document.querySelectorAll('#brainBar [data-v]').forEach(b=>b.onclick=()=>bView(b.dataset.v));$('brainClose').onclick=()=>bClose();}
+ document.querySelectorAll('#brainBar [data-v]').forEach(b=>b.onclick=()=>{if(BG.cellOn)bgCellExit();else bView(b.dataset.v);});$('bgRoundsBtn').onclick=()=>bgRounds();$('brainClose').onclick=()=>bClose();}
+/* ===== The brain as a game (31 Oct 2026; Jon: "a connectome of neurons and glial cells … part of the game rather than just a zoomed-out view") =====
+   Three layers on top of the atlas:
+   1. Wiring (W): the major tracts as bundles of streamlines, coloured the way diffusion tractography colours them (red left–right,
+      green front–back, blue up–down), with impulses running along them (slowed about 2,500×). Click a tract to read it.
+   2. Cells: "See the cells here" (or confirming a Neuro-rounds case) flies the camera into a 0.6 × 0.6 mm block of cortex at that point,
+      cut perpendicular to the surface. Faint dots: cell bodies at roughly human density (Nissl-like). Bright: a traced sample of neurons and
+      glia (Golgi-like) wired into the canonical microcircuit (thalamus → IV → II/III → V → out) and running as a live spiking network.
+   3. Neuro rounds (R): localise-the-lesion vignettes scored by where you click, then shrink in to see the cells there; and pathway tracing,
+      where each correct relay sends a spike along the next leg. */
+const BG={tu:{value:0},tracts:[],stnM:{},cell:null,cellOn:false,fly:null,mis:null,step:0,err:0,tries:0,stars:{},legs:[],legP:null,mark:null,open:false,lastVolley:0};
+try{BG.stars=JSON.parse(localStorage.getItem('ivRounds')||'{}')||{};}catch(e){BG.stars={};}
+let bgS=4242;const bgR=()=>{bgS=(bgS*16807)%2147483647;return (bgS-1)/2147483646;};const bgSeed=k=>{bgS=k;};const bgJ=r=>(bgR()*2-1)*r;
+const bMinD=()=>BG.cellOn?.05:1.2;
+// a point on the cortical envelope in the direction of p (cm), pushed d cm inward (≈ the grey–white junction)
+function bgEnv(p,d){const s=p[0]>=0?1:-1;const dir=new V3((s*p[0]-2.25)/4.45,(p[1]-.7)/(p[1]>.7?4.95:2.8),(p[2]+.2)/8.2).normalize();const b=bShape(s,dir.x*s,dir.y,dir.z);const q=new V3(b.x,b.y,b.z);return q.addScaledVector(q.clone().sub(new V3(s*2.25,.7,-.2)).normalize(),-d).toArray();}
+const bgLatX=y=>lerp(6,2.6,clamp((y-1.2)/4.1,0,1));
+// ---------- 1. the wiring ----------
+const BGTR=[
+ {k:'cst',c:36,f:s=>{const y=lerp(1.2,5.3,bgR()),z=zCS(y)+.5+bgJ(.15);return [bgEnv([s*bgLatX(y),y,z],.5),[s*(2.3+bgJ(.3)),2.5+bgJ(.3),-.3+bgJ(.3)],[s*(1.65+bgJ(.12)),-.1+bgJ(.15),-.7+bgJ(.12)],[s*(.65+bgJ(.1)),-1.2,-.35+bgJ(.08)],[s*(.4+bgJ(.1)),-2.9,.1+bgJ(.12)],[s*(.3+bgJ(.07)),-5.2,-.95+bgJ(.06)],[bgJ(.1),-6.4,-1.45],[-s*(.45+bgJ(.08)),-8.5,-2.3+bgJ(.08)],[-s*(.45+bgJ(.08)),-10.3,-2.5]];}},
+ {k:'cc',c:76,one:1,f:()=>{const z=lerp(-4.0,3.5,bgR());const ct=clamp((z-CALL.zc)/(CALL.a-.25),-1,1),ya=CALL.yc+(CALL.b-.05)*Math.sqrt(1-ct*ct);const yy=ya+1.4+bgJ(.9),zz=z>3.1?6+bgJ(1):z<-3.6?-7+bgJ(.8):z*1.25+bgJ(.6);
+  return [bgEnv([4.5,yy,zz],.55),[1.4,ya+.55,z],[0,ya,z],[-1.4,ya+.55,z],bgEnv([-4.5,yy+bgJ(.3),zz+bgJ(.3)],.55)];}},
+ {k:'af',c:24,cR:11,f:s=>[bgEnv([s*5.4,1.4+bgJ(.5),3.5+bgJ(.6)],.5),[s*(4.4+bgJ(.2)),2.3+bgJ(.25),1+bgJ(.3)],[s*(4.2+bgJ(.2)),2.6+bgJ(.25),-1.8+bgJ(.3)],[s*(4.3+bgJ(.2)),1.5+bgJ(.25),-3.6+bgJ(.3)],[s*(4.9+bgJ(.2)),-.1+bgJ(.25),-3.2+bgJ(.3)],bgEnv([s*5.8,-.7+bgJ(.6),-2.2+bgJ(1)],.5)]},
+ {k:'slf',c:16,f:s=>[bgEnv([s*4.5,3.8+bgJ(.6),4.8+bgJ(.8)],.5),[s*(3.7+bgJ(.2)),3.6+bgJ(.2),1.5],[s*(3.6+bgJ(.2)),3.5+bgJ(.2),-2.2],bgEnv([s*4.3,3.6+bgJ(.6),-5+bgJ(.8)],.5)]},
+ {k:'cing',c:12,f:s=>{const pts=[],m=.85+bgJ(.15);for(let k=0;k<=8;k++){const t=Math.PI*(.08+.84*k/8);pts.push([s*(.75+bgJ(.06)),CALL.yc+(CALL.b+m)*Math.sin(t),CALL.zc+(CALL.a+m)*Math.cos(t)]);}pts.push([s*1.5,-.4,-4.3],[s*2.1,-1.3,-2.2],[s*2.3,-1.5,-.6]);return pts;}},
+ {k:'unc',c:12,f:s=>[[s*(2.6+bgJ(.4)),-.5+bgJ(.3),5.8+bgJ(.5)],[s*(2.9+bgJ(.15)),-.8+bgJ(.15),3.4],[s*(3.2+bgJ(.15)),-1.0+bgJ(.15),2.0],[s*(3.7+bgJ(.15)),-1.6+bgJ(.15),2.3],[s*(4.0+bgJ(.3)),-1.9+bgJ(.3),3.4+bgJ(.3)]]},
+ {k:'ilf',c:12,f:s=>[bgEnv([s*3.4,.1+bgJ(.6),-7.4],.5),[s*(4.0+bgJ(.2)),-.6+bgJ(.2),-4.5],[s*(4.4+bgJ(.2)),-1.3+bgJ(.2),-1],[s*(4.2+bgJ(.25)),-1.7+bgJ(.25),2.6+bgJ(.3)]]},
+ {k:'ifof',c:12,f:s=>[bgEnv([s*3,.7+bgJ(.6),-7.3],.5),[s*(3.4+bgJ(.15)),.2+bgJ(.15),-4],[s*(3.15+bgJ(.1)),-.15+bgJ(.12),-.2],[s*(3.0+bgJ(.15)),.2+bgJ(.15),2.6],bgEnv([s*3.4,1+bgJ(.8),6.4+bgJ(.5)],.5)]},
+ {k:'or',c:18,f:s=>{const lgn=[s*(1.65+bgJ(.08)),-.55+bgJ(.08),-2.3+bgJ(.08)];if(bgR()<.5)return [lgn,[s*(2.5+bgJ(.1)),-.9,-1.1],[s*(2.9+bgJ(.1)),-.7+bgJ(.1),-.1],[s*(3.0+bgJ(.12)),-.2+bgJ(.12),-2.8],[s*(2.3+bgJ(.12)),.3+bgJ(.1),-5.2],[s*(.55+bgJ(.1)),.55+bgJ(.12),-7.3+bgJ(.3)]];return [lgn,[s*(2.2+bgJ(.1)),.1+bgJ(.1),-2.9],[s*(2.2+bgJ(.12)),.8+bgJ(.12),-5],[s*(.55+bgJ(.1)),1.15+bgJ(.12),-7.4+bgJ(.3)]];}},
+ {k:'tcr',c:20,f:s=>{const y=lerp(1.3,5.2,bgR()),z=zCS(y)-.45+bgJ(.12);return [[s*(1.35+bgJ(.08)),-.05+bgJ(.08),-1.7+bgJ(.1)],[s*(1.95+bgJ(.12)),.6+bgJ(.15),-1.25+bgJ(.15)],[s*(2.7+bgJ(.3)),2.4+bgJ(.3),-1.0+bgJ(.3)],bgEnv([s*bgLatX(y),y,z],.5)];}},
+ {k:'dcml',c:12,f:s=>[[s*(.18+bgJ(.06)),-10.3,-2.75],[s*(.2+bgJ(.05)),-7.5,-2.55+bgJ(.04)],[s*(.3+bgJ(.05)),-5.7,-2.45+bgJ(.05)],[bgJ(.05),-5.3,-1.65],[-s*(.25+bgJ(.04)),-4.6,-1.45],[-s*(.35+bgJ(.06)),-3.1,-1.45+bgJ(.05)],[-s*(.65+bgJ(.06)),-1.5,-1.55],[-s*(1.35+bgJ(.06)),-.05+bgJ(.05),-1.7+bgJ(.06)]]},
+ {k:'stt',c:12,f:s=>{const y=lerp(-10.2,-7.6,bgR()),zc=bStemZ(y);return [[s*(.38+bgJ(.04)),y,zc-.45],[0,y+.25,zc+.15],[-s*(.5+bgJ(.04)),y+.6,zc+.1],[-s*(.55+bgJ(.05)),-6.6,bStemZ(-6.6)+.05],[-s*(.75+bgJ(.05)),-5.0,bStemZ(-5)+.1],[-s*(.7+bgJ(.05)),-3.1,-1.5],[-s*(.8+bgJ(.05)),-1.4,-1.55],[-s*(1.35+bgJ(.06)),-.05,-1.75]];}},
+ {k:'mcp',c:12,f:s=>[[s*(.45+bgJ(.1)),-2.9+bgJ(.25),.3+bgJ(.2)],[bgJ(.08),-3.0+bgJ(.2),.15],[-s*(.95+bgJ(.1)),-2.9+bgJ(.2),-.7],[-s*(1.55+bgJ(.1)),-2.85+bgJ(.2),-2.0],[-s*(2.4+bgJ(.3)),-3.0+bgJ(.3),-3.9+bgJ(.3)],[-s*(3.4+bgJ(.5)),-3.2+bgJ(.5),-5.2+bgJ(.5)]]},
+ {k:'scp',c:10,f:s=>[[s*(1.4+bgJ(.15)),-3.6+bgJ(.12),-5.0+bgJ(.15)],[s*(.8+bgJ(.08)),-2.75,-3.1],[s*.45,-2.0,-2.2],[bgJ(.05),-1.5,-1.9],[-s*(.4+bgJ(.05)),-1.05,-1.45],[-s*(1.1+bgJ(.08)),.3+bgJ(.08),-.7+bgJ(.08)]]},
+];
+Object.assign(BREG,{
+ t_cst:{n:'Corticospinal tract',lobe:'White matter · projection fibres',fn:'Upper motor neuron axons from the precentral gyrus (with premotor and parietal contributions) through the corona radiata, the posterior limb of the internal capsule, the middle of the cerebral peduncle, the basilar pons and the medullary pyramid. About 85–90% cross in the pyramidal decussation and run in the lateral corticospinal tract to the anterior horn cells.',blood:'Internal capsule: lenticulostriate branches of the MCA and the anterior choroidal artery; pyramid: anterior spinal artery',lesion:'Above the decussation: contralateral upper motor neuron weakness (spasticity, brisk reflexes, upgoing plantar). Below it: ipsilateral. A small capsular lacune gives pure motor hemiparesis of face, arm and leg.'},
+ t_cc:{n:'Corpus callosum',lobe:'White matter · commissural fibres',fn:'About 200 million axons joining matching areas of the two hemispheres. Genu fibres (forceps minor) link the frontal lobes; splenium fibres (forceps major) the occipital lobes.',blood:'ACA (pericallosal branches); the splenium from the PCA',lesion:'Disconnection: left-hand apraxia and alien-hand signs. Splenium plus left occipital damage (left PCA infarct) gives alexia without agraphia.'},
+ t_af:{n:'Arcuate fasciculus',lobe:'White matter · association fibres',fn:'Curves round the end of the Sylvian fissure from Wernicke’s area and the inferior parietal lobule to Broca’s area. Bigger on the left.',blood:'MCA',lesion:'Conduction aphasia: fluent speech and good comprehension, but repetition fails, with phonemic paraphasias.'},
+ t_slf:{n:'Superior longitudinal fasciculus',lobe:'White matter · association fibres',fn:'Frontal ↔ parietal fibres for spatial attention, working memory and the control of reaching.',blood:'MCA',lesion:'Right-sided damage contributes to neglect of the left side of space.'},
+ t_cing:{n:'Cingulum',lobe:'White matter · association (limbic)',fn:'Runs inside the cingulate gyrus from the frontal lobe round the corpus callosum to the parahippocampal gyrus: part of the limbic circuitry for emotion, attention and memory.',blood:'ACA, PCA',lesion:'Apathy and memory or attention problems. Cingulotomy was once used for intractable pain and OCD.'},
+ t_unc:{n:'Uncinate fasciculus',lobe:'White matter · association fibres',fn:'Hooks from the orbitofrontal cortex to the temporal pole and amygdala: emotion, social behaviour, naming people and things.',blood:'MCA',lesion:'Implicated in the behavioural change of frontotemporal dementia and in problems naming familiar people.'},
+ t_ilf:{n:'Inferior longitudinal fasciculus',lobe:'White matter · association fibres',fn:'Occipital to anterior temporal lobe: the ventral “what” stream for recognising objects, faces and words.',blood:'PCA, MCA',lesion:'Visual agnosia and prosopagnosia (with fusiform damage).'},
+ t_ifof:{n:'Inferior fronto-occipital fasciculus',lobe:'White matter · association fibres',fn:'The longest association bundle: occipital cortex through the extreme capsule to the frontal lobe, carrying semantic language.',blood:'MCA',lesion:'Stimulating it during awake surgery produces semantic paraphasias.'},
+ t_or:{n:'Optic radiation',lobe:'White matter · projection fibres',fn:'From the lateral geniculate nucleus to the calcarine cortex. Fibres for the upper visual field loop forward round the temporal horn (Meyer’s loop); those for the lower field run through the parietal lobe.',blood:'MCA for Meyer’s loop and the parietal course; PCA near V1',lesion:'Temporal lesion: contralateral superior quadrantanopia (“pie in the sky”). Parietal lesion: inferior quadrantanopia.'},
+ t_tcr:{n:'Thalamocortical (somatosensory) radiation',lobe:'White matter · projection fibres',fn:'Third-order neurons from VPL and VPM through the posterior limb of the internal capsule to the postcentral gyrus.',blood:'Lenticulostriate (MCA); thalamogeniculate (PCA) for the thalamus',lesion:'Contralateral loss of all sensation. A thalamic stroke can later cause central pain (Dejerine–Roussy).'},
+ t_dcml:{n:'Dorsal column – medial lemniscus',lobe:'Ascending pathway',fn:'Fine touch, vibration and position. Ipsilateral dorsal columns (gracilis for the leg, cuneatus for the arm) → nuclei gracilis and cuneatus in the medulla → cross as internal arcuate fibres → medial lemniscus → VPL.',blood:'Posterior spinal arteries (cord); paramedian branches (medulla)',lesion:'Cord: ipsilateral loss below the lesion with a positive Romberg (B12 deficiency, tabes dorsalis). Above the medulla: contralateral.'},
+ t_stt:{n:'Spinothalamic (anterolateral) tract',lobe:'Ascending pathway',fn:'Pain and temperature. First synapse in the dorsal horn; second-order fibres cross within one or two segments in the anterior white commissure and climb on the opposite side to VPL.',blood:'Anterior spinal artery (cord); PICA (lateral medulla)',lesion:'Hemisection: contralateral pain and temperature loss from one or two levels below. Syringomyelia: bilateral cape-like loss. Lateral medullary syndrome: contralateral body.'},
+ t_mcp:{n:'Middle cerebellar peduncle',lobe:'Cerebellar input',fn:'Cortex → pontine nuclei → cross → contralateral cerebellar hemisphere. The largest input to the cerebellum.',blood:'AICA, basilar branches',lesion:'Ipsilateral limb ataxia.'},
+ t_scp:{n:'Superior cerebellar peduncle',lobe:'Cerebellar output',fn:'Dentate nucleus → crosses in the midbrain → red nucleus and VL thalamus → motor cortex. This path and the corticospinal tract both cross, so a cerebellar hemisphere controls the same side of the body.',blood:'Superior cerebellar artery',lesion:'Ipsilateral intention tremor and dysmetria (contralateral if the lesion is above the decussation).'},
+});
+const _bgD=new V3();
+const bgLineMat=()=>new THREE.ShaderMaterial({uniforms:{t:BG.tu,hi:{value:0},dim:{value:1}},
+ vertexShader:'attribute vec3 col;attribute float u;attribute float ph;varying vec3 vC;varying float vU;varying float vP;void main(){vC=col;vU=u;vP=ph;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+ fragmentShader:'uniform float t;uniform float hi;uniform float dim;varying vec3 vC;varying float vU;varying float vP;void main(){float p=fract(vU*0.22-t*0.42+vP*7.0);float g=pow(smoothstep(0.86,1.0,p),2.0)*1.8;gl_FragColor=vec4(vC*(0.26+0.5*hi+g*(0.6+hi))*dim,1.0);}',
+ transparent:true,blending:THREE.AdditiveBlending,depthWrite:false});
+function bgTractMesh(T,s){const P=[],Cc=[],U=[],PH=[];const n0=s<0&&T.cR?T.cR:T.c,nn=MOBILE?Math.ceil(n0*.6):n0;
+ for(let j=0;j<nn;j++){const ctl=T.f(s).map(p=>new V3(...p));const cv=new THREE.CatmullRomCurve3(ctl);const N=Math.max(12,Math.round(cv.getLength()*5));const pts=cv.getSpacedPoints(N);const ph=bgR();let u=0;
+  for(let i=0;i<N;i++){const a=pts[i],b=pts[i+1];_bgD.subVectors(b,a);const l=_bgD.length()||1e-6;_bgD.multiplyScalar(1/l);const cr=Math.abs(_bgD.x)*.85+.15,cg=Math.abs(_bgD.z)*.85+.15,cb=Math.abs(_bgD.y)*.85+.15;
+   P.push(a.x,a.y,a.z,b.x,b.y,b.z);Cc.push(cr,cg,cb,cr,cg,cb);U.push(u,u+l);PH.push(ph,ph);u+=l;}}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(P,3));g.setAttribute('col',new THREE.Float32BufferAttribute(Cc,3));g.setAttribute('u',new THREE.Float32BufferAttribute(U,1));g.setAttribute('ph',new THREE.Float32BufferAttribute(PH,1));
+ const m=new THREE.LineSegments(g,bgLineMat());m.userData={kind:'tract',key:'t_'+T.k,s,mid:new THREE.CatmullRomCurve3(T.f(s).map(p=>new V3(...p))).getPointAt(.5)};m.frustumCulled=false;return m;}
+function bgBuild(){bgSeed(4242);const G=BRAIN.wireG=new THREE.Group();BG.tracts=[];
+ for(const T of BGTR)for(const s of (T.one?[1]:[1,-1])){const m=bgTractMesh(T,s);G.add(m);BG.tracts.push(m);}
+ G.visible=false;BRAIN.scene.add(G);
+ BG.stnG=new THREE.Group();BRAIN.scene.add(BG.stnG);BG.legG=new THREE.Group();BRAIN.scene.add(BG.legG);
+ BG.mark=new THREE.Mesh(new THREE.SphereGeometry(.38,24,16),new THREE.MeshBasicMaterial({color:0xff3a4a,transparent:true,opacity:.75,depthTest:false}));BG.mark.renderOrder=10;BG.mark.visible=false;BRAIN.scene.add(BG.mark);
+ BG.dot=new THREE.Mesh(new THREE.SphereGeometry(.2,16,12),new THREE.MeshBasicMaterial({color:0xfff2b0,transparent:true,depthTest:false}));BG.dot.renderOrder=11;BG.dot.visible=false;BRAIN.scene.add(BG.dot);
+ bgStations();}
+// ---------- relay stations (pathway missions) ----------
+const BGST={
+ dc:{n:'Dorsal column',p:[.2,-8.8,-2.75],f:'First-order touch, vibration and position axons, climbing on the side they entered.'},
+ ncu:{n:'Nucleus cuneatus (medulla)',p:[.3,-5.7,-2.45],f:'First synapse of the dorsal-column pathway for the arm (gracilis for the leg).'},
+ iaf:{n:'Sensory decussation (internal arcuate fibres)',p:[0,-5.3,-1.65],mid:1,f:'Second-order touch fibres cross the midline here.'},
+ ml:{n:'Medial lemniscus (pons)',p:[.35,-3.1,-1.45],f:'Second-order touch fibres rising to the thalamus.'},
+ vpl:{n:'VPL nucleus (thalamus)',p:[1.35,-.05,-1.7],f:'Relay for touch and pain from the body.'},
+ vpm:{n:'VPM nucleus (thalamus)',p:[1.0,-.15,-1.5],f:'Relay for touch, pain and taste from the face.'},
+ lgn:{n:'Lateral geniculate nucleus',p:[1.65,-.55,-2.3],f:'Thalamic relay for vision.'},
+ mgn:{n:'Medial geniculate nucleus',p:[1.2,-.65,-2.45],f:'Thalamic relay for hearing.'},
+ vl:{n:'VL nucleus (thalamus)',p:[1.1,.35,-.7],f:'Relays cerebellar and basal ganglia output to motor cortex.'},
+ ic:{n:'Internal capsule, posterior limb',p:[1.65,-.15,-.75],f:'Corticospinal and thalamocortical fibres packed between thalamus and lentiform nucleus.'},
+ ped:{n:'Cerebral peduncle (midbrain)',p:[.6,-1.25,-.35],f:'Corticospinal fibres run in the middle of the crus.'},
+ pyr:{n:'Medullary pyramid',p:[.3,-5.2,-.95],f:'Corticospinal fibres on the front of the medulla.'},
+ dec:{n:'Pyramidal decussation',p:[0,-6.4,-1.45],mid:1,f:'About 85–90% of corticospinal fibres cross here.'},
+ lcst:{n:'Lateral corticospinal tract (cord)',p:[.45,-8.8,-2.35],f:'Crossed upper motor neuron axons descending to anterior horn cells.'},
+ dh:{n:'Dorsal horn (cord)',p:[.35,-9.6,-2.65],f:'First synapse for pain and temperature.'},
+ awc:{n:'Anterior white commissure',p:[0,-9.3,-2.05],mid:1,f:'Pain and temperature fibres cross here within one or two segments.'},
+ alt:{n:'Spinothalamic tract (cord)',p:[.5,-8.8,-1.95],f:'Crossed pain and temperature fibres ascending.'},
+ on:{n:'Optic nerve',p:[1.0,-1.75,3.2],f:'Retinal ganglion cell axons from one eye.'},
+ chi:{n:'Optic chiasm',p:[0,-1.75,1.85],mid:1,f:'Fibres from the nasal half of each retina (the temporal visual field) cross.'},
+ ot:{n:'Optic tract',p:[1.4,-1.3,.2],f:'Carries the opposite visual field from both eyes.'},
+ orad:{n:'Optic radiation',p:[2.6,.2,-4.4],f:'Geniculocalcarine fibres to V1.'},
+ s1hand:{n:'S1 hand area (postcentral gyrus)',cx:{reg:'sensory',y:3.2},f:'Primary somatosensory cortex for the opposite hand.'},
+ s1leg:{n:'S1 leg area (paracentral lobule)',cx:{reg:'paracentral',post:1},f:'Sensory cortex for the opposite leg, on the medial surface.'},
+ s1face:{n:'S1 face area (postcentral gyrus)',cx:{reg:'sensory',y:1.5},f:'Sensory cortex for the opposite face.'},
+ m1hand:{n:'M1 hand area (precentral gyrus)',cx:{reg:'motor',y:3.2},f:'Motor cortex for the opposite hand.'},
+ m1leg:{n:'M1 leg area (paracentral lobule)',cx:{reg:'paracentral',post:0},f:'Motor cortex for the opposite leg, on the medial surface.'},
+ m1face:{n:'M1 face area (precentral gyrus)',cx:{reg:'motor',y:1.5},f:'Motor cortex for the face and tongue, low on the strip.'},
+ v1:{n:'Primary visual cortex (calcarine)',cx:{reg:'visual'},f:'V1, Brodmann 17.'},
+ a1:{n:'Primary auditory cortex (Heschl’s gyrus)',cx:{reg:'auditory'},f:'A1, Brodmann 41.'},
+ wer:{n:'Wernicke’s area',cx:{reg:'wernicke'},f:'Comprehension of language (dominant hemisphere).'},
+ bro:{n:'Broca’s area',cx:{reg:'broca'},f:'Speech production (dominant hemisphere).'},
+ afs:{n:'Arcuate fasciculus',p:[4.4,2.5,-1.6],f:'Links Wernicke’s and Broca’s areas.'},
+};
+// the vertex of a region that best matches what is asked (on the hemisphere of side s: +1 left, −1 right)
+function bgSurf(reg,s,o={}){const m=s>0?BRAIN.L:BRAIN.R;const P=m.geometry.attributes.position,Nn=m.geometry.attributes.normal,R=m.userData.reg;const an=BRAIN.anch[reg+(s>0?'L':'R')];let best=-1,bs=-1e9;
+ for(let i=0;i<P.count;i++){if(R[i]!==reg)continue;const x=P.getX(i),y=P.getY(i),z=P.getZ(i);let sc=0;
+  if(o.near)sc-=Math.hypot(x-o.near[0]*s,y-o.near[1],z-o.near[2]);else if(o.y!=null)sc-=Math.abs(y-o.y)*3-Math.abs(x)*.6;else if(o.post!=null)sc+=y*.8+(o.post?-1:1)*(z-zCS(y))*2-Math.abs(x)*2;else if(an)sc-=Math.hypot(x-an.x,y-an.y,z-an.z);
+  if(sc>bs){bs=sc;best=i;}}
+ if(best<0)return null;return {p:new V3(P.getX(best),P.getY(best),P.getZ(best)),n:new V3(Nn.getX(best),Nn.getY(best),Nn.getZ(best)).normalize()};}
+function bgStations(){BG.stnP={};
+ for(const [k,d] of Object.entries(BGST))for(const sd of (d.mid?['']:['L','R'])){if(d.cx&&['wernicke','broca'].includes(d.cx.reg)&&sd==='R')continue;const key=k+(sd?'_'+sd:''),s=sd==='R'?-1:1;let p;
+  if(d.cx){const r=bgSurf(d.cx.reg,s,d.cx);if(!r)continue;p=r.p.clone().addScaledVector(r.n,-.12);}else p=new V3(d.p[0]*s,d.p[1],d.p[2]);
+  BG.stnP[key]=p;BREG['st_'+key]={n:d.n+(sd?(sd==='L'?' · left':' · right'):''),lobe:'Relay station',fn:d.f,blood:'—',lesion:'—'};}}
+function bgShowStations(keys){BG.stnG.clear();for(const k of keys){const p=BG.stnP[k];if(!p)continue;const m=new THREE.Mesh(new THREE.SphereGeometry(.24,16,12),new THREE.MeshBasicMaterial({color:0x7fe8ff,transparent:true,opacity:.9,depthTest:false}));m.renderOrder=8;m.position.copy(p);m.userData={kind:'stn',key:'st_'+k,base:0x7fe8ff};BG.stnG.add(m);}}
+// ---------- picking, clicks, labels ----------
+function bgPick(rc){if(BG.cellOn)return {k:null};
+ if(BG.stnG&&BG.stnG.children.length){const h=rc.intersectObjects(BG.stnG.children,false)[0];if(h){BRAIN.hit={p:h.point.clone(),n:null,kind:'stn'};return {k:h.object.userData.key};}}
+ if(BRAIN.wireG&&BRAIN.wireG.visible){rc.params.Line=rc.params.Line||{};rc.params.Line.threshold=Math.max(.08,BRAIN.dist*.008);const h=rc.intersectObjects(BG.tracts,false)[0];if(h){BRAIN.hit={p:h.point.clone(),n:null,kind:'tract'};return {k:h.object.userData.key};}}
+ return null;}
+function bgTractHi(key){BG.tracts.forEach(m=>{m.material.uniforms.hi.value=m.userData.key===key?1:0;});}
+function bgLabelsHTML(){if(!BRAIN.open)return '';const cam=BRAIN.cam,out=[],v=new V3();const add=(p,txt,cls)=>{v.copy(p).project(cam);if(v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05)return;out.push(`<div class="blab ${cls||''}" style="left:${(v.x*.5+.5)*innerWidth}px;top:${(-v.y*.5+.5)*innerHeight}px">${txt}</div>`);};
+ if(BG.stnG)BG.stnG.children.forEach(m=>add(m.position.clone().add(new V3(0,.5,0)),BREG[m.userData.key].n,'bst'));
+ if(BRAIN.wireG&&BRAIN.wireG.visible&&!BG.mis){const seen=new Set();BG.tracts.forEach(m=>{const k=m.userData.key;if(seen.has(k)||(m.userData.s<0&&k!=='t_cc'))return;seen.add(k);add(m.userData.mid,BREG[k].n.split(' (')[0],'btr');});}
+ return out.join('');}
+function bgInfoExtra(key){const r=BREG[key];if(!r)return;const p=$('brainInfo');
+ if(key.startsWith('t_')){bgTractHi(key);return;}bgTractHi(null);
+ const cortical=r.lobe&&/Frontal|Parietal|Temporal|Occipital|Limbic/.test(r.lobe)&&BRAIN.hit&&BRAIN.hit.kind==='hemi';
+ if(cortical){const hit=BRAIN.hit;const b=document.createElement('button');b.className='btn';b.textContent='See the cells here ▸';b.style.marginLeft='6px';b.onclick=()=>bgCells(hit.p,hit.n,key,null);const after=$('bDive');if(after)after.after(b);else p.insertBefore(b,p.lastElementChild);}}
+// ---------- 2. the cells ----------
+const BGL={generic:[.09,.08,.28,.10,.22,.23],motor:[.08,.07,.32,0,.28,.25],sensory:[.10,.10,.25,.20,.15,.20],visual:[.09,.08,.22,.31,.12,.18]};
+const BGT={generic:2.6,motor:3.5,sensory:2.0,visual:2.0};
+const BGLN=['I','II','III','IV','V','VI'],BGLF=['molecular','external granular','external pyramidal','internal granular','internal pyramidal','multiform'];
+const BGND=[3,50,28,45,20,28];                              // thousand neurons per mm³ by layer (rough human values; Nissl counts vary by area)
+const bgColType=reg=>['motor','premotor','paracentral'].includes(reg)?'motor':reg==='sensory'?'sensory':['visual','cuneus','lingual'].includes(reg)?'visual':'generic';
+let bgDot=null;const bgDotTex=()=>{if(bgDot)return bgDot;const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.7)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,64,64);bgDot=new THREE.CanvasTexture(c);return bgDot;};
+function bgColumn(reg,path){bgSeed(777+(path==='stroke'?3:path==='ad'?5:0));
+ const ty=bgColType(reg),T=BGT[ty],fr=BGL[ty],Wd=1.0,WM=.55,H=Wd/2,ybot=-T,ywm=-T-WM;const G=new THREE.Group();
+ const lay=[];let y0=0;fr.forEach((f,i)=>{lay.push({n:BGLN[i],f:BGLF[i],top:y0,bot:y0-f*T});y0-=f*T;});
+ const inL=yy=>lay.findIndex(l=>l.top-l.bot>1e-4&&yy<=l.top&&yy>l.bot);
+ const C={G,ty,T,lay,path,reg,neur:[],th:[],syn:[],pul:[],t:0,n:{},ybot,ywm,volley:3};
+ const rnd=(a,b)=>a+(b-a)*bgR();const clampB=v=>{v.x=clamp(v.x,-H,H);v.z=clamp(v.z,-H,H);v.y=clamp(v.y,ywm,-.004);return v;};
+ const segs=[],segc=[];const addSeg=(a,b,c)=>{segs.push(a.x,a.y,a.z,b.x,b.y,b.z);segc.push(c.r,c.g,c.b,c.r,c.g,c.b);};
+ const WHITE=new THREE.Color(.95,.95,.92);
+ // --- every cell body as a faint dot (Nissl-like) ---
+ const cap=MOBILE?12000:42000;let nN=0,nG=0;const vol=l=>Wd*Wd*(l.top-l.bot);lay.forEach((l,i)=>{nN+=BGND[i]*1000*vol(l);nG+=35000*vol(l);});const nW=55000*Wd*Wd*WM;
+ const lost=path==='ad'?.33:0;C.n={neur:Math.round(nN*(1-lost)),glia:Math.round(nG+nW)};const tot=C.n.neur+C.n.glia,keep=Math.min(1,cap/tot);C.n.keep=keep;
+ const dots=new THREE.InstancedMesh(new THREE.OctahedronGeometry(1,0),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.34,blending:THREE.AdditiveBlending,depthWrite:false}),Math.ceil(tot*keep)+10);dots.frustumCulled=false;
+ const M=new THREE.Matrix4(),Q=new THREE.Quaternion(),Sv=new V3(),Pv=new V3(),Cl=new THREE.Color();let di=0;
+ const putDot=(p,r,c,sy)=>{Sv.set(r,r*(sy||1),r);M.compose(p,Q,Sv);dots.setMatrixAt(di,M);dots.setColorAt(di,c);di++;};
+ const cN=path==='stroke'?new THREE.Color(.75,.12,.12):new THREE.Color(.34,.3,.62),cA=new THREE.Color(.36,.32,.42),cO=new THREE.Color(.22,.36,.3),cM=new THREE.Color(.5,.25,.12);
+ lay.forEach((l,i)=>{if(l.top-l.bot<1e-4)return;const nn=BGND[i]*1000*vol(l)*(1-lost)*keep,ng=35000*vol(l)*keep;for(let k=0;k<nn;k++){Pv.set(rnd(-H,H),rnd(l.bot,l.top),rnd(-H,H));putDot(Pv,i===4&&ty==='motor'?.011:i===2||i===4?.008:.0055,cN,1.4);}
+  for(let k=0;k<ng;k++){Pv.set(rnd(-H,H),rnd(l.bot,l.top),rnd(-H,H));const u=bgR();putDot(Pv,.0035,u<.55?cO:u<.9?cA:cM);}});
+ for(let k=0;k<nW*keep;k++){Pv.set(rnd(-H,H),rnd(ywm,ybot),rnd(-H,H));putDot(Pv,.0035,bgR()<.75?cO:cA);}
+ dots.count=di;dots.instanceMatrix.needsUpdate=true;G.add(dots);C.dots=dots;
+ // --- capillary bed (intercapillary distance in human cortex is ~40–60 µm; drawn sparser) ---
+ const sp=MOBILE?.12:.085,nx=Math.round(Wd/sp),ny=Math.round((T+WM)/sp);const cn=[];for(let ix=0;ix<=nx;ix++)for(let iy=0;iy<=ny;iy++)for(let iz=0;iz<=nx;iz++)cn.push(new V3(-H+ix*sp+bgJ(sp*.35),-iy*sp+bgJ(sp*.35),-H+iz*sp+bgJ(sp*.35)).clone());
+ cn.forEach(clampB);const id=(ix,iy,iz)=>(ix*(ny+1)+iy)*(nx+1)+iz;const cp=[];const cR=path==='stroke'?new THREE.Color(.22,.05,.07):new THREE.Color(.62,.12,.2);
+ for(let ix=0;ix<=nx;ix++)for(let iy=0;iy<=ny;iy++)for(let iz=0;iz<=nx;iz++){const a=cn[id(ix,iy,iz)];if(ix<nx&&bgR()<.62){const b=cn[id(ix+1,iy,iz)];cp.push(a.x,a.y,a.z,b.x,b.y,b.z);}if(iy<ny&&bgR()<.62){const b=cn[id(ix,iy+1,iz)];cp.push(a.x,a.y,a.z,b.x,b.y,b.z);}if(iz<nx&&bgR()<.62){const b=cn[id(ix,iy,iz+1)];cp.push(a.x,a.y,a.z,b.x,b.y,b.z);}}
+ const capG=new THREE.BufferGeometry();capG.setAttribute('position',new THREE.Float32BufferAttribute(cp,3));const capM=new THREE.LineSegments(capG,new THREE.LineBasicMaterial({color:cR,transparent:true,opacity:.4,blending:THREE.AdditiveBlending,depthWrite:false}));capM.frustumCulled=false;G.add(capM);
+ const vessel=(x,z,r,col)=>{const pts=[];for(let k=0;k<=10;k++)pts.push(new V3(x+bgJ(.015),.04-k*(T+.04)/10,z+bgJ(.015)));const m=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),40,r,8,false),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.8}));G.add(m);};
+ vessel(-.19,.12,.013,path==='stroke'?0x3a0a10:0xc8283c);vessel(.2,-.16,.017,0x5a3f96);
+ // --- traced neurons (Golgi-like sample) ---
+ const colE=[[.5,1,.45],[1,.86,.3],[1,.45,.72],[.55,.9,1],[1,.62,.32],[.8,.6,1]],colI=[[.3,.7,1],[.25,1,.92]];
+ function grow(N,p,dir,len,o,depth,pi){let q=p.clone(),d=dir.clone().normalize();const st=o.st||.012,n=Math.max(2,Math.round(len/st));let li=pi==null?-1:pi;if(o.ax&&!N.axPar)N.axPar=[];
+  for(let k=0;k<n;k++){d.x+=(bgR()-.5)*o.w;d.y+=(bgR()-.5)*o.w+(o.up||0);d.z+=(bgR()-.5)*o.w;d.normalize();const q2=clampB(q.clone().addScaledVector(d,st));addSeg(q,q2,o.ax&&q2.y<ybot?WHITE:o.c);
+   if(o.ax){N.ax.push(q2);N.axPar.push(li);li=N.ax.length-1;}else N.den.push(q2);q=q2;
+   if((depth||0)<(o.md||1)&&bgR()<(o.br||0)/n){const nd=d.clone().add(new V3(bgR()-.5,(bgR()-.5)*.6,bgR()-.5).multiplyScalar(1.6)).normalize();grow(N,q,nd,len*(1-k/n)*.6,{...o,up:(o.up||0)*.3},(depth||0)+1,li);}}
+  N._li=li;return q;}
+ const plaques=[];if(path==='ad')for(let k=0;k<(MOBILE?12:20);k++){const l=lay[1+((bgR()*5)|0)];if(l.top-l.bot<1e-3)continue;plaques.push({p:new V3(rnd(-H*.85,H*.85),rnd(l.bot,l.top),rnd(-H*.85,H*.85)),r:rnd(.025,.045)});}
+ const nearPl=p=>plaques.some(q=>q.p.distanceTo(p)<q.r+.04);
+ function neuron(type,soma){const exc=type!=='bas'&&type!=='mar';const cc=exc?colE[(bgR()*colE.length)|0]:colI[(bgR()*colI.length)|0];let c=new THREE.Color(...cc);
+  const dead=path==='stroke';if(dead)c=new THREE.Color(.55,.09,.07);const ca=c.clone().multiplyScalar(.6);
+  const N={type,exc,soma,den:[],ax:[],c,v:bgR()*.5,ref:0,fl:0,out:[],dead,tangle:path==='ad'&&exc&&bgR()<.5,s0:segs.length};
+  if(type==='pyr'||type==='betz'){const top=-.03-bgR()*.03;const ap=grow(N,soma,new V3(0,1,0),Math.max(.05,top-soma.y),{w:.18,up:.25,br:soma.y<-1?7:4,md:1,c,st:.015});
+   for(let k=0;k<5;k++)grow(N,ap,new V3(Math.cos(k*1.26+bgR()),-.15,Math.sin(k*1.26+bgR())),.09+bgR()*.08,{w:.5,br:2,md:1,c});
+   const nb=type==='betz'?9:6;for(let k=0;k<nb;k++)grow(N,soma,new V3(Math.cos(k*6.28/nb+bgR()),-.3-bgR()*.6,Math.sin(k*6.28/nb+bgR())),(type==='betz'?.24:.13)+bgR()*.08,{w:.45,br:2.5,md:2,c});
+   grow(N,soma,new V3(0,-1,0),soma.y-ywm+.02,{w:.08,up:-.05,c:ca,ax:1,st:.02});}
+  else if(type==='ss'){for(let k=0;k<7;k++)grow(N,soma,new V3(bgR()-.5,bgR()-.5,bgR()-.5),.07+bgR()*.04,{w:.6,br:2,md:1,c});grow(N,soma,new V3(0,1,0),.3+bgR()*.25,{w:.25,up:.1,c:ca,ax:1});}
+  else if(type==='bas'){for(let k=0;k<5;k++)grow(N,soma,new V3(bgR()-.5,bgR()-.5,bgR()-.5),.08,{w:.4,br:1,c});grow(N,soma,new V3(bgR()-.5,.1,bgR()-.5),.22,{w:.5,c:ca,ax:1,br:4,md:1});}
+  else if(type==='mar'){for(let k=0;k<4;k++)grow(N,soma,new V3(bgR()-.5,bgR()-.5,bgR()-.5),.07,{w:.4,br:1,c});const a=grow(N,soma,new V3(0,1,0),Math.max(.05,-.04-soma.y),{w:.15,up:.2,c:ca,ax:1});const ai=N._li;for(let k=0;k<4;k++)grow(N,a,new V3(Math.cos(k*1.6),0,Math.sin(k*1.6)),.15,{w:.3,c:ca,ax:1},0,ai);}
+  N.s1=segs.length;
+  if(dead)for(let i=N.s0/3;i<N.s1/3;i+=2)if(bgR()<.4){segc[i*3]=segc[i*3+1]=segc[i*3+2]=0;segc[i*3+3]=segc[i*3+4]=segc[i*3+5]=0;}   // beading and fragmentation of dead dendrites
+  C.neur.push(N);return N;}
+ const nm=MOBILE?.7:1.3;const place=(li,n,type)=>{const l=lay[li];if(!l||l.top-l.bot<.02)return;for(let k=0;k<Math.max(1,Math.round(n*nm));k++){if(path==='ad'&&bgR()<.33)continue;neuron(type,new V3(rnd(-H*.8,H*.8),rnd(l.bot+.02,l.top-.02),rnd(-H*.8,H*.8)));}};
+ place(1,3,'pyr');place(2,ty==='motor'?14:10,'pyr');if(ty!=='motor')place(3,ty==='visual'?12:9,'ss');place(4,ty==='motor'?6:8,'pyr');if(ty==='motor')place(4,2,'betz');place(5,6,'pyr');
+ [1,2,3,4,5].forEach(li=>place(li,2,'bas'));place(4,2,'mar');place(5,1,'mar');
+ // thalamic axons arrive from the white matter and branch in layer IV (in agranular motor cortex, in III and V)
+ const thY=ty==='motor'?[lay[2].bot+.1,lay[4].top-.1]:[(lay[3].top+lay[3].bot)/2];
+ for(let k=0;k<(MOBILE?4:6);k++){const st=new V3(rnd(-H*.7,H*.7),ywm+.01,rnd(-H*.7,H*.7));const N={type:'th',exc:true,soma:st,den:[],ax:[],c:new THREE.Color(1,.8,.3),v:0,ref:0,fl:0,out:[]};const ty0=thY[k%thY.length];
+  const a=grow(N,st,new V3(0,1,0),ty0-st.y,{w:.1,c:new THREE.Color(1,.8,.3),ax:1,st:.02});const ai=N._li;for(let j=0;j<5;j++)grow(N,a,new V3(Math.cos(j*1.3),bgJ(.2),Math.sin(j*1.3)),.12,{w:.35,c:new THREE.Color(.85,.65,.25),ax:1,br:2},0,ai);C.th.push(N);}
+ // --- the connectome: canonical microcircuit rules (rough probabilities; real cortical neurons each carry ~7,000 synapses) ---
+ const E=C.neur,L=N=>inL(N.soma.y);
+ const L23=E.filter(N=>N.type==='pyr'&&(L(N)===1||L(N)===2)),L4=E.filter(N=>N.type==='ss'),L5=E.filter(N=>(N.type==='pyr'||N.type==='betz')&&L(N)===4),L6=E.filter(N=>N.type==='pyr'&&L(N)===5),BAS=E.filter(N=>N.type==='bas'),MAR=E.filter(N=>N.type==='mar'),PYR=E.filter(N=>N.exc);
+ const pick=(P,arr,k)=>{const c=arr.filter(q=>q!==P).map(q=>({q,w:Math.exp(-q.soma.distanceTo(P.soma)/.35)*bgR()})).sort((a,b)=>b.w-a.w);return c.slice(0,k).map(o=>o.q);};
+ const connect=(P,Q,w,tuft)=>{let ds=tuft?Q.den.filter(p=>p.y>-.18):Q.den;if(!ds.length)ds=Q.den;if(!ds.length)return;const s=ds[(bgR()*ds.length)|0];if(path==='ad'&&nearPl(s)&&bgR()<.8)return;
+  const ax=P.ax.length?P.ax:[P.soma];let bi=0,bd=1e9;ax.forEach((a,i)=>{const d=a.distanceToSquared(s);if(d<bd){bd=d;bi=i;}});const a=ax[bi];
+  const mid=a.clone().lerp(s,.5).add(new V3(bgJ(.03),bgJ(.03),bgJ(.03)));const bp=new THREE.QuadraticBezierCurve3(a,mid,s).getPoints(8);const ca=P.c.clone().multiplyScalar(P.type==='th'?.75:.5);for(let i=0;i<8;i++)addSeg(bp[i],bp[i+1],ca);
+  const chain=[];if(P.ax.length){let i=bi;while(i>=0){chain.push(P.ax[i]);i=P.axPar[i];}chain.reverse();}const pth=[P.soma,...chain,...bp.slice(1)];const S={pre:P,post:Q,p:s,w,pth,fl:0,inh:w<0};bgPathLen(S);C.syn.push(S);P.out.push(S);};
+ C.th.forEach(P=>{if(L4.length)pick(P,L4,5).forEach(Q=>connect(P,Q,.6));pick(P,L23,ty==='motor'?3:1).forEach(Q=>connect(P,Q,.5));pick(P,L5,ty==='motor'?3:1).forEach(Q=>connect(P,Q,.5));pick(P,L6,1).forEach(Q=>connect(P,Q,.4));});
+ L4.forEach(P=>{pick(P,L23,4).forEach(Q=>connect(P,Q,.45));pick(P,L4,1).forEach(Q=>connect(P,Q,.3));pick(P,BAS,1).forEach(Q=>connect(P,Q,.4));});
+ L23.forEach(P=>{pick(P,L5,3).forEach(Q=>connect(P,Q,.42));pick(P,L23,2).forEach(Q=>connect(P,Q,.3));pick(P,BAS,1).forEach(Q=>connect(P,Q,.4));});
+ L5.forEach(P=>{pick(P,L5,1).forEach(Q=>connect(P,Q,.3));pick(P,MAR,1).forEach(Q=>connect(P,Q,.5));});
+ L6.forEach(P=>{pick(P,L4.length?L4:L23,1).forEach(Q=>connect(P,Q,.3));pick(P,BAS,1).forEach(Q=>connect(P,Q,.4));});
+ BAS.forEach(P=>pick(P,PYR,5).forEach(Q=>connect(P,Q,-.7)));MAR.forEach(P=>pick(P,PYR,4).forEach(Q=>connect(P,Q,-.5,true)));
+ // output: every pyramidal spike also runs down its own axon into the white matter
+ E.forEach(N=>{if(N.ax.length&&(N.type==='pyr'||N.type==='betz')){const S={pre:N,post:null,p:N.ax[N.ax.length-1],w:0,pth:[N.soma,...N.ax],fl:0,out:1};bgPathLen(S);N.out.push(S);}});
+ // --- glia ---
+ const astC=path==='stroke'?new THREE.Color(.95,.85,1):new THREE.Color(.72,.64,.98),oliC=new THREE.Color(.85,.98,.88),micC=new THREE.Color(1,.55,.28);const Gd={den:[],ax:[]};
+ const nA=Math.round((MOBILE?11:18)*(path==='stroke'?1.4:1));for(let k=0;k<nA;k++){const p=new V3(rnd(-H*.9,H*.9),rnd(ybot+.05,-.02),rnd(-H*.9,H*.9));const L_=path==='stroke'?1.4:1;
+  for(let j=0;j<12;j++)grow(Gd,p,new V3(bgR()-.5,bgR()-.5,bgR()-.5),(.035+bgR()*.03)*L_,{w:.9,br:3,md:2,c:astC,st:.006});
+  let best=null,bd=1e9;cn.forEach(q=>{const d=q.distanceToSquared(p);if(d<bd){bd=d;best=q;}});if(best&&bd<.02){addSeg(p,best,astC);for(let j=0;j<4;j++)addSeg(best,best.clone().add(new V3(bgJ(.012),bgJ(.012),bgJ(.012))),astC);}}   // an endfoot on the nearest capillary
+ for(let k=0;k<(MOBILE?5:9);k++){const p=new V3(rnd(-H*.8,H*.8),k%2?rnd(ywm+.05,ybot):rnd(lay[5].bot,lay[4].top),rnd(-H*.8,H*.8));for(let j=0;j<6;j++){const x=p.x+bgJ(.06),z=p.z+bgJ(.06),yc=p.y+bgJ(.06),L_=.09;const a=new V3(x,yc-L_/2,z),b=new V3(x,yc+L_/2,z);clampB(a);clampB(b);addSeg(p,new V3(x,yc,z),oliC);addSeg(a,b,WHITE);addSeg(a.clone().add(new V3(.003,0,0)),b.clone().add(new V3(.003,0,0)),WHITE);}}   // each process wraps one internode
+ for(let k=0;k<(MOBILE?60:130);k++){const x=rnd(-H,H),z=rnd(-H,H);let yy=ybot;while(yy>ywm){const l=.07+bgR()*.04;addSeg(new V3(x,yy,z),new V3(x,Math.max(ywm,yy-l),z),new THREE.Color(.55,.55,.52));yy-=l+.004;}}   // myelinated axons of passage, gaps = nodes of Ranvier
+ if(ty==='visual'){const yb=lay[3].top-(lay[3].top-lay[3].bot)*.35;for(let k=0;k<(MOBILE?90:180);k++){const a=new V3(rnd(-H,H),yb+bgJ(.03),rnd(-H,H));const d=new V3(bgR()-.5,0,bgR()-.5).normalize().multiplyScalar(.08);addSeg(a,clampB(a.clone().add(d)),new THREE.Color(.6,.6,.58));}}   // stria of Gennari
+ const nMi=Math.round((MOBILE?5:8)*(path==='stroke'?3:1));for(let k=0;k<nMi;k++){const p=new V3(rnd(-H*.9,H*.9),rnd(ybot,-.02),rnd(-H*.9,H*.9));for(let j=0;j<8;j++)grow(Gd,p,new V3(bgR()-.5,bgR()-.5,bgR()-.5),path==='stroke'?.012:.03,{w:1,br:4,md:2,c:micC,st:.005});}
+ plaques.forEach(q=>{for(let j=0;j<2;j++){const p=q.p.clone().add(new V3(bgJ(1),bgJ(1),bgJ(1)).normalize().multiplyScalar(q.r+.01));for(let i=0;i<6;i++)grow(Gd,p,q.p.clone().sub(p).normalize(),.02,{w:.9,br:2,c:micC,st:.005});}
+  for(let i=0;i<10;i++){const p=q.p.clone().add(new V3(bgJ(1),bgJ(1),bgJ(1)).normalize().multiplyScalar(q.r*1.1));grow(Gd,p,new V3(bgR()-.5,bgR()-.5,bgR()-.5),.025,{w:1.2,c:new THREE.Color(.55,.45,.35),st:.004});}});   // dystrophic neurites
+ // --- draw it ---
+ const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(segs,3));lg.setAttribute('color',new THREE.Float32BufferAttribute(segc,3));
+ const lines=new THREE.LineSegments(lg,new THREE.LineBasicMaterial({vertexColors:true,color:0xb0b0b0,opacity:.8,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));lines.frustumCulled=false;G.add(lines);
+ const all=[...E,...C.th];const sm=new THREE.InstancedMesh(new THREE.SphereGeometry(1,12,8),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}),all.length);sm.frustumCulled=false;
+ all.forEach((N,i)=>{const r=N.type==='betz'?.032:N.type==='pyr'?.012:N.type==='th'?.004:.009;Sv.set(r,N.type==='pyr'||N.type==='betz'?r*1.5:r,r);M.compose(N.soma,Q,Sv);sm.setMatrixAt(i,M);sm.setColorAt(i,N.c);});G.add(sm);C.sm=sm;C.all=all;
+ if(plaques.length){const pp=[];plaques.forEach(q=>{for(let k=0;k<160;k++){const d=new V3(bgJ(1),bgJ(1),bgJ(1)).normalize().multiplyScalar(q.r*Math.pow(bgR(),.6));pp.push(q.p.x+d.x,q.p.y+d.y,q.p.z+d.z);}});const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.Float32BufferAttribute(pp,3));
+  G.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xffb040,size:.004,map:bgDotTex(),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false})));}
+ C.tangles=E.filter(N=>N.tangle);if(C.tangles.length){const tm=new THREE.InstancedMesh(new THREE.ConeGeometry(.5,1,6),new THREE.MeshBasicMaterial({color:0x200818}),C.tangles.length);C.tangles.forEach((N,i)=>{Sv.set(.012,.034,.012);M.compose(N.soma,Q,Sv);tm.setMatrixAt(i,M);});G.add(tm);}   // flame-shaped tangles fill the soma
+ // synapses and travelling spikes
+ const sg=new THREE.BufferGeometry();const sp_=new Float32Array(C.syn.length*3),sc_=new Float32Array(C.syn.length*3);C.syn.forEach((S,i)=>{sp_.set([S.p.x,S.p.y,S.p.z],i*3);});sg.setAttribute('position',new THREE.BufferAttribute(sp_,3));sg.setAttribute('color',new THREE.BufferAttribute(sc_,3));
+ C.synP=new THREE.Points(sg,new THREE.PointsMaterial({size:.009,vertexColors:true,map:bgDotTex(),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));C.synP.frustumCulled=false;G.add(C.synP);
+ const MP=MOBILE?500:1400;const pg2=new THREE.BufferGeometry();pg2.setAttribute('position',new THREE.BufferAttribute(new Float32Array(MP*3),3));pg2.setAttribute('color',new THREE.BufferAttribute(new Float32Array(MP*3),3));pg2.setDrawRange(0,0);
+ C.pulP=new THREE.Points(pg2,new THREE.PointsMaterial({size:.016,vertexColors:true,map:bgDotTex(),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));C.pulP.frustumCulled=false;C.MP=MP;G.add(C.pulP);
+ // the block's edges and the layer boundaries
+ const bx=[];const rect=yy=>{const c=[[-H,-H],[H,-H],[H,H],[-H,H],[-H,-H]];for(let i=0;i<4;i++)bx.push(c[i][0],yy,c[i][1],c[i+1][0],yy,c[i+1][1]);};lay.forEach(l=>{if(l.top-l.bot>1e-4)rect(l.top);});rect(ybot);rect(ywm);[[-H,-H],[H,-H],[H,H],[-H,H]].forEach(([x,z])=>bx.push(x,0,z,x,ywm,z));
+ const bg=new THREE.BufferGeometry();bg.setAttribute('position',new THREE.Float32BufferAttribute(bx,3));G.add(new THREE.LineSegments(bg,new THREE.LineBasicMaterial({color:0x8a7a90,transparent:true,opacity:.45})));
+ const pia=new THREE.Mesh(new THREE.PlaneGeometry(Wd,Wd),new THREE.MeshBasicMaterial({color:0xe8b0b8,transparent:true,opacity:.08,side:THREE.DoubleSide,depthWrite:false}));pia.rotation.x=-Math.PI/2;G.add(pia);
+ C.nTraced=E.length;C.nSyn=C.syn.filter(S=>!S.out).length;C.Wd=Wd;C.WM=WM;
+ G.scale.setScalar(.1);return C;}
+function bgPathLen(S){let L=0;S.cum=[0];for(let i=1;i<S.pth.length;i++){L+=S.pth[i].distanceTo(S.pth[i-1]);S.cum.push(L);}S.len=L;}
+function bgAt(S,d,out){const c=S.cum;let i=1;while(i<c.length-1&&c[i]<d)i++;const a=S.pth[i-1],b=S.pth[i],f=clamp((d-c[i-1])/Math.max(1e-6,c[i]-c[i-1]),0,1);return out.lerpVectors(a,b,f);}
+function bgSpike(C,N){N.v=0;N.ref=.22;N.fl=1;for(const S of N.out)if(C.pul.length<C.MP)C.pul.push({S,d:0});}
+function bgCellTick(dt){const C=BG.cell;if(!C)return;C.t+=dt;const SPD=.6;   // mm per second on screen; real unmyelinated cortical axons conduct ~0.3–1 m/s, so this is ~800× slower
+ C.volley-=dt;if(C.volley<=0){C.volley=5+Math.random()*2;C.burst=[0,.12,.24];}
+ if(C.burst){C.burst=C.burst.filter(b=>{if(b<=0){C.th.forEach(N=>bgSpike(C,N));return false;}return true;}).map(b=>b-dt);if(!C.burst.length)C.burst=null;}
+ for(const N of C.all){N.fl=Math.max(0,N.fl-dt*2.5);N.ref-=dt;if(N.dead)continue;N.v*=Math.exp(-dt/.5);if(Math.random()<(N.type==='th'?.35:.12)*dt)N.v+=.7;if(N.v>=1&&N.ref<=0)bgSpike(C,N);}
+ const keep=[];for(const P of C.pul){P.d+=SPD*dt;if(P.d>=P.S.len){const S=P.S;S.fl=1;if(S.post&&!S.post.dead)S.post.v+=S.w*(S.post.tangle?.55:1);}else keep.push(P);}C.pul=keep;
+ const pa=C.pulP.geometry.attributes.position,pc=C.pulP.geometry.attributes.color,v=new V3();C.pul.forEach((P,i)=>{bgAt(P.S,P.d,v);pa.setXYZ(i,v.x,v.y,v.z);const c=P.S.inh?[.3,.75,1]:P.S.pre.type==='th'?[1,.8,.35]:[1,1,.8];pc.setXYZ(i,c[0],c[1],c[2]);});
+ C.pulP.geometry.setDrawRange(0,C.pul.length);pa.needsUpdate=pc.needsUpdate=true;
+ const sc=C.synP.geometry.attributes.color;C.syn.forEach((S,i)=>{S.fl=Math.max(0,S.fl-dt*2);const b=.18+S.fl*1.4;if(S.inh)sc.setXYZ(i,.3*b,.7*b,b);else sc.setXYZ(i,b,.9*b,.55*b);});sc.needsUpdate=true;
+ const col=new THREE.Color();C.all.forEach((N,i)=>{const k=N.dead?.45:.55+N.fl*1.6;col.copy(N.c).multiplyScalar(k);C.sm.setColorAt(i,col);});C.sm.instanceColor.needsUpdate=true;}
+// ---- entering and leaving the column ----
+const BGPATH={
+ stroke:'<b>Acute infarct, about a day old.</b> Every neuron in this block is dead: shrunken, deeply eosinophilic “red neurons” whose dendrites are breaking into beads. The thalamic axons (gold) still fire into it, but nothing answers. Capillaries are empty, microglia have pulled in their processes and turned amoeboid, and astrocytes are swelling. Over days macrophages clear the debris; over weeks astrocytes wall off a fluid-filled cavity.',
+ ad:'<b>Alzheimer disease.</b> Amber balls are amyloid-β plaques (here 50–90 µm) with swollen dystrophic neurites and microglia gathered round them. Dark flame-shaped somata carry neurofibrillary tangles of hyperphosphorylated tau. About a third of the neurons are gone and synapses near plaques are lost, so fewer spikes get through. Synapse loss and tangles, more than plaques, track the memory loss.',
+};
+const BGTYP={motor:'Agranular cortex: no layer IV. Giant Betz cells in layer V send their axons down the corticospinal tract; thalamic (VL) input lands in III and V.',sensory:'Granular koniocortex: thin, dominated by layer IV, where VPL and VPM axons arrive.',visual:'Granular cortex with a thick layer IV split by the stria of Gennari (the white band of myelinated fibres that gives “striate cortex” its name).',generic:'Six-layered isocortex. Thalamic axons land in layer IV, which passes the signal up to II/III and down to V.'};
+function bgCells(p,n,reg,path,title){if(!p)return;if(!n){n=p.clone().sub(new V3(Math.sign(p.x)*2.25,.7,-.2)).normalize();}
+ if(BG.cell){BRAIN.scene.remove(BG.cell.G);BG.cell=null;}
+ const C=bgColumn(reg,path);BG.cell=C;C.p=p.clone();C.nrm=n.clone().normalize();C.G.position.copy(p);C.G.quaternion.setFromUnitVectors(new V3(0,1,0),C.nrm);BRAIN.scene.add(C.G);
+ const h=(C.T+C.WM)*.1;C.ctr=p.clone().addScaledVector(C.nrm,-h*.45);C.title=title||(BREG[reg]?BREG[reg].n:'Cortex');
+ const N=C.nrm,T1=new V3().crossVectors(N,Math.abs(N.y)<.9?new V3(0,1,0):new V3(1,0,0)).normalize(),T2=new V3().crossVectors(N,T1).normalize();C.T1=T1;C.T2=T2;
+ const yaw=.5,pitch=.18;const dir1=T1.clone().multiplyScalar(Math.cos(pitch)*Math.cos(yaw)).addScaledVector(T2,Math.cos(pitch)*Math.sin(yaw)).addScaledVector(N,Math.sin(pitch));
+ const cam=BRAIN.cam;BG.cellOn=true;BRAIN.anim=null;BRAIN.sel=null;bApply();
+ BG.fly={t:0,T:2.6,tg0:BRAIN.tgt.clone(),tg1:C.ctr.clone(),dir0:cam.position.clone().sub(BRAIN.tgt).normalize(),dir1,d0:cam.position.distanceTo(BRAIN.tgt),d1:h*2.05,up0:cam.up.clone(),up1:N.clone(),done:()=>{BRAIN.yaw=yaw;BRAIN.pitch=pitch;BRAIN.dist=h*2.05;BRAIN.tgt.copy(C.ctr);}};
+ bgCellInfo();sfx&&sfx('scan');}
+function bgCellExit(){const C=BG.cell;if(!C)return;const cam=BRAIN.cam;const y1=-Math.PI/2-.45,p1=.35;const dir1=new V3(Math.cos(p1)*Math.sin(y1),Math.sin(p1),Math.cos(p1)*Math.cos(y1));
+ BG.fly={t:0,T:2.2,tg0:BRAIN.tgt.clone(),tg1:new V3(0,0,-.6),dir0:cam.position.clone().sub(BRAIN.tgt).normalize(),dir1,d0:cam.position.distanceTo(BRAIN.tgt),d1:bFit(),up0:cam.up.clone(),up1:new V3(0,1,0),
+  done:()=>{BG.cellOn=false;BRAIN.scene.remove(C.G);BG.cell=null;BRAIN.yaw=y1;BRAIN.pitch=p1;BRAIN.dist=bFit();BRAIN.tgt.set(0,0,-.6);cam.up.set(0,1,0);bApply();bInfo(null);if(BG.mis)bgRender();}};}
+function bgCellInfo(){const C=BG.cell,p=$('brainInfo');p.classList.remove('idle');const f=C.n.keep<1?`one dot in ${Math.round(1/C.n.keep)} drawn`:'every one drawn';
+ p.innerHTML=`<div class="eyebrow">Cells · 1 × 1 mm × ${C.T} mm of cortex</div><h3>${C.title}</h3>${C.path?`<p class="small" style="color:#ffb0a0">${BGPATH[C.path]}</p>`:''}
+ <p class="small">${BGTYP[C.ty]}</p><p class="small">Faint dots are every cell body at roughly human density: about <b>${C.n.neur.toLocaleString()}</b> neurons and <b>${C.n.glia.toLocaleString()}</b> glia in this block (${f}). Glia and neurons are roughly 1:1 across the human brain, not the 10:1 of old textbooks.</p>
+ <p class="small">Bright: <b>${C.nTraced}</b> neurons traced in full, the way a Golgi stain picks a random few percent, wired by the canonical circuit: thalamic axons (gold) → layer IV → II/III → V → out to the white matter. Blue cells are inhibitory interneurons. ${C.nSyn} synapses drawn (a real cortical neuron has about 7,000). Spikes travel ~800× slower than life so you can follow them; firing rates are real.</p>
+ <div class="bleg"><span><i style="background:#9f8"></i>excitatory</span><span><i style="background:#4bf"></i>inhibitory</span><span><i style="background:#fc5"></i>thalamic axon</span><span><i style="background:#b9f"></i>astrocyte</span><span><i style="background:#eee"></i>myelin · oligodendrocyte</span><span><i style="background:#f84"></i>microglia</span><span><i style="background:#c23"></i>capillary</span></div>
+ <button class="btn" id="bgStim">Fire the thalamic input ▸</button> <button class="btn" id="bgNissl">Nissl dots</button> <button class="btn" id="bgOut">◂ Whole brain</button>`;
+ $('bgStim').onclick=()=>{BG.cell&&(BG.cell.burst=[0,.1,.2,.3]);};$('bgNissl').onclick=()=>{const m=BG.cell.dots.material;m.opacity=m.opacity>.2?.08:.34;};$('bgOut').onclick=()=>bgCellExit();}
+// ---------- 3. Neuro rounds ----------
+const BGMIS=[
+ {id:'L1',type:'loc',title:'The halting speech',v:'A 68-year-old right-handed man with atrial fibrillation suddenly cannot get his words out. His speech is slow, effortful and telegraphic, but he follows commands and knows he is struggling. His right face and arm are weak; his right leg is strong.',accept:['broca','premotor','motor'],side:'L',tg:{reg:'broca',s:1},path:'stroke',view:'lateralL',
+  why:'Left inferior frontal gyrus (Broca’s area) and the face and arm part of the motor strip: the territory of the <b>superior division of the left MCA</b>. Sparing of the leg points away from the ACA. An embolus from the fibrillating atrium is the classic cause.'},
+ {id:'L2',type:'loc',title:'Fluent nonsense',v:'A 72-year-old woman starts talking fluently but in nonsense: “the blue pencil wented sideways under”. She cannot follow “close your eyes”, seems unaware anything is wrong, and has no weakness.',accept:['wernicke','temporal','auditory','ipl'],side:'L',tg:{reg:'wernicke',s:1},path:'stroke',view:'lateralL',
+  why:'Posterior superior temporal gyrus of the dominant hemisphere (Wernicke’s area): the <b>inferior division of the left MCA</b>. Receptive aphasia without weakness, because the motor strip is fed by the superior division.'},
+ {id:'L3',type:'loc',title:'The weak leg',v:'A 59-year-old man has a weak, numb left leg. His left arm is only slightly weak and his face is normal. He has become incontinent of urine and strangely apathetic.',accept:['paracentral','medfrontal'],side:'R',tg:{reg:'paracentral',s:-1,o:{post:0}},path:'stroke',view:'medial',hint:'The leg lives on the medial surface: try the Medial view (7).',
+  why:'Right paracentral lobule and medial frontal lobe: the <b>right anterior cerebral artery</b>. The leg area of the homunculus wraps over onto the medial face; the medial frontal lobe also inhibits the bladder and drives initiative.'},
+ {id:'L4',type:'loc',title:'Bumping into door frames',v:'A 70-year-old woman keeps bumping into things on her left. Both eyes have lost the left half of the visual field, but her central vision is spared. Strength, speech and sensation are normal.',accept:['visual','cuneus','lingual','vassoc'],side:'R',tg:{reg:'visual',s:-1},path:'stroke',view:'posterior',
+  why:'Right occipital lobe around the calcarine sulcus: the <b>right posterior cerebral artery</b>. Left homonymous hemianopia; the macula is often spared because the occipital pole has collateral supply from the MCA.'},
+ {id:'L5',type:'loc',title:'Pure weakness',v:'A 64-year-old with long-standing hypertension wakes with weakness of the right face, arm and leg, all equally. Sensation, vision, speech and thinking are normal.',accept:['capsule'],side:'L',tg:{p:[1.65,-.15,-.75]},path:'capsule',view:'superior',hint:'This lesion is deep: turn on Glass (G) to reach the structures inside.',
+  why:'Posterior limb of the <b>left internal capsule</b>: a lacunar infarct in a lenticulostriate branch of the MCA. The whole corticospinal tract for face, arm and leg is packed into a few millimetres here, so a tiny lesion gives equal, pure motor weakness.'},
+ {id:'L6',type:'loc',title:'The lost new memories',v:'A 78-year-old retired teacher has been losing new memories for three years. She repeats questions, misplaces things and recently got lost driving home. Old memories and speech are fairly well preserved.',accept:['hippocampus','temporal'],side:'B',tg:{reg:'temporal',s:1,o:{near:[2.6,-2.1,1.2]}},cellReg:'medtemporal',cellTitle:'Entorhinal cortex (medial temporal lobe)',path:'ad',view:'inferior',hint:'Turn on Glass (G) to see the hippocampus, or click the inner underside of the temporal lobe from the Base view (6).',
+  why:'Medial temporal lobe (entorhinal cortex and hippocampus): the first cortex reached by neurofibrillary tangles in <b>Alzheimer disease</b> (Braak stages I–II), which is why new memories go first.'},
+ {id:'L7',type:'loc',title:'The staggering gait',v:'A 52-year-old with years of heavy drinking walks wide-based and staggering and cannot walk heel to toe, yet his arms are well coordinated and his speech is clear.',accept:['vermis'],side:'B',tg:{p:[0,-1.5,-5.3]},path:null,view:'posterior',
+  why:'The <b>anterior superior cerebellar vermis</b>, which coordinates the trunk and gait (the hemispheres coordinate the limbs on their own side). Alcohol-related cerebellar degeneration typically hits the anterior vermis.'},
+ {id:'L8',type:'loc',title:'The tremor at rest',v:'A 66-year-old has a “pill-rolling” tremor of the right hand at rest, slow movements and a shuffling gait. It all started on the right.',accept:['midbrain'],side:'B',tg:{p:[.55,-1.1,-.9]},path:null,view:'medial',hint:'Deep in the brainstem: use the Midline cut (C) or the Base view (6).',
+  why:'The <b>left substantia nigra pars compacta</b> in the midbrain, whose dopaminergic neurons project to the striatum. Symptoms start on the side opposite the more affected nigra; by then many of these neurons, and even more of their striatal terminals, are already lost.'},
+ {id:'P1',type:'path',title:'Touch on the right thumb',v:'Someone brushes the pad of your right thumb. Click the relay stations in order, from the cord to the cortex that feels it.',seq:['dc_R','ncu_R','iaf','ml_L','vpl_L','s1hand_L'],extra:['dc_L','alt_R','vpm_L','vpl_R','m1hand_L','lgn_L','ncu_L'],
+  hints:['Touch climbs the dorsal column on the side it entered.','The first synapse is in the medulla: nucleus cuneatus for the arm.','Second-order fibres cross at once, as internal arcuate fibres.','They rise as the medial lemniscus of the opposite side.','Relay in the thalamus: VPL for the body (VPM is the face).','Third-order fibres reach the hand area of the postcentral gyrus.']},
+ {id:'P2',type:'path',title:'Lift the left big toe',v:'You decide to lift your left big toe. Click the stations from the cortex down to the cord.',seq:['m1leg_R','ic_R','ped_R','pyr_R','dec','lcst_L'],extra:['m1leg_L','ic_L','lcst_R','s1leg_R','vl_R','pyr_L','m1hand_R'],
+  hints:['The left leg is driven by the right motor cortex, on the medial surface (paracentral lobule).','Corticospinal fibres funnel through the posterior limb of the internal capsule.','Next, the middle of the cerebral peduncle in the midbrain.','Then the pyramid on the front of the medulla.','About 85–90% of fibres cross at the pyramidal decussation.','They descend in the lateral corticospinal tract of the left cord.']},
+ {id:'P3',type:'path',title:'Pinprick on the left foot',v:'A pin touches your left foot. Follow the pain from the cord to the cortex.',seq:['dh_L','awc','alt_R','vpl_R','s1leg_R'],extra:['dc_L','alt_L','vpl_L','ncu_L','s1leg_L','vpm_R'],
+  hints:['Pain fibres synapse first in the dorsal horn on the same side.','Second-order fibres cross within one or two segments in the anterior white commissure.','They climb in the spinothalamic tract of the opposite (right) side.','Relay in VPL of the right thalamus.','Then the leg area of the right postcentral cortex, on the medial surface.']},
+ {id:'P4',type:'path',view:[2.7,-.5],title:'A light in the right visual field',v:'A light flashes in your right visual field and your right eye sees it with its nasal retina. Trace the signal to the cortex.',seq:['on_R','chi','ot_L','lgn_L','orad_L','v1_L'],extra:['ot_R','lgn_R','mgn_L','v1_R','vpl_L','on_L'],
+  hints:['Start in the right optic nerve.','Nasal retinal fibres cross at the optic chiasm.','The left optic tract carries the right visual field from both eyes.','Relay in the left lateral geniculate nucleus (the medial geniculate is for hearing).','Then the left optic radiation.','Then the left primary visual cortex around the calcarine sulcus.']},
+ {id:'P5',type:'path',view:'lateralL',title:'Repeat after me',v:'Someone says “no ifs, ands or buts” and you repeat it. Trace the language loop.',seq:['a1_L','wer','afs_L','bro','m1face_L'],extra:['a1_R','vpl_L','v1_L','m1hand_L','s1face_L','mgn_L'],
+  hints:['Sound reaches the primary auditory cortex in Heschl’s gyrus.','It is understood in Wernicke’s area.','The arcuate fasciculus carries it forward.','Broca’s area plans the speech.','The face and tongue area of the motor strip produces it.']},
+];
+const bgSide=p=>p.x>0?'L':'R';
+function bgRounds(on){BG.open=on==null?!BG.open:on;const el=$('brainRounds');el.style.display=BG.open?'block':'none';$('bgRoundsBtn')&&$('bgRoundsBtn').classList.toggle('on',BG.open);document.body.classList.toggle('bgRoundsOn',BG.open);if(!BG.open){bgEndMis();return;}bgRender();}
+function bgTotal(){return Object.values(BG.stars).reduce((a,b)=>a+b,0);}
+function bgRender(){const el=$('brainRounds');const M=BG.mis;
+ if(!M){el.innerHTML=`<div class="eyebrow">Neuro rounds · ${bgTotal()} / ${BGMIS.length*3} ★</div><h3>Pick a case</h3><p class="small">Localise the lesion from the story, then shrink in to see the cells. Or trace a pathway relay by relay.</p><div class="bmis">`+
+  BGMIS.map(m=>`<button data-m="${m.id}"><span class="bt">${m.type==='loc'?'Localise':'Trace'}</span>${m.title}<span class="bs">${'★'.repeat(BG.stars[m.id]||0)}${'☆'.repeat(3-(BG.stars[m.id]||0))}</span></button>`).join('')+`</div>`;
+  el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>bgStart(b.dataset.m));return;}
+ const fb=BG.fb||'';const done=BG.done;
+ el.innerHTML=`<div class="eyebrow">Neuro rounds · ${M.type==='loc'?'localise the lesion':'trace the pathway'}</div><h3>${M.title}</h3><p class="small">${M.v}</p>`+
+  (M.type==='loc'?(done?'':`<p class="small ask">Click where the lesion is.${BG.tries&&M.hint?' '+M.hint:''}</p>`):`<p class="small ask">${done?'Pathway complete.':'Step '+(BG.step+1)+' of '+M.seq.length+': click the next station.'}</p>`)+
+  `<div class="small fb">${fb}</div><div class="brow">`+
+  (done&&M.type==='loc'&&(M.path==='stroke'||M.path==='ad')?`<button class="btn" id="bgConfirm">Shrink in to confirm ▸</button>`:'')+(done&&M.path==='capsule'?`<button class="btn" id="bgConfirm">Show the lesion ▸</button>`:'')+
+  (done?`<button class="btn" id="bgNext">Next case ▸</button>`:(M.type==='loc'?`<button class="btn ghost" id="bgGive">Show me</button>`:''))+`<button class="btn ghost" id="bgList">All cases</button></div>`;
+ const b=$('bgConfirm');if(b)b.onclick=()=>bgConfirm();const n=$('bgNext');if(n)n.onclick=()=>{const i=BGMIS.indexOf(M);bgStart(BGMIS[(i+1)%BGMIS.length].id);};
+ const g=$('bgGive');if(g)g.onclick=()=>bgReveal(0,'Here it is.');$('bgList').onclick=()=>{bgEndMis();bgRender();};}
+function bgEndMis(){BG.mis=null;BG.done=false;BG.fb='';if(BG.stnG)BG.stnG.clear();if(BG.legG)BG.legG.clear();BG.legP=null;if(BG.mark)BG.mark.visible=false;if(BG.dot)BG.dot.visible=false;BG.tracts.forEach(m=>m.material.uniforms.dim.value=1);}
+function bgAnimTo(view,tg,dist){const v=Array.isArray(view)?view:BVIEWS[view]||[BRAIN.yaw,BRAIN.pitch];BRAIN.anim={t:0,T:.9,y0:BRAIN.yaw,p0:BRAIN.pitch,d0:BRAIN.dist,y1:v[0],p1:v[1],d1:dist||bFit(),tg0:BRAIN.tgt.clone(),tg1:tg||new V3(0,0,-.6)};}
+function bgCellDrop(){const C=BG.cell;BG.fly=null;if(C)BRAIN.scene.remove(C.G);BG.cell=null;if(!BG.cellOn)return;BG.cellOn=false;BRAIN.cam.up.set(0,1,0);BRAIN.yaw=-Math.PI/2-.45;BRAIN.pitch=.35;BRAIN.dist=bFit();BRAIN.tgt.set(0,0,-.6);bApply();}
+function bgStart(id){bgCellDrop();bgEndMis();const M=BGMIS.find(m=>m.id===id);BG.mis=M;BG.step=0;BG.err=0;BG.tries=0;BG.done=false;BG.fb='';
+ if(M.type==='loc'){BRAIN.glass=false;BRAIN.wire=false;BRAIN.cut=M.view==='medial';BRAIN.mode='surface';bApply();bgAnimTo(M.view);
+  if(M.tg.p)M.tp=new V3(...M.tg.p);else{const r=bgSurf(M.tg.reg,M.tg.s,M.tg.o||{});M.tp=r.p;M.tn=r.n;}}
+ else{BRAIN.glass=true;BRAIN.wire=true;BRAIN.cut=false;bApply();BG.tracts.forEach(m=>m.material.uniforms.dim.value=.45);const keys=[...M.seq,...M.extra];bgShowStations(keys.sort(()=>Math.random()-.5));bgAnimTo(M.view||[2.4,.25],new V3(0,-2.2,-1.2),bFit()*1.12);}
+ bInfo(null);bgRender();}
+function bgReveal(stars,lead){const M=BG.mis;BG.done=true;BG.mark.position.copy(M.tp);BG.mark.visible=true;if(stars>(BG.stars[M.id]||0)){BG.stars[M.id]=stars;try{localStorage.setItem('ivRounds',JSON.stringify(BG.stars));}catch(e){}}
+ BG.fb=`<b>${lead}</b> ${stars?'★'.repeat(stars):''}<br>${M.why}`;bgRender();}
+function bgClick(k){const M=BG.mis;if(BG.cellOn)return true;if(!M||BG.done)return false;
+ if(M.type==='loc'){if(!k||!BRAIN.hit||!BREG[k]||k.startsWith('st_')||k.startsWith('t_'))return false;let key=k;if(M.id==='L8'&&k==='pons'&&BRAIN.hit.p.y>-1.8)key='midbrain';if(M.id==='L6'&&k==='temporal'&&!(BRAIN.hit.p.y<-.9&&Math.abs(BRAIN.hit.p.x)<4.3&&BRAIN.hit.p.z>-3))key='temporal-lateral';
+  const sideOk=M.side==='B'||bgSide(BRAIN.hit.p)===M.side||key==='vermis';const ok=M.accept.includes(key)&&sideOk;if(!BREG[key])key=k;const mm=Math.round(BRAIN.hit.p.distanceTo(M.tp)*10);
+  if(ok){sfx&&sfx('chime');bgReveal(BG.tries===0?3:BG.tries===1?2:1,`Yes: ${BREG[key].n}${M.side!=='B'?' on the '+(M.side==='L'?'left':'right'):''}. You were ${mm} mm from the centre of the lesion.`);}
+  else{BG.tries++;sfx&&sfx('buzz');const where=BREG[k].n+(k==='vermis'||M.side==='B'?'':' on the '+(bgSide(BRAIN.hit.p)==='L'?'left':'right'));const sideMsg=M.accept.includes(key)&&!sideOk?' Right structure, wrong side: which hemisphere controls that side of the body?':'';
+   if(BG.tries>=3)bgReveal(1,`Not quite (${where}).`);else{BG.fb=`Not ${where}.${sideMsg} ${BG.tries===1?'Think about which artery or system explains every finding.':'One more try.'}`;bgRender();}}
+  return true;}
+ if(M.type==='path'){if(!k||!k.startsWith('st_'))return true;const st=k.slice(3),want=M.seq[BG.step];const mesh=BG.stnG.children.find(m=>m.userData.key===k);
+  if(st===want){const a=BG.step?BG.stnP[M.seq[BG.step-1]]:null,b=BG.stnP[st];if(mesh)mesh.material.color.set(0x7dff9a);if(a)bgLeg(a,b);else{BG.dot.position.copy(b);BG.dot.visible=true;}
+   BG.step++;BG.fb=`<b>${BREG[k].n}.</b> ${BGST[st.split('_')[0]].f}`;sfx&&sfx('chime');
+   if(BG.step>=M.seq.length){const s=BG.err===0?3:BG.err<=2?2:1;BG.done=true;if(s>(BG.stars[M.id]||0)){BG.stars[M.id]=s;try{localStorage.setItem('ivRounds',JSON.stringify(BG.stars));}catch(e){}}BG.fb=`<b>The signal arrived.</b> ${'★'.repeat(s)} (${BG.err} wrong turn${BG.err===1?'':'s'})<br>`+M.seq.map(q=>BREG['st_'+q].n).join(' → ');}}
+  else{BG.err++;sfx&&sfx('buzz');if(mesh){mesh.material.color.set(0xff5060);setTimeout(()=>mesh.material.color.set(mesh.userData.base),700);}BG.fb=`Not ${BREG[k].n}. ${M.hints[BG.step]}`;}
+  bgRender();return true;}
+ return false;}
+function bgLeg(a,b){const mid=a.clone().lerp(b,.5).add(new V3(0,.3,0));const cv=new THREE.QuadraticBezierCurve3(a.clone(),mid,b.clone());const m=new THREE.Mesh(new THREE.TubeGeometry(cv,40,.07,8,false),new THREE.MeshBasicMaterial({color:0x7dff9a,transparent:true,opacity:.85,depthTest:false}));m.renderOrder=7;BG.legG.add(m);BG.legP={cv,t:0};}
+function bgConfirm(){const M=BG.mis;if(!M)return;if(M.path==='capsule'){BRAIN.glass=true;BRAIN.wire=true;bApply();BG.tracts.forEach(m=>{m.material.uniforms.dim.value=m.userData.key==='t_cst'?(m.userData.s>0?.08:1.4):.25;});BG.fb=`The left corticospinal tract has gone quiet below the lesion while the right one still fires. One lacune a few millimetres across, three limbs weak.<br>${M.why}`;bgRender();return;}
+ let n=M.tn;if(!n){const r=bgSurf(M.tg.reg,M.tg.s,M.tg.o||{});n=r&&r.n;}bgCells(M.tp,n,M.cellReg||M.tg.reg,M.path,M.cellTitle||BREG[M.tg.reg].n);}
+// ---------- per frame ----------
+function bgFrame(dt){if(!BRAIN.wireG)return;BG.tu.value+=dt;const B=BRAIN,c=B.cam;
+ if(BG.fly){const a=BG.fly;a.t+=dt;const f=clamp(a.t/a.T,0,1),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;const tg=new V3().lerpVectors(a.tg0,a.tg1,Math.pow(e,.6));const dir=new V3().lerpVectors(a.dir0,a.dir1,e);if(dir.lengthSq()<1e-6)dir.copy(a.dir1);dir.normalize();const d=a.d0*Math.pow(a.d1/a.d0,e);
+  c.up.lerpVectors(a.up0,a.up1,e).normalize();c.position.copy(tg).addScaledVector(dir,d);c.near=Math.max(.0005,d*.05);c.updateProjectionMatrix();c.lookAt(tg);B.tgt.copy(tg);B.dist=d;if(f>=1){BG.fly=null;a.done();}}
+ else if(BG.cellOn&&BG.cell){const C=BG.cell;if(B.dist>2.4){bgCellExit();}else{const dir=C.T1.clone().multiplyScalar(Math.cos(B.pitch)*Math.cos(B.yaw)).addScaledVector(C.T2,Math.cos(B.pitch)*Math.sin(B.yaw)).addScaledVector(C.nrm,Math.sin(B.pitch));c.up.copy(C.nrm);c.position.copy(B.tgt).addScaledVector(dir,B.dist);c.lookAt(B.tgt);}}
+ if(BG.cell)bgCellTick(Math.min(dt,.05));
+ if(BG.mark)BG.mark.visible=!!(BG.mis&&BG.done&&BG.mis.tp)&&!BG.cellOn;if(BG.mark&&BG.mark.visible){const k=1+.25*Math.sin(performance.now()/180);BG.mark.scale.setScalar(k*Math.max(.15,Math.min(1,B.dist/25)));}
+ if(BG.legP){const L=BG.legP;L.t+=dt/.9;BG.dot.visible=true;BG.dot.position.copy(L.cv.getPointAt(Math.min(1,L.t)));if(L.t>=1)BG.legP=null;}
+ if(BG.dot&&BG.dot.visible)BG.dot.scale.setScalar((1+.3*Math.sin(performance.now()/120))*Math.max(.3,Math.min(1.2,B.dist/25)));}
+function bgCellLabels(){const C=BG.cell;if(!C||BG.fly)return '';const cam=BRAIN.cam,out=[],v=new V3();const H=C.Wd/2;
+ const add=(lp,txt,cls)=>{v.copy(lp);C.G.localToWorld(v);v.project(cam);if(v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05)return;out.push(`<div class="blab ${cls||''}" style="left:${(v.x*.5+.5)*innerWidth}px;top:${(-v.y*.5+.5)*innerHeight}px">${txt}</div>`);};
+ const side=new V3(C.T1.dot(cam.position.clone().sub(C.ctr))>0?1:-1,0,0);
+ C.lay.forEach((l,i)=>{if(l.top-l.bot<1e-3)return;add(new V3(H*1.25*side.x,(l.top+l.bot)/2,H*1.25),`${l.n} · ${l.f}${i===4&&C.ty==='motor'?' (Betz cells)':''}`,'blay');});
+ if(C.ty==='motor')add(new V3(H*1.25*side.x,C.lay[2].bot,H*1.25),'IV absent (agranular)','blay dim');add(new V3(H*1.25*side.x,C.ybot-C.WM/2,H*1.25),'white matter','blay');add(new V3(0,.04,0),'pia · brain surface','blay dim');
+ return out.join('');}
+function bgClose(){if(BG.cell){BRAIN.scene.remove(BG.cell.G);BG.cell=null;}BG.cellOn=false;BG.fly=null;if(BRAIN.cam)BRAIN.cam.up.set(0,1,0);if(BG.open)bgRounds(false);}
+
 
 function switchWorld(w,idx){if(w===GUT&&!MOUTH.built)buildMouth();
  exitStudy();useWorld(w);if(w===NERVE&&!BRAIN.hinted){BRAIN.hinted=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the brain.'),3200);}if(typeof hidePredict==='function')hidePredict();if(w!==LUNG&&!C.exercise)C.hrT=72;
@@ -6308,7 +6676,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
