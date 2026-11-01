@@ -257,7 +257,7 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 #mThx .bpanel{position:absolute;background:rgba(22,10,14,.84);border:1px solid var(--line);border-radius:14px;padding:12px 14px;backdrop-filter:blur(6px);cursor:default}
 #thxTop{left:16px;top:16px;max-width:min(440px,calc(100vw - 32px))}#thxWhere{font-size:13px;margin-top:4px}#thxScale{font:12px var(--mono);color:var(--amber);margin-top:6px}
 #thxInfo{right:16px;top:16px;width:min(340px,calc(100vw - 32px));max-height:calc(100vh - 150px);overflow:auto}#thxInfo h3{margin:4px 0 6px;font-size:18px}#thxInfo .small{font-size:12.5px;line-height:1.45;margin:6px 0}#thxInfo .btn{margin-top:8px;padding:9px 14px;font-size:13px}
-#thxBar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:calc(100vw - 24px);cursor:default}
+#thxBar{position:absolute;left:12px;right:12px;bottom:14px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;cursor:default;pointer-events:none}#thxBar>*,#thxLay>*,.afb>*{pointer-events:auto}
 #thxBar button{background:rgba(22,10,14,.86);border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:6px 10px;font:12px var(--sans);cursor:pointer}#thxBar button.on{border-color:var(--cyan);color:var(--cyan)}#thxBar button.hot{border-color:var(--amber);color:var(--amber)}#thxBar .sep{width:1px;background:var(--line);margin:0 4px}
 #thxLegend{right:16px;bottom:118px;display:flex;flex-wrap:wrap;gap:6px 12px;max-width:300px;font-size:11.5px}#thxLegend:empty{display:none}#thxLegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 #thxLabels{position:absolute;inset:0;pointer-events:none}.blab.tlobe{font-size:12.5px;color:#ffe9ee}.blab.tseg{font-size:10.5px;color:#fff;font-weight:500}.blab.trib{font:600 10.5px var(--mono);color:#ffe7b0;opacity:.85}
@@ -268,9 +268,17 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 .txsvg{width:100%;max-width:300px;border-radius:8px;margin:6px 0;display:block}
 #thxCT{left:16px;bottom:64px;width:min(292px,calc(100vw - 32px));padding:9px 10px}#thxCT .eyebrow{font-size:10px}.ctwrap{position:relative;margin-top:6px}#ctCv{width:100%;aspect-ratio:1;display:block;border-radius:6px;background:#000;cursor:crosshair;touch-action:none}.ctR,.ctL{position:absolute;top:4px;font:600 11px var(--mono);color:#ffe7b0}.ctR{left:6px}.ctL{right:6px}
 #ctY{width:100%;margin:6px 0 2px;accent-color:var(--cyan)}.ctRow{display:flex;flex-wrap:wrap;gap:5px}.ctRow button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:4px 8px;font:11.5px var(--sans);cursor:pointer}.ctRow button.on{border-color:var(--cyan);color:var(--cyan)}
+#thxLay{display:contents}.afb,#thxLayBtn{display:none}body.afOn .afb{display:contents}body.afOn #thxLayBtn{display:inline-block}body.afOn #thxLay{display:none}body.afOn.afLay #thxLay{display:contents}
+#afRet{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border:2px solid rgba(62,230,216,.45);border-radius:50%;pointer-events:none;display:none}#afRet.on{border-color:var(--cyan);box-shadow:0 0 10px rgba(62,230,216,.55)}#afRet span{position:absolute;left:32px;top:2px;white-space:nowrap;font:600 12.5px var(--sans);color:var(--cyan);text-shadow:0 1px 3px #000,0 0 6px #000}
+#afNav{position:absolute;left:16px;bottom:64px;width:230px;height:96px;background:rgba(22,10,14,.72);border:1px solid var(--line);border-radius:12px;display:none;pointer-events:none}body.afOn #afNav{display:block}body.txCTOn #afNav{display:none}
+#afHint{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);width:max-content;max-width:min(640px,calc(100vw - 32px));text-align:center;font:13px/1.45 var(--sans);color:#e6fffb;text-shadow:0 1px 4px #000,0 0 10px #000;pointer-events:none;display:none}body.afOn #afHint{display:block}
+#afJoy{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:2px solid rgba(62,230,216,.4);background:rgba(62,230,216,.06);display:none;pointer-events:none}#afKnob{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(62,230,216,.35)}
+#mThx #afIntro{left:50%;bottom:92px;transform:translateX(-50%);width:min(460px,calc(100vw - 32px));display:none;z-index:3;padding:16px 18px}#mThx #afIntro.show{display:block}#afIntro h3{margin:6px 0 8px;font-size:19px}#afIntro p{font-size:13.5px;line-height:1.55;margin:0}#afIntro .row{display:flex;gap:8px;margin-top:12px}#afIntro .btn{padding:9px 16px;font-size:13px}#afIntro .ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
+.blab.aflab{font-size:11.5px;opacity:.92}.blab.aflab.near{font-size:13px;color:#fff3c4;opacity:1}body.afOn.txRoundsOn #thxRounds{max-height:calc(100vh - 300px)}body.afOn #mThx{cursor:crosshair}
+#mThx #afStats{left:16px;top:118px;width:min(300px,calc(100vw - 32px));display:none;padding:10px 12px}#afStats .st{display:flex;flex-direction:column;margin-top:6px}#afStats .st span{font:600 9.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}#afStats .st b{font-weight:500;font-size:12.5px;line-height:1.35}body.txRoundsOn #afStats,body.txCTOn #afStats{display:none!important}
 @media(min-width:761px){body.txRoundsOn.txCTOn #thxCT{left:auto;right:16px;bottom:64px}body.txCTOn #thxLegend{display:none}body.txRoundsOn.txCTOn #thxInfo{max-height:calc(100vh - 540px)}}
 @media(max-width:760px){#thxInfo{top:auto;bottom:58px;left:10px;right:10px;width:auto;max-height:36vh;padding:10px 12px}#thxInfo.idle{display:none}#thxInfo h3{font-size:16px}#thxTop{left:10px;top:10px;padding:8px 11px}#thxWhere{font-size:12px}#thxScale{font-size:10.5px}#thxBar{left:8px;right:8px;bottom:8px;transform:none;max-width:none;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}#thxBar::-webkit-scrollbar{display:none}#thxBar button{padding:8px 10px;font-size:12px;white-space:nowrap;flex:0 0 auto}#thxBar .sep{flex:0 0 1px}#thxLegend{bottom:auto;top:96px;left:10px;right:auto;max-width:calc(100vw - 20px);padding:8px 10px;font-size:11px}
- #thxRounds{left:10px;right:10px;width:auto;top:84px;max-height:34vh;padding:9px 11px}#thxRounds h3{font-size:15px}body.txRoundsOn #thxLegend{display:none}#thxCT{left:8px;bottom:56px;width:min(58vw,250px);padding:6px 7px}#thxCT .eyebrow{display:none}.ctRow button{padding:4px 6px;font-size:10.5px}body.txRoundsOn #thxTop{display:none}#thxCT{width:min(48vw,200px)}body.txCTOn #thxInfo{bottom:auto;top:84px;max-height:30vh}}
+ #thxRounds{left:10px;right:10px;width:auto;top:84px;max-height:34vh;padding:9px 11px}#thxRounds h3{font-size:15px}body.txRoundsOn #thxLegend{display:none}#thxCT{left:8px;bottom:56px;width:min(58vw,250px);padding:6px 7px}#thxCT .eyebrow{display:none}.ctRow button{padding:4px 6px;font-size:10.5px}body.txRoundsOn #thxTop{display:none}#thxCT{width:min(48vw,200px)}body.txCTOn #thxInfo{bottom:auto;top:84px;max-height:30vh}#afNav{left:auto;right:10px;top:92px;bottom:auto;width:150px;height:63px}#afHint{top:94px;bottom:auto;left:10px;right:170px;transform:none;width:auto;max-width:none;text-align:left;font-size:11.5px}#thxBar{pointer-events:auto}#mThx #afStats{top:auto;bottom:56px;left:10px;width:min(240px,60vw);padding:7px 9px}#afStats .st b{font-size:11px}#afStats .st:nth-child(n+5){display:none}#afHint{bottom:52px;font-size:11.5px;max-width:calc(100vw - 20px)}body.afOn #thxTop{right:10px;max-width:none}}
 </style>
 </head>
 <body>
@@ -431,12 +439,12 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
  <div class="bpanel" id="brainRounds" style="display:none"></div>
  <div id="brainBar"><button id="bgRoundsBtn" class="hot">Neuro rounds (R)</button><span class="sep"></span><button data-b="surface">Surface</button><button data-b="lobes">Lobes</button><button data-b="func">Functional areas</button><span class="sep"></span><button data-b="glass">Glass (G)</button><button data-b="cut">Midline cut (C)</button><button data-b="art">Arteries (A)</button><button data-b="wire">Wiring (W)</button><button data-b="route">Your route</button><button data-b="labels">Labels (L)</button><span class="sep"></span><button data-v="lateralL">Left</button><button data-v="lateralR">Right</button><button data-v="superior">Top</button><button data-v="anterior">Front</button><button data-v="posterior">Back</button><button data-v="inferior">Base</button><button data-v="medial">Medial</button><span class="sep"></span><button id="brainChest">Chest ▸</button><button id="brainClose">✕ Shrink back (Q)</button></div>
 </div>
-<div class="modal" id="mThx"><div id="thxLabels"></div><div id="thxTip"></div>
- <div class="bpanel" id="thxTop"><div class="eyebrow">Zoom out · chest atlas</div><div id="thxWhere"></div><div id="thxScale"></div></div>
+<div class="modal" id="mThx"><div id="thxLabels"></div><div id="thxTip"></div><div id="afRet"></div><canvas id="afNav" width="460" height="192"></canvas><div id="afHint"></div><div class="bpanel" id="afStats"></div><div id="afJoy"><div id="afKnob"></div></div><div class="bpanel" id="afIntro"></div>
+ <div class="bpanel" id="thxTop"><div class="eyebrow" id="thxEye">Zoom out · chest atlas</div><div id="thxWhere"></div><div id="thxScale"></div></div>
  <div class="bpanel" id="thxInfo"></div><div class="bpanel" id="thxLegend"></div>
  <div class="bpanel" id="thxRounds" style="display:none"></div>
  <div class="bpanel" id="thxCT" style="display:none"><div class="eyebrow">CT pulmonary angiogram · axial · <span id="ctLev"></span></div><div class="ctwrap"><canvas id="ctCv" width="216" height="216"></canvas><span class="ctR">R</span><span class="ctL">L</span></div><input type="range" id="ctY" min="-16" max="10" step="0.5"><div class="ctRow"><button data-w="lung">Lung</button><button data-w="med">Soft tissue</button><button data-w="bone">Bone</button><button id="ctCut">Cut 3D</button></div></div>
- <div id="thxBar"><button id="thxRoundsBtn" class="hot">Chest rounds (R)</button><span class="sep"></span><button data-l="lungs">Lungs</button><button data-l="glass">Glass lungs (G)</button><button data-m="surface">Surface</button><button data-m="lobes">Lobes (X)</button><button data-m="segments">Segments</button><span class="sep"></span><button data-l="heart">Heart (H)</button><button data-l="terr">Coronary map (T)</button><button data-l="vessels">Vessels (V)</button><button data-l="tree">Airways (B)</button><button data-l="med">Nerves &amp; oesophagus (M)</button><button data-l="bones">Skeleton (S)</button><button data-l="skin">Skin (K)</button><button data-l="ct">CT (C)</button><button data-l="beat">Beat (P)</button><button data-l="labels">Labels (L)</button><span class="sep"></span><button data-v="front">Front</button><button data-v="back">Back</button><button data-v="left">Left</button><button data-v="right">Right</button><button data-v="top">Top</button><span class="sep"></span><button id="thxBrain">Brain ▸</button><button id="thxClose">✕ Shrink back (Q)</button></div>
+ <div id="thxBar"><button id="afFly" class="hot">Overview (O)</button><span class="afb"><button id="afK">In/out of vessel (K)</button><button id="afE">Scan (E)</button><button id="afF">Shrink in (F)</button></span><span class="sep"></span><button id="thxRoundsBtn" class="hot">Chest rounds (R)</button><button id="thxLayBtn">Layers</button><span id="thxLay"><span class="sep"></span><button data-l="lungs">Lungs</button><button data-l="glass">Glass lungs (G)</button><button data-m="surface">Surface</button><button data-m="lobes">Lobes (X)</button><button data-m="segments">Segments</button><span class="sep"></span><button data-l="heart">Heart (H)</button><button data-l="terr">Coronary map (T)</button><button data-l="vessels">Vessels (V)</button><button data-l="tree">Airways (B)</button><button data-l="med">Nerves &amp; oesophagus (M)</button><button data-l="bones">Skeleton (U)</button><button data-l="skin">Skin (J)</button><button data-l="ct">CT (I)</button><button data-l="beat">Beat (P)</button><button data-l="labels">Labels (L)</button><span class="sep"></span><button data-v="front">Front</button><button data-v="back">Back</button><button data-v="left">Left</button><button data-v="right">Right</button><button data-v="top">Top</button></span><span class="sep"></span><button id="thxBrain">Brain ▸</button><button id="thxClose">✕ Shrink back (Q)</button></div>
 </div>
 <div class="modal" id="mExamLU"><div class="sheet" id="examLUSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamRN"><div class="sheet" id="examRNSheet" style="max-width:880px"></div></div>
@@ -6793,8 +6801,13 @@ ${o.lung?`{vec2 w=txWor(vWP*.62);float edge=1.-smoothstep(.0,.05,w.y-w.x);vec2 w
  diffuseColor.rgb*=1.-.22*edge*(.5+.5*txH3(floor(vWP*3.)).x);diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.12,.1,.11),sp*.7);diffuseColor.rgb*=.92+.12*w2.x;}`:''}
 ${o.heart?`{vec2 w=txWor(vWP*vec3(1.6,4.,1.6));diffuseColor.rgb*=.88+.2*w.x;}`:''}
 ${o.skin?`{vec2 w=txWor(vWP*1.3);diffuseColor.rgb*=.95+.08*w.x;}`:''}`)
-  .replace('#include <dithering_fragment>','#include <dithering_fragment>\nif(!gl_FrontFacing)gl_FragColor.rgb*=.42;');};
- m.customProgramCacheKey=()=>'tx'+(o.beat?'b':'')+(o.lung?'l':'')+(o.heart?'h':'')+(o.skin?'s':'');return m;}
+  .replace('#include <dithering_fragment>',`#include <dithering_fragment>
+if(!gl_FrontFacing)gl_FragColor.rgb*=.42;
+{vec3 vV=normalize(vViewPosition);float fr=pow(1.-abs(dot(normal,vV)),2.4);
+${o.glow?'gl_FragColor.rgb+=diffuseColor.rgb*fr*.55;':''}
+ // anything see-through becomes x-ray glass: nearly clear where it faces you, a bright edge where it turns away (1 Nov 2026, from Jon's reference images)
+ if(opacity<.985){vec3 rc=${o.rim?'vec3('+o.rim.join(',')+')':'min(vec3(1.),diffuseColor.rgb*1.5+.22)'};gl_FragColor.rgb=mix(gl_FragColor.rgb,rc,fr*.75);gl_FragColor.a=clamp(gl_FragColor.a*.55+${o.rimA||.75}*fr,0.,1.);}}`);};
+ m.customProgramCacheKey=()=>'tx'+(o.beat?'b':'')+(o.lung?'l':'')+(o.heart?'h':'')+(o.skin?'s':'')+(o.glow?'g':'')+(o.rim?'r'+o.rim.join('_'):'')+(o.rimA||'');return m;}
 
 // ---- skin: a torso model (arms off at the shoulder, as on an anatomy-lab torso) ----
 const TXSK={ys:[-28,-20,-14,-9,-6,-3,1,4,6,8,9.6,11,12.2,18],A:[14.5,15.5,16.4,16.8,16.8,16.2,14.4,15.6,18.6,19.4,16.4,9.4,7.2,6.2],
@@ -6808,7 +6821,7 @@ function txBuildSkin(){const NU=MOBILE?72:120,ys=[];for(let y=-28;y<=18.01;y+=MO
  ys.forEach(y=>{for(let i=0;i<NU;i++)P.push(txSkinP(i/NU*Math.PI*2,y));});
  for(let j=0;j<ys.length-1;j++)for(let i=0;i<NU;i++){const a=j*NU+i,b=j*NU+(i+1)%NU,c=(j+1)*NU+i,d=(j+1)*NU+(i+1)%NU;F.push([a,b,c],[b,d,c]);}
  for(const [j,y,sg] of[[0,-28,-1],[ys.length-1,18,1]]){const ci=P.length;P.push(new V3(0,ys[j],sg<0?-.8:-.6));for(let i=0;i<NU;i++){const a=j*NU+i,b=j*NU+(i+1)%NU;F.push(sg>0?[ci,a,b]:[ci,b,a]);}}
- const m=new THREE.Mesh(txGeo(P,F),txMat(0xd09c84,{rough:.62,coat:.12,skin:1}));m.userData={key:'skin'};
+ const m=new THREE.Mesh(txGeo(P,F),txMat(0xd09c84,{rough:.62,coat:.12,skin:1,rim:[.9,.8,.78],rimA:.42}));m.userData={key:'skin'};
  // nipples and areolae: 4th intercostal space in the midclavicular line
  const g=new THREE.Group();g.add(m);THX.nip=[];
  for(const s of[1,-1]){const x=9.6;const t4=txAngAtX(4,x),t5=txAngAtX(5,x);const y=(txRibY(4,t4)+txRibY(5,t5))/2;const ph=txPhAtX(s*x,y);const p=txSkinP(ph,y),p2=txSkinP(ph+.01*s,y),p3=txSkinP(ph,y+.1);
@@ -6819,7 +6832,7 @@ function txBuildSkin(){const NU=MOBILE?72:120,ys=[];for(let y=-28;y<=18.01;y+=MO
 function txAngAtX(n,x){let lo=Math.PI*.5,hi=txRibEnd(n);for(let k=0;k<30;k++){const m=(lo+hi)/2;if(txRibR(n,m)*Math.sin(m)>x)lo=m;else hi=m;}return (lo+hi)/2;}
 function txPhAtX(x,y){const s=Math.sign(x)||1;let lo=Math.PI*.5,hi=Math.PI;for(let k=0;k<30;k++){const m=(lo+hi)/2;if(txSkinP(m*s,y).x*s>Math.abs(x))lo=m;else hi=m;}return s*(lo+hi)/2;}
 // ---- skeleton ----
-function txBuildBones(){const G=new THREE.Group(),bone=txMat(TXC.bone,{rough:.6,coat:.15}),cart=txMat(TXC.cart,{rough:.4,coat:.3});G.userData.mats=[bone,cart];
+function txBuildBones(){const G=new THREE.Group(),bone=txMat(TXC.bone,{rough:.6,coat:.15,rim:[.66,.88,1]}),cart=txMat(TXC.cart,{rough:.4,coat:.3,rim:[.66,.88,1]});G.userData.mats=[bone,cart];
  for(let n=1;n<=12;n++)for(const s of[1,-1]){const R=TXRIB[n],zv=txZV(R.yh),te=txRibEnd(n),tc=n>10?te:R.tc*Math.PI;
   const P=[new V3(s*1.7,R.yh+.3,zv+.1),new V3(s*2.6,R.yh+.15,zv-1.0),new V3(s*3.5,R.yh,zv-1.9)];const C=[];
   for(let t=.17*Math.PI;t<=te+1e-6;t+=.015*Math.PI){const p=txRibP(n,Math.min(t,te),s);(t<tc?P:C).push(p);}if(C.length){P.push(C[0].clone());C.unshift(P[P.length-2].clone());}
@@ -6940,7 +6953,7 @@ function txBuild(){const t0=performance.now();txWallBuild();txDefineTubes();txHe
  add('bones',txBuildBones());add('heart',txBuildHeart());add('dia',txBuildDia());
  THX.L=txBuildLung(1);THX.R=txBuildLung(-1);add('lungs',new THREE.Group()).add(THX.L,THX.R);
  const V=new THREE.Group(),Md=new THREE.Group(),Tr=new THREE.Group();THX.tubeM={};
- for(const k in TXT){const T=TXT[k];if(T.lay==='bones')continue;const mat=txMat(T.col,{rough:T.lay==='med'?.5:.38,coat:.45});const m=new THREE.Mesh(txTubeGeo(T.pts,T.r,{seg:T.r[0]<.3?7:14}),mat);m.userData={key:k};THX.tubeM[k]=m;(T.lay==='vessels'?V:T.lay==='tree'?Tr:Md).add(m);}
+ for(const k in TXT){const T=TXT[k];if(T.lay==='bones')continue;const mat=txMat(T.col,{rough:T.lay==='med'?.5:.38,coat:.45,glow:T.lay==='vessels'});const m=new THREE.Mesh(txTubeGeo(T.pts,T.r,{seg:T.r[0]<.3?7:14}),mat);m.userData={key:k};THX.tubeM[k]=m;(T.lay==='vessels'?V:T.lay==='tree'?Tr:Md).add(m);}
  add('vessels',V);add('med',Md);Tr.add(txBuildTree([THX.L,THX.R]));add('tree',Tr);add('skin',txBuildSkin());
  // you-are-here marker
  THX.me=new THREE.Mesh(new THREE.SphereGeometry(.45,20,14),new THREE.MeshBasicMaterial({color:0x3ee6d8,transparent:true,opacity:.9,depthTest:false}));THX.me.renderOrder=9;S.add(THX.me);
@@ -6983,7 +6996,7 @@ function txApply(){const L=THX.lay,G=THX.G;G.bones.visible=L.bones;G.heart.visib
  document.querySelectorAll('#thxBar [data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===THX.lmode));
  $('thxLegend').innerHTML=THX.terr||(THX.mis&&THX.mis.terrOn)?[['lad','LAD',[.95,.55,.25]],['lcx','Circumflex',[.35,.72,.95]],['rca','RCA',[.5,.86,.42]]].map(([k,t,c])=>`<span><i style="background:rgb(${c.map(v=>v*255|0)})"></i>${t}</span>`).join('')
   :THX.lmode==='lobes'&&THX.lungs<2?Object.entries(TXLOBECOL).map(([k,c])=>`<span><i style="background:rgb(${c.map(v=>v*255|0)})"></i>${TXREG[k].n}</span>`).join('')+`<span><i style="background:rgb(219,143,199)"></i>Lingula</span>`:'';
- $('thxCT').style.display=THX.ct?'block':'none';document.body.classList.toggle('txCTOn',!!THX.ct);if(THX.ct)txCTDraw();}
+ if(AF.on)afGlass();$('thxCT').style.display=THX.ct?'block':'none';document.body.classList.toggle('txCTOn',!!THX.ct);if(THX.ct)txCTDraw();}
 function txHeartPaint(){const m=TXH.mesh,C=m.geometry.attributes.color,B=m.userData.base,T=m.userData.terr;const tcol={lad:[.95,.55,.25],lcx:[.35,.72,.95],rca:[.5,.86,.42]};const M=THX.mis;const inf=M&&M.done&&M.terr;
  for(let i=0;i<C.count;i++){let r=B[i*3],g=B[i*3+1],b=B[i*3+2];const t=T[i];
   if((THX.terr||(M&&M.terrOn))&&t){const c=tcol[t];r=lerp(r,c[0],.75);g=lerp(g,c[1],.75);b=lerp(b,c[2],.75);}
@@ -7007,28 +7020,28 @@ function openThx2(){THX.open=true;$('mThx').classList.add('show');document.body.
  const w=txWhere();THX.me.visible=THX.ring.visible=!!w;const start=w?w.p.clone():new V3(0,-4,8);if(w){THX.me.position.copy(w.p);THX.ring.position.copy(w.p);}
  $('thxWhere').textContent=w?'You were here: '+w.n:'Not inside the chest right now: the whole chest from outside.';
  if(w&&(W===LUNG)&&THX.lungs===0)THX.lungs=1;txApply();
- THX.yaw=.3;THX.pitch=.25;THX.tgt.copy(start);THX.dist=.15;THX.anim={t:0,T:3.2,zoom:1,d0:.15,d1:txFit(),tg0:start.clone(),tg1:new V3(0,-3.5,0),y0:.9,y1:.42,p0:.5,p1:.12};sfx&&sfx('scan');}
-function txClose(quiet){if(THX.mis)txEndMis();THX.open=false;$('mThx').classList.remove('show');document.body.classList.remove('brainOn','txCTOn','txRoundsOn');renderer.localClippingEnabled=false;$('thxLabels').innerHTML='';if(!quiet)toast('Back to your own size. Q zooms out again.');}
+ THX.yaw=.42;THX.pitch=.12;THX.tgt.set(0,-3.5,0);THX.dist=txFit();afStart(true);sfx&&sfx('scan');}
+function txClose(quiet){if(THX.mis)txEndMis();if(AF.on)afStop();$('afIntro').classList.remove('show');THX.open=false;$('mThx').classList.remove('show');document.body.classList.remove('brainOn','txCTOn','txRoundsOn');renderer.localClippingEnabled=false;$('thxLabels').innerHTML='';if(!quiet)toast('Back to your own size. Q zooms out again.');}
 function txScale(d){const w=2*d*Math.tan(THX.cam.fov*Math.PI/360)*THX.cam.aspect;return `field of view ${w<1?(w*10).toFixed(1)+' mm':w.toFixed(0)+' cm'} · ${Math.round(w/.005).toLocaleString()}× the view from the ship`;}
 // ---- per frame ----
 function thxFrame(dt){const T=THX;if(T.anim){const a=T.anim;a.t+=dt;const f=clamp(a.t/a.T,0,1),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;
   T.dist=a.zoom?a.d0*Math.pow(a.d1/a.d0,e):lerp(a.d0,a.d1,e);T.yaw=lerp(a.y0,a.y1,e);T.pitch=lerp(a.p0,a.p1,e);T.tgt.lerpVectors(a.tg0,a.tg1,a.zoom?Math.pow(e,.5):e);if(f>=1)T.anim=null;}
- if(keys.ArrowLeft)T.yaw-=dt*1.4;if(keys.ArrowRight)T.yaw+=dt*1.4;if(keys.ArrowUp)T.pitch=Math.min(1.5,T.pitch+dt);if(keys.ArrowDown)T.pitch=Math.max(-1.5,T.pitch-dt);
- const c=T.cam;c.aspect=innerWidth/innerHeight;c.near=Math.max(.01,T.dist*.04);c.far=T.dist+200;c.updateProjectionMatrix();
- c.position.set(T.tgt.x+T.dist*Math.cos(T.pitch)*Math.sin(T.yaw),T.tgt.y+T.dist*Math.sin(T.pitch),T.tgt.z+T.dist*Math.cos(T.pitch)*Math.cos(T.yaw));c.lookAt(T.tgt);
+ if(!AF.on){if(keys.ArrowLeft)T.yaw-=dt*1.4;if(keys.ArrowRight)T.yaw+=dt*1.4;if(keys.ArrowUp)T.pitch=Math.min(1.5,T.pitch+dt);if(keys.ArrowDown)T.pitch=Math.max(-1.5,T.pitch-dt);}
+ const c=T.cam;let LD=T.dist,LT=T.tgt;if(AF.on){afFrame(dt);LD=AF.camD*Math.max(.3,AF.sc)*2;LT=AF.pos;}else{c.up.set(0,1,0);c.aspect=innerWidth/innerHeight;c.near=Math.max(.01,T.dist*.04);c.far=T.dist+200;c.updateProjectionMatrix();
+ c.position.set(T.tgt.x+T.dist*Math.cos(T.pitch)*Math.sin(T.yaw),T.tgt.y+T.dist*Math.sin(T.pitch),T.tgt.z+T.dist*Math.cos(T.pitch)*Math.cos(T.yaw));c.lookAt(T.tgt);}
  if(T.beat){T.t+=dt;const per=60/70,f=(T.t%per)/per;TXU.uA.value=f<.13?Math.sin(Math.PI*f/.13):0;TXU.uV.value=f>.15&&f<.52?Math.pow(Math.sin(Math.PI*(f-.15)/.37),.8):0;
   const b=.5-.5*Math.cos(T.t*Math.PI*2/4.6);for(const L of[T.L,T.R]){const s=1+.014*b,sy=1+.026*b,h=new V3(L.userData.s*5.4,-3.2,-1.6);L.scale.set(s,sy,s);L.position.set(h.x*(1-s),h.y*(1-sy),h.z*(1-s));}T.G.dia.position.y=-.9*b;}
  const pul=1+.25*Math.sin(performance.now()/260),sc=pul*Math.max(.1,Math.min(1.4,T.dist/40));T.me.scale.setScalar(sc);T.ring.scale.setScalar(sc);T.ring.lookAt(c.position);
  if(T.mark.visible){T.mark.lookAt(c.position);T.mark.scale.setScalar(Math.max(.4,Math.min(1.6,T.dist/50))*(1+.12*Math.sin(performance.now()/180)));}
- $('thxScale').textContent=txScale(T.dist);
- const off=new V3(-.45,.75,.35).applyQuaternion(c.quaternion);T.key.position.copy(c.position).addScaledVector(off,T.dist*.6);T.key.target.position.copy(T.tgt);T.rim.position.copy(T.tgt).addScaledVector(new V3().subVectors(T.tgt,c.position),1).add(new V3(0,T.dist*.3,0));T.rim.target.position.copy(T.tgt);
+ if(!AF.on)$('thxScale').textContent=txScale(T.dist);
+ const off=new V3(-.45,.75,.35).applyQuaternion(c.quaternion);T.key.position.copy(c.position).addScaledVector(off,LD*.6);T.key.target.position.copy(LT);T.rim.position.copy(LT).addScaledVector(new V3().subVectors(LT,c.position),1).add(new V3(0,LD*.3,0));T.rim.target.position.copy(LT);
  if(typeof txMisFrame==='function')txMisFrame(dt);renderer.render(T.scene,c);txLabels();}
 // ---- labels (each anchor knows from which directions it is hidden by the lungs or the heart) ----
 const TXLAB={heart:['ra','rv','lv','la','raa','laa','lad','rca','lcx'],vessels:['aoAsc','arch','aoDesc','svc','ivc','pt','rpa','lpa','bct','lcca','lsca','lbcv','rspv','lipv'],tree:['trachea','rmb','lmb','bi'],med:['esoph','azy','thd','rphr','lphr','lvag','rvag','lrln','lig'],lungs:['RUL','RML','RLL','LUL','LLL']};
 function txOccl(){if(THX.occ)return THX.occ;const D=txIco(1).V,occ={};const keys2=[].concat(...Object.values(TXLAB));
  for(const k of keys2){const a=THX.anch[k];if(!a)continue;let lm=0,hm=0;D.forEach((d,j)=>{let lg=false,hh=false;for(let r=.5;r<26;r+=.75){const x=a.p.x+d.x*r,y=a.p.y+d.y*r,z=a.p.z+d.z*r;if(!lg&&(txLungD(x,y,z,1)<-.2||txLungD(x,y,z,-1)<-.2))lg=true;if(!hh&&txHeartD(x,y,z)<-.2)hh=true;if(lg&&hh)break;}if(lg)lm|=1<<j;if(hh)hm|=1<<j;});occ[k]=[lm,hm];}
  THX.occD=D;return THX.occ=occ;}
-function txLabels(){const box=$('thxLabels');if(!THX.labels||THX.lay.skin&&!THX.skinGlass){box.innerHTML=typeof txPinsHTML==='function'?txPinsHTML():'';return;}
+function txLabels(){const box=$('thxLabels');if(AF.on&&!(THX.mis&&THX.mis.type==='tag')){afLabels();return;}if(!THX.labels||THX.lay.skin&&!THX.skinGlass){box.innerHTML=typeof txPinsHTML==='function'?txPinsHTML():'';return;}
  const cam=THX.cam,cp=cam.position,out=[],v=new V3();const occ=txOccl(),D=THX.occD;
  const placed=[];const add=(key,p,txt,cls)=>{v.copy(p).project(cam);if(v.z>1||Math.abs(v.x)>1.02||Math.abs(v.y)>1.02)return;const X=(v.x*.5+.5)*innerWidth,Y=(-v.y*.5+.5)*innerHeight,hw=txt.length*(cls==='trib'?3.4:cls==='tseg'?2.9:3.3)+3,hh=cls==='trib'?6:8;
   if(THX.sel!==key&&placed.some(r=>Math.abs(r[0]-X)<r[2]+hw&&Math.abs(r[1]-Y)<r[3]+hh))return;placed.push([X,Y,hw,hh]);out.push(`<div class="blab ${cls||''}${THX.sel===key?' on':''}" style="left:${X}px;top:${Y}px">${txt}</div>`);};
@@ -7052,7 +7065,7 @@ function txName(k){if(!k)return '';if(k.startsWith('segB:'))return 'Segmental br
 const txSegName=k=>TXREG[k]?TXREG[k].n+', '+TXREG[TXSEG[k][0]].n.toLowerCase():k;
 function txSetHover(k){if(k===THX.hover)return;THX.hover=k;const t=$('thxTip');t.textContent=txName(k);t.style.display=k?'block':'none';}
 // ---- info panel ----
-function txInfo(k){const p=$('thxInfo');THX.sel=k;if(!k){p.classList.add('idle');p.innerHTML=`<div class="eyebrow">Chest atlas</div><h3>Pick a structure</h3><p class="small">Hover to name it, click to read it. Drag to turn the chest, scroll or pinch to zoom. Try <b>Chest rounds</b> to use it.</p>`;return;}
+function txInfo(k){const p=$('thxInfo');THX.sel=k;if(!k){p.classList.add('idle');p.innerHTML=`<div class="eyebrow">Chest atlas</div><h3>Pick a structure</h3><p class="small">${AF.on?(MOBILE?'Point the nose at a structure and tap Scan, or tap it':'Point the nose at a structure and press <b>E</b>, or click it')+', to read about it. <b>Z</b> pulls the camera back to show where you are in the chest.':'Hover to name it, click to read it. Drag to turn the chest, scroll or pinch to zoom.'} Try <b>Chest rounds</b> to use it.</p>`;return;}
  let key=k;if(k.startsWith('segB:')||k.startsWith('segA:'))key=k.slice(5);const r=TXREG[key]||TXREG[k]||{n:txName(k),g:'',t:''};p.classList.remove('idle');let extra='';
  if(TXSEG[key]){const L=TXREG[TXSEG[key][0]];extra=`<p class="small"><b>${L.n}</b> · ${L.t}</p>`;}
  if(k==='rib'||k==='cart'){const n=THX.hit&&THX.hit.rib;const R=TXRIBNOTE[n];if(R)extra=`<p class="small">${R}</p>`;}
@@ -7060,26 +7073,29 @@ function txInfo(k){const p=$('thxInfo');THX.sel=k;if(!k){p.classList.add('idle')
  if(r.d)$('txDive').onclick=()=>txDive(r.d);}
 function txDive(d){const [w,reg,msg]=d;const world={blood:BLOOD,lung:LUNG,lymph:LYMPH}[w];txClose(true);warp('Shrinking: 30 cm → 1 cm → 1 mm → the width of a capillary…',()=>{if(world===LUNG&&typeof enterLung==='function'&&W!==LUNG)enterLung();else{const R2=world.RANGE[reg];switchWorld(world,R2?R2[0]+2:world.nodeIdx[1]);}toast((msg||'Back inside.')+' Q zooms out again.');});}
 // ---- input ----
-function thxKey(k){const T=THX;if(k==='KeyQ'||k==='Escape'){if(T.slideOpen)return;txClose();return;}
- const v={Digit1:'front',Digit2:'back',Digit3:'left',Digit4:'right',Digit5:'top',Digit6:'oblique'}[k];if(v){txAnimTo(v);return;}
- if(k==='KeyL'){T.labels=!T.labels;}else if(k==='KeyG'){T.lungs=(T.lungs+1)%3;}else if(k==='KeyS'){T.lay.bones=!T.lay.bones;}else if(k==='KeyK'){T.lay.skin=!T.lay.skin;}else if(k==='KeyB'){T.lay.tree=!T.lay.tree;if(T.lay.tree&&T.lungs===0)T.lungs=1;}
+function thxKey(k){const T=THX;if(k==='Escape'&&$('afIntro').classList.contains('show')){afIntro(-1);return;}if(k==='KeyQ'||k==='Escape'){if(T.slideOpen)return;txClose();return;}
+ if(k==='KeyO'){afToggle();return;}if(k==='KeyZ'&&AF.on){AF.camD=AF.camD<16?28:7;return;}
+ if(AF.on){if(k==='KeyK'){afK();return;}if(k==='KeyE'){afE();return;}if(k==='KeyF'){afF();return;}if(['KeyW','KeyA','KeyS','KeyD','KeyC','Space','ShiftLeft','ShiftRight','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(k))return;
+  if(k==='Equal'||k==='NumpadAdd'){AF.camD=Math.max(1.2,AF.camD*.8);return;}if(k==='Minus'||k==='NumpadSubtract'){AF.camD=Math.min(60,AF.camD*1.25);return;}}
+ const v={Digit1:'front',Digit2:'back',Digit3:'left',Digit4:'right',Digit5:'top',Digit6:'oblique'}[k];if(v){if(AF.on)afToggle();txAnimTo(v);return;}
+ if(k==='KeyL'){T.labels=!T.labels;}else if(k==='KeyG'){T.lungs=(T.lungs+1)%3;}else if(k==='KeyU'){T.lay.bones=!T.lay.bones;}else if(k==='KeyJ'){T.lay.skin=!T.lay.skin;}else if(k==='KeyB'){T.lay.tree=!T.lay.tree;if(T.lay.tree&&T.lungs===0)T.lungs=1;}
  else if(k==='KeyM'){T.lay.med=!T.lay.med;}else if(k==='KeyV'){T.lay.vessels=!T.lay.vessels;}else if(k==='KeyH'){T.lay.heart=!T.lay.heart;}else if(k==='KeyX'){T.lmode=T.lmode==='surface'?'lobes':T.lmode==='lobes'?'segments':'surface';}
- else if(k==='KeyT'){T.terr=!T.terr;}else if(k==='KeyP'){T.beat=!T.beat;}else if(k==='KeyC'){txCTToggle();return;}else if(k==='KeyR'){txRounds();return;}
+ else if(k==='KeyT'){T.terr=!T.terr;}else if(k==='KeyP'){T.beat=!T.beat;}else if(k==='KeyI'){txCTToggle();return;}else if(k==='KeyR'){txRounds();return;}
  else if(k==='PageUp'||k==='BracketRight'){if(T.ct){txCTSet(T.ctY+.5);}return;}else if(k==='PageDown'||k==='BracketLeft'){if(T.ct){txCTSet(T.ctY-.5);}return;}
  else if(k==='Equal'||k==='NumpadAdd'){T.dist=Math.max(4,T.dist*.85);return;}else if(k==='Minus'||k==='NumpadSubtract'){T.dist=Math.min(180,T.dist*1.18);return;}else return;txApply();}
 function txWire(){if(THX.wired)return;THX.wired=true;const el=$('mThx');let drag=null,pinch=null;const pts=new Map();
- el.addEventListener('pointerdown',e=>{if(e.target.closest('.bpanel,#thxBar,button,canvas'))return;pts.set(e.pointerId,[e.clientX,e.clientY]);el.setPointerCapture(e.pointerId);if(pts.size===1)drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};else if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),dist:THX.dist};drag=null;}});
- el.addEventListener('pointermove',e=>{if(pts.has(e.pointerId))pts.set(e.pointerId,[e.clientX,e.clientY]);
-  if(pinch&&pts.size===2){const [a,b]=[...pts.values()];THX.dist=clamp(pinch.dist*pinch.d/Math.max(10,Math.hypot(a[0]-b[0],a[1]-b[1])),4,180);THX.anim=null;return;}
-  if(drag){THX.yaw-=(e.clientX-drag.x)*.006;THX.pitch=clamp(THX.pitch+(e.clientY-drag.y)*.005,-1.5,1.5);drag.x=e.clientX;drag.y=e.clientY;THX.anim=null;return;}
+ el.addEventListener('pointerdown',e=>{if(e.target.closest('.bpanel,#thxBar,button,canvas'))return;if(afPointer('down',e)){el.setPointerCapture(e.pointerId);return;}pts.set(e.pointerId,[e.clientX,e.clientY]);el.setPointerCapture(e.pointerId);if(pts.size===1)drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};else if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),dist:THX.dist,cd:AF.camD};drag=null;}});
+ el.addEventListener('pointermove',e=>{if(afPointer('move',e))return;if(pts.has(e.pointerId))pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pinch&&pts.size===2){const [a,b]=[...pts.values()];const rr=pinch.d/Math.max(10,Math.hypot(a[0]-b[0],a[1]-b[1]));if(AF.on){AF.camD=clamp(pinch.cd*rr,1.2,60);return;}THX.dist=clamp(pinch.dist*rr,4,180);THX.anim=null;return;}
+  if(drag){if(AF.on){const m=e.pointerType==='touch'?1.5:1;AF.mdx+=(e.clientX-drag.x)*m;AF.mdy+=(e.clientY-drag.y)*m;drag.x=e.clientX;drag.y=e.clientY;return;}THX.yaw-=(e.clientX-drag.x)*.006;THX.pitch=clamp(THX.pitch+(e.clientY-drag.y)*.005,-1.5,1.5);drag.x=e.clientX;drag.y=e.clientY;THX.anim=null;return;}
   const t=performance.now();if(t-THX.lastPick>90&&!e.target.closest('.bpanel,#thxBar')){THX.lastPick=t;const k=txPick(e.clientX,e.clientY);const pal=typeof txPalp==='function'?txPalp(k):null;if(pal){const tp=$('thxTip');tp.textContent=pal;tp.style.display='block';THX.hover=null;}else txSetHover(k);const tip=$('thxTip');tip.style.left=e.clientX+14+'px';tip.style.top=e.clientY+12+'px';}});
- const up=e=>{const d=drag;pts.delete(e.pointerId);if(pts.size<2)pinch=null;drag=null;if(d&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)<6){const k=txPick(e.clientX,e.clientY);if(typeof txMisClick==='function'&&txMisClick(k))return;txInfo(k);}};
+ const up=e=>{if(afPointer('up',e)){pts.delete(e.pointerId);return;}const d=drag;pts.delete(e.pointerId);if(pts.size<2)pinch=null;drag=null;if(d&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)<6){const k=txPick(e.clientX,e.clientY);if(typeof txMisClick==='function'&&txMisClick(k))return;txInfo(k);}};
  el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
- el.addEventListener('wheel',e=>{if(e.target.closest('#thxCT'))return;e.preventDefault();THX.dist=clamp(THX.dist*(e.deltaY>0?1.1:.9),4,180);THX.anim=null;},{passive:false});
+ el.addEventListener('wheel',e=>{if(e.target.closest('#thxCT'))return;e.preventDefault();if(AF.on){AF.camD=clamp(AF.camD*(e.deltaY>0?1.12:.89),1.2,60);return;}THX.dist=clamp(THX.dist*(e.deltaY>0?1.1:.9),4,180);THX.anim=null;},{passive:false});
  document.querySelectorAll('#thxBar [data-l]').forEach(b=>b.onclick=()=>{const k=b.dataset.l;if(k==='lungs')THX.lungs=THX.lungs===2?0:2;else if(k==='glass')THX.lungs=THX.lungs===1?0:1;else if(k==='ct'){txCTToggle();return;}else if(k==='terr')THX.terr=!THX.terr;else if(k==='labels')THX.labels=!THX.labels;else if(k==='beat')THX.beat=!THX.beat;else{THX.lay[k]=!THX.lay[k];if(k==='tree'&&THX.lay.tree&&THX.lungs===0)THX.lungs=1;}txApply();});
  document.querySelectorAll('#thxBar [data-m]').forEach(b=>b.onclick=()=>{THX.lmode=b.dataset.m;if(THX.lungs===2)THX.lungs=0;txApply();});
- document.querySelectorAll('#thxBar [data-v]').forEach(b=>b.onclick=()=>txAnimTo(b.dataset.v));
- $('thxRoundsBtn').onclick=()=>txRounds();$('thxClose').onclick=()=>txClose();$('thxBrain').onclick=()=>{txClose(true);openBrain();};
+ document.querySelectorAll('#thxBar [data-v]').forEach(b=>b.onclick=()=>{if(AF.on)afToggle();txAnimTo(b.dataset.v);});
+ $('thxRoundsBtn').onclick=()=>txRounds();$('afFly').onclick=()=>afToggle();$('afK').onclick=()=>afK();$('afE').onclick=()=>afE();$('afF').onclick=()=>afF();$('thxLayBtn').onclick=()=>document.body.classList.toggle('afLay');$('thxClose').onclick=()=>txClose();$('thxBrain').onclick=()=>{txClose(true);openBrain();};
  txCTWire();}
 
 // ---- CT: an axial slice sampled from the same model (a CT pulmonary angiogram: contrast arriving from a right-arm vein) ----
@@ -7347,11 +7363,13 @@ const TXEDGESVG=`<svg viewBox="0 0 220 120" class="txsvg"><rect x="0" y="0" widt
 function txSetup(M){const S2=M.setup||{};THX.skinGlass=false;if(S2.lungs!=null)THX.lungs=S2.lungs;if(S2.lmode)THX.lmode=S2.lmode;if(S2.lay)Object.assign(THX.lay,{skin:false},Object.fromEntries(Object.entries(S2.lay).map(([k,v])=>[k,!!v])));
  if(M.type==='proc'){THX.lay.skin=true;THX.lungs=0;THX.lmode='surface';}THX.terr=false;THX.ct=M.type==='ct';THX.ctCase={};
  const ck=M.caseK!==undefined?M.caseK:THX.caseK;if(ck!==THX.caseK){THX.caseK=ck;txHeartDef(ck==='as');}txApply();}
-function txStart(id){txEndMis();const M=TXMIS.find(m=>m.id===id);THX.mis=M;Object.assign(M,{done:false,fb:'',tries:0,step:0,err:0,edgeAsk:false,ctOn:false,ctDone:false,ctMark:null,terrOn:false,hiSeg:null});txSetup(M);txInfo(null);
+function txStart(id){txEndMis();const M=TXMIS.find(m=>m.id===id);THX.mis=M;Object.assign(M,{done:false,fb:'',tries:0,step:0,err:0,edgeAsk:false,ctOn:false,ctDone:false,ctMark:null,terrOn:false,hiSeg:null});if(AF.on&&['tag','proc','ct'].includes(M.type))afStop();txSetup(M);txInfo(null);
  if(M.type==='tag'){M.i=0;M.score=0;M.left=90;M.order=M.pins.slice();txTagPin();}
  else if(M.type==='ct'){THX.win='med';THX.ctY=M.steps[0].y+4;txCTSet(THX.ctY);txAnimTo([.6,.7],new V3(0,THX.ctY,0),txFit()*.95);}
  else txAnimTo(M.view||'front',M.tg?new V3(...M.tg):null,M.dist||txFit()*.92);
  if(M.type==='route'){M.trail=new THREE.Group();THX.lines.add(M.trail);M.prev=null;}
+ if(AF.on&&M.type==='route'){afPlaceKey(M.seq[0][0],.03);afGlass();txMisClick(M.seq[0][0]);afHint('Fly the route: the blood carries you, you choose the turns. Steer into each branch you need.');}
+ else if(AF.on)afHint('Fly to it and scan it with E, or click it.');
  txRender();}
 function txEndMis(){const M=THX.mis;if(M&&M.done==null)M.done=false;if(M&&(M.type==='ct'||M.ctOn))THX.ct=false;THX.mis=null;THX.mark.visible=false;THX.dot.visible=false;THX.lines.clear();THX.pinG.clear();THX.skinGlass=false;THX.ctCase={};THX.dotPath=null;if(THX.built){THX.lay.skin=false;txApply();}}
 // ---- tag test ----
@@ -7420,6 +7438,287 @@ function txDrawLines(){const mat=new THREE.LineBasicMaterial({color:0xffc861,tra
   for(const th of[.69,.5,.31]){const Q=[];for(let y=1;y>=-13;y-=.5)Q.push(txSkinAtTheta(th*Math.PI,y,s).multiplyScalar(1.004));add(Q);}}}
 function txMisFrame(dt){const M=THX.mis;if(THX.dotPath){const d=THX.dotPath;d.t=Math.min(1,d.t+dt*9/Math.max(1,d.L));THX.dot.position.copy(d.cv.getPointAt(d.t));}
  if(M&&M.type==='tag'&&!M.done){M.left-=dt;const el=$('txTimer');if(el)el.textContent=Math.max(0,Math.ceil(M.left))+' s';if(M.left<=0){M.left=0;txTagEnd();}}}
+
+/* ===== Flying the chest at organ scale (1 Nov 2026; Jon: "the zoomed out gameplay doesn't feel similar enough to the gameplay with the space ship … I don't understand what I'm seeing")
+   You stay the pilot: the ship is ~1 cm long, the controls are the ship's, organs are solid, vessels and airways are hollow rails
+   the blood or air carries you along, valves open in their part of the beat, and the HUD always says where you are. ===== */
+const AF={on:false,pos:new V3(),q:new THREE.Quaternion(),vel:new V3(),rail:null,s:0,prev:null,coolT:0,camD:4,camP:new V3(),camQ:new THREE.Quaternion(),rails:null,ship:null,
+ mdx:0,mdy:0,lastSteer:0,t:0,labT:0,labs:[],joy:null,intro:-1,hint:'',hintT:0,scanned:new Set(),retK:null,retT:0,anim:null,lastK:null,valves:[],sc:1,touchK:null};
+const AFFLOW={aoAsc:'a',arch:'a',aoDesc:'a',bct:'a',rsca:'a',rcca:'a',lcca:'a',lsca:'a',pt:'p',lpa:'p',rpa:'p',svc:'v',rbcv:'v',lbcv:'v',rijv:'v',rscv:'v',lijv:'v',lscv:'v',ivc:'v',
+ rspv:'pv',ripv:'pv',lspv:'pv',lipv:'pv',azy:'v',thd:'ly',trachea:'air',rmb:'air',rulB:'air',bi:'air',rmlB:'air',rllB:'air',lmb:'air',lulB:'air',lllB:'air',esoph:'gut'};
+const AFGRP={a:'sa',p:'pa',v:'ve',ly:'ve',pv:'pv',air:'air',gut:'gut'};
+const AFEND={rcca:'up the neck to the head',lcca:'up the neck to the head',rsca:'out to the right arm',lsca:'out to the left arm',aoDesc:'through the aortic hiatus (T12) to the abdomen',
+ ivc:'down through the diaphragm (T8) to the legs',rpa:'into the segmental arteries of the right lung',lpa:'into the segmental arteries of the left lung',trachea:'up to the larynx',
+ esoph:'through the oesophageal hiatus (T10) to the stomach',rijv:'up the neck',lijv:'up the neck',rscv:'out to the right arm',lscv:'out to the left arm',thd:'down to the cisterna chyli (L1)',azy:'down into the abdomen'};
+function afRail(id,k,pts,r,kind,name){const P=pts.map(p=>p.clone()),S=[0];for(let i=1;i<P.length;i++)S.push(S[i-1]+P[i].distanceTo(P[i-1]));
+ const R=P.map((p,i)=>Array.isArray(r)?r[i]:r);const box=new THREE.Box3().setFromPoints(P);box.expandByScalar(Math.max(...R)+.6);return {id,k,P,S,L:S[S.length-1],R,kind,name,ports:[],box,valve:null};}
+function afSeg(R,s){let lo=0,hi=R.S.length-1;if(s<=0)return 0;if(s>=R.L)return hi-1;while(hi-lo>1){const m=(lo+hi)>>1;if(R.S[m]<=s)lo=m;else hi=m;}return lo;}
+function afAt(R,s,out){s=clamp(s,0,R.L);const i=afSeg(R,s),j=Math.min(i+1,R.P.length-1),f=(s-R.S[i])/Math.max(1e-6,R.S[j]-R.S[i]);out=out||new V3();out.lerpVectors(R.P[i],R.P[j],f);
+ const t=R.P[j].clone().sub(R.P[i]);if(t.lengthSq()<1e-10)t.set(0,0,1);return {p:out,r:lerp(R.R[i],R.R[j],f),t:t.normalize()};}
+function afProj(R,p,s0,win){let best=1e9,bs=0;const i0=s0==null?0:afSeg(R,s0-(win||3)),i1=s0==null?R.P.length-1:Math.min(R.P.length-1,afSeg(R,s0+(win||3))+1);
+ for(let i=i0;i<i1;i++){const a=R.P[i],b=R.P[i+1],abx=b.x-a.x,aby=b.y-a.y,abz=b.z-a.z,l=abx*abx+aby*aby+abz*abz;let h=l>0?((p.x-a.x)*abx+(p.y-a.y)*aby+(p.z-a.z)*abz)/l:0;h=h<0?0:h>1?1:h;
+  const dx=a.x+abx*h-p.x,dy=a.y+aby*h-p.y,dz=a.z+abz*h-p.z,d=dx*dx+dy*dy+dz*dz;if(d<best){best=d;bs=R.S[i]+h*(R.S[i+1]-R.S[i]);}}return {s:bs,d:Math.sqrt(best)};}
+function afCv(a){const L=a.reduce((s,p,i)=>i?s+p.distanceTo(a[i-1]):0,0);return new THREE.CatmullRomCurve3(a).getSpacedPoints(Math.max(8,Math.round(L/.35)));}
+function afBuildRails(){const out=[];
+ for(const k in AFFLOW){const T=TXT[k];if(!T)continue;out.push(afRail(k,k,T.pts,T.r,AFFLOW[k],TXREG[k]?TXREG[k].n:k));}
+ const ch=TXH.ch,tri=new V3(-1.0,-6.4,3.4),mit=new V3(1.6,-5.0,.8),lst=k=>TXT[k].pts[TXT[k].pts.length-1].clone();
+ const svcE=lst('svc'),ivcE=lst('ivc'),ptS=TXT.pt.pts[0].clone(),aoS=TXT.aoAsc.pts[0].clone();
+ out.push(afRail('raC','ra',afCv([svcE,ch.ra.c.clone(),tri.clone().add(new V3(-.5,.4,-.4)),tri.clone()]),1.6,'h','Right atrium'));
+ out.push(afRail('raI','ra',afCv([ivcE,ch.ra.c.clone()]),1.5,'h','Right atrium'));
+ out.push(afRail('rvC','rv',afCv([tri.clone(),ch.rv.c.clone(),TXH.rvot.a.clone(),ptS]),1.4,'h','Right ventricle'));
+ const rpvM=lst('rspv').lerp(lst('ripv'),.5),lpvM=lst('lspv').lerp(lst('lipv'),.5);
+ out.push(afRail('laC','la',afCv([rpvM,ch.la.c.clone(),mit.clone()]),1.4,'h','Left atrium'));
+ out.push(afRail('laL','la',afCv([lpvM,ch.la.c.clone()]),1.3,'h','Left atrium'));
+ out.push(afRail('lvC','lv',afCv([mit.clone(),ch.lv.c.clone(),new V3(.2,-4.6,1.6),aoS]),1.4,'h','Left ventricle'));
+ (THX.br||[]).forEach((b,i)=>out.push(afRail('br'+i,'segB:'+b.seg,[b.a,b.b],b.r,'air',txName('segB:'+b.seg))));
+ const by=Object.fromEntries(out.map(r=>[r.id,r]));
+ by.rvC.valve={n:'tricuspid valve',open:'dia'};by.pt.valve={n:'pulmonary valve',open:'sys'};by.lvC.valve={n:'mitral valve',open:'dia'};by.aoAsc.valve={n:'aortic valve',open:'sys'};
+ const grp=R=>R.kind==='h'?'h':AFGRP[R.kind],compat=(A,B)=>{const a=grp(A),b=grp(B);if(a==='h'||b==='h')return a!=='air'&&b!=='air'&&a!=='gut'&&b!=='gut';return a===b;};
+ for(const B of out)for(const e of[0,1]){const E=e?B.P[B.P.length-1]:B.P[0];
+  for(const A of out){if(A===B||!compat(A,B)||!A.box.containsPoint(E))continue;const pr=afProj(A,E);const rA=afAt(A,pr.s).r;if(pr.d>Math.max(.45,rA*.9+.2))continue;
+   const sB=e?B.L:0,dB=e?-1:1;if(!A.ports.some(p=>p.to===B&&Math.abs(p.sTo-sB)<.01))A.ports.push({s:pr.s,to:B,sTo:sB,dir:dB});
+   for(const d of[1,-1]){if(d>0&&pr.s>A.L-.3||d<0&&pr.s<.3)continue;if(!B.ports.some(p=>p.to===A&&p.dir===d&&Math.abs(p.sTo-pr.s)<.01))B.ports.push({s:sB,to:A,sTo:pr.s,dir:d});}}}
+ AF.rails=out;AF.by=by;}
+// ---- the ship: ~1 cm, with a headlight so the inside of a vessel is lit like the ship's own world ----
+function afBuildShip(){const g=new THREE.Group();const hullM=new THREE.MeshStandardMaterial({color:0xdfe7ee,metalness:.55,roughness:.3,emissive:0x0a1a1c});
+ const hull=new THREE.Mesh(new THREE.SphereGeometry(1,24,16),hullM);hull.scale.set(.2,.14,.5);g.add(hull);
+ const can=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),new THREE.MeshStandardMaterial({color:0x1b3b44,metalness:.2,roughness:.08,emissive:0x0b3a40}));can.scale.set(.1,.07,.17);can.position.set(0,.09,-.16);g.add(can);
+ for(const s of[1,-1]){const f=new THREE.Mesh(new THREE.BoxGeometry(.34,.02,.22),hullM);f.position.set(s*.27,-.02,.16);f.rotation.y=s*.35;g.add(f);
+  const tip=new THREE.Mesh(new THREE.SphereGeometry(.03,8,6),new THREE.MeshBasicMaterial({color:s>0?0x63ff8a:0xff5050}));tip.position.set(s*.43,-.02,.24);g.add(tip);}
+ const eng=new THREE.Mesh(new THREE.SphereGeometry(.09,12,8),new THREE.MeshBasicMaterial({color:0x7ff6ee,transparent:true,opacity:.95}));eng.position.z=.5;g.add(eng);AF.eng=eng;
+ const glow=new THREE.Mesh(new THREE.SphereGeometry(.22,12,8),new THREE.MeshBasicMaterial({color:0x3ee6d8,transparent:true,opacity:.28,depthWrite:false,blending:THREE.AdditiveBlending}));glow.position.z=.56;g.add(glow);AF.glow=glow;
+ const L=new THREE.PointLight(0xfff2e6,1.1,7,1.6);L.position.set(0,.25,-.9);g.add(L);AF.lamp=L;
+ g.visible=false;THX.scene.add(g);AF.ship=g;
+ const vg=new THREE.Group();THX.scene.add(vg);AF.vg=vg;
+ for(const id of['rvC','pt','lvC','aoAsc']){const R=AF.by[id],a=afAt(R,.05);const m=new THREE.Mesh(new THREE.CircleGeometry(a.r*.95,28),new THREE.MeshBasicMaterial({color:0xfff0e0,transparent:true,opacity:.5,side:THREE.DoubleSide,depthWrite:false}));
+  m.position.copy(a.p);m.lookAt(a.p.clone().add(a.t));m.userData.R=R;vg.add(m);AF.valves.push(m);}
+ vg.visible=false;}
+// ---- start / stop ----
+function afStart(fromOpen){if(!AF.rails){afBuildRails();afBuildShip();afBuildNav();}
+ AF.on=true;document.body.classList.add('afOn');$('thxEye').textContent='Organ scale · your ship in the chest';THX.anim=null;THX.me.visible=THX.ring.visible=false;AF.ship.visible=true;AF.vg.visible=true;
+ if(fromOpen){const w=txWhere();let placed=false;
+  if(w){const want=W===LUNG?['air']:W===LYMPH?['ly','v']:['a','p','v','pv','h'];let best=null;for(const R of AF.rails){if(!want.includes(R.kind)||!R.box.containsPoint(w.p))continue;const pr=afProj(R,w.p);const r=afAt(R,pr.s).r;if(pr.d<r+.4&&(!best||pr.d<best.d))best={R,s:pr.s,d:pr.d};}
+   if(best){afPlace(best.R,best.s);placed=true;}else{AF.pos.copy(w.p);AF.rail=null;placed=true;afFace(new V3(0,0,-1));}}
+  if(!placed){AF.rail=null;AF.pos.set(0,-2,26);afFace(new V3(0,0,-1));}
+  AF.anim={t:0,K:[[0,.06],[2.4,26],[3.9,26],[5.4,7]]};AF.camD=.06;AF.camP.copy(AF.pos);}else if(!AF.camD||AF.camD<1)AF.camD=7;
+ else{AF.camP.copy(THX.cam.position);}
+ THX.cam.fov=58;THX.cam.updateProjectionMatrix();afGlass();afBar();
+ const seenI=()=>{try{return localStorage.getItem('ivFlyIntro')==='1';}catch(e){return false;}};if(!seenI()&&fromOpen)setTimeout(()=>{if(AF.on&&!seenI())afIntro(0);},2700);}
+function afStop(){AF.on=false;$('afStats').style.display='none';setTimeout(()=>{if(!AF.on&&THX.built)txApply();},0);$('thxEye').textContent='Overview · chest atlas';THX.ring.visible=false;document.body.classList.remove('afOn','afLay');if(AF.ship)AF.ship.visible=false;if(AF.vg)AF.vg.visible=false;THX.cam.fov=32;THX.cam.updateProjectionMatrix();afGlass();afBar();$('afHint').textContent='';$('afRet').style.display='none';$('afJoy').style.display='none';}
+function afToggle(){if(AF.on){afStop();THX.tgt.copy(AF.pos);txAnimTo([THX.yaw,THX.pitch],new V3(0,-3.5,0),txFit());$('thxWhere').textContent='Overview: drag to turn the chest, O to fly the ship again.';}else afStart(false);}
+function afFace(d){const m=new THREE.Matrix4().lookAt(new V3(),d.clone(),Math.abs(d.y)>.95?new V3(0,0,1):new V3(0,1,0));AF.q.setFromRotationMatrix(m);}
+function afPlace(R,s){AF.rail=R;AF.s=clamp(s,.05,R.L-.05);const a=afAt(R,AF.s);AF.pos.copy(a.p);AF.vel.set(0,0,0);afFace(a.t);AF.lastK=R.k;}
+function afPlaceKey(k,f){const R=AF.rails.find(r=>r.k===k);if(R)afPlace(R,R.L*(f||0));}
+// inside a vessel the walls of that system turn to glass so you can see your ship and the anatomy around it
+function afGlass(){if(!THX.G)return;const R=AF.on?AF.rail:null;const A=AF.on&&AF.ahead||new Set();
+ // only the tube you are in is glass (and the branches just ahead, so you can see into the fork); everything else stays solid
+ const glassOf=o=>{if(!R)return 0;const k=o.userData.key;if(THX.tubeM&&o===THX.tubeM[R.k])return .22;if(R.id.startsWith('br')&&k==='segB')return .3;if(R.kind==='h'&&o===TXH.mesh)return .28;if(A.has(k))return .45;if(A.has('heart')&&o===TXH.mesh)return .45;return 0;};
+ const F=AF.on&&AF.fadeM||new Set();
+ for(const n of['vessels','tree','heart','med','bones','dia']){THX.G[n].traverse(o=>{if(!o.isMesh||!o.material||!o.material.userData||!o.material.userData.base)return;const m=o.material,b=m.userData.base;let op=glassOf(o);if(F.has(m))op=op?Math.min(op,.22):.22;if(m._afg===op)return;m._afg=op;
+   m.transparent=!!op||b.tr;m.opacity=op||b.op;m.depthWrite=!op&&!b.tr;m.needsUpdate=true;});}
+ for(const L of[THX.L,THX.R]){if(!L)continue;const m=L.material,f=AF.on&&F.has(m)&&THX.lungs===0,tr=THX.lungs===1||f,op=THX.lungs===1?.16:f?.22:1;if(m.transparent!==tr||m.opacity!==op){m.transparent=tr;m.opacity=op;m.depthWrite=!tr;m.needsUpdate=true;}}
+ // a faint glass body around you while flying, so the chest always reads as part of a person
+ if(THX.G.skin){const sh=AF.on&&!THX.lay.skin;if(sh)THX.G.skin.visible=true;THX.G.skin.traverse(o=>{if(!o.isMesh||THX.lay.skin){if(o.isMesh)o.visible=true;return;}if(!o.material.userData||!o.material.userData.base){o.visible=!sh;return;}const m=o.material,op=sh?.07:1;if(m.opacity!==op){m.opacity=op;m.transparent=sh;m.depthWrite=!sh;m.needsUpdate=true;}});}
+ if(AF.on&&AF.rail&&AF.rail.kind==='air'&&!THX.lay.tree){THX.lay.tree=true;THX.G.tree.visible=true;}if(AF.on&&AF.rail&&AF.rail.kind==='air'&&THX.lungs===0){THX.lungs=1;txApply();}}
+// ---- solids: lungs, heart, vessel walls, the diaphragm (from above) ----
+function afSDF(x,y,z){let d=1e9,k=null;
+ if(THX.lungs<2){for(const s of[1,-1]){const v=txLungD(x,y,z,s);if(v<d){d=v;k=s>0?'LUL':'RUL';}}}
+ if(THX.lay.heart){const v=txHeartD(x,y,z);if(v<d){d=v;k='heart';}}
+ if(THX.lay.vessels){for(const kk in AFFLOW){const T=TXT[kk];if(!T||T.lay!=='vessels'||!txInBox(T,x,y,z,1))continue;const v=txTubeD(T,x,y,z);if(v<d){d=v;k=kk;}}}
+ const th=Math.atan2(Math.abs(x),-(z-TXZC)),rr=Math.hypot(x,z-TXZC);if(y<6&&y>-22&&rr<txWall(th,clamp(y,-16,8))){const v=y-txDia(x,z);if(v<d){d=v;k='dia';}}
+ return {d,k};}
+function afCollide(){const p=AF.pos,r=AFR*AF.sc,h=.06;const c=afSDF(p.x,p.y,p.z);AF.touchK=c.d<r+.45?c.k:null;if(c.d>=r)return;
+ const n=new V3(afSDF(p.x+h,p.y,p.z).d-afSDF(p.x-h,p.y,p.z).d,afSDF(p.x,p.y+h,p.z).d-afSDF(p.x,p.y-h,p.z).d,afSDF(p.x,p.y,p.z+h).d-afSDF(p.x,p.y,p.z-h).d);
+ if(n.lengthSq()<1e-8)n.set(0,1,0);n.normalize();p.addScaledVector(n,r-c.d);const vn=AF.vel.dot(n);if(vn<0){AF.vel.addScaledVector(n,-vn*1.25);if(vn<-2.5){AF.bump=.15;sfx&&sfx('buzz');}}}
+const AFR=.32;
+// ---- the beat and the breath drive the flow ----
+function afPhase(){return {sys:TXU.uV.value>.04,uV:TXU.uV.value,insp:Math.sin(THX.t*Math.PI*2/4.6)>0,br:Math.sin(THX.t*Math.PI*2/4.6)};}
+function afFlow(R){const ph=afPhase();switch(R.kind){case 'a':return 2.5+9*ph.uV;case 'p':return 2+7*ph.uV;case 'v':return 3;case 'pv':return 3;case 'h':return 2.6;case 'ly':return .8;case 'air':return ph.br>0?3.6*ph.br:1.3*ph.br;default:return 0;}}
+function afValveOpen(R){if(!R.valve||!THX.beat)return true;const sys=afPhase().sys;return R.valve.open==='sys'?sys:!sys;}
+// ---- per frame ----
+function afStep(dt){const fwd=new V3(0,0,-1).applyQuaternion(AF.q),up=new V3(0,1,0).applyQuaternion(AF.q),right=new V3(1,0,0).applyQuaternion(AF.q);const busy=!!document.querySelector('#afIntro.show');
+ // steering: drag, arrows, the right thumb
+ const look=(keys.ArrowLeft?1:0)-(keys.ArrowRight?1:0),lookV=(keys.ArrowUp?1:0)-(keys.ArrowDown?1:0);const yaw=-AF.mdx*.0034+look*1.5*dt,pitch=-AF.mdy*.0034+lookV*1.5*dt;
+ if(AF.mdx||AF.mdy||look||lookV)AF.lastSteer=AF.t;AF.mdx=AF.mdy=0;const tq=new THREE.Quaternion();tq.setFromAxisAngle(new V3(0,1,0),yaw);AF.q.multiply(tq);tq.setFromAxisAngle(new V3(1,0,0),pitch);AF.q.multiply(tq);
+ fwd.set(0,0,-1).applyQuaternion(AF.q);up.set(0,1,0).applyQuaternion(AF.q);
+ {const wu=afUp(fwd);const ang=Math.atan2(new V3().crossVectors(up,wu).dot(fwd),up.dot(wu));tq.setFromAxisAngle(fwd,ang*Math.min(1,dt*2.2));AF.q.premultiply(tq);}
+ AF.q.normalize();fwd.set(0,0,-1).applyQuaternion(AF.q);up.set(0,1,0).applyQuaternion(AF.q);right.set(1,0,0).applyQuaternion(AF.q);
+ // thrust: the ship's keys
+ const acc=new V3();if(!busy){if(keys.KeyW)acc.add(fwd);if(keys.KeyS)acc.sub(fwd);if(keys.KeyD)acc.add(right);if(keys.KeyA)acc.sub(right);if(keys.Space)acc.add(up);if(keys.KeyC)acc.sub(up);
+  if(AF.joy){acc.addScaledVector(fwd,AF.joy.fy);acc.addScaledVector(right,AF.joy.fx);}}
+ const th=Math.min(1,acc.length());if(th>0)acc.normalize();const boost=keys.ShiftLeft||keys.ShiftRight;AF.thr=th;
+ const sc=AF.sc;AF.vel.addScaledVector(acc,th*(boost?40:13)*Math.max(.35,sc)*dt);
+ if(AF.rail)afStepLumen(dt,fwd,th);else{const drag=th>0?1.6:3.2;AF.vel.multiplyScalar(Math.exp(-drag*dt));AF.pos.addScaledVector(AF.vel,dt);afCollide();if(AF.pos.length()>90)AF.pos.setLength(90);AF.sc=1;}
+ // camera: chase, a little above and behind; scroll or pinch pulls it back
+ if(AF.anim){const a=AF.anim;a.t+=dt;const K=a.K;let i=0;while(i<K.length-2&&a.t>K[i+1][0])i++;const f=clamp((a.t-K[i][0])/(K[i+1][0]-K[i][0]),0,1),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;AF.camD=K[i][1]*Math.pow(K[i+1][1]/K[i][1],e);if(a.t>=K[K.length-1][0])AF.anim=null;}
+ let cd=AF.camD*Math.max(.3,AF.sc);if(AF.rail&&!AF.anim)cd=Math.min(cd,2.4+3.2*afAt(AF.rail,AF.s).r);
+ // far out (the opening shot, or Z) the camera swings to the front of the patient so the chest reads as a chest, with your ship glowing inside it
+ const est=AF.anim&&AF.anim.t<3.9?1:txSS(13,24,AF.camD);const tgtE=AF.pos.clone().lerp(new V3(0,-3,0),.45),dirE=new V3(.32,.22,1).normalize();
+ let wantC=AF.pos.clone().addScaledVector(fwd,-cd).addScaledVector(up,cd*.3),lookC=AF.pos.clone().addScaledVector(fwd,cd*.55).addScaledVector(up,cd*.08);
+ // inside a lumen the camera rides the same tube a little behind you, like the ship's own view
+ if(AF.rail&&!AF.anim){const R=AF.rail,a0=afAt(R,AF.s),mv=Math.sign(fwd.dot(a0.t))||1,cdl=Math.min(AF.camD*Math.max(.3,AF.sc),1.2+2.6*a0.r);let sc2=AF.s-mv*cdl,Rc=R;
+  if((sc2<0||sc2>R.L)&&AF.prev&&AF.coolT>-3){const over=sc2<0?-sc2:sc2-R.L;const P=AF.prev,pr=afProj(P,afAt(R,sc2<0?0:R.L).p);const d2=pr.s<P.L/2?1:-1;sc2=clamp(pr.s+d2*over,0,P.L);Rc=P;}
+  const ac=afAt(Rc,clamp(sc2,0,Rc.L)),off=AF.pos.clone().sub(a0.p);off.addScaledVector(a0.t,-off.dot(a0.t));const u2=afUp(a0.t.clone().multiplyScalar(mv));
+  wantC=ac.p.clone().addScaledVector(off,.5).addScaledVector(u2,ac.r*.38);lookC=AF.pos.clone().addScaledVector(fwd,1.4*Math.max(.4,AF.sc));}
+ const wantE=tgtE.clone().addScaledVector(dirE,AF.camD*1.25);const want=wantC.lerp(wantE,est);
+ AF.camP.lerp(want,AF.anim?1:Math.min(1,dt*7));const c=THX.cam;c.position.copy(AF.camP);c.up.copy(afUp(fwd).lerp(new V3(0,1,0),est).normalize());c.lookAt(lookC.lerp(tgtE,est));
+ THX.ring.visible=est>.05;if(est>.05){THX.ring.position.copy(AF.pos);THX.ring.lookAt(c.position);THX.ring.scale.setScalar(AF.camD*.06*(1+.25*Math.sin(AF.t*5)));THX.ring.material.opacity=.7*est;}
+ c.near=Math.max(.008,cd*.04);c.far=400;c.aspect=innerWidth/innerHeight;c.updateProjectionMatrix();
+ const vis=AF.anim&&AF.anim.t<2.4?Math.min(1,AF.camD/7):Math.max(sc,AF.camD/18);afOccl(dt);AF.ship.scale.setScalar(vis);AF.ship.position.copy(AF.pos);AF.ship.quaternion.copy(AF.q);
+ if(AF.bump){AF.bump-=dt;AF.ship.position.addScaledVector(new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5),.05*sc);}
+ const fl=.6+.4*th+(boost&&th?.5:0)+.1*Math.sin(AF.t*30);AF.glow.scale.setScalar(fl);AF.eng.material.opacity=.6+.35*th;AF.lamp.distance=7*Math.max(.4,sc);
+ // valves show their state
+ for(const m of AF.valves){const o=afValveOpen(m.userData.R);m.scale.setScalar(o?.25:1);m.material.opacity=o?.12:.55;}}
+function afStepLumen(dt,fwd,th){const R=AF.rail;let a=afAt(R,AF.s);const t=a.t;const flow=afFlow(R);
+ AF.sc=clamp((a.r-.04)/.5,.12,1);
+ // the blood (or air) carries you; thrust adds to it
+ const along=AF.vel.dot(t);const lat=AF.vel.clone().addScaledVector(t,-along);const k=th>0?1.0:1.6;
+ const nAlong=lerp(along,flow,Math.min(1,k*dt));lat.multiplyScalar(Math.exp(-2.4*dt));AF.vel.copy(t).multiplyScalar(nAlong).add(lat);
+ AF.pos.addScaledVector(AF.vel,dt);
+ let pr=afProj(R,AF.pos,AF.s,Math.min(3,.5+Math.abs(AF.vel.dot(t))*dt*3));AF.s=pr.s;
+ // valves are one-way: no backing out through one
+ if(R.valve&&AF.s<.12&&AF.vel.dot(t)<0){AF.s=.12;const p=afAt(R,AF.s).p;AF.pos.add(p.clone().sub(afAt(R,pr.s).p));AF.vel.addScaledVector(t,-AF.vel.dot(t));afHint(`The ${R.valve.n} only opens one way.`);}
+ // switch rails at forks and ends
+ AF.coolT-=dt;const moving=Math.sign(AF.vel.dot(t))||1;let switched=false;
+ const cands=R.ports.filter(p=>Math.abs(p.s-AF.s)<Math.max(.35,a.r*.55)&&!(AF.coolT>0&&p.to===AF.prev));
+ const atEnd=(moving>0&&AF.s>R.L-.12)||(moving<0&&AF.s<.12);
+ if(cands.length){let best=null,bs=-9;const cont=atEnd?-2:fwd.dot(t.clone().multiplyScalar(moving));
+  const intent=th>0||AF.t-AF.lastSteer<2.5;
+  for(const p of cands){const B=p.to;if(!intent&&p.dir*afFlow(B)<-.05)continue;const tb=afAt(B,p.sTo).t.multiplyScalar(p.dir);const sc2=fwd.dot(tb);if(sc2>bs){bs=sc2;best=p;}}
+  const isEndPort=best&&(Math.abs(best.s-(moving>0?R.L:0))<.15);
+  if(best&&(atEnd&&isEndPort?true:(intent&&bs>.35&&bs>cont+.08))){const B=best.to;
+   const intoValve=B.valve&&best.sTo<.01&&best.dir>0,outOfValve=R.valve&&AF.s<.3&&moving<0;
+   if(outOfValve){}else if(intoValve&&!afValveOpen(B)){afHint(`The ${B.valve.n} is shut (${B.valve.open==='sys'?'it opens in systole':'it opens in diastole'}). Wait for the beat.`);if(atEnd){AF.s=moving>0?R.L-.12:.12;AF.vel.addScaledVector(t,-AF.vel.dot(t)*1.0);}}
+   else{AF.prev=R;AF.coolT=.8;AF.rail=B;AF.s=clamp(best.sTo+best.dir*.06,0,B.L);AF.vel.copy(afAt(B,AF.s).t.multiplyScalar(best.dir*Math.max(.5,Math.abs(AF.vel.dot(t)))));switched=true;afEnter(B,R);}}}
+ if(!switched&&atEnd){const endS=moving>0?R.L:0;if(!R.ports.some(p=>Math.abs(p.s-endS)<.15)){AF.s=clamp(AF.s,.12,R.L-.12);AF.vel.addScaledVector(t,-AF.vel.dot(t));
+   const where=AFEND[R.k]||(R.kind==='air'?'on into ever-smaller airways (about 23 generations)':'beyond this model');afHint(`The model ends here: the ${R.name.toLowerCase()} carries on ${where}. F shrinks you in · S turns back · K leaves through the wall.`);}}
+ // keep inside the lumen
+ const R2=AF.rail;a=afAt(R2,AF.s);const off=AF.pos.clone().sub(a.p);off.addScaledVector(a.t,-off.dot(a.t));const lim=Math.max(.02,a.r-AFR*AF.sc*1.1);
+ if(off.length()>lim){off.setLength(lim);const n=off.clone().normalize(),vn=AF.vel.dot(n);if(vn>0)AF.vel.addScaledVector(n,-vn*1.3);}AF.pos.copy(a.p).add(off);
+ // the nose drifts to the flow when you stop steering
+ if(AF.t-AF.lastSteer>1.2){const dirT=a.t.clone().multiplyScalar(Math.sign(AF.vel.dot(a.t))||1);if(fwd.dot(dirT)>.2){const tq=new THREE.Quaternion().setFromUnitVectors(fwd,dirT);const id=new THREE.Quaternion();id.slerp(tq,Math.min(1,dt*1.4));AF.q.premultiply(id);}}}
+function afEnter(B,A){if(B.k===A.k)return;afGlass();sfx&&sfx('scan');afHint(`Entering the ${B.name.toLowerCase()}.`);
+ const M=THX.mis;if(M&&M.type==='route'&&!M.done){const want=M.seq[M.step]||[];const past=M.seq.slice(0,M.step).some(w=>w.includes(B.k));if(want.includes(B.k)||!past)txMisClick(B.k);}
+ AF.lastK=B.k;}
+function afHint(s){AF.hint=s;AF.hintT=4;}
+// ---- K: into or out of a vessel or airway; E: scan what the nose points at; F: shrink back in here ----
+function afK(){if(!AF.on)return;if(AF.rail){const R=AF.rail,a=afAt(R,AF.s);let off=AF.pos.clone().sub(a.p);off.addScaledVector(a.t,-off.dot(a.t));if(off.lengthSq()<1e-4)off.set(0,1,0).addScaledVector(a.t,-a.t.y).normalize();else off.normalize();
+  AF.pos.copy(a.p).addScaledVector(off,a.r+AFR+.3);AF.vel.copy(off).multiplyScalar(2);AF.rail=null;AF.sc=1;afGlass();afHint(`You pushed out through the wall of the ${R.name.toLowerCase()}. Organs are solid out here; K next to a vessel takes you back in.`);sfx&&sfx('scan');return;}
+ let best=null;for(const R of AF.rails){if(!R.box.containsPoint(AF.pos))continue;const pr=afProj(R,AF.pos);const r=afAt(R,pr.s).r;const d=pr.d-r;if(d<1.2&&(!best||d<best.d))best={R,s:pr.s,d};}
+ if(!best){afHint('No vessel or airway within reach. Fly up to one (the hint will say) and press K.');return;}
+ const B=best.R;AF.rail=B;AF.s=best.s;const a=afAt(B,AF.s);AF.pos.copy(a.p);AF.vel.set(0,0,0);const f=new V3(0,0,-1).applyQuaternion(AF.q);afFace(a.t.clone().multiplyScalar(f.dot(a.t)>=0?1:-1));AF.prev=null;afGlass();afHint(`Inside the ${B.name.toLowerCase()}. ${afFlowTxt(B)}`);sfx&&sfx('scan');
+ const M=THX.mis;if(M&&M.type==='route'&&!M.done){const want=M.seq[M.step]||[];if(want.includes(B.k))txMisClick(B.k);}}
+function afRetKey(){const f=new V3(0,0,-1).applyQuaternion(AF.q),p=AF.pos.clone().addScaledVector(f,Math.max(2,AF.camD*1.4));const v=p.clone().project(THX.cam);if(v.z>1)return null;
+ const x=(v.x*.5+.5)*innerWidth,y=(-v.y*.5+.5)*innerHeight;AF.retXY=[x,y];const sh=AF.ship.visible;AF.ship.visible=false;AF.vg.visible=false;let k=txPick(x,y);AF.ship.visible=sh;AF.vg.visible=true;if(AF.rail&&(!k||!THX.hit||THX.hit.p.distanceTo(AF.pos)>5))k=AF.rail.k;return k;}
+function afE(){if(!AF.on)return;let k=AF.retK;if(!k&&AF.rail)k=AF.rail.k;if(!k){afHint('Nothing in front of the nose to scan.');return;}AF.scanned.add(k);sfx&&sfx('scan');
+ const L=new THREE.Line(new THREE.BufferGeometry().setFromPoints([AF.pos.clone(),THX.hit&&THX.hit.p?THX.hit.p.clone():AF.pos.clone().add(new V3(0,0,-6).applyQuaternion(AF.q))]),new THREE.LineBasicMaterial({color:0x7ff6ee,transparent:true,opacity:.9,depthTest:false}));L.renderOrder=12;THX.scene.add(L);setTimeout(()=>{THX.scene.remove(L);},500);
+ if(typeof txMisClick==='function'&&txMisClick(k))return;txInfo(k);}
+function afF(){if(!AF.on)return;let k=AF.rail?AF.rail.k:AF.retK;let d=k&&TXREG[k]&&TXREG[k].d;if(!d&&k&&k.startsWith('segB:'))d=['lung','acinus','The '+txSegName(k.slice(5)).toLowerCase()+'.'];
+ if(!d&&k&&TXSEG[k])d=['lung','acinus','The '+txSegName(k).toLowerCase()+'.'];if(!d&&AF.rail&&AF.rail.kind==='air')d=['lung','bronchus','The airways.'];
+ if(!d){afHint('Nothing here to shrink into. Try a heart chamber, a great vessel, an airway or a lung segment.');return;}txDive(d);}
+function afFlowTxt(R){const ph=afPhase();return {a:'Arterial blood surges away from the heart with each systole.',p:'Deoxygenated blood is pumped to the lungs with each systole.',v:'Venous blood drifts toward the heart.',pv:'Oxygenated blood runs back to the left atrium.',h:'A heart chamber: follow the blood to the next valve.',ly:'Lymph creeps upward between valves.',air:ph.insp?'Breathing in: the air carries you deeper.':'Breathing out: the air pushes you back up.',gut:'The oesophagus is empty between swallows.'}[R.kind]||'';}
+function afLevel(y){const n=Math.round(4-(y-1.2)/2.4);return n<1?'level of C7/T1':n>12?'level of L'+Math.min(5,n-12):'level of T'+n;}
+function afWhere(){const p=AF.pos;const lev=afLevel(p.y);
+ if(AF.rail){const R=AF.rail;return `Inside the <b>${R.name.toLowerCase()}</b> · ${lev}`;}
+ const th=Math.atan2(Math.abs(p.x),-(p.z-TXZC)),rr=Math.hypot(p.x,p.z-TXZC),side=p.x<0?'right':'left';let reg;
+ const inWall=p.y<9&&p.y>-17&&rr<txWall(th,clamp(p.y,-16,8));
+ if(!inWall)reg=p.y>9?'above the chest, in the root of the neck':p.y<-17?'below the chest':'outside the chest wall, '+(p.z>4?'in front':p.z<-6?'behind':'on the '+side+' side');
+ else if(p.y<txDia(p.x,p.z))reg='under the diaphragm, in the upper abdomen';
+ else{const med=Math.abs(p.x)<3.6+(p.z>0?1.5:0)&&!(THX.lungs<2&&Math.min(txLungD(p.x,p.y,p.z,1),txLungD(p.x,p.y,p.z,-1))<1.2&&Math.abs(p.x)>2.5);
+  reg=med?(p.y>0?'in the <b>superior mediastinum</b> (above the plane of the sternal angle)':txHeartD(p.x,p.y,p.z)<1.5?'in the <b>middle mediastinum</b>, on the pericardium':p.z>2?'in the <b>anterior mediastinum</b>, behind the sternum':'in the <b>posterior mediastinum</b>, in front of the spine')
+   :`in the <b>${side} pleural cavity</b>`;}
+ return `You are ${reg} · ${lev}`;}
+function afNear(){let best=null,bd=1e9;for(const k in THX.anch){if(k.startsWith('rib'))continue;const d=THX.anch[k].p.distanceTo(AF.pos);if(d<bd&&TXREG[k]){bd=d;best=k;}}return best?{k:best,d:bd}:null;}
+// ---- HUD: where am I, what is ahead, which way is up ----
+function afHud(dt){AF.retT-=dt;if(AF.retT<=0){AF.retT=.15;AF.retK=afRetKey();}
+ const ret=$('afRet');if(AF.retXY&&!AF.anim&&AF.camD<13){ret.style.display='block';ret.style.left=AF.retXY[0]+'px';ret.style.top=AF.retXY[1]+'px';ret.innerHTML=AF.retK?`<span>${MOBILE?'Scan':'E'} · ${txName(AF.retK)}</span>`:'';ret.classList.toggle('on',!!AF.retK);}else ret.style.display='none';
+ const n=afNear();$('thxWhere').innerHTML=afWhere()+(n&&!AF.rail&&n.d<14?` · nearest: ${TXREG[n.k].n.toLowerCase()} (${n.d.toFixed(0)} cm)`:'');
+ const spd=AF.vel.length(),ph=afPhase();const flowNote=AF.rail&&AF.rail.kind!=='air'&&AF.rail.kind!=='gut'?' · blood slowed ~5× so you can ride it':'';
+ $('thxScale').textContent=`ship 1 cm${AF.sc<.95?' (folded to '+(AF.sc*10).toFixed(0)+' mm for this lumen)':''} · ${spd.toFixed(1)} cm/s${flowNote} · ♥ 70/min ${THX.beat?ph.sys?'systole':'diastole':'(paused)'} · ${ph.insp?'breathing in':'breathing out'}`;
+ AF.hintT-=dt;let h=AF.hintT>0?AF.hint:'';
+ if(!h&&AF.rail){const R=AF.rail,mv=Math.sign(AF.vel.dot(afAt(R,AF.s).t))||1;const ahead=R.ports.filter(p=>(p.s-AF.s)*mv>0&&(p.s-AF.s)*mv<4&&p.to!==AF.prev);
+  const names=[...new Set(ahead.map(p=>p.to.k))].filter(k=>k!==R.k);const ak=new Set(ahead.map(p=>p.to.kind==='h'?'heart':p.to.id.startsWith('br')?'segB':p.to.k));const oa=AF.ahead||new Set();if(ak.size!==oa.size||[...ak].some(k=>!oa.has(k))){AF.ahead=ak;afGlass();}if(names.length){const c=THX.cam;const rt=new V3(1,0,0).applyQuaternion(c.quaternion),upv=new V3(0,1,0).applyQuaternion(c.quaternion);
+   h='Fork ahead: '+ahead.filter((p,i,a)=>p.to.k!==R.k&&a.findIndex(q=>q.to.k===p.to.k)===i).map(p=>{const tb=afAt(p.to,p.sTo).t.multiplyScalar(p.dir);const x=tb.dot(rt),y=tb.dot(upv);return `${p.to.name.toLowerCase()} (steer ${Math.abs(x)>Math.abs(y)?x>0?'→':'←':y>0?'↑':'↓'})`;}).join(' · ')+'. Keep straight to stay in the '+R.name.toLowerCase()+'.';}
+  else h=afFlowTxt(R)+' K leaves through the wall.';}
+ if(!h&&!AF.rail&&AF.touchK){const k=AF.touchK;h=AFFLOW[k]?`Touching the ${TXREG[k].n.toLowerCase()}: K takes you inside it.`:k==='dia'?'The diaphragm: below it are the liver and stomach.':`Touching the ${k==='heart'?'pericardium around the heart':TXREG[k]?TXREG[k].n.toLowerCase():'lung'}. Organs are solid; fly around them.`;}
+ if(!h&&!AF.rail)h=(MOBILE?'Left thumb flies, right thumb steers.':'W/S, A/D, Space/C fly · drag or arrows steer · Shift boosts.')+' Fly up to a vessel and press K to ride inside it.';
+ $('afHint').textContent=h;
+ afNavDraw();}
+// labels for what is around you: the nearest structures in view, not hidden behind an organ
+function afLabels(){const box=$('thxLabels');if(!THX.labels){box.innerHTML='';return;}const cam=THX.cam,now=performance.now();
+ if(now-AF.labT>260){AF.labT=now;const fwd=new V3(0,0,-1).applyQuaternion(cam.quaternion),cand=[];const range=Math.max(12,AF.camD*3.2);
+  for(const k in THX.anch){if(k.startsWith('rib')||!TXREG[k])continue;const a=THX.anch[k];const dv=a.p.clone().sub(cam.position),d=dv.length();if(d>range||d<.2)continue;if(dv.dot(fwd)/d<.45)continue;
+   const grp=Object.keys(TXLAB).find(g=>TXLAB[g].includes(k));if(grp&&grp!=='lungs'&&!THX.lay[grp])continue;cand.push([d,k]);}
+  cand.sort((a,b)=>a[0]-b[0]);const rc=new THREE.Raycaster();const objs=[];['lungs','heart','vessels'].forEach(g=>{if(THX.G[g].visible)objs.push(THX.G[g]);});const out=[];
+  for(const [d,k] of cand.slice(0,14)){if(out.length>=(MOBILE?5:8))break;const p=THX.anch[k].p;rc.set(cam.position,p.clone().sub(cam.position).normalize());rc.far=d-1.2;
+   const glassy=g=>g.material&&g.material.transparent&&g.material.opacity<.5;const hit=rc.intersectObjects(objs,true).find(h=>!glassy(h.object));if(hit)continue;out.push(k);}
+  AF.labs=out;}
+ const v=new V3(),html=[],placed=[];AF.labs.forEach((k,i)=>{v.copy(THX.anch[k].p).project(cam);if(v.z>1)return;const X=(v.x*.5+.5)*innerWidth,Y=(-v.y*.5+.5)*innerHeight;const nm=TXREG[k].n,hw=nm.length*3.4+3;
+  if(placed.some(r=>Math.abs(r[0]-X)<r[2]+hw&&Math.abs(r[1]-Y)<18))return;placed.push([X,Y,hw]);html.push(`<div class="blab aflab${i===0?' near':''}" style="left:${X}px;top:${Y}px">${nm}</div>`);});
+ box.innerHTML=html.join('');}
+// compass (patient axes: S/I green, A/P blue, R/L red, the tractography colours) + a mini body front and side with you on it
+function afBuildNav(){const fr=[],sd=[];for(let y=12;y>=-18;y-=1){let mx=0,zn=9,zx=-9;for(let i=0;i<=24;i++){const p=txSkinP(i/24*Math.PI,clamp(y,-17,11));mx=Math.max(mx,Math.abs(p.x));zn=Math.min(zn,p.z);zx=Math.max(zx,p.z);}fr.push([y,mx]);sd.push([y,zn,zx]);}
+ const org=[];for(let gy=10;gy>=-16;gy-=1.3)for(let gx=-14;gx<=14;gx+=1.3){let lu=false,he=false;for(let gz=-9;gz<=8;gz+=1.5){if(!lu&&Math.min(txLungD(gx,gy,gz,1),txLungD(gx,gy,gz,-1))<0)lu=true;if(!he&&txHeartD(gx,gy,gz)<0)he=true;}if(lu||he)org.push([gx,gy,he?2:1]);}
+ const orgS=[];for(let gy=10;gy>=-16;gy-=1.3)for(let gz=-10;gz<=9;gz+=1.3){let lu=false,he=false;for(let gx=-12;gx<=12;gx+=1.5){if(!lu&&Math.min(txLungD(gx,gy,gz,1),txLungD(gx,gy,gz,-1))<0)lu=true;if(!he&&txHeartD(gx,gy,gz)<0)he=true;}if(lu||he)orgS.push([gz,gy,he?2:1]);}
+ AF.nav={fr,sd,org,orgS};}
+function afNavDraw(){const cv=$('afNav');if(!cv||!AF.nav||cv.offsetParent===null)return;const g=cv.getContext('2d'),W2=230,H2=96;g.setTransform(cv.width/230,0,0,cv.width/230,0,0);g.clearRect(0,0,W2,H2);const N=AF.nav;
+ // compass
+ const cx=46,cy=H2/2,R0=30,q=THX.cam.quaternion.clone().invert();const ax=[[new V3(0,1,0),'S','#7dff9a'],[new V3(0,-1,0),'I','#3f8a52'],[new V3(0,0,1),'A','#79b8ff'],[new V3(0,0,-1),'P','#3b5f8f'],[new V3(-1,0,0),'R','#ff7a7a'],[new V3(1,0,0),'L','#9a4444']];
+ const pr=ax.map(([d,t,c])=>{const v=d.clone().applyQuaternion(q);return {x:cx+v.x*R0,y:cy-v.y*R0,z:v.z,t,c};}).sort((a,b)=>a.z-b.z);
+ g.lineWidth=2.5;for(const a of pr){g.strokeStyle=a.c;g.globalAlpha=a.z>0?.55:1;g.beginPath();g.moveTo(cx,cy);g.lineTo(a.x,a.y);g.stroke();g.fillStyle=a.c;g.font='700 11px Inter,system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(a.t,cx+(a.x-cx)*1.28,cy+(a.y-cy)*1.28);}g.globalAlpha=1;
+ // mini bodies
+ const sY=H2/36,ox1=128,ox2=192,yy=y=>H2-4-(y+20)*sY*.95;
+ const body=(ox,pts,sX)=>{g.fillStyle='rgba(255,230,220,.10)';g.strokeStyle='rgba(255,230,220,.45)';g.lineWidth=1;g.beginPath();pts.forEach((p,i)=>{const X=ox+p[1]*sX,Y=yy(p[0]);i?g.lineTo(X,Y):g.moveTo(X,Y);});[...pts].reverse().forEach(p=>g.lineTo(ox+p[2]*sX,yy(p[0])));g.closePath();g.fill();g.stroke();
+  g.beginPath();g.arc(ox+(pts[0][1]+pts[0][2])/2*sX,yy(15.5),4.2,0,7);g.stroke();};
+ const sX=sY*.95;body(ox1,N.fr.map(([y,m])=>[y,-m,m]),-sX);body(ox2,N.sd.map(([y,a,b])=>[y,-b,-a]),sX);
+ for(const [x,y,t] of N.org){g.fillStyle=t===2?'rgba(200,70,60,.8)':'rgba(240,160,170,.35)';g.fillRect(ox1-x*sX-1.2,yy(y)-1.2,2.4,2.4);}
+ for(const [z,y,t] of N.orgS){g.fillStyle=t===2?'rgba(200,70,60,.8)':'rgba(240,160,170,.35)';g.fillRect(ox2-z*sX-1.2,yy(y)-1.2,2.4,2.4);}
+ const p=AF.pos,f=new V3(0,0,-1).applyQuaternion(AF.q);const dot=(X,Y,dx,dy)=>{g.fillStyle='#3ee6d8';g.beginPath();g.arc(X,Y,3.2,0,7);g.fill();g.strokeStyle='#3ee6d8';g.lineWidth=1.5;g.beginPath();g.moveTo(X,Y);g.lineTo(X+dx*9,Y+dy*9);g.stroke();};
+ const c1=[ox1-clamp(p.x,-18,18)*sX,yy(clamp(p.y,-19,16))],c2=[ox2-clamp(p.z,-14,14)*sX,yy(clamp(p.y,-19,16))];const pul=.5+.5*Math.sin(AF.t*6);g.globalAlpha=.4*pul;g.fillStyle='#3ee6d8';g.beginPath();g.arc(c1[0],c1[1],6,0,7);g.fill();g.beginPath();g.arc(c2[0],c2[1],6,0,7);g.fill();g.globalAlpha=1;
+ dot(c1[0],c1[1],-f.x,-f.y);dot(c2[0],c2[1],-f.z,-f.y);
+ g.fillStyle='rgba(255,231,176,.75)';g.font='600 9px Inter,system-ui,sans-serif';g.textAlign='center';g.fillText('front',ox1,H2-3);g.fillText('side',ox2,H2-3);g.fillText('R',ox1-26,10);g.fillText('L',ox1+26,10);g.fillText('A',ox2-24,10);g.fillText('P',ox2+24,10);}
+// first-time guide
+const AFINTRO=[
+ ()=>['You zoomed out',`Your ship is now about 1 cm long, ${AF.rail?'inside the '+AF.rail.name.toLowerCase():'in the chest'} of a real-size adult. Everything around you is to scale: the aorta is as wide as your thumb.`],
+ ()=>['What you are looking at','<span style="color:#f3e3c4">Cream</span>: ribs, sternum and spine. <span style="color:#f2a7b4">Pink</span>: the lungs. <span style="color:#d0554c">Dark red</span>: the heart. Red tubes are arteries, blue tubes are veins, and the pulmonary arteries are blue too because they carry deoxygenated blood. The nearest structures are always labelled.'],
+ ()=>['Which way is which','The compass shows the patient’s axes: <b style="color:#7dff9a">S</b>uperior/<b style="color:#7dff9a">I</b>nferior, <b style="color:#79b8ff">A</b>nterior/<b style="color:#79b8ff">P</b>osterior, and the patient’s own <b style="color:#ff7a7a">R</b>ight/<b style="color:#ff7a7a">L</b>eft. The mini body beside it shows where your ship is, from the front and from the side. The line at the top names the region you are in.'],
+ ()=>['Fly it like the ship',MOBILE?'Left thumb flies, right thumb steers. Organs are solid; vessels and airways are hollow. Inside one, the blood or air carries you, and the valves open only in their part of the beat. Use the buttons to enter or leave a vessel (K), scan what the nose points at (E) and shrink back to cell size (F).':'W/S forward and back, A/D sideways, Space/C up and down, Shift to boost, drag or the arrow keys to steer. Organs are solid; vessels and airways are hollow. Inside one, the blood or air carries you, and the valves open only in their part of the beat. K enters or leaves a vessel, E scans what the nose points at, F shrinks you back to cell size here. R opens Chest rounds, O the overview camera.']];
+function afIntro(i){const el=$('afIntro');if(i<0||i>=AFINTRO.length){el.classList.remove('show');try{localStorage.setItem('ivFlyIntro','1');}catch(e){}return;}AF.intro=i;const [h,t]=AFINTRO[i]();
+ el.innerHTML=`<div class="eyebrow">Organ scale · ${i+1} of ${AFINTRO.length}</div><h3>${h}</h3><p>${t}</p><div class="row"><button class="btn" id="afNext">${i<AFINTRO.length-1?'Next':'Fly'}</button><button class="btn ghost" id="afSkip">Skip</button></div>`;el.classList.add('show');
+ $('afNext').onclick=()=>afIntro(i+1);$('afSkip').onclick=()=>afIntro(-1);}
+function afBar(){const f=$('afFly');if(f)f.textContent=AF.on?'Overview (O)':'Fly the ship (O)';}
+function afFrame(dt){AF.t+=dt;afStep(dt);afHud(dt);afStats();}
+// pointer input while flying: drag steers (or the right thumb), the left thumb is a joystick, wheel/pinch pulls the chase camera back
+function afPointer(type,e,pts){if(!AF.on)return false;
+ if(type==='down'){if(e.pointerType==='touch'&&e.clientX<innerWidth*.45&&e.clientY>innerHeight*.3&&!AF.joy){AF.joy={id:e.pointerId,x0:e.clientX,y0:e.clientY,fx:0,fy:0};const j=$('afJoy');j.style.display='block';j.style.left=e.clientX+'px';j.style.top=e.clientY+'px';return true;}return false;}
+ if(type==='move'){if(AF.joy&&e.pointerId===AF.joy.id){const dx=e.clientX-AF.joy.x0,dy=e.clientY-AF.joy.y0;AF.joy.fx=clamp(dx/55,-1,1);AF.joy.fy=clamp(-dy/55,-1,1);$('afKnob').style.transform=`translate(${clamp(dx,-55,55)}px,${clamp(dy,-55,55)}px)`;return true;}return false;}
+ if(type==='up'){if(AF.joy&&e.pointerId===AF.joy.id){AF.joy=null;$('afJoy').style.display='none';$('afKnob').style.transform='';return true;}return false;}return false;}
+
+// anything opaque between the camera and the ship fades (x-ray), so you never lose the ship behind a lung, the heart, a vessel or a rib
+function afOccl(dt){AF.occT=(AF.occT||0)-dt;if(AF.occT>0)return;AF.occT=.12;const c=THX.cam.position,d=AF.pos.clone().sub(c),L=d.length();if(L<.05)return;
+ const rc=new THREE.Raycaster(c,d.normalize(),0,Math.max(.01,L-.25));const objs=['lungs','heart','vessels','med','tree','dia','bones'].map(n=>THX.G[n]).filter(g=>g&&g.visible);
+ const now=AF.t,F=AF.fadeT||(AF.fadeT=new Map());for(const h of rc.intersectObjects(objs,true)){const m=h.object.material;if(m&&m.userData&&m.userData.base)F.set(m,now+.5);}
+ for(const g of['lungs','heart'])if(THX.G[g].visible){const inL=g==='lungs'?THX.lungs===0&&[1,-1].some(s=>txLungD(c.x,c.y,c.z,s)<0):txHeartD(c.x,c.y,c.z)<0;if(inL)(g==='lungs'?[THX.L.material,THX.R.material]:[TXH.mesh.material]).forEach(m=>F.set(m,now+.5));}
+ const S=new Set();for(const [m,t] of F){if(t>now)S.add(m);else F.delete(m);}const old=AF.fadeM||new Set();if(S.size!==old.size||[...S].some(m=>!old.has(m))){AF.fadeM=S;afGlass();}}
+
+function afUp(f){const w=txSS(.55,.92,Math.abs(f.y));const u=new V3(0,1,0).lerp(new V3(0,0,1),w);u.addScaledVector(f,-u.dot(f));if(u.lengthSq()<1e-6)u.set(1,0,0);return u.normalize();}
+
+// stat cards: what the vessel or chamber you are in is really like (textbook adult values at rest; pending clinical review)
+const AFSTAT={
+ a:{p:'about 120/80 mmHg (mean ~93)',o:'SaO₂ ~97–98%',v:'peak ~100 cm/s in the aorta, mean ~20',w:'elastic artery: concentric elastic lamellae store each systole and recoil in diastole'},
+ p:{p:'about 25/10 mmHg (mean ~15)',o:'SO₂ ~75% (mixed venous)',v:'peak ~80 cm/s',w:'elastic artery with a thinner wall than the aorta: a low-pressure circuit'},
+ v:{p:'about 2–8 mmHg (central venous pressure)',o:'SO₂ ~70–80%',v:'10–20 cm/s, phasic with breathing',w:'thin wall, little smooth muscle; it collapses when empty'},
+ pv:{p:'about 8–10 mmHg',o:'SO₂ ~98% (fully loaded in the lung)',v:'~20–40 cm/s',w:'thin-walled vein; a sleeve of atrial muscle near the left atrium'},
+ ly:{p:'a few mmHg',o:'lymph and chyle, not blood',v:'mm per second, driven by its own contractions and valves',w:'thin wall with valves every few centimetres'},
+ air:{p:'within ~1–2 cmH₂O of the atmosphere in quiet breathing',o:'inspired PO₂ ~150 mmHg (humidified)',v:'~1 m/s in the trachea at rest, slowing as the tree widens',w:'cartilage (C-rings in the trachea, plates in the bronchi) with smooth muscle and ciliated epithelium'},
+ gut:{p:'—',o:'—',v:'a swallow travels ~3–4 cm/s',w:'striated muscle above, smooth muscle below'},
+ ra:{p:'2–6 mmHg',o:'SO₂ ~75%',v:'',w:'thin atrial wall with pectinate muscles; the SA node is at the SVC junction'},
+ rv:{p:'about 25/0–5 mmHg',o:'SO₂ ~75%',v:'',w:'free wall ~3–5 mm, coarse trabeculae and the moderator band'},
+ la:{p:'6–12 mmHg',o:'SO₂ ~98%',v:'',w:'smooth-walled; the pulmonary veins enter its back'},
+ lv:{p:'about 120/5–12 mmHg',o:'SO₂ ~98%',v:'',w:'wall ~10–12 mm (thicker in Mr Reyes: aortic stenosis causes concentric hypertrophy)'}};
+function afStats(){const el=$('afStats');if(!el)return;const R=AF.rail;if(!AF.on||!R||AF.camD>13){el.style.display='none';return;}const S=R.kind==='h'?AFSTAT[R.k]:AFSTAT[R.kind];if(!S){el.style.display='none';return;}
+ const key=R.id;if(el.dataset.k!==key){el.dataset.k=key;const r=afAt(R,AF.s).r;el.innerHTML=`<div class="eyebrow">${R.name}</div>`+[['Diameter here',R.kind==='h'?'a chamber, not a tube':(2*r).toFixed(1)+' cm'],['Pressure',S.p],[R.kind==='air'?'Gas':'Oxygen',S.o],['Real speed',S.v],['Wall',S.w]].filter(x=>x[1]).map(([a,b])=>`<div class="st"><span>${a}</span><b>${b}</b></div>`).join('');}
+ el.style.display='block';}
 
 /* ===== Main loop ===== */
 let last=performance.now(),last0=last,time=0,hudT=0,fpsAcc=0,fpsN=0,lowQ=false;
@@ -7530,7 +7829,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
