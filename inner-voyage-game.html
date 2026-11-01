@@ -404,6 +404,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
   <p><b>Zoom out (Q)</b> anywhere: you grow until the whole brain fits on the screen, from where your ship was. Drag to turn it, scroll or pinch to zoom, hover to name a region and click it for its function, blood supply and what a lesion does. Switch between the real surface, lobes and functional areas; Glass shows the deep nuclei, ventricles and your corticospinal route; Midline cut shows the medial face; Arteries adds the circle of Willis and its branches. Regions on your route have “shrink back in here”.</p>
   <p><b>The kidney (Tab → Kidney)</b> is one juxtamedullary nephron flown from the blood side: afferent arteriole → glomerulus at 60 mmHg (the capillary is a dead end: press K to cross the filtration barrier, or to stay in the blood and leave by the efferent arteriole) → proximal tubule, where the glucose and two thirds of the water leave through the wall → thin limb down into the gradient → the papillary tip at 1200 mOsm → thick limb, diluting as you climb → the macula densa pressed against your own glomerulus → collecting duct → calyx. The HUD reads the fluid and the interstitium around you in mOsm. K anywhere in the tubule is reabsorption (back to the vena cava). Case 05 (diabetic ketoacidosis): V moves Ms. Okafor from healthy to DKA to treated, U changes hydration (ADH), O gives furosemide.</p>
   <p><b>The liver (Tab → Liver &amp; biliary)</b> is one lobule and its bile ducts: portal vein → portal triad → one sinusoid through zone 1 (most oxygen, urea cycle, Kupffer cells) → zone 2 → zone 3 (CYP2E1, least oxygen) → at the central vein press K to stay in the blood or cross a hepatocyte and become bile → canaliculus running back to the triad → ducts → gallbladder (a dead end until a meal) → common bile duct → sphincter of Oddi → duodenum. Case 06 (paracetamol overdose): V moves Jordan Ellis from healthy to 18 hours to day 3, O gives acetylcysteine, U is a meal (CCK opens the gallbladder and the sphincter).</p>
+  <p><b>The pancreas (Tab → Pancreas)</b> is one islet and its acini: an arteriole → a capillary through the islet (β, α and δ cells line it, mixed as in a human islet) → the insulo-acinar capillaries that carry its insulin to the acini → at the end press K to stay in the blood (on to the liver) or cross an acinar cell and become juice → the acinar lumen → intercalated, intralobular and interlobular ducts → the main pancreatic duct → the ampulla → the sphincter of Oddi → duodenum. Case 07 (gallstone pancreatitis): V moves Ruth Mensah from healthy to 8 hours to day 3, O is ERCP, U is a meal (insulin up, glucagon down, CCK and secretin turn on the juice).</p>
   <p><b>Your own Anki deck.</b> Study (T) ▸ “Load your Anki deck” reads your .apkg or .txt export in the browser and keeps it on this device only. Cards are placed at the structure they belong to (by tag path, or by an optional AI pass with your own API key) and appear on the Codex card and in Study.</p>
   <p><b>Patient course.</b> There is no ship hull to lose. Wrong calls at the bedside or on Rounds push Mr. Reyes's care off course, and the ending shows what happens to him.</p>
   <p><b>Reality checks.</b> Some Codex cards carry an amber note where the game bends physics or biology for playability, so you know exactly what is simplified.</p>
@@ -455,6 +456,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
  <div id="thxBar"><button id="afFly" class="hot">Overview (O)</button><span class="afb"><button id="afK">In/out of vessel (K)</button><button id="afE">Scan (E)</button><button id="afF">Shrink in (F)</button></span><span class="sep"></span><button id="thxRoundsBtn" class="hot">Chest rounds (R)</button><button id="thxLayBtn">Layers</button><span id="thxLay"><span class="sep"></span><button data-l="lungs">Lungs</button><button data-l="glass">Glass lungs (G)</button><button data-m="surface">Surface</button><button data-m="lobes">Lobes (X)</button><button data-m="segments">Segments</button><span class="sep"></span><button data-l="heart">Heart (H)</button><button data-l="terr">Coronary map (T)</button><button data-l="vessels">Vessels (V)</button><button data-l="tree">Airways (B)</button><button data-l="med">Nerves &amp; oesophagus (M)</button><button data-l="bones">Skeleton (U)</button><button data-l="skin">Skin (J)</button><button data-l="ct">CT (I)</button><button data-l="beat">Beat (P)</button><button data-l="labels">Labels (L)</button><span class="sep"></span><button data-v="front">Front</button><button data-v="back">Back</button><button data-v="left">Left</button><button data-v="right">Right</button><button data-v="top">Top</button></span><span class="sep"></span><button id="thxBrain">Brain ▸</button><button id="thxClose">✕ Shrink back (Q)</button></div>
 </div>
 <div class="modal" id="mExamLU"><div class="sheet" id="examLUSheet" style="max-width:880px"></div></div>
+<div class="modal" id="mExamPC"><div class="sheet" id="examPCSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamHP"><div class="sheet" id="examHPSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamRN"><div class="sheet" id="examRNSheet" style="max-width:880px"></div></div>
 
@@ -490,7 +492,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
 <script>
 /* ---------- Learning content (draft — needs review by the medical accuracy lead) ---------- */
 const LEVEL_NAMES=['L1 Curious','L2 School','L3 Pre-med','L4 Med school'];
-const REF={heart:'OpenStax Anatomy & Physiology 2e, ch. 19 (The Heart)',vessels:'OpenStax A&P 2e, ch. 20 (Blood Vessels & Circulation)',resp:'OpenStax A&P 2e, ch. 22 (Respiratory System)',blood:'OpenStax A&P 2e, ch. 18 (Blood)',as:'2020 ACC/AHA Guideline for Valvular Heart Disease',lymph:'OpenStax A&P 2e, ch. 21 (The Lymphatic and Immune System)',neuro:'OpenStax A&P 2e, ch. 12–14 (Nervous System) & Kandel, Principles of Neural Science 6e',gi:'OpenStax A&P 2e, ch. 23 (Digestive System) · Boron & Boulpaep · Helander & Fändriks 2014',hep:'OpenStax A&P 2e, ch. 23 (Accessory organs: liver, gallbladder) · Boron & Boulpaep · Sherlock’s Diseases of the Liver and Biliary System · MHRA/NICE paracetamol guidance',renal:'OpenStax A&P 2e, ch. 25 (The Urinary System) · Boron & Boulpaep · Koeppen & Stanton, Renal Physiology'};
+const REF={heart:'OpenStax Anatomy & Physiology 2e, ch. 19 (The Heart)',vessels:'OpenStax A&P 2e, ch. 20 (Blood Vessels & Circulation)',resp:'OpenStax A&P 2e, ch. 22 (Respiratory System)',blood:'OpenStax A&P 2e, ch. 18 (Blood)',as:'2020 ACC/AHA Guideline for Valvular Heart Disease',lymph:'OpenStax A&P 2e, ch. 21 (The Lymphatic and Immune System)',neuro:'OpenStax A&P 2e, ch. 12–14 (Nervous System) & Kandel, Principles of Neural Science 6e',gi:'OpenStax A&P 2e, ch. 23 (Digestive System) · Boron & Boulpaep · Helander & Fändriks 2014',pan:'OpenStax A&P 2e, ch. 17 and 23 · Boron & Boulpaep · Guyton & Hall · revised Atlanta classification (2012) · ACG 2024 and AGA acute pancreatitis guidelines',hep:'OpenStax A&P 2e, ch. 23 (Accessory organs: liver, gallbladder) · Boron & Boulpaep · Sherlock’s Diseases of the Liver and Biliary System · MHRA/NICE paracetamol guidance',renal:'OpenStax A&P 2e, ch. 25 (The Urinary System) · Boron & Boulpaep · Koeppen & Stanton, Renal Physiology'};
 
 const CODEX={
  ivc:{title:'Inferior vena cava',tag:'Vein · returns blood from the lower body',src:REF.vessels,L:[
@@ -1827,6 +1829,295 @@ const CODEX={
   'Basal tone and phasic contractions resist flow between meals; CCK relaxes it.',
   'It is cut at endoscopic sphincterotomy to remove duct stones.'],
   rc:'The diorama shows the sphincter as separate rings; in life it is a continuous muscle sleeve.'},
+ // ---- pancreas (built 1 Nov 2026 from standard physiology in our own words; sources OpenStax A&P 2e ch. 17 and 23, Boron & Boulpaep, Guyton & Hall, revised Atlanta 2012, ACG 2024 / AGA acute pancreatitis guidance) ----
+ parter:{title:'Islet arteriole',tag:'1–3 arterioles per islet · Ø ~20 µm',src:REF.pan,L:[
+  'A tiny artery that feeds one islet, the hormone-making part of the pancreas.',
+  'The pancreas is fed by the pancreaticoduodenal arcades (from the gastroduodenal artery above and the superior mesenteric artery below) for the head, and by branches of the splenic artery for the body and tail. Each islet gets one to three arterioles from the lobule’s arteries, which break up into a dense capillary knot inside it.',
+  'Arterioles hold the resistance: a ring of smooth muscle sets the flow. Islet blood flow rises after a meal and with vagal stimulation; the islets get roughly 5–15% of the pancreas’s blood although they are only 1–2% of its mass.',
+  'Which islet cells the blood meets first (β then α and δ, or the reverse) has been argued for decades: in rodents the core β cells are usually upstream; in human islets, where the cell types are mixed, no single order fits every islet.'],
+  rc:'One arteriole is a few ship lengths here; the real one is about a millimetre or less from its parent artery to the islet.'},
+ islet:{title:'Islet capillary',tag:'Fenestrated · endocrine cells on every side',src:REF.pan,L:[
+  'A capillary threading through an islet, so the hormones go straight into the blood.',
+  'Islet capillaries are about five times as dense as those in the exocrine tissue around them, and their endothelium has fenestrae (pores under 0.1 µm) so hormones cross easily. Almost every endocrine cell touches a capillary.',
+  'β cells make VEGF-A, which keeps the fenestrae open; the endothelium in turn lays down the basement membrane that the β cells need to work. Hormones reach the portal blood within seconds of a meal, and insulin leaves in pulses about every 5 minutes.',
+  'In type 1 diabetes this is where the attack happens: lymphocytes cross these capillaries into the islet (insulitis). In type 2 diabetes amyloid made from amylin collects between the capillary and the β cells.'],
+  rc:'The capillary is drawn at its real width; the islet’s cells are shown through the wall and in the section (E), not loose in the lumen.'},
+ iap:{title:'Insulo-acinar portal capillaries',tag:'Islet blood bathes the acini first',src:REF.pan,L:[
+  'Blood that leaves an islet flows next through the capillaries of the acini around it.',
+  'Many islet capillaries do not drain straight into veins: they run on into the capillary network of the surrounding exocrine tissue. The acini nearest the islet (the “halo” acini) therefore see the islet’s hormones at very high concentrations.',
+  'Halo acinar cells are larger and hold more zymogen granules than distant ones: insulin is a growth and secretion signal for them, and somatostatin and glucagon tune them too. How much of the human pancreas is wired this way is still debated.',
+  'This coupling may explain why diabetes and exocrine failure travel together: in type 1 diabetes the pancreas is roughly a quarter to a half smaller, and many people with long-standing diabetes have low faecal elastase. Type 3c diabetes runs the other way: exocrine disease (chronic pancreatitis, cancer, cystic fibrosis) destroys the islets.'],
+  rc:'The real capillaries form a mesh, not one tube; you follow one strand of it.'},
+ pacinus:{title:'Acinar lumen',tag:'The start of the juice · Ø ~1–2 µm',src:REF.pan,L:[
+  'The tiny space in the middle of a cluster of enzyme-making cells, where the juice begins.',
+  'An acinus is a rounded cluster of pyramidal acinar cells with their narrow apical ends facing a central lumen, sealed by tight junctions. Pale centroacinar cells, the first cells of the duct, sit inside the lumen.',
+  'Each acinar cell empties its zymogen granules into the lumen by exocytosis when acetylcholine (vagus) and CCK raise its calcium. The fluid secreted here is small in volume and rich in chloride; the ducts downstream add most of the water and bicarbonate.',
+  'Pancreatitis starts here: when trypsinogen is switched on inside acinar cells the injury spreads from the acinus outward. Cystic fibrosis plugs these lumens with thick protein secretions early, so most children with CF are born with, or soon develop, exocrine failure.'],
+  rc:'The real lumen is a narrow slit you could not fit into; it is drawn just big enough to fly, and the HUD says how much it is enlarged.'},
+ icd:{title:'Intercalated duct',tag:'Centroacinar cells · bicarbonate begins',src:REF.pan,L:[
+  'The first, thinnest duct, which collects juice from each acinus.',
+  'It is lined by flat or low cuboidal cells; at its start they reach into the acinus as centroacinar cells, which is unique to the pancreas. Several intercalated ducts join to form an intralobular duct.',
+  'These cells are rich in CFTR and carbonic anhydrase. Secretin raises their cAMP; CFTR opens, chloride leaves into the lumen and is swapped back for bicarbonate, and water follows through aquaporins.',
+  'Precursor lesions of pancreatic cancer (PanIN) arise in small ducts like this, and acinar cells can change into duct-like cells under injury (acinar-to-ductal metaplasia), one of the routes to cancer.'],
+  rc:'Real intercalated ducts are short and branch at once; this one is drawn as one long tube.'},
+ intral:{title:'Intralobular duct',tag:'Cuboidal epithelium · inside the lobule',src:REF.pan,L:[
+  'A small duct inside a lobule that gathers the juice from many acini.',
+  'Its cells are cuboidal, with round central nuclei and short microvilli. A thin connective tissue sheath surrounds it.',
+  'Much of the bicarbonate and water of the juice is added in these small ducts. At high flow (secretin) the juice reaches ~140 mmol/L bicarbonate and chloride falls in mirror image, keeping it isotonic with plasma.',
+  'In chronic pancreatitis protein plugs form in these ducts and calcify; the plugs block the duct, the acini behind them die and are replaced by scar.'],
+  rc:'Its length is compressed into a few ship lengths.'},
+ interl:{title:'Interlobular duct',tag:'Between lobules · columnar cells, goblet cells',src:REF.pan,L:[
+  'A larger duct running between lobules, on its way to the main duct.',
+  'Its lining becomes columnar, with scattered goblet cells, and its connective tissue sheath thickens. Blood vessels and nerves run with it between the lobules.',
+  'Duct cells here still modify the juice: they reabsorb some bicarbonate in exchange for chloride at low flow, which is why juice between meals is less alkaline.',
+  'Intraductal papillary mucinous neoplasms (IPMN) grow in ducts of this size and larger, filling them with mucin; branch-duct IPMNs are common incidental findings on scans and are followed up because some become cancers.'],
+  rc:'Between this duct and the main duct the real tree has several more generations, not drawn.'},
+ mpd:{title:'Main pancreatic duct',tag:'Duct of Wirsung · Ø ~2–3.5 mm',src:REF.pan,L:[
+  'The central pipe of the pancreas, running from tail to head and carrying all the juice to the duodenum.',
+  'It runs near the back of the gland, collecting side branches like a herringbone, turns down in the head and joins the common bile duct at the ampulla. An accessory duct (of Santorini) often drains part of the head separately through the minor papilla, about 2 cm above the major one.',
+  'It carries about 1.5 L of juice a day. Its normal width is up to about 3–3.5 mm in the head, less in the body and tail; wider than that suggests something is blocking it downstream.',
+  'A “double duct sign” (both the bile duct and the pancreatic duct dilated) points to a tumour at the ampulla or in the head. In chronic pancreatitis it becomes a “chain of lakes”, dilated between strictures.'],
+  rc:'In life it is 15–20 cm long; you fly a few centimetres of it.'},
+ isletcells:{title:'The islet’s cells',tag:'β ~55% · α ~35% · δ <10% · PP · ε',src:REF.pan,L:[
+  'An islet is a small ball of hormone cells, and each kind makes a different hormone.',
+  'β cells make insulin (and amylin), α cells glucagon, δ cells somatostatin, PP cells pancreatic polypeptide, and a few ε cells ghrelin. There are about a million islets (estimates run from 1 to 3 million), each 50–500 µm across.',
+  'In human islets about half to two thirds of the cells are β cells and a third α cells, mixed together along the vessels, unlike the textbook rodent islet with a β core and an α mantle. Neighbours talk: insulin and zinc from β cells hold α cells down, somatostatin holds both down, and glucagon stimulates β cells.',
+  'PP cells crowd the islets of the posterior head (which grew from the ventral bud), so a surgeon removing the head removes most of them. Loss of the paracrine brake on α cells is why glucagon stays high after meals in type 1 and type 2 diabetes.'],
+  rc:'The cell colours are invented for teaching; under the microscope you need immunostains to tell them apart.'},
+ betacell:{title:'The β cell',tag:'Glucose sensor · K-ATP · insulin granules',src:REF.pan,L:[
+  'The cell that measures blood sugar and releases insulin when it is high.',
+  'Glucose enters (mainly through GLUT1 in human β cells, GLUT2 in rodents), and glucokinase phosphorylates it in proportion to its concentration. That makes glucokinase the glucose sensor.',
+  'More glucose means more ATP; ATP closes K-ATP channels (Kir6.2 with SUR1), the membrane depolarises, L-type calcium channels open and calcium triggers the fusion of insulin granules. Release is biphasic: a first burst over ~10 minutes from docked granules, then a slower second phase. Incretins and acetylcholine amplify it.',
+  'Sulfonylureas close K-ATP and can cause hypoglycaemia; diazoxide opens it. Activating mutations in Kir6.2 or SUR1 cause neonatal diabetes that often responds to sulfonylureas instead of insulin; glucokinase mutations cause MODY 2 (mild, stable fasting hyperglycaemia). The first phase is lost early in type 2 diabetes.'],
+  rc:'One β cell holds about 10,000 granules; the game shows a few.'},
+ insulinsyn:{title:'Making insulin',tag:'Preproinsulin → proinsulin → insulin + C-peptide',src:REF.pan,L:[
+  'Insulin is made as a longer chain that is cut down to size inside the cell.',
+  'Preproinsulin is made on the rough ER; its signal peptide is removed to give proinsulin, which folds and forms three disulfide bonds. In the Golgi and the young granules, prohormone convertases (PC1/3 and PC2) and carboxypeptidase E cut out the connecting C-peptide.',
+  'What remains is insulin, two chains (A, 21 amino acids; B, 30) joined by two disulfide bonds, about 5.8 kDa. It is stored with zinc as hexamers that crystallise into the dense core of each granule; insulin and C-peptide leave together in equal numbers.',
+  'Raised proinsulin in the blood is a marker of stressed β cells (type 2 diabetes, insulinoma). Rapid-acting insulin analogues change the B chain (for example lispro swaps B28 and B29) so they do not form hexamers and are absorbed faster.'],
+  rc:'The granule contents are a crystal; the game shows single molecules leaving.'},
+ incretin:{title:'Incretins · GLP-1 and GIP',tag:'Gut hormones that boost insulin',src:REF.pan,L:[
+  'Hormones from the gut that tell the pancreas a meal is on its way.',
+  'GLP-1 comes from L cells (ileum and colon) and GIP from K cells (duodenum and jejunum). Both act on β cells through receptors that raise cAMP.',
+  'They only amplify glucose-stimulated secretion, so on their own they do not cause hypoglycaemia. Oral glucose releases far more insulin than the same rise of blood glucose given intravenously: the incretin effect, about half to two thirds of the response after a meal. GLP-1 also suppresses glucagon, slows gastric emptying and reduces appetite.',
+  'GLP-1 receptor agonists (and dual GLP-1/GIP agonists) are now central in type 2 diabetes and obesity; DPP-4 inhibitors slow the breakdown of the body’s own GLP-1. Pancreatitis risk with these drugs has been studied closely; large trials have not shown a clear increase.'],
+  rc:'The incretins come from the gut, outside this world; the HUD only notes their effect.'},
+ firstpass:{title:'Insulin’s first pass through the liver',tag:'~50% removed before the body sees it',src:REF.pan,L:[
+  'Insulin from the pancreas goes to the liver first, and the liver keeps about half.',
+  'Pancreatic venous blood drains into the splenic and superior mesenteric veins and so into the portal vein. The liver is exposed to insulin at 2–3 times the concentration the rest of the body sees.',
+  'Hepatocytes take up and break down roughly 40–80% of the insulin on the first pass (it has a half-life of about 5 minutes). C-peptide is not taken up by the liver and lasts about 30 minutes, which is why it is the better measure of how much insulin a pancreas is making.',
+  'Injected insulin enters the systemic blood, so to control the liver the periphery gets more than it should: one reason for weight gain and hypoglycaemia on insulin, and for interest in liver-targeted insulins.'],
+  rc:'The fork jumps you from the islet straight into the portal vein; the veins in between are not drawn.'},
+ acinarcell:{title:'The acinar cell',tag:'Rough ER below, zymogen granules above',src:REF.pan,L:[
+  'The cell that makes the digestive enzymes, more protein for its size than almost any other cell.',
+  'It is pyramidal, with its broad base on the basement membrane and its narrow apex at the lumen. The base is packed with rough ER (blue, basophilic in H&E) around a round nucleus; the apex is filled with zymogen granules (pink-orange, eosinophilic).',
+  'Proteins are made on the rough ER, sorted in the Golgi and stored in granules about 1 µm across. Acetylcholine (M3 receptors) and CCK raise calcium in waves from the apex, and the granules fuse with the apical membrane. In rodents CCK acts on the acinar cell directly; human acinar cells have few CCK receptors, and much of CCK’s effect probably runs through vagal reflexes.',
+  'Calcium overload is the common pathway of injury: alcohol metabolites, bile acids and hyperstimulation all raise calcium too long, granules fuse with lysosomes, and trypsin is switched on inside the cell.'],
+  rc:'A real acinar cell is about 15 µm tall; the section (E) shows about ten of them round one lumen.'},
+ trypsinact:{title:'Switching trypsin on',tag:'Enteropeptidase · the cascade · the guards',src:REF.pan,L:[
+  'The pancreas makes its protein-digesting enzymes in an off state, and only the gut turns them on.',
+  'Trypsinogen, chymotrypsinogen, proelastase and the procarboxypeptidases leave the pancreas inactive. In the duodenum, enteropeptidase on the brush border cuts a short peptide off trypsinogen, making trypsin.',
+  'Trypsin then activates more trypsinogen and all the other proenzymes: a cascade. Inside the gland several guards stop this happening early: SPINK1 (a trypsin inhibitor that can block about a fifth of the trypsin), trypsin’s own self-destruction, chymotrypsin C, low calcium and fast flow out of the ducts.',
+  'Gain-of-function mutations in PRSS1 (cationic trypsinogen) cause hereditary pancreatitis with a high lifetime risk of cancer; SPINK1, CTRC and CFTR variants raise the risk of recurrent and chronic pancreatitis.'],
+  rc:'The duodenum is where this belongs; in the game you see active trypsin only in case 07, inside the gland where it should never be.'},
+ secretin:{title:'Secretin',tag:'Acid in the duodenum → bicarbonate from the ducts',src:REF.pan,L:[
+  'The hormone that tells the pancreas to send alkaline juice to neutralise stomach acid.',
+  'S cells in the duodenal lining release it when the pH there falls below about 4.5. It was the first hormone ever described (Bayliss and Starling, 1902).',
+  'It raises cAMP in duct cells, opening CFTR. The juice volume rises and its bicarbonate can reach ~140 mmol/L, enough to bring the duodenum to about pH 6–7 so the enzymes work and the mucosa is protected. CCK and acetylcholine strongly potentiate it.',
+  'Secretin-enhanced MRCP shows the ducts better by filling them; in gastrinoma, secretin paradoxically raises gastrin, a provocation test still used.'],
+  rc:'In the game U (a meal) brings secretin and CCK together; in life acid releases secretin and fat and protein release CCK.'},
+ cftrP:{title:'CFTR in the pancreatic duct',tag:'Chloride channel · bicarbonate secretion',src:REF.pan,L:[
+  'A channel in the duct cells that lets out the salt that pulls water and bicarbonate into the juice.',
+  'CFTR is an anion channel opened by cAMP (secretin). Next to it SLC26A6 swaps luminal chloride for bicarbonate; on the blood side a Na⁺–HCO₃⁻ cotransporter (NBC1) and carbonic anhydrase supply the bicarbonate.',
+  'At high flow, CFTR itself carries bicarbonate as luminal chloride runs low. Water follows the salt through aquaporins and between the cells, and the juice stays isotonic.',
+  'In cystic fibrosis the ducts make a small volume of acidic, protein-rich juice that plugs them; about 85% of people with CF have pancreatic insufficiency from birth or infancy. Milder CFTR variants cause recurrent pancreatitis in adults. CFTR modulators (elexacaftor–tezacaftor–ivacaftor) can partly restore function.'],
+  rc:'The diorama shows a handful of transporters; a real duct cell has many thousands.'},
+ pancanat:{title:'Pancreas · anatomy',tag:'Head, neck, body, tail · retroperitoneal',src:REF.pan,L:[
+  'A long soft gland lying across the back of the upper abdomen, behind the stomach.',
+  'It is 12–15 cm long and weighs 70–100 g. The head sits in the C-loop of the duodenum with the uncinate process hooked behind the superior mesenteric vessels; the neck lies in front of the portal vein; the body crosses the aorta at L1–L2; the tail reaches the spleen.',
+  'It is retroperitoneal except the tail, which lies in the splenorenal ligament. The head is supplied by the pancreaticoduodenal arcades (coeliac and SMA), the body and tail by the splenic artery; venous blood drains into the portal system.',
+  'Its position explains its signs: pain boring to the back, the splenic vein running behind it (thrombosis after pancreatitis gives isolated gastric varices), and the common bile duct through the head (a head tumour causes jaundice early, a tail tumour presents late).'],
+  rc:'You fly one lobule and one main duct; the rest of the gland is on the map.'},
+ pancdev:{title:'How the pancreas forms',tag:'Dorsal and ventral buds · divisum · annular',src:REF.pan,L:[
+  'The pancreas starts as two separate buds from the gut that swing round and join.',
+  'A dorsal bud grows into the dorsal mesentery and a ventral bud grows next to the bile duct. When the duodenum rotates, the ventral bud swings behind and fuses with the dorsal one in about the seventh week.',
+  'The ventral bud becomes the lower head and the uncinate process; the dorsal bud the rest of the head, the neck, the body and the tail. The main duct is the ventral duct plus the far part of the dorsal duct; the near part of the dorsal duct remains as the accessory duct to the minor papilla.',
+  'Pancreas divisum (5–10% of people) is failure of the ducts to fuse: most juice must drain through the small minor papilla. An annular pancreas, a ring of ventral bud round the second part of the duodenum, can obstruct it in the newborn (a “double bubble”) and is associated with Down syndrome.'],
+  rc:'Development is a story told in the codex; nothing in the world shows it.'},
+ acutepanc:{title:'Acute pancreatitis',tag:'Gallstones · alcohol · triglycerides · post-ERCP',src:REF.pan,L:[
+  'Sudden inflammation of the pancreas, when its own enzymes start to digest it.',
+  'The commonest causes are gallstones (about 40%) and alcohol (about 30%); then very high triglycerides (usually above ~11 mmol/L), ERCP, drugs (azathioprine, valproate and others), hypercalcaemia, trauma, infection and genetic variants. Some remain unexplained.',
+  'Diagnosis needs two of: typical upper abdominal pain, lipase (or amylase) above three times the upper limit, and characteristic imaging. Injury begins inside acinar cells (premature trypsin), then neutrophils and macrophages amplify it; a systemic inflammatory response can follow.',
+  'Treatment is supportive: moderate goal-directed fluids (Ringer’s lactate; aggressive fluids did harm in the WATERFALL trial), analgesia including opioids, early oral feeding as tolerated (enteral, not parenteral, if not), and no prophylactic antibiotics. Treat the cause.'],
+  rc:'The game shows the injury in one acinus; in life it is patchy through the gland and its surrounding fat.'},
+ gallpanc:{title:'Gallstone pancreatitis',tag:'A stone at the ampulla · ERCP · cholecystectomy',src:REF.pan,L:[
+  'Pancreatitis caused by a gallstone stuck where the bile duct and pancreatic duct meet.',
+  'Small stones (and sludge) passing down the common bile duct can lodge at the ampulla. In most people the two ducts share a short common channel there, so one stone can block both.',
+  'Blocked outflow raises duct pressure, and bile may reflux into the pancreatic duct; both push the acinar cells into calcium overload and premature trypsin activation. A transient ALT above ~150 U/L in the first 48 hours strongly suggests a gallstone cause. Most stones pass on their own.',
+  'ERCP is for a stone still blocking (rising bilirubin, dilated duct) and urgently, within 24 hours, for cholangitis; it is not routine for every case. Cholecystectomy in the same admission for mild gallstone pancreatitis prevents recurrence (PONCHO trial); waiting weeks risks another attack.'],
+  rc:'A real ampulla stone is hidden in the duodenal wall; here you meet it face on inside the duct.'},
+ pancsev:{title:'Severity of acute pancreatitis',tag:'Organ failure · necrosis · CRP · calcium',src:REF.pan,L:[
+  'Most attacks are mild and settle in days; a few become life-threatening.',
+  'Revised Atlanta classes attacks as mild (no organ failure, no local complications), moderately severe (organ failure that resolves within 48 hours, or local complications) or severe (organ failure for more than 48 hours). About one in five attacks is moderately severe or severe.',
+  'Pancreatitis is interstitial oedematous (most) or necrotising. Markers that predict a bad course: persistent SIRS, rising urea or haematocrit, CRP above ~150 mg/L at 48 hours, BISAP score. Lipase level does not track severity. Calcium falls as fatty acids released by lipase bind it as soaps in dead fat (saponification).',
+  'Local complications: acute peripancreatic fluid collections and pseudocysts (after 4 weeks), acute necrotic collections and walled-off necrosis. Infected necrosis is treated with antibiotics and a step-up approach (drainage, then endoscopic or minimally invasive necrosectomy), ideally delayed until it is walled off.'],
+  rc:'Case 07 is moderate at worst; necrosis is described, not shown.'},
+ ercp:{title:'ERCP',tag:'Endoscopic retrograde cholangiopancreatography',src:REF.pan,L:[
+  'A camera passed down to the duodenum to reach the bile duct through its opening and clear a blockage.',
+  'A side-viewing duodenoscope sits opposite the major papilla; a catheter is passed into the bile duct and contrast injected under X-ray. A cut through the sphincter of Oddi (sphincterotomy) widens the opening, and a balloon or basket sweeps stones out.',
+  'It is now a treatment, not a diagnostic test: MRCP and endoscopic ultrasound show the ducts without the risks. After a sphincterotomy the sphincter no longer closes, so bile drains freely and small stones can pass.',
+  'Its main complication is post-ERCP pancreatitis (a few per cent): rectal indomethacin or diclofenac and a temporary pancreatic stent reduce the risk. Others are bleeding, perforation and cholangitis.'],
+  rc:'The game removes the stone in one warp; the real procedure takes 30–60 minutes under sedation.'},
+ chronicpanc:{title:'Chronic pancreatitis',tag:'Scar, calcification, steatorrhoea, type 3c diabetes',src:REF.pan,L:[
+  'Long-term damage that slowly replaces the pancreas with scar.',
+  'Alcohol and smoking are the main causes, often together; genetic variants (PRSS1, SPINK1, CFTR, CTRC), autoimmune pancreatitis, obstruction and recurrent acute attacks lead to it too. Pancreatic stellate cells, activated by injury, lay down the scar.',
+  'The features are pain, calcified ducts on imaging, exocrine failure (fat malabsorption once more than about 90% of function is lost: pale, greasy, floating stools, fat-soluble vitamin deficiency) and endocrine failure (type 3c diabetes, with a high risk of hypoglycaemia because glucagon is lost too). Faecal elastase is low.',
+  'Treat with stopping alcohol and smoking, pancreatic enzyme replacement with every meal, analgesia, and endoscopy or surgery for blocked ducts. It raises the risk of pancreatic cancer. Autoimmune pancreatitis (IgG4-related) mimics cancer and responds to steroids.'],
+  rc:'Not part of case 07; the codex links it because recurrent acute attacks can lead to it.'},
+ pancca:{title:'Pancreatic cancer',tag:'Ductal adenocarcinoma · head · painless jaundice',src:REF.pan,L:[
+  'A cancer that starts in the duct cells of the pancreas, often found late.',
+  'About 90% are ductal adenocarcinomas, and most arise in the head. They grow from precursor lesions in small ducts (PanIN) or cystic tumours (IPMN). Risks include smoking, age, chronic pancreatitis, long-standing diabetes, obesity and inherited mutations (BRCA2, PALB2, Lynch, PRSS1).',
+  'A head tumour blocks the bile duct early: painless jaundice, dark urine, pale stools, itching, and a palpable gallbladder (Courvoisier’s sign). Body and tail tumours present late with back pain and weight loss. New diabetes in an older thin adult can be the first sign. CA19-9 helps follow it but is not a screening test.',
+  'Only about 15–20% are resectable at diagnosis (Whipple pancreaticoduodenectomy for the head, distal pancreatectomy for the tail), usually with chemotherapy. Five-year survival overall is about 10–13%. Migratory thrombophlebitis (Trousseau) can be a clue.'],
+  rc:'Not part of case 07; it sits here because it begins in the ducts you fly.'},
+ pnet:{title:'Islet cell tumours',tag:'Insulinoma · gastrinoma · glucagonoma · VIPoma',src:REF.pan,L:[
+  'Rare tumours of the hormone cells, often recognised by the hormone they make.',
+  'Pancreatic neuroendocrine tumours are graded by how fast they divide (Ki-67). Most are non-functioning; the functioning ones produce one hormone in excess. They occur in MEN1 (with parathyroid and pituitary tumours) and von Hippel–Lindau.',
+  'Insulinoma: fasting hypoglycaemia with Whipple’s triad (symptoms, low glucose, relief with glucose); insulin, C-peptide and proinsulin all high, with a negative sulfonylurea screen; usually small, single and benign. Gastrinoma (Zollinger–Ellison): multiple or distal ulcers and diarrhoea, often in the duodenum.',
+  'Glucagonoma: necrolytic migratory erythema, diabetes, weight loss and clots. VIPoma: watery diarrhoea, low potassium and no stomach acid (WDHA). Somatostatinoma: diabetes, gallstones and steatorrhoea (everything inhibited). Somatostatin analogues control symptoms of most.'],
+  rc:'None of these is in the case; the codex names them so the islet’s cells each have their disease.'},
+ dm1:{title:'Type 1 diabetes and the islet',tag:'Autoimmune β-cell loss · insulitis',src:REF.pan,L:[
+  'The immune system destroys the β cells, so the body cannot make insulin.',
+  'T cells, guided by HLA risk types (DR3-DQ2, DR4-DQ8), attack the β cells; autoantibodies to insulin, GAD65, IA-2 and ZnT8 appear years before diabetes. The islet infiltrate (insulitis) is often patchy.',
+  'Symptoms come once most β-cell function is gone. α cells survive but lose their brake, so glucagon is high after meals yet fails to rise in hypoglycaemia. Without insulin, fat is broken down unopposed and ketones accumulate: diabetic ketoacidosis (case 05).',
+  'C-peptide falls toward zero, which distinguishes it from type 2. Teplizumab (anti-CD3) can delay onset in antibody-positive relatives. Islet or whole-pancreas transplants can free selected patients from insulin.'],
+  rc:'Case 07 has a healthy islet; this card links to the kidney’s DKA case.'},
+ dm2:{title:'Type 2 diabetes and the islet',tag:'Insulin resistance · β-cell failure · amyloid',src:REF.pan,L:[
+  'The body resists insulin, and the β cells can no longer keep up.',
+  'Insulin resistance in liver, muscle and fat (from obesity, inactivity and genes) makes the β cells work harder. Diabetes appears when they fail to compensate.',
+  'The first phase of insulin release is lost early; β-cell mass falls by a third to a half over years, partly from the toxic effects of high glucose and fat. Amylin, secreted with insulin, aggregates into amyloid between the β cells and capillaries. Glucagon is not suppressed after meals.',
+  'Weight loss of 10–15 kg can restore β-cell function and put early type 2 diabetes into remission. Metformin, GLP-1 receptor agonists, SGLT2 inhibitors and others act at different points of this picture.'],
+  rc:'Case 07’s glucose of 9.8 mmol/L is stress hyperglycaemia, not diabetes; it settles as the inflammation does.'},
+ case07:{title:'Case 07 · Ruth Mensah, 54',tag:'Gallstone pancreatitis',src:REF.pan,L:[
+  'A woman with severe stomach pain after a fatty meal: a gallstone has blocked her pancreas.',
+  'Constant epigastric pain boring to the back, vomiting, a soft but tender upper abdomen, and a lipase about 40 times normal. Ultrasound shows gallstones and a wide common bile duct.',
+  'Her ALT of 210 points to a gallstone; her rising bilirubin and 9 mm duct say it is still stuck. Haematocrit 0.46 and urea 7.8 suggest she is dry; her calcium is still normal. No organ failure yet: severity is judged over the next 48 hours.',
+  'Plan: moderate goal-directed Ringer’s lactate, analgesia, eating when she can, no prophylactic antibiotics; ERCP to clear the stuck stone (urgently if cholangitis appears); cholecystectomy in this admission. Day 3: CRP 210 and calcium 1.98 mark a moderately severe course, while the falling lipase means nothing for severity.'],
+  rc:'A composite teaching case, not a real patient; the numbers are typical, not taken from one person.'},
+ rbcP:{title:'Red cell in the islet',tag:'≈ 7.5 µm · through fenestrated capillaries',src:REF.pan,L:[
+  'A red blood cell carrying oxygen through the islet.',
+  'Islet capillaries are a little wider than the ones in the exocrine pancreas around them, and the cells pass in single file.',
+  'β cells use a lot of oxygen when glucose is high: their insulin release depends on mitochondrial ATP, so islets are very sensitive to low oxygen.',
+  'That oxygen dependence is one reason transplanted islets struggle: for days after transplant into the liver they have no blood supply of their own, and many die.'],
+  rc:'True size for this magnification.'},
+ pltP:{title:'Platelet',tag:'≈ 2–3 µm',src:REF.pan,L:[
+  'A cell fragment that plugs leaks in vessels.',
+  'Made by megakaryocytes in the marrow; they circulate for about 10 days.',
+  'They gather where endothelium is damaged and release mediators that recruit neutrophils.',
+  'In severe pancreatitis, microvascular clotting contributes to necrosis, and splenic or portal vein thrombosis can follow. Platelets also help islets: islets put into the portal vein trigger a clotting reaction (IBMIR) that destroys many of them.'],
+  rc:'Enlarged slightly so you can see it.'},
+ wbcP:{title:'Neutrophil',tag:'≈ 12 µm · first to arrive',src:REF.pan,L:[
+  'A white cell that rushes in when tissue is injured.',
+  'Neutrophils are the commonest white cells in blood. In case 07 they stick to the capillary walls of the injured lobule and squeeze out into the tissue.',
+  'Injured acinar cells release cytokines and damage signals; neutrophils arrive within hours and release proteases and oxygen radicals. In pancreatitis they also activate more trypsinogen inside acinar cells, deepening the injury.',
+  'The white count of 15.8 reflects this; persistent SIRS (high or low temperature, fast heart and breathing, abnormal white count) beyond 48 hours predicts a severe course.'],
+  rc:'More of them appear in case 07; the healthy pancreas has a few in passing.'},
+ monoP:{title:'Monocyte',tag:'≈ 15–20 µm · becomes a macrophage',src:REF.pan,L:[
+  'A large white cell that turns into a macrophage once it leaves the blood.',
+  'In pancreatitis monocytes follow the neutrophils into the injured tissue within a day.',
+  'As macrophages they clear dead cells and fat, but they also release TNF, IL-1 and IL-6, which spread the inflammation to the whole body and to the lungs.',
+  'IL-6 drives the liver to make CRP, which is why CRP lags: it peaks at 48–72 hours, the window used for severity scoring.'],
+  rc:'Shown in the blood only in the case stages.'},
+ glucP:{title:'Glucose arriving at the islet',tag:'5 mmol/L fasting · ~7–8 after a meal',src:REF.pan,L:[
+  'The sugar the islet is measuring all the time.',
+  'Arterial glucose is about 4–5.5 mmol/L fasting and rarely above 7.8 two hours after a meal in a healthy person.',
+  'β cells respond across this range because glucokinase is only half-saturated at about 8 mmol/L. Below about 4 mmol/L insulin release stops and α cells release glucagon.',
+  'In case 07 glucose is 9.8 mmol/L: stress hormones (glucagon, cortisol, adrenaline) and insulin resistance during inflammation, and sometimes islet injury. Persistent hyperglycaemia after pancreatitis can mean new type 3c diabetes.'],
+  rc:'Molecules are far too small to see; each symbol stands for countless real ones.'},
+ ins:{title:'Insulin',tag:'51 amino acids · 5.8 kDa · half-life ~5 min',src:REF.pan,L:[
+  'The hormone that lets the body store sugar and fat after a meal.',
+  'Made only by β cells. It binds a tyrosine kinase receptor on liver, muscle and fat cells.',
+  'It moves GLUT4 to the surface of muscle and fat cells, makes the liver store glycogen and stop making glucose, and blocks fat breakdown (so no ketones). It is released in pulses about every 5 minutes, which keeps the liver responsive. Fasting systemic levels are about 20–60 pmol/L; they rise several-fold after a meal.',
+  'Insulin also drives potassium into cells, which is why treating DKA can drop the potassium fast. Exogenous insulin cannot reproduce the portal-to-systemic gradient of the real thing.'],
+  rc:'Each blue capsule stands for many molecules; insulin in a granule is a zinc hexamer, in the blood a monomer.'},
+ cpep:{title:'C-peptide',tag:'Cut out of proinsulin · equimolar with insulin',src:REF.pan,L:[
+  'The piece cut out of insulin’s precursor, released alongside it.',
+  'It connects the A and B chains in proinsulin and is removed inside the granule. It leaves the β cell in the same number as insulin.',
+  'Unlike insulin it is not removed by the liver, and its half-life is about 30 minutes, so its level reflects insulin secretion better than insulin does.',
+  'Uses: telling type 1 (very low) from type 2 diabetes; and in hypoglycaemia, high insulin with low C-peptide means injected insulin, while high both means insulinoma or a sulfonylurea.'],
+  rc:'Shown as green tetrahedra; it is a 31-amino-acid peptide.'},
+ iapp:{title:'Amylin (IAPP)',tag:'Co-secreted with insulin · makes islet amyloid',src:REF.pan,L:[
+  'A small hormone released together with insulin.',
+  'Islet amyloid polypeptide has 37 amino acids and is stored in the same granules as insulin, at about one per hundred insulin molecules.',
+  'It slows stomach emptying, suppresses glucagon after meals and promotes fullness. Pramlintide, a stable analogue, is used with insulin in some patients.',
+  'Human amylin can misfold into amyloid fibrils; most people with type 2 diabetes have islet amyloid, which is toxic to β cells. Rodent amylin does not aggregate, which is why mice do not form it.'],
+  rc:'Shown as thin pink rods for its fibril-forming habit; single molecules are not rods.'},
+ gcg:{title:'Glucagon',tag:'α cells · 29 amino acids · raises glucose',src:REF.pan,L:[
+  'The hormone that tells the liver to release sugar when blood sugar is low.',
+  'α cells cut it from proglucagon with PC2 (the same precursor gives GLP-1 in the gut’s L cells). It reaches the liver first through the portal vein.',
+  'It drives glycogen breakdown, then gluconeogenesis and ketone formation. Low glucose, amino acids (protein meals) and adrenaline release it; glucose, insulin, zinc, somatostatin and GLP-1 suppress it.',
+  'In diabetes it is too high after meals and fails to rise in hypoglycaemia. Glucagon injection or nasal spray treats severe hypoglycaemia; it also relaxes gut smooth muscle and treats beta-blocker overdose.'],
+  rc:'Orange rods; its level falls after a meal in the game, as it does after a carbohydrate-rich meal in life.'},
+ sst:{title:'Somatostatin',tag:'δ cells · 14 amino acids · the brake',src:REF.pan,L:[
+  'A hormone that slows down almost everything nearby.',
+  'δ cells make somatostatin-14; they have long processes that touch α and β cells. Somatostatin is also made in the gut and hypothalamus.',
+  'In the islet it inhibits both insulin and glucagon locally; in the gut it slows secretion, motility and absorption.',
+  'Octreotide (a long-acting analogue) treats bleeding varices, acromegaly and hormone-secreting neuroendocrine tumours; a somatostatinoma causes diabetes, gallstones and steatorrhoea.'],
+  rc:'Lilac rings; its effects are mostly local, within the islet.'},
+ lipB:{title:'Lipase in the blood',tag:'The test for pancreatitis',src:REF.pan,L:[
+  'Fat-digesting enzyme that leaks into the blood when the pancreas is damaged.',
+  'In case 07 it escapes from injured acini into the interstitium and the capillaries around them.',
+  'Lipase rises within hours and stays up for 1–2 weeks, longer than amylase, and is more specific. Above three times the upper limit with typical pain is diagnostic.',
+  'Its height does not predict severity, and a daily lipase is not useful. Mild rises occur in kidney failure, bowel obstruction, DKA and other illnesses.'],
+  rc:'Shown only in case 07; a trace is normally present.'},
+ zymo:{title:'Zymogen granule',tag:'≈ 1 µm · the stored enzymes',src:REF.pan,L:[
+  'A little sac of digestive enzymes waiting at the tip of the acinar cell.',
+  'Each granule holds a mix of proenzymes and enzymes made on the rough ER and packed by the Golgi; they collect at the apex.',
+  'On stimulation (acetylcholine, CCK) calcium rises and granules fuse with the apical membrane; several can fuse one into another in compound exocytosis. They release their contents into the acinar lumen.',
+  'In acute pancreatitis granules fuse with lysosomes instead (co-localisation), and cathepsin B switches trypsinogen on inside the cell: the start of autodigestion.'],
+  rc:'Drawn on the wall where they open; in life they fill the top third of each acinar cell.'},
+ tgen:{title:'Trypsinogen',tag:'24 kDa · the master proenzyme',src:REF.pan,L:[
+  'The inactive form of trypsin, the enzyme that switches the others on.',
+  'It is the most abundant proenzyme in the juice. Cationic trypsinogen (PRSS1) and anionic trypsinogen (PRSS2) are the main forms.',
+  'Enteropeptidase in the duodenum removes its activation peptide (TAP), making trypsin. The released peptide can be measured in urine as a marker of activation.',
+  'Immunoreactive trypsinogen is the newborn screening test for cystic fibrosis: blocked ducts push it into the blood.'],
+  rc:'Shown lavender, like the liver world’s pancreatic enzymes.'},
+ lip:{title:'Pancreatic lipase',tag:'Digests fat · needs colipase',src:REF.pan,L:[
+  'The enzyme that splits fat into pieces the gut can absorb.',
+  'It is secreted active, not as a proenzyme, along with procolipase.',
+  'It cuts triglycerides into fatty acids and 2-monoglycerides at the surface of fat droplets; bile salts would strip it off, and colipase anchors it back on. It works best at pH 7–8.',
+  'Without it fat is lost in the stool (steatorrhoea). Orlistat blocks it for weight loss; enzyme replacement capsules replace it in exocrine failure.'],
+  rc:'Shown yellow-green; the same symbol appears in the blood in case 07.'},
+ amy:{title:'Pancreatic amylase',tag:'Starch → maltose',src:REF.pan,L:[
+  'The enzyme that breaks starch into sugars.',
+  'It is secreted active; salivary amylase does the same job in the mouth but is inactivated by stomach acid.',
+  'It splits α-1,4 bonds in starch to give maltose, maltotriose and α-limit dextrins; brush-border enzymes finish the job.',
+  'Serum amylase rises in pancreatitis but falls back within days and also rises from the salivary glands, so lipase is the preferred test. Macroamylasaemia (amylase bound to antibodies) gives a high level with no disease.'],
+  rc:'Shown teal.'},
+ spink:{title:'SPINK1',tag:'Pancreatic secretory trypsin inhibitor',src:REF.pan,L:[
+  'A small protein that blocks trypsin if it is switched on too early.',
+  'Acinar cells make it and pack it into the granules with the proenzymes.',
+  'It can inhibit about a fifth of the trypsin that could form: enough for an accident, not for a flood.',
+  'SPINK1 variants (N34S) raise the risk of chronic and recurrent pancreatitis, especially with other risks such as alcohol.'],
+  rc:'Fewer shown in case 07, when it is overwhelmed.'},
+ tryA:{title:'Active trypsin in the gland',tag:'Where it should never be',src:REF.pan,L:[
+  'Trypsin switched on inside the pancreas, digesting the gland itself.',
+  'In case 07 blocked outflow and calcium overload let cathepsin B activate trypsinogen inside acinar cells.',
+  'Active trypsin activates the other proenzymes (elastase damages vessels, phospholipase A2 damages membranes), and the injured cells call in inflammation.',
+  'Recent work shows trypsin is not the whole story: inflammation and mitochondrial injury carry on even when trypsin activation is blocked. That is why no anti-protease drug has worked in trials.'],
+  rc:'Shown red and spiky, only in case 07.'},
+ hco3P:{title:'Bicarbonate in the juice',tag:'Up to ~140 mmol/L',src:REF.pan,L:[
+  'The alkali the pancreas adds to neutralise stomach acid.',
+  'Duct cells make it from CO₂ and water (carbonic anhydrase) and take it from blood; secretin drives it into the lumen.',
+  'At high flow juice bicarbonate reaches ~140 mmol/L, five times plasma; chloride falls in mirror image. Juice pH is about 8.',
+  'Losing pancreatic juice through a fistula or drain causes a normal anion gap metabolic acidosis.'],
+  rc:'Each white dot stands for countless ions.'},
+ bileP:{title:'Bile at the ampulla',tag:'Meets the pancreatic juice',src:REF.pan,L:[
+  'Bile from the liver joining the pancreatic juice just before the duodenum.',
+  'The common bile duct and the main pancreatic duct join in the ampulla in most people.',
+  'Bile salts make the micelles that lipase needs; bilirubin colours the stool. Normally the higher pressure in the pancreatic duct keeps bile out of it.',
+  'When a stone blocks the common channel, bile can flow back up the pancreatic duct (the “common channel” theory of gallstone pancreatitis, proposed in 1901), and bile acids injure acinar cells directly.'],
+  rc:'Shown amber, the same symbol as conjugated bilirubin in the liver world.'},
  endothelium:{title:'Endothelium',tag:'Vessel lining · one cell thick · structure',src:REF.vessels,L:[
   'The smooth inner skin of every blood vessel: a single layer of flat cells, like tiles, that the blood slides over.',
   'Endothelial cells are long and thin, lined up with the flow. They stop blood from clotting on the wall and control what passes through.',
@@ -2053,6 +2344,15 @@ const REGIONS={
  cbdp:{n:'Common bile duct · in the pancreas',s:'Through the head of the pancreas · a tumour here blocks it',b:'n'},
  ampulla:{n:'Ampulla of Vater',s:'The main pancreatic duct joins · bile meets pancreatic juice',b:'n'},
  oddi:{n:'Sphincter of Oddi',s:'Shut between meals · CCK opens it · the duodenum beyond',b:'n'},
+ // pancreas (b:'a' arterial blood into the islet; 'v' once it has picked up the islet hormones; 'n' once you are pancreatic juice). ampulla and oddi are shared with the liver world: the same place, reached from the other duct
+ parter:{n:'Islet arteriole',s:'A branch of the pancreaticoduodenal arcade · one or two arterioles feed each islet',b:'a'},
+ islet:{n:'Islet capillary',s:'Fenestrated · β, α and δ cells along the wall, mixed together in a human islet',b:'a'},
+ iap:{n:'Insulo-acinar portal capillary',s:'Out of the islet into the acini, carrying insulin at its highest concentration · K at the end',b:'v'},
+ pacinus:{n:'Acinar lumen',s:'Between the apices of a ring of acinar cells · zymogen granules opening into it',b:'n'},
+ icd:{n:'Intercalated duct',s:'Centroacinar cells start it · flat cells adding bicarbonate (secretin, CFTR)',b:'n'},
+ intral:{n:'Intralobular duct',s:'Cuboidal duct cells · most of the fluid and bicarbonate are added along here',b:'n'},
+ interl:{n:'Interlobular duct',s:'Between the lobules in connective tissue · columnar cells, a few goblet cells',b:'n'},
+ mpd:{n:'Main pancreatic duct',s:'Duct of Wirsung · tail → body → neck → head · Ø 2–3.5 mm',b:'n'},
  ivc:{n:'Inferior vena cava',s:'Venous return · SO₂ ~75%',b:'v'},
  ra:{n:'Right atrium',s:'Wait here for the tricuspid valve to open (diastole)',b:'v'},
  tricuspid:{n:'Tricuspid valve',s:'Opens in diastole',b:'v'},
@@ -2344,8 +2644,42 @@ const HNODES=(()=>{const n=[],add=(x,y,z,r,k,g,d,m)=>n.push([x,y,z,r,k,g,d||0,m|
 function hpCaps(){const R=HEP.RANGE;HEP.wallSkip=[R.gbx[0]-1,R.gbx[1]+1];
  for(let k=0;k<10;k++){const i=R.gb[1]-1-k;HEP.R0[i]*=Math.sqrt(1-Math.pow(1-k/10,2))*.9+.1;}
  for(let k=0;k<6;k++){const i=R.cbd[0]+k;HEP.R0[i]*=.45+.55*k/6;}}
-const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false);HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
-BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;
+// pancreas kinds: w = [islet capillary (fenestrated endothelium over endocrine cells), plain capillary/arteriole, acinar apices, duct epithelium]; cw = sphincter of Oddi; str = islet cell mosaic seed / duct order
+Object.assign(KIND,{
+ parter:{f:3,tint:[.55,.16,.2],w:[0,1,0,0],ew:1,el:1.6,nuc:1,str:0,cw:0},
+ pisl:{f:1.6,tint:[.62,.32,.3],w:[1,0,0,0],ew:.8,el:1,nuc:.8,str:0,cw:0},
+ pcap:{f:1.2,tint:[.6,.24,.26],w:[0,.6,.25,0],ew:.8,el:1,nuc:.8,str:0,cw:0},
+ pacin:{f:.6,tint:[.8,.42,.42],w:[0,0,1,0],ew:.7,el:.7,nuc:.7,str:0,cw:0},
+ pduct:{f:1.2,tint:[.8,.7,.6],w:[0,0,0,1],ew:.7,el:.8,nuc:.9,str:0,cw:0},
+ poddi:{f:1.2,tint:[.74,.48,.4],w:[0,0,0,.6],ew:.8,el:.9,nuc:.9,str:0,cw:1},
+});
+/* Pancreas: one path from an islet's arteriole, through the islet, out into the acini, then (at the K door) across an acinar cell into the duct system and out at the papilla, +x = patient's left.
+   Blood side: islet arteriole → islet capillary (endocrine cells line it) → insulo-acinar portal capillary (bathing the acini round the islet). At its end: stay in the blood (pancreatic veins → portal vein → liver) or become pancreatic juice.
+   Juice side: acinar lumen → intercalated duct (centroacinar cells) → intralobular → interlobular → main pancreatic duct (Wirsung) through body, neck and head → ampulla (the common bile duct joins) → sphincter of Oddi → duodenum.
+   Lengths are compressed; the HUD states the real sizes. Node[6] = islet mosaic seed / duct order; node[7] = [map x, map y]. */
+const PCNODES=(()=>{const n=[];let x=5000,y=100,z=0,k=0;
+ const mpAt=(mp,f)=>{if(mp.length===1)return mp[0].slice();const t=f*(mp.length-1),i=Math.min(mp.length-2,Math.floor(t)),u=t-i;return [mp[i][0]+(mp[i+1][0]-mp[i][0])*u,mp[i][1]+(mp[i+1][1]-mp[i][1])*u];};
+ const seg=(reg,kind,cnt,step,r0,r1,str,mp,rf)=>{for(let j=0;j<cnt;j++){const f=cnt>1?j/(cnt-1):0,yaw=.55*Math.sin(k*.29)+.22*Math.sin(k*.11),pitch=.32*Math.sin(k*.21+1);
+  x+=step*Math.cos(pitch)*Math.cos(yaw);z+=step*Math.cos(pitch)*Math.sin(yaw);y+=step*Math.sin(pitch);k++;
+  n.push([x,y,z,rf?rf(j):r0+(r1-r0)*f,kind,reg,typeof str==='function'?str(f,j):str,mpAt(mp,f)]);}};
+ // an arteriole from the pancreaticoduodenal arcade dives into the islet
+ seg('parter','parter',5,5,3.2,2.4,0,[[18,236],[58,160]]);
+ // one capillary winding through the islet (~150 µm across): β, α and δ cells line it, mixed (the seed sets the local mosaic)
+ seg('islet','pisl',11,4,1.35,1.35,(f,j)=>(j*.37)%1,[[62,152],[80,132],[100,142],[118,122],[104,102],[90,96],[110,84],[128,96]],j=>1.3+.12*Math.sin(j*1.7));
+ // the insulo-acinar portal capillaries: out of the islet into the ring of acini round it
+ seg('iap','pcap',7,3.5,1.1,1,0,[[132,96],[150,82],[162,64]]);
+ // across an acinar cell (the K door) into the lumen of an acinus, then the duct tree
+ seg('pacinus','pacin',6,3,2.2,2,0,[[170,52],[160,64]]);
+ seg('icd','pduct',6,4,2.2,2.6,(f)=>f*.2,[[156,70],[146,112]]);
+ seg('intral','pduct',5,5,2.6,3.2,(f)=>.2+f*.2,[[144,118],[136,172]]);
+ // the gross map takes over: interlobular duct → main pancreatic duct from the body through the neck into the head → ampulla → sphincter of Oddi
+ seg('interl','pduct',5,5,2.8,3.2,(f)=>.4+f*.2,[[178,118],[160,128]]);
+ seg('mpd','pduct',10,6,2.3,2.6,(f)=>.6+f*.4,[[152,132],[120,142],[96,152],[78,170],[64,190],[54,206]]);
+ seg('ampulla','pduct',3,4,2.3,2.2,1,[[50,212],[46,220]]);
+ seg('oddi','poddi',3,3,0,0,1,[[44,226],[38,236]],j=>[1.6,1.5,2.2][j]);n[n.length-1][4]='pduct';
+ return n;})();
+const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false);PAN.pan=true;panZone();HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
+BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;PAN.fog=0x1e0d12;
 useWorld(BLOOD);
 const heartC=new V3();[2,4,13,15].forEach(k=>heartC.add(new V3(NODES[k][0],NODES[k][1],NODES[k][2])));heartC.multiplyScalar(.25);
 
@@ -2360,6 +2694,7 @@ function scaleAt(i){
  if(W.nerve)return 1-KW[i*4]*.3*nodeAtS(i*DS);
  if(W.gut){const k=i*4;return 1-(.16+.14*KW[k+1])*gSlow(i)-.5*gWave(i);}
  if(W.lung)return 1+CW[i]*BR.vol-KW[i*4+3]*.35*wallU.uCons.value;
+ if(W.pan)return 1-KW[i*4+1]*.05*(.5+.5*Math.sin(time*7.3));
  if(W.hep)return 1-KW[i*4+3]*.12*HP.mealK*(.6+.4*Math.sin(time*1.3));
  if(W.renal)return 1-CW[i]*.1*(.5+.5*Math.sin(time*.251));
  const v=bump(C.tc,.02,C.sys),a=bump(C.tc,C.T-.16,C.T-.02);
@@ -2386,7 +2721,7 @@ scene.add(new THREE.HemisphereLight(0x9a3a44,0x1a0306,.55));
 const headlight=new THREE.PointLight(0xffeee6,1.5,90,1.1);scene.add(headlight);
 
 /* --- vessel wall: one cheap custom shader (pulsing, bumpy, wet, fake SSS, endothelial cell mosaic) --- */
-const wallU={uMeal:{value:0},uNec:{value:0},uDepthK:{value:1},uBr:{value:0},uCons:{value:0},uGrey:{value:0},uGW:{value:160},uAP:{value:-999},uAP2:{value:-999},uTc:{value:0},uT:{value:1},uSys:{value:.32},uPwv:{value:60},uTime:{value:0},
+const wallU={uErc:{value:0},uMeal:{value:0},uNec:{value:0},uDepthK:{value:1},uBr:{value:0},uCons:{value:0},uGrey:{value:0},uGW:{value:160},uAP:{value:-999},uAP2:{value:-999},uTc:{value:0},uT:{value:1},uSys:{value:.32},uPwv:{value:60},uTime:{value:0},
  uLight:{value:new V3()},uCam:{value:new V3()},uFog:{value:new THREE.Color(FOG)},uFogD:{value:.02}};
 const NOISE=`
 float h3(vec3 p){p=fract(p*0.3183099+.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
@@ -2410,7 +2745,7 @@ vec4 endo(vec2 x,float nc){
 const NODEFN=`float nodeF(float s){float f=mod(s,22.);float d=min(f,22.-f);return 1.-smoothstep(.5,1.4,d);}`;
 const wallMat=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},
  vertexShader:`
-uniform float uTc,uT,uSys,uPwv,uTime,uGW,uBr,uCons,uGrey,uDepthK,uMeal,uNec;
+uniform float uTc,uT,uSys,uPwv,uTime,uGW,uBr,uCons,uGrey,uDepthK,uMeal,uNec,uErc;
 attribute vec3 aCenter,aDir,aTint,aUV,aX;attribute float aR,aPd,aS;attribute vec4 aKind;
 varying vec3 vPos,vN,vTint,vUV,vX;varying vec4 vKind;varying float vS;
 float bmp(float x,float a,float b){return (x<a||x>b)?0.:sin(3.14159265*(x-a)/(b-a));}
@@ -2434,6 +2769,15 @@ void main(){
   float th=aUV.x/aUV.z*6.2832;
   s+=aKind.z*.14*sin(aS*.9)*(.5+.5*sin(th*3.+1.));                      // haustra between the three taeniae
   s-=aKind.y*.07*(.5+.5*sin(th*9.))*(1.-band);                           // rugae: longitudinal folds that flatten as the wall stretches
+ }
+#endif
+#ifdef PAN
+ {float th=aUV.x/aUV.z*6.2832;
+  s+=aKind.x*.07*(vn(vec3(th*2.4,aS*.7,5.))-.5);                                 // endocrine cells bulge under the thin endothelium
+  s-=aKind.z*.12*smoothstep(.45,.8,vn(vec3(th*3.,aS*1.1,6.)));                   // acinar cell apices crowd the lumen
+  s-=aKind.z*uNec*.1;                                                            // case 07: swollen acinar cells
+  s*=1.-aX.z*(.2-.13*max(uMeal,uErc))*(.6+.4*sin(uTime*.42))*(1.-uErc*.7);       // sphincter of Oddi: shut, relaxed by CCK, cut open after ERCP
+  s-=aKind.w*.025*vn(vec3(th*5.,aS*2.,3.));                                      // cuboidal duct cells
  }
 #endif
 #ifdef HEP
@@ -2468,18 +2812,18 @@ void main(){
  gl_Position=projectionMatrix*viewMatrix*vec4(pos,1.);
 }`,
  fragmentShader:`
-uniform vec3 uLight,uCam,uFog;uniform float uFogD,uTime,uAP,uAP2,uCons,uGrey,uDepthK,uMeal,uNec;
+uniform vec3 uLight,uCam,uFog;uniform float uFogD,uTime,uAP,uAP2,uCons,uGrey,uDepthK,uMeal,uNec,uErc;
 varying vec3 vPos,vN,vTint,vUV,vX;varying vec4 vKind;varying float vS;
 ${NOISE}
 ${NODEFN}
 void main(){
  vec3 n=normalize(vN);float sk=vX.y;
-#if defined(LUNG) || defined(RENAL) || defined(HEP)
+#if defined(LUNG) || defined(RENAL) || defined(HEP) || defined(PAN)
  sk=0.;
 #endif
  float h=fbm(vPos*.45)+.15*vn(vPos*2.2);
- float gcm=0.,cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.,lcart=0.,lraft=0.,lcapl=0.,lpocket=0.,lost=0.,lkohn=0.,lgob=0.,rbrush=0.,rfen=0.,rcd=0.,rint=0.,rspark=0.,hfen=0.,hnec=0.,hnuc=0.,hhc=0.;
-#if !defined(NERVE) && !defined(GUT) && !defined(LUNG) && !defined(RENAL) && !defined(HEP)
+ float gcm=0.,cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.,lcart=0.,lraft=0.,lcapl=0.,lpocket=0.,lost=0.,lkohn=0.,lgob=0.,rbrush=0.,rfen=0.,rcd=0.,rint=0.,rspark=0.,hfen=0.,hnec=0.,hnuc=0.,hhc=0.,pcell=0.,pgran=0.,pinf=0.;
+#if !defined(NERVE) && !defined(GUT) && !defined(LUNG) && !defined(RENAL) && !defined(HEP) && !defined(PAN)
  float ridge=1.-abs(vn(vPos*vec3(.16,.55,.16)+vec3(vS*.02))*2.-1.);   // trabeculae carneae in ventricles
  h+=vKind.y*ridge*ridge*1.4+vKind.x*.4*vn(vPos*vec3(.9,.25,.9)); // pectinate texture in atria
  cells=vn(vPos*1.6);h+=vKind.w*(1.-abs(cells*2.-1.))*.6;           // alveolar bubbles behind capillary wall
@@ -2519,6 +2863,16 @@ void main(){
  gpit=smoothstep(.62,.72,vn(vPos*3.2+vec3(7.)));h+=vKind.y*(.2*vn(vPos*1.3)-gpit*.5);
  gcr=smoothstep(.7,.78,vn(vPos*4.5+vec3(3.)));h-=vKind.z*gcr*.35;
  h+=vKind.w*.05*vn(vPos*2.);fib*=(1.-vKind.x)*(1.-vKind.w)*.5;
+#endif
+#ifdef PAN
+ {pcell=vn(vPos*1.5+vec3(vX.y*7.));                                                           // which endocrine cell lies under this patch of wall
+  pgran=(vKind.x+vKind.z)*smoothstep(.62,.7,vn(vPos*9.));                                     // granules: insulin in the islet, zymogen at the acinar apices
+  hnuc=(vKind.x+vKind.z*.6)*smoothstep(.74,.8,vn(vPos*2.+vec3(4.)));
+  hfen=vKind.x*smoothstep(.55,.6,vn(vPos*1.2+vec3(9.)))*smoothstep(.62,.7,vn(vPos*20.));      // fenestrae of the islet endothelium
+  pinf=uNec*(vKind.z+vKind.x*.5+vKind.y*.4);
+  h+=vKind.x*.2*vn(vPos*1.4)-hnuc*.25-hfen*.25+vKind.z*.18*vn(vPos*2.5)+pgran*.15+vKind.w*.1*vn(vPos*4.);
+  fib=0.;
+ }
 #endif
 #ifdef HEP
  {float z=vX.y;
@@ -2584,6 +2938,12 @@ void main(){
  base=mix(base,mix(vec3(.86,.76,.7),vec3(.48,.4,.72),nis),vKind.z);          // Nissl substance stains violet
  base=mix(base,base*vec3(.8,.85,1.),vKind.w*jn*mos);
 #endif
+#ifdef PAN
+ {vec3 ec=pcell<.5?vec3(.84,.74,.6):pcell<.56?vec3(.68,.58,.82):vec3(.88,.5,.58);                // β cream · δ lilac · α pink, seen through the endothelium
+  base=mix(base,ec,vKind.x*.6);base=mix(base,vec3(.55,.2,.3),hnuc*.7);base=mix(base,vec3(.08,.02,.03),hfen*.8);
+  base=mix(base,vec3(.78,.42,.5),vKind.z*.6);base=mix(base,vec3(1.,.6,.35),pgran*vKind.z*.8);base=mix(base,vec3(.95,.9,.75),pgran*vKind.x*.4);
+  base=mix(base,vec3(.86,.8,.7),vKind.w*.6);base=mix(base,vec3(.92,.33,.24),pinf*.45);base=mix(base,vec3(.8,.5,.42),vX.z*.6);vline=0.;}
+#endif
 #ifdef HEP
  base=mix(base,vec3(.6,.28,.24),vKind.x*.5);base=mix(base,vec3(.3,.1,.16),hnuc*.8);base=mix(base,vec3(.08,.02,.03),hfen*.9);   // hepatocytes red-brown · nuclei · fenestrae
  base=mix(base,vec3(.55,.5,.36),hnec*.85);                                                                                    // necrotic zone 3: pale, grey-brown, structureless
@@ -2618,6 +2978,9 @@ void main(){
 #endif
 #ifdef LUNG
  spec*=1.+lcart*1.5+lraft*3.+lgob*1.5;
+#endif
+#ifdef PAN
+ spec*=1.+pgran*1.5+vKind.w*.4;
 #endif
 #ifdef HEP
  spec*=1.+vKind.w*1.2+vKind.z*.6;
@@ -2955,10 +3318,11 @@ const wallMatN=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:
 const wallMatG=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{GUT:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatP=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LUNG:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatCap=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LUNG:1},side:THREE.BackSide,vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
+const wallMatPC=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{PAN:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatH=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{HEP:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatR=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{RENAL:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatCapR=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{RENAL:1},side:THREE.BackSide,vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
-moPrep();buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);buildWalls(LUNG,wallMatP);buildWalls(RENAL,wallMatR);buildWalls(HEP,wallMatH);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group,LUNG.group,RENAL.group,HEP.group);
+moPrep();buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);buildWalls(LUNG,wallMatP);buildWalls(RENAL,wallMatR);buildWalls(HEP,wallMatH);buildWalls(PAN,wallMatPC);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group,LUNG.group,RENAL.group,HEP.group,PAN.group);
 
 /* --- valves, built from real anatomy: unequal leaflets, scalloped posterior mitral leaflet, branching chordae on
        papillary muscles, a crown-shaped (semilunar) or saddle-shaped (mitral) annulus, lunulae, nodules and coronary ostia --- */
@@ -3036,7 +3400,7 @@ VALVES.forEach(vl=>{
 }
 const _u=new V3(),_h=new V3(),_p=new V3(),_e=new V3(),_e2=new V3(),_q3=new V3();
 const uAt=(vl,th,out)=>out.copy(vl.n).multiplyScalar(Math.cos(th)).addScaledVector(vl.b,Math.sin(th));
-[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
+[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
 const AOV=BLOOD.VALVES[3];
 // one point on leaflet l: f runs commissure→commissure along the edge, rho = 1 at the hinge, 0 at the free edge
 function leafPoint(vl,l,f,rho,out){
@@ -3742,7 +4106,152 @@ const HSHOW=[['hpvein','Portal v.'],['zone1','Zone 1'],['zone2','Zone 2'],['zone
 function hpSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
  if(r==='hpvein')return f<.4?'main portal vein':f<.75?'right branch':'segmental branch';if(r==='gb')return f<.2?'neck (Hartmann’s pouch)':f<.7?'body':'fundus';if(r==='canal')return 'beside zone '+(HEP.STR[S.idx]>.66?3:HEP.STR[S.idx]>.33?2:1);if(r==='hepduct')return f<.5?'right hepatic duct':'common hepatic duct';return null;}
 function hpAmbience(now,rnd,reg){const o={turb:0,hush:0,air:0};if(HPB.includes(reg)){o.turb=reg==='hpvein'?.06:.02;o.hush=.04;}if(reg==='gb'){o.hush=.08;if(rnd(.5))pop(260,140,.12,.06);}if(reg==='oddi'&&HP.meal&&rnd(.8))pop(180,90,.1,.08);if(HPZ.includes(reg)&&rnd(1.2))pop(1800+Math.random()*900,1400,.02,.02);return o;}
-Object.assign(CELLS,CELLS_HP);buildSphincters();buildGlottis();buildSacCap();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();buildHepGates();
+Object.assign(CELLS,CELLS_HP);
+/* ===== Pancreas (1 Nov 2026) =====
+   One small model (panCalc) drives the HUD, the cells and the shader: glucose, insulin and glucagon in the islet with meals; juice flow, bicarbonate and
+   the enzymes in the ducts; in case 07 a gallstone stuck in the ampulla, trypsin switched on inside the acini, lipase in the blood, and ERCP. */
+const PC={stage:0,ercp:0,meal:0,mealK:0,isT:0,iaT:0,icT:0};
+function panZone(){const Wd=PAN;for(let k=0;k<PCNODES.length;k++){const a=Wd.nodeIdx[k],b=k+1<PCNODES.length?Wd.nodeIdx[k+1]:Wd.N,d0=PCNODES[k][6],d1=PCNODES[Math.min(k+1,PCNODES.length-1)][6];for(let i=a;i<b;i++)Wd.STR[i]=PCNODES[k][5]==='islet'?d0:lerp(d0,d1,(i-a)/Math.max(1,b-a));}}
+function panCalc(){const st=PC.stage,meal=PC.meal,er=PC.ercp,blocked=st===1&&!er;          // stage 0 healthy · 1 gallstone pancreatitis, 8 h · 2 day 3 after ERCP
+ const glu=st===1?9.8:st===2?(meal?8.1:6.9):(meal?7.4:5.0);
+ const ins=st===1?'~220 pmol/L (stress: glucagon and adrenaline up too)':meal?'~300 pmol/L arriving, far higher leaving the islet':'~40 pmol/L arriving · basal pulses';
+ const gcg=st===1?'high (stress)':meal?'suppressed by glucose and insulin':'up: keeps the liver making glucose';
+ return {st,meal,er,blocked,glu,ins,gcg,lip:st===0?30:st===1?2400:650,alt:st===0?22:st===1?210:90,bili:st===0?9:st===1?(er?40:52):24,crp:st===0?3:st===1?40:210,ca:st===0?2.35:st===1?2.25:1.98,wcc:st===0?6.5:st===1?15.8:12.1,
+  hco3:meal?135:40,cl:meal?25:115,tryA:st===1?(er?.35:.75):st===2?.08:0,uInf:st===1?(er?.6:.85):st===2?.5:0};}
+function pcFlow(i){const r=REG[i],c=panCalc();if(r==='parter'||r==='islet'||r==='iap')return 1;
+ if(c.blocked&&(r==='ampulla'||r==='mpd'))return .12;
+ if(r==='oddi')return PC.ercp?1.2:PC.meal?1.4:.25;if(r==='pacinus')return PC.meal?1.1:.45;return PC.meal?1.5:.8;}
+// ---- the gates: the end of the insulo-acinar capillary (stay in the blood, or become juice), the stone in the ampulla (case 07), the sphincter of Oddi ----
+const PG={door:0,stone:0,oddi:0,ask:-99,stoneM:null};
+function buildPanGates(){const R=PAN.RANGE;PG.door=R.pacinus[0]-1;PG.stone=R.ampulla[0]+2;PG.oddi=R.oddi[0]+3;
+ const g=hpSpiky(new THREE.DodecahedronGeometry(1,1),9,.12,21);const m=new THREE.Mesh(g,new THREE.MeshPhysicalMaterial({color:0xd8b870,roughness:.6,clearcoat:.3,emissive:0x4a3810}));
+ const i=Math.min(PAN.N-1,PG.stone+3),c=gv(PAN.P,i,new V3());m.position.copy(c);m.scale.setScalar(PAN.R0[i]*.93);m.visible=false;m.userData.stone=1;PAN.group.add(m);PG.stoneM=m;}
+function pcBounce(prevS,prevPos){const t=gv(PAN.T,S.idx,new V3());S.pos.copy(prevPos);const vt=S.vel.dot(t);S.vel.addScaledVector(t,-vt*1.6);S.idx=nearestIdx(S.pos,S.idx);S.sF=prevS;S.bumpT=.25;sfx('bonk');}
+function pcGates(prevS,prevPos){const cross=g=>{const a=prevS-g,b=S.sF-g;if(Math.abs(a)>40||Math.abs(b)>40)return 0;return a<0&&b>=0?1:a>=0&&b<0?-1:0;};
+ let c=cross(PG.door);if(c){pcBounce(prevS,prevPos);if(c>0&&!anyModal()&&time-PG.ask>4){PG.ask=time;S.vel.set(0,0,0);openPanFork();return;}
+  toastOnce('pdoor',c>0?'The capillary drains toward the pancreatic veins ahead. Press K to choose: stay in the blood, or cross an acinar cell and become pancreatic juice.':'Juice does not flow back into the blood: tight junctions seal the acinar lumen.','warn');return;}
+ c=cross(PG.stone);if(c>0&&panCalc().blocked){pcBounce(prevS,prevPos);complete('pstone');addCodex('gallpanc');
+  toastOnce('pstone','A gallstone, about 6 mm, jammed in the ampulla where the bile duct and the pancreatic duct meet. Nothing gets past it: the juice backs up, the duct pressure rises, and bile may reflux into the pancreatic duct. Press O for ERCP.','warn');return;}
+ c=cross(PG.oddi);if(c>0&&!(PC.meal||PC.ercp)){pcBounce(prevS,prevPos);toastOnce('poddishut','The sphincter of Oddi is shut between meals. Press U to eat: CCK relaxes it and secretin and CCK turn up the juice.','warn');return;}
+ if(c>0&&!done.has('poddi')){complete('poddi');toast(PC.ercp?'Through the cut sphincter: after a sphincterotomy it stays open for good, which is why stones and sludge can now pass.':'Through the sphincter of Oddi and out of the major papilla, about 7–10 cm past the pylorus.','good');}}
+function openPanFork(){closeModals();const c=panCalc();$('forkSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">The end of the insulo-acinar capillary</div><h1 style="font-size:28px">Stay in the blood, or become pancreatic juice</h1>
+ <p class="small">You came through one islet (about 150 µm across) and out among the acini that ring it. The blood here carries the islet’s hormones at their highest concentration: insulin ${PC.meal?'is high after the meal':'is at its basal level'}, glucagon ${PC.meal?'is suppressed':'is up'}. The acinar cells around you are bathed in it first. Two ways on:</p>
+ <div class="forkgrid"><button class="sys" id="forkPV"><b>Stay in the blood</b><small>pancreatic veins → splenic or superior mesenteric vein → portal vein → liver</small><span>Every drop of insulin goes to the liver first, which keeps about half of it on the first pass. That is why the liver sees 2–3× the insulin the rest of the body does, and why injected insulin (into the systemic blood) cannot copy it.</span><em>to the liver ▸</em></button>
+ <button class="sys" id="forkJuice"><b>Become pancreatic juice</b><small>across an acinar cell → acinar lumen → ducts → papilla</small><span>Cross an acinar cell: from the basal rough ER where the enzymes are made, past the Golgi, into a zymogen granule, and out at the apex when ${PC.meal?'CCK and acetylcholine':'a meal’s CCK and acetylcholine'} tell it to fuse. The enzymes leave as inactive proenzymes.</span><em>juice route ▸</em></button></div>
+ <p class="small" style="color:var(--faint)">The exocrine pancreas makes about 1.5 L of juice a day and more digestive enzyme per gram than any other organ; the islets are 1–2% of its mass. ${c.st===1?'Today the acini are making trypsin inside themselves: that is the disease.':''}</p>`;
+ $('forkSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ $('forkJuice').onclick=()=>{closeModals();warp('Into an acinar cell: rough ER, Golgi, a zymogen granule ~1 µm across, and out through the apical membrane by exocytosis…',()=>{placeAt(PAN.RANGE.pacinus[0]+3);complete('pacin');addCodex('acinarcell');toast('The lumen of an acinus: the apices of a ring of acinar cells, each packed with zymogen granules. The pale cells further in are centroacinar cells, the first cells of the duct.','good');});};
+ $('forkPV').onclick=()=>{closeModals();warp('Into a pancreatic venule, the splenic vein, the portal vein…',()=>{switchWorld(HEP,HEP.nodeIdx[0]+4);complete('pportal');addCodex('firstpass');toast('The portal vein, carrying the islet’s insulin and glucagon straight to the liver. The hepatocytes ahead will keep about half the insulin and answer the glucagon first.','good');});};
+ show('mFork');}
+function pcDetour(){const r=REG[S.idx],i=S.idx;
+ if(r==='iap'&&i>PG.door-30){openPanFork();return;}
+ if(r==='islet'){toastOnce('pk1','The endocrine cells are just behind this endothelium, with only a thin shared basement membrane between: hormones reach the blood in seconds through the fenestrae. Press E on the wall to see the islet in section.','warn');return;}
+ if(r==='parter'){toastOnce('pk2','An arteriole about 20 µm across, with a ring of smooth muscle. Islets get about 10% of the pancreas’s blood for 1–2% of its mass.','warn');return;}
+ if(r==='iap'){toastOnce('pk3','Fly on to the end of this capillary and press K there: stay in the blood, or cross an acinar cell.','warn');return;}
+ toastOnce('pk4','The ducts do not take the juice back: duct cells add water and bicarbonate (secretin, CFTR) and the juice flows on to the duodenum.','warn');}
+function exitPan(){if(warping)return;warp('Through the major duodenal papilla into the second part of the duodenum…',()=>{complete('pduod');addCodex('trypsinact');const R=GUT.RANGE.duodenum;switchWorld(GUT,Math.round(lerp(R[0],R[1],.35)));toast('Second part of the duodenum. Enteropeptidase on the brush border cuts trypsinogen into trypsin, and trypsin switches on everything else: that is the only place it should happen.','good');});}
+function enterPan(){switchWorld(PAN,PAN.nodeIdx[1]);complete('pan');PC.isT=0;PC.iaT=0;setTimeout(()=>{if(W===PAN)addCodex('case07');},900);}
+// ---- cells: the islet's hormones in the blood, the enzymes and bicarbonate in the juice ----
+const PCB=['parter','islet','iap'],PCD=['pacinus','icd','intral','interl','mpd','ampulla','oddi'];
+const CELLS_PC={
+ rbcP:{world:'pan',n:260,ahead:60,behind:25,rmax:.86,speedK:1,clear:.45,size:.45,confine:1,dens:hpD(PCB,1),
+  meshes:[new THREE.InstancedMesh(at(rbcGeometry(),0,0,0).scale(.5,.5,.5),new THREE.MeshPhysicalMaterial({color:0xb81f24,roughness:.32,clearcoat:.5,clearcoatRoughness:.35,emissive:0x140000}),260)]},
+ pltP:{world:'pan',n:50,ahead:50,behind:20,rmax:.9,speedK:1,spin:1.5,clear:.08,size:.12,confine:1,dens:hpD(PCB,1),
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.13,8,6).scale(1,.35,1),hpMat(0xe8d6c8,0x1a1410,.85),50)]},
+ wbcP:{world:'pan',n:12,ahead:60,behind:30,rmax:.6,speedK:.4,clear:.7,size:.7,confine:1,dens:hpD(PCB,.4),
+  meshes:[new THREE.InstancedMesh(hpSpiky(new THREE.IcosahedronGeometry(.6,3),11,.16,17),hpMat(0xf2eef0,0x1a1820),12)]},
+ monoP:{world:'pan',n:5,ahead:60,behind:30,rmax:.55,speedK:.4,clear:.8,size:.8,confine:1,dens:hpD(PCB,0),
+  meshes:[new THREE.InstancedMesh(at(new THREE.IcosahedronGeometry(.62,3),0,0,0).scale(1.1,.9,1),hpMat(0xd8d0e8,0x14101e),5)]},
+ glucP:{world:'pan',n:80,ahead:40,behind:18,rmax:.95,speedK:1,clear:.06,size:.12,confine:1,dens:{parter:.6,islet:.6,iap:.6},
+  meshes:[new THREE.InstancedMesh(new THREE.OctahedronGeometry(.085,1),hpMat(0xf6d35a,0x3a2c08),80)]},
+ ins:{world:'pan',n:140,ahead:40,behind:18,rmax:.97,speedK:1,spin:1.2,clear:.04,size:.09,confine:1,dens:{parter:.08,islet:.4,iap:.6},
+  meshes:[new THREE.InstancedMesh(new THREE.CapsuleGeometry?new THREE.CapsuleGeometry(.04,.07,3,6):new THREE.CylinderGeometry(.04,.04,.12,6),hpMat(0x6ad8ff,0x0a2a3a),140)]},
+ cpep:{world:'pan',n:120,ahead:40,behind:18,rmax:.97,speedK:1,spin:2,clear:.04,size:.07,confine:1,dens:{parter:.1,islet:.4,iap:.6},
+  meshes:[new THREE.InstancedMesh(new THREE.TetrahedronGeometry(.05,0),hpMat(0xa0f0d0,0x0a2a1e),120)]},
+ iapp:{world:'pan',n:24,ahead:40,behind:18,rmax:.95,speedK:1,spin:2,clear:.04,size:.07,confine:1,dens:{islet:.3,iap:.4},
+  meshes:[new THREE.InstancedMesh(new THREE.CylinderGeometry(.018,.018,.13,5),hpMat(0xf0a0d0,0x2a0a20),24)]},
+ gcg:{world:'pan',n:70,ahead:40,behind:18,rmax:.97,speedK:1,spin:1.5,clear:.04,size:.08,confine:1,dens:{parter:.1,islet:.5,iap:.6},
+  meshes:[new THREE.InstancedMesh(new THREE.CylinderGeometry(.025,.025,.15,6),hpMat(0xff8a50,0x3a1a08),70)]},
+ sst:{world:'pan',n:30,ahead:40,behind:18,rmax:.97,speedK:1,spin:2,clear:.04,size:.06,confine:1,dens:{islet:.35,iap:.35},
+  meshes:[new THREE.InstancedMesh(new THREE.TorusGeometry(.035,.012,5,10),hpMat(0xc8a0ff,0x1e1030),30)]},
+ lipB:{world:'pan',n:60,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.05,size:.09,confine:1,dens:{islet:0,iap:0},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.07,8,6).scale(1.3,.8,1),hpMat(0xd8f060,0x2a3008),60)]},
+ zymo:{world:'pan',n:40,ahead:50,behind:25,speedK:0,fixed:1,radial:1,wall:true,clear:0,size:.5,dens:{pacinus:.55},
+  meshes:[new THREE.InstancedMesh(at(new THREE.SphereGeometry(.4,16,12),0,.12,0),new THREE.MeshPhysicalMaterial({color:0xff9a6a,roughness:.25,clearcoat:.6,emissive:0x2a0e04}),40)]},
+ tgen:{world:'pan',n:110,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.06,size:.1,confine:1,dens:hpD(PCD,1),
+  meshes:[new THREE.InstancedMesh(new THREE.DodecahedronGeometry(.075,0),hpMat(0xb8a8ff,0x161036),110)]},
+ lip:{world:'pan',n:80,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.06,size:.1,confine:1,dens:hpD(PCD,.8),
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.07,8,6).scale(1.3,.8,1),hpMat(0xd8f060,0x2a3008),80)]},
+ amy:{world:'pan',n:80,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.06,size:.1,confine:1,dens:hpD(PCD,.8),
+  meshes:[new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.07,0),hpMat(0x60e0c0,0x0a2a22),80)]},
+ spink:{world:'pan',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:3,clear:.04,size:.06,confine:1,dens:hpD(PCD,.5),
+  meshes:[new THREE.InstancedMesh(new THREE.TetrahedronGeometry(.045,0),hpMat(0x90ff90,0x0a300a),40)]},
+ tryA:{world:'pan',n:70,ahead:40,behind:18,rmax:.97,speedK:.7,spin:5,clear:.05,size:.11,confine:1,dens:{pacinus:0,icd:0,intral:0},
+  meshes:[new THREE.InstancedMesh(hpSpiky(new THREE.DodecahedronGeometry(.07,1),7,.9,8),new THREE.MeshStandardMaterial({color:0xff4030,emissive:0x701008,roughness:.3}),70)]},
+ hco3P:{world:'pan',n:120,ahead:40,behind:18,rmax:.95,speedK:1,clear:.03,size:.06,confine:1,dens:{pacinus:.1,icd:.7,intral:1,interl:1,mpd:1,ampulla:1,oddi:1},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.045,6,5),hpMat(0xffffff,0x202020),120)]},
+ bileP:{world:'pan',n:60,ahead:40,behind:18,rmax:.95,speedK:1,spin:2,clear:.04,size:.08,confine:1,dens:{ampulla:1,oddi:1},
+  meshes:[new THREE.InstancedMesh(new THREE.OctahedronGeometry(.055,0).scale(1.6,.8,.8),hpMat(0xf0a020,0x3a2004),60)]},
+};
+// case 07 (V): healthy → gallstone pancreatitis, 8 h → day 3 after ERCP; meal (U): fasting ↔ fed (glucose, CCK, secretin); ERCP (O)
+const PCST=[{n:'HEALTHY',t:'A healthy pancreas. Fasting: α cells keep glucagon up so the liver makes glucose, β cells idle at a low pulsing basal rate, and the acini let out a trickle of juice with every protease locked up as a proenzyme.'},
+ {n:'GALLSTONE PANCREATITIS · 8 h',t:'A 6 mm stone has left the gallbladder and stuck in the ampulla, where the bile duct and the pancreatic duct meet. The juice cannot get out. Inside the acinar cells, trypsinogen is being switched on too early (calcium overload, cathepsin B): active trypsin (red) is digesting the gland from inside, and lipase is leaking into the blood. Find the stone, then press O for ERCP.'},
+ {n:'DAY 3 · AFTER ERCP',t:'The stone came out at ERCP on day 1, and the cut sphincter now stays open. The trypsin has stopped, but the inflammation peaks now: CRP 210 mg/L, and calcium has fallen to 1.98 mmol/L as fat dies round the gland and binds it as soap. Lipase is already falling: it does not track severity. She is eating again and should have her gallbladder out in this admission.'}];
+function pcToggle(){PC.stage=(PC.stage+1)%3;PC.ercp=PC.stage===2?1:0;const c=PCST[PC.stage];toast(c.t,PC.stage===0?'good':PC.stage===1?'warn':'');pcCaseTag();if(PC.stage===1){complete('pcase');addCodex('acutepanc');}}
+function pcMeal(){if(W!==PAN)return;PC.meal=PC.meal?0:1;complete('pmeal');pcCaseTag();
+ toast(PC.meal?'A meal: glucose and the incretins (GLP-1, GIP) reach the islet and the β cells release insulin in a first burst then a steady rise; glucagon falls. In the duodenum, CCK and secretin are released: the acini empty their zymogen granules and the duct cells pour out bicarbonate.':'Fasting: insulin falls to basal pulses, glucagon rises and the liver makes glucose. The juice slows to a trickle and the sphincter of Oddi closes.',PC.meal?'good':'');}
+function pcErcp(){if(W!==PAN)return;if(PC.stage!==1){toast(PC.stage===0?'ERCP is for a duct that needs clearing. There is nothing blocking it: press V to load the case first.':'ERCP was done on day 1: the stone is out and the sphincter is cut.','');return;}
+ if(PC.ercp){toast('The stone is already out.','');return;}
+ warp('ERCP: a side-viewing duodenoscope at the papilla, a cut through the sphincter (sphincterotomy), a balloon sweeps the stone out…',()=>{PC.ercp=1;complete('ercp');addCodex('ercp');pcCaseTag();toast('The stone is out and the juice and bile can drain. ERCP is done early when a stone is still blocking the duct or cholangitis sets in (within 24 h); it does not stop the inflammation already started. The cut sphincter now stays open.','good');});}
+function pcCaseTag(){const c=PCST[PC.stage],k=panCalc();$('caseTag').textContent='Case 07 · '+c.n+(PC.stage===1&&PC.ercp?' · stone out':'')+' · '+(PC.meal?'fed':'fasting')+' · lipase '+k.lip.toLocaleString()+' · glucose '+k.glu.toFixed(1);$('caseTag').style.color=PC.stage===1?'var(--amber)':PC.stage===2?'var(--cyan)':'var(--green)';}
+function pcTick(dt){const c=panCalc(),r=REG[S.idx];if(!C.exercise)C.hrT=PC.stage===1?112:PC.stage===2?94:70;
+ PC.mealK+=(PC.meal-PC.mealK)*Math.min(1,dt*.6);wallU.uMeal.value=PC.mealK;wallU.uNec.value+=(c.uInf-wallU.uNec.value)*Math.min(1,dt*.8);wallU.uErc.value=PC.ercp;
+ const pulse=.75+.25*Math.sin(time*.31);                                                                                // basal insulin pulses (every ~5 min in life; sped up here)
+ const ins=CELLS.ins.dens,cp=CELLS.cpep.dens,am=CELLS.iapp.dens,gc=CELLS.gcg.dens,gl=CELLS.glucP.dens,k=PC.stage===1?.75:PC.meal?1.6:.45*pulse;
+ ins.parter=cp.parter=PC.meal?.2:.08;ins.islet=cp.islet=.6*k;ins.iap=cp.iap=k;am.islet=.25*k;am.iap=.35*k;
+ const gk=PC.stage===1?1.2:PC.meal?.2:1;gc.islet=.55*gk;gc.iap=.7*gk;gc.parter=.1;
+ const g=c.glu/5;gl.parter=gl.islet=gl.iap=.5*g;
+ CELLS.lipB.dens.islet=c.st===1?.7:c.st===2?.3:.02;CELLS.lipB.dens.iap=c.st===1?1.3:c.st===2?.5:.03;
+ PCB.forEach(x=>{CELLS.wbcP.dens[x]=c.st===1?2.2:c.st===2?1.5:.4;CELLS.monoP.dens[x]=c.st?.8:0;});
+ CELLS.tryA.dens.pacinus=c.tryA;CELLS.tryA.dens.icd=c.tryA*.6;CELLS.tryA.dens.intral=c.tryA*.25;CELLS.spink.dens.pacinus=c.st===1?.15:.5;
+ CELLS.zymo.dens.pacinus=PC.meal?.9:.55;['icd','intral','interl','mpd','ampulla','oddi'].forEach(x=>CELLS.hco3P.dens[x]=PC.meal?1.5:.45);
+ ['tgen','lip','amy'].forEach(q=>{const d=CELLS[q].dens;PCD.forEach(x=>d[x]=(q==='tgen'?1:.8)*(PC.meal?1.4:.6));});
+ CELLS.bileP.dens.ampulla=CELLS.bileP.dens.oddi=c.blocked?.2:1;
+ if(PG.stoneM)PG.stoneM.visible=c.blocked;
+ if(r==='islet'){PC.isT+=dt;if(PC.isT>4&&!done.has('islet')){complete('islet');addCodex('betacell');toast(PC.meal?'The islet after a meal: glucose enters the β cells (GLUT1 in humans), glucokinase turns it into ATP, ATP shuts the K-ATP channels, the cell depolarises and calcium pours in: the insulin granules fuse. Blue insulin and green C-peptide leave in equal numbers; orange glucagon has fallen.':'The islet, fasting. The walls are β cells (pale, most of them), α cells and δ cells mixed together: in a human islet they are not sorted into a core and a mantle. The orange glucagon keeps the liver making glucose; the blue insulin comes in small pulses. Press U to eat and watch them swap.','good');}}
+ if(r==='iap'){PC.iaT+=dt;if(PC.iaT>2.5&&!done.has('iap')){complete('iap');addCodex('iap');toast('Out of the islet and straight into the capillaries of the acini round it: the insulo-acinar portal system. These acinar cells see insulin at many times the systemic level, and in diabetes the exocrine pancreas shrinks.','good');}}
+ if(r==='icd'){PC.icT+=dt;if(PC.icT>3&&!done.has('hco3d')){complete('hco3d');addCodex('secretin');toast(PC.meal?'Secretin (from S cells, set off by acid in the duodenum) is driving the duct cells: CFTR opens, chloride goes out and is swapped for bicarbonate. The juice becomes ~140 mmol/L bicarbonate, enough to neutralise the stomach acid.':'The intercalated duct: the pale flat cells are centroacinar cells reaching into the acinus. Between meals they add little; with secretin they turn the juice into a bicarbonate solution of ~140 mmol/L. Press U to eat.','good');}}}
+// ---- bedside for case 07 ----
+function openExamPC(){if(!started||anyModal())return;closeModals();const sh=$('examPCSheet');
+ sh.innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Bedside · Case 07</div><h1 style="font-size:28px">Ruth Mensah, 54</h1>
+ <p class="small">Eight hours of constant epigastric pain boring through to her back, starting an hour after a fried dinner. Vomited four times; sitting forward helps a little. Two bouts of right upper quadrant pain after meals last year. About 4 units of alcohol a week; no new medicines.</p>
+ <div class="exgrid"><div><b>Observations</b><br>HR 112 · BP 104/66 · RR 22 · T 37.9 °C · SpO₂ 95% on air · GCS 15 · epigastric tenderness and guarding · bowel sounds quiet · no flank or periumbilical bruising · mild scleral icterus.</div>
+ <div><b>Bloods</b><br>Lipase 2,400 U/L (upper limit ~60) · ALT 210 U/L · ALP 180 · bilirubin 52 µmol/L · WCC 15.8 · CRP 40 mg/L · urea 7.8 mmol/L · creatinine 95 µmol/L · glucose 9.8 mmol/L · adjusted calcium 2.25 mmol/L · triglycerides 1.6 mmol/L · haematocrit 0.46.</div>
+ <div><b>Ultrasound</b><br>Gallbladder full of small stones, wall not thickened · common bile duct 9 mm · pancreas swollen, poorly seen behind gas.</div>
+ <div><b>Already done</b><br>IV access, analgesia, Ringer’s lactate started, bloods. Not yet done: ERCP.</div></div>
+ <p><b>Where does the injury in gallstone pancreatitis begin?</b></p>
+ <div id="expQ">${shuffle([['ac','Inside the acinar cells: with the outflow blocked, trypsinogen is switched on before it leaves the cell, and the gland digests itself',1],['bl','In the blood: lipase from the duct digests fat around the body first',0],['is','In the islets: insulin stops and the acinar cells starve',0],['dw','In the duct wall: the stone cuts it and bacteria get in',0]]).map(([id,t,ok])=>`<button class="opt" data-ok="${ok}">${t}</button>`).join('')}</div><div id="expFb"></div>`;
+ sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ sh.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const ok=b.dataset.ok==='1';sfx(ok?'chime':'buzz');sh.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right');});if(!ok)b.classList.add('wrong');
+  $('expFb').innerHTML=`<div class="expl">${ok?'✓ ':'✗ '}Blocked outflow and bile reflux raise the pressure and calcium inside the acinar cells; zymogen granules meet lysosomes, cathepsin B cuts trypsinogen to trypsin, and trypsin activates the other proenzymes inside the gland. Injured cells call in neutrophils; that inflammation, not the enzymes in the blood, decides how ill she gets. Diagnosis needs two of three: typical pain, lipase above 3× the upper limit (hers is about 40×), imaging. ALT above 150 in the first 48 hours makes gallstones the likely cause. Now: moderate, goal-directed Ringer’s lactate, analgesia, eating as soon as she can, no prophylactic antibiotics. Her bilirubin and 9 mm duct say the stone is still stuck, so ERCP to clear it (within 24 hours if cholangitis develops), and her gallbladder out in this admission. Watch for organ failure over 48 hours: that defines severe.</div><button class="btn" data-close>Fly in ▸</button>`;
+  $('expFb').querySelector('[data-close]').onclick=closeModals;complete('pexam');addCodex('case07');if(PC.stage===0){PC.stage=1;PC.ercp=0;pcCaseTag();}});
+ show('mExamPC');}
+// ---- vitals, trace, route, sub-locations, ambience ----
+const PCHERE={parter:'arteriole · Ø ~20 µm · smooth muscle ring',islet:'β ~55% · α ~35% · δ <10% · PP, ε a few',iap:'capillary among the acini · Ø ~7 µm',pacinus:'acinus · pyramidal cells round a lumen Ø ~1–2 µm',icd:'intercalated duct · Ø ~5–10 µm · centroacinar cells',intral:'intralobular duct · Ø ~20–40 µm',interl:'interlobular duct · Ø ~50–200 µm',mpd:'duct of Wirsung · Ø ~3 mm head, ~2 mm body',ampulla:'common channel with the bile duct',oddi:'sphincter of Oddi · cut after ERCP'};
+function pcVitals(){const c=panCalc(),r=REG[S.idx],blood=PCB.includes(r);
+ $('vHb').textContent=blood?(r==='islet'?'~10% of the blood for 1–2% of the mass':r==='iap'?'islet blood on to the acini · insulin at its highest':'arterial · from the pancreaticoduodenal arcade'):(c.blocked&&(r==='mpd'||r==='ampulla')?'blocked at the ampulla · duct pressure rising':PC.meal?'juice · secretin + CCK · most of ~1.5 L/day':'juice · a trickle between meals');
+ $('vHb').style.color=c.blocked&&!blood?'var(--amber)':'';
+ $('vZn').textContent=PCHERE[r]||'—';
+ $('vNh').textContent=blood?`glucose ${c.glu.toFixed(1)} mmol/L · insulin ${c.st===1?'high (stress)':PC.meal?(r==='parter'?'rising':'high'):'basal pulses'} · glucagon ${c.st===1?'high':PC.meal?'low':'up'}`:`HCO₃⁻ ~${c.hco3} · Cl⁻ ~${c.cl} mmol/L · pH ~${PC.meal?'8.2':'7.6'}`;
+ $('vAp').textContent=blood?(c.st?`lipase in the blood · ${c.lip.toLocaleString()} U/L`:'none in the blood'):(c.tryA>.2&&(r==='pacinus'||r==='icd')?'trypsin ACTIVE inside the gland · autodigestion':r==='ampulla'||r==='oddi'?'proenzymes + bile · trypsin switched on only in the duodenum':'proenzymes locked · SPINK1 on guard');
+ $('vAp').style.color=(c.tryA>.2&&(r==='pacinus'||r==='icd'))||(blood&&c.st===1)?'var(--amber)':'';
+ $('vBl').textContent=`lipase ${c.lip.toLocaleString()} · ALT ${c.alt} · bili ${c.bili} · CRP ${c.crp} · Ca ${c.ca.toFixed(2)}`;$('vBl').style.color=c.st?'var(--amber)':'';}
+function pcTrace(){const r=REG[S.idx];if(PCB.includes(r))return .2+(PC.meal?.45:.15)*(.75+.25*Math.sin(time*.31))+.03*Math.sin(time*2.2);return .25+.4*PC.mealK+.06*Math.sin(time*.8);}
+const PSHOW=[['parter','Arteriole'],['islet','Islet'],['iap','Insulo-acinar'],['pacinus','Acinus'],['icd','Intercalated'],['intral','Intralobular'],['mpd','Main duct'],['ampulla','Ampulla'],['oddi','Oddi']];
+function pcSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
+ if(r==='mpd')return f<.35?'body':f<.55?'neck':'head';if(r==='islet')return f<.5?'into the islet':'out of the islet';if(r==='icd')return f<.3?'centroacinar cells':null;return null;}
+function pcAmbience(now,rnd,reg){const o={turb:0,hush:0,air:0};if(PCB.includes(reg)){o.turb=reg==='parter'?.05:.02;o.hush=.04;}if(reg==='oddi'&&(PC.meal||PC.ercp)&&rnd(.8))pop(180,90,.1,.08);if(reg==='pacinus'&&rnd(PC.meal?1.5:.5))pop(900+Math.random()*500,700,.02,.03);return o;}
+Object.assign(CELLS,CELLS_PC);buildSphincters();buildGlottis();buildSacCap();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();buildHepGates();buildPanGates();
 delete CELLS.mito.dens.cortex;delete CELLS.vesicle.dens.cortex;delete CELLS.microglia.dens.soma;delete CELLS.microglia.dens.bouton;CELLS.schwann.dens.pnerve=0;CELLS.mito.dens.bouton=.15;CELLS.mito.dens.nmj=.25;
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
@@ -3753,7 +4262,7 @@ let playerS=0; // continuous sample index of the probe
 let _avO=0,_sys=0;
 const pulseShape=x=>(x<0||x>.42)?0:Math.pow(Math.sin(Math.PI*x/.42),2); // smooth raised-cosine pulse, no hard edges
 function pulseAt(i){let tp=C.tc-.05-PD[i]/C.PWV;tp=((tp%C.T)+C.T)%C.T;return pulseShape(tp);}
-function flowMul(i){if(W.nerve)return 1;if(W.hep)return hpFlow(i);if(W.renal)return rnFlow(i);if(W.lung)return brFlow(i);if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
+function flowMul(i){if(W.nerve)return 1;if(W.pan)return pcFlow(i);if(W.hep)return hpFlow(i);if(W.renal)return rnFlow(i);if(W.lung)return brFlow(i);if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
  const k=i*4,a=KW[k],v=KW[k+1],ar=KW[k+2],cp=KW[k+3],rest=Math.max(0,1-a-v-ar-cp);
  return rest*(.82+.28*_avO)+a*(.6+.6*_avO)+v*(.65+.85*_sys+.2*_avO)+ar*(.65+1.05*pulseAt(i))+cp;}
 // turbulence lives where it does in a real body: jets and eddies just past valves, worst through the stenosis
@@ -3792,6 +4301,7 @@ const REGUM={
  gut:{_:[4500,0],mouth:[4500,40000],pharynx:[4500,25000],oesoph:[4500,20000],les:[4500,15000],stomach:[4500,90000],antrum:[4500,50000],pylorus:[4500,15000],duodenum:[1000,30000],jejunum:[1000,25000],ileum:[1000,22000],ileocaecal:[2000,15000],colon:[4500,50000],rectum:[4500,40000]},
  lung:{_:[1700,0],nose:[1700,20000],pharynx:[1700,15000],larynx:[1700,12000],trachea:[1800,18000],carina:[1800,18000],bronchus:[1700,12000],bronchiole:[200,1000],tbronch:[100,500],acinus:[50,350],sac:[45,400]},
  hep:{_:[3.3,0],hpvein:[3.3,12000],triad:[3.3,50],inlet:[3.3,20],zone1:[3.3,10],zone2:[3.3,10],zone3:[3.3,10],canal:[.5,1],hering:[1,2],ductule:[3,8],bduct:[12,50],hepduct:[1000,5000],cystic:[900,3000],gb:[2500,30000],gbx:[1000,3000],cbd:[1000,6000],cbdp:[1000,5000],ampulla:[900,4000],oddi:[900,3000]},
+ pan:{_:[4,0],parter:[4,20],islet:[4,10],iap:[4,7],pacinus:[.4,1.5],icd:[1,5],intral:[5,30],interl:[25,150],mpd:[600,3000],ampulla:[900,4000],oddi:[900,3000]},
  renal:{_:[6,0],afferent:[4,18],glom:[4,8],bowman:[10,0],pct:[5,25],thin:[7,15],tip:[7,15],thinasc:[7,15],tal:[6,20],macula:[6,20],dct:[7,25],ccd:[8,40],mcd:[20,150],calyx:[500,8000]},
 };
 const PROPUM={rbc:8,platelet:2.5,wbc:13,lymph:9,mono:18,eos:13,
@@ -3800,6 +4310,7 @@ const PROPUM={rbc:8,platelet:2.5,wbc:13,lymph:9,mono:18,eos:13,
  villus:700,peyer:1200,gbact:2,bolus:10000,chyme:{_:1500,duodenum:800,jejunum:500,ileum:400,ileocaecal:400,colon:2000,rectum:2000},micelle:.005,
  mucus:{_:500,bronchiole:150,tbronch:60},dustL:30,dustM:5,dustS:1,gas:.0003,amac:21,neutA:13,fibrin:20,rbcA:7.5,
  rbcH:7.5,pltH:2.5,wbcH:12,ubil:.001,nh3:.0003,ureaH:.0004,glucH:.0009,lps:.02,apapM:.0008,napqi:.0008,gsh:.001,kupffer:12,stellate:15,pitc:9,micH:.005,bili:.0015,cholv:.1,crystal:1000,hco3:.0004,tryp:.005,
+ rbcP:7.5,pltP:2.5,wbcP:12,monoP:16,glucP:.0009,ins:.003,cpep:.002,iapp:.003,gcg:.002,sst:.0015,lipB:.006,zymo:1,tgen:.005,lip:.006,amy:.006,spink:.003,tryA:.005,hco3P:.0004,bileP:.0015,
  h2o:.0003,na:.0002,gluc:.0009,urea:.0004,kpot:.0003,ket:.0006,rbcR:7.5,alb:.014,mdensa:8};
 function umAt(Wd,i){if(!Wd.UM){const t=REGUM[Wd.name]||{},d=(t._||[7])[0],N=Wd.N,raw=new Float32Array(N),um=new Float32Array(N),h=14;
   for(let j=0;j<N;j++){const e=t[Wd.REG[j]];raw[j]=Math.log(e?e[0]:d);}
@@ -4729,10 +5240,10 @@ const MBLAB={lung:{KeyO:['O₂','oxygen'],KeyZ:['💨','cough'],KeyU:['⇵','pos
 function mbRelabel(){const tb=$('touchBar'),L=W&&MBLAB[W.name];if(!tb||!L)return;['KeyO','KeyZ','KeyU'].forEach(c=>{const b=tb.querySelector(`[data-code="${c}"]`);if(!b)return;const v=L[c];b.style.display=v?'':'none';if(v){b.querySelector('span').textContent=v[0];b.querySelector('small').textContent=v[1];}});}
 function switchWorld(w,idx){setTimeout(mbRelabel,0);if(w===GUT&&!MOUTH.built)buildMouth();
  exitStudy();useWorld(w);if((w===BLOOD||w===LUNG)&&!window._thxH&&started){window._thxH=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the chest.'),3200);}if(w===NERVE&&!BRAIN.hinted){BRAIN.hinted=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the brain.'),3200);}if(typeof hidePredict==='function')hidePredict();if(w!==LUNG&&!C.exercise)C.hrT=72;
- BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;LUNG.group.visible=w===LUNG;RENAL.group.visible=w===RENAL;HEP.group.visible=w===HEP;
+ BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;LUNG.group.visible=w===LUNG;RENAL.group.visible=w===RENAL;HEP.group.visible=w===HEP;PAN.group.visible=w===PAN;
  ALL.forEach(D=>{D.on=D.world===w.name;D.meshes.forEach(m=>m.visible=D.on);D.a.forEach(p=>{p.live=false;p.sc=0;});});
  FOG.set(w.fog);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);
- motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:w.lung?0xe8eef4:w.hep?0xe8c8a8:w.renal?0xf4e6d8:0xffc9a8);
+ motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:w.lung?0xe8eef4:w.pan?0xf0d0c8:w.hep?0xe8c8a8:w.renal?0xf4e6d8:0xffc9a8);
  placeAt(idx);curReg=null;target=null;if(started)buildLabels();
 }
 let warping=false;
@@ -4745,6 +5256,7 @@ function detour(){
  if(W===LUNG){luDetour();return;}
  if(W===RENAL){rnDetour();return;}
  if(W===HEP){hpDetour();return;}
+ if(W===PAN){pcDetour();return;}
  const r=REG[S.idx];
  if(!W.lymph&&(r==='syscap'||r==='venule')){
   warp('Squeezing out through a gap between two endothelial cells…',()=>{switchWorld(LYMPH,8);complete('leak');addCodex('leak');
@@ -4886,18 +5398,32 @@ const OBJ=[
  {id:'oddi',hp:1,t:'Pass the sphincter of Oddi'},
  {id:'duod',hp:1,t:'Arrive in the duodenum with the pancreatic juice'},
  {id:'hrounds',hp:1,t:'Present Jordan Ellis on Rounds (R)'},
+ {id:'pan',pc:1,t:'Enter the pancreas (Tab → Pancreas)'},
+ {id:'pexam',pc:1,t:'Bedside: read Ruth Mensah’s bloods and say where the injury starts (G)'},
+ {id:'islet',pc:1,t:'Islet: hover 4 s and watch the β cells answer the glucose'},
+ {id:'pmeal',pc:1,t:'Eat (U): insulin up, glucagon down, and the juice turns on'},
+ {id:'iap',pc:1,t:'Ride the insulo-acinar capillaries: insulin reaches the acini first'},
+ {id:'pportal',pc:1,t:'Or stay in the blood at the end (K): on to the liver'},
+ {id:'pacin',pc:1,t:'At the end of the capillary press K: cross an acinar cell'},
+ {id:'hco3d',pc:1,t:'Intercalated duct: watch bicarbonate join the juice'},
+ {id:'pcase',pc:1,t:'Case toggle (V): load the gallstone pancreatitis'},
+ {id:'pstone',pc:1,t:'Find what is blocking the ampulla'},
+ {id:'ercp',pc:1,t:'ERCP (O): cut the sphincter and sweep the stone out'},
+ {id:'poddi',pc:1,t:'Out through the papilla (after a meal, or the cut sphincter)'},
+ {id:'pduod',pc:1,t:'Arrive in the duodenum, where trypsin belongs'},
+ {id:'prounds',pc:1,t:'Present Ruth Mensah on Rounds (R)'},
 ];
-const OBJHEAD={blood:['Case 01 · Objectives','The patient who fainted on the stairs'],lymph:['Lymph detour · Objectives','Where the leaked plasma goes'],nerve:['Nervous system · Objectives','From cortex to muscle'],gut:['Case 03 · Objectives','The anaemia that kept coming back'],lung:['Case 04 · Objectives','The cough that turned to rust'],renal:['Case 05 · Objectives','Drowning in urine, dying of thirst'],hep:['Case 06 · Objectives','Sixteen grams and a good night’s sleep']};
+const OBJHEAD={blood:['Case 01 · Objectives','The patient who fainted on the stairs'],lymph:['Lymph detour · Objectives','Where the leaked plasma goes'],nerve:['Nervous system · Objectives','From cortex to muscle'],gut:['Case 03 · Objectives','The anaemia that kept coming back'],lung:['Case 04 · Objectives','The cough that turned to rust'],renal:['Case 05 · Objectives','Drowning in urine, dying of thirst'],hep:['Case 06 · Objectives','Sixteen grams and a good night’s sleep'],pan:['Case 07 · Objectives','A stone in the wrong place']};
 const done=new Set();
 function renderObj(){
  // finished steps fold into one line so the open ones stay visible; the section you're in comes first
  const sec=(list,title)=>{const next=list.find(o=>!done.has(o.id)),nd=list.filter(o=>done.has(o.id)).length;
-  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':list[0].lu?'lung':list[0].rn?'renal':list[0].hp?'hep':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
+  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':list[0].lu?'lung':list[0].rn?'renal':list[0].hp?'hep':list[0].pc?'pan':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
   return (title?`<li class="sec">${title}</li>`:'')+(nd?`<li class="sum">${nd} done</li>`:'')+shown.map(o=>{let t=o.t;if(o.id==='scan')t+=` · ${Math.min(scanned.size,6)}/6`;return `<li class="${o===next?'next':''}">${t}</li>`;}).join('');};
- const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03'),lu=sec(OBJ.filter(o=>o.lu),'Lungs · Case 04'),rn=sec(OBJ.filter(o=>o.rn),'Kidney · Case 05'),hp=sec(OBJ.filter(o=>o.hp),'Liver · Case 06');
+ const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03'),lu=sec(OBJ.filter(o=>o.lu),'Lungs · Case 04'),rn=sec(OBJ.filter(o=>o.rn),'Kidney · Case 05'),hp=sec(OBJ.filter(o=>o.hp),'Liver · Case 06'),pc=sec(OBJ.filter(o=>o.pc),'Pancreas · Case 07');
  if(W){const hh=OBJHEAD[W.name]||OBJHEAD.blood;$('objCase').textContent=hh[0];$('objTitle').textContent=hh[1];}
- const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi&&!o.lu&&!o.rn&&!o.hp),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
- $('objList').innerHTML=W&&W.hep?hp+gi+main+ly+ns+lu+rn:W&&W.renal?rn+main+ly+ns+gi+lu+hp:W&&W.lung?lu+main+ly+ns+gi+rn+hp:W&&W.gut?gi+hp+ly+main+lu+rn:W&&W.lymph?ly+ns+gi+main+lu+rn+hp:W&&W.nerve?ns+ly+gi+main+lu+rn+hp:main+ly+ns+gi+lu+rn+hp;
+ const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi&&!o.lu&&!o.rn&&!o.hp&&!o.pc),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
+ $('objList').innerHTML=W&&W.pan?pc+hp+gi+main+ly+ns+lu+rn:W&&W.hep?hp+pc+gi+main+ly+ns+lu+rn:W&&W.renal?rn+main+ly+ns+gi+lu+hp+pc:W&&W.lung?lu+main+ly+ns+gi+rn+hp+pc:W&&W.gut?gi+hp+pc+ly+main+lu+rn:W&&W.lymph?ly+ns+gi+main+lu+rn+hp+pc:W&&W.nerve?ns+ly+gi+main+lu+rn+hp+pc:main+ly+ns+gi+lu+rn+hp+pc;
 }
 function complete(id){
  if(done.has(id)||!OBJ.some(o=>o.id===id))return;done.add(id);renderObj();
@@ -5057,6 +5583,11 @@ Object.assign(PROV,{afferent:['renal','Renal blood flow · autoregulation, JG ap
  h2o:['renal','Water reabsorption · aquaporins'],na:['renal','Sodium reabsorption along the nephron'],gluc:['renal','Glucose reabsorption · SGLT2/SGLT1'],urea:['renal','Urea handling · recycling'],kpot:['renal','Potassium secretion · ROMK'],ket:['renal','Ketoacid anions · anion gap'],rbcR:['renal','Renal blood flow'],alb:['renal','Albumin · charge and size selectivity'],mdensa:['renal','Macula densa cells'],
  fenestra:['renal','Filtration barrier histology · podocytes'],brushborder:['renal','Proximal tubule histology · transporters'],thinwall:['renal','Thin limb histology · vasa recta'],talcell:['renal','Thick limb histology · NKCC2, ROMK, Bartter'],cdcell:['renal','Collecting duct histology · AQP2 trafficking'],urothelium:['renal','Urothelium · transitional epithelium']});
 provIndex();
+PROV_SYS.pan={code:'GI',sys:'Gastrointestinal · pancreas',tag:'#AK_Step1_v12::#FirstAid::Gastrointestinal and ::Endocrine (confirm the pancreas subtree paths in Anki)',fa:'First Aid 2025 · Gastrointestinal (pancreas) and Endocrine (pancreas, diabetes)',outline:'Gastrointestinal System · Pancreas; Endocrine System · Pancreas'};
+Object.assign(PROV,{parter:['pan','Pancreatic blood supply · islet microcirculation'],islet:['pan','Islet microcirculation · fenestrated endothelium'],iap:['pan','Insulo-acinar portal system'],pacinus:['pan','Pancreatic acinus · histology'],icd:['pan','Intercalated duct · centroacinar cells'],intral:['pan','Pancreatic ducts · intralobular'],interl:['pan','Pancreatic ducts · interlobular, IPMN'],mpd:['pan','Main pancreatic duct · double duct sign'],
+ isletcells:['pan','Islet cell types'],betacell:['pan','Insulin secretion · K-ATP channel'],insulinsyn:['pan','Insulin synthesis · proinsulin, C-peptide'],incretin:['pan','Incretins · GLP-1, GIP'],firstpass:['pan','Hepatic insulin clearance'],acinarcell:['pan','Acinar cell · enzyme secretion'],trypsinact:['pan','Pancreatic enzyme activation · enteropeptidase'],secretin:['pan','Secretin'],cftrP:['pan','CFTR · pancreatic bicarbonate secretion'],pancanat:['pan','Pancreas · gross anatomy and blood supply'],pancdev:['pan','Pancreas embryology · divisum, annular'],
+ acutepanc:['pan','Acute pancreatitis · causes, diagnosis, management'],gallpanc:['pan','Gallstone pancreatitis · ERCP, cholecystectomy'],pancsev:['pan','Acute pancreatitis · severity, complications'],ercp:['pan','ERCP · sphincterotomy'],chronicpanc:['pan','Chronic pancreatitis'],pancca:['pan','Pancreatic adenocarcinoma'],pnet:['pan','Pancreatic neuroendocrine tumours · MEN1'],dm1:['pan','Type 1 diabetes · pathogenesis'],dm2:['pan','Type 2 diabetes · β-cell failure'],case07:['pan','Case 07 · gallstone pancreatitis presentation'],
+ rbcP:['pan','Islet oxygen supply'],pltP:['pan','Platelets · thrombosis in pancreatitis'],wbcP:['pan','Neutrophils · SIRS'],monoP:['pan','Macrophages · cytokines, CRP'],glucP:['pan','Glucose homeostasis'],ins:['pan','Insulin · actions'],cpep:['pan','C-peptide · factitious hypoglycaemia'],iapp:['pan','Amylin · islet amyloid'],gcg:['pan','Glucagon'],sst:['pan','Somatostatin · octreotide'],lipB:['pan','Serum lipase and amylase'],zymo:['pan','Zymogen granules · exocytosis'],tgen:['pan','Trypsinogen · PRSS1'],lip:['pan','Pancreatic lipase · steatorrhoea'],amy:['pan','Amylase'],spink:['pan','SPINK1'],tryA:['pan','Intra-acinar trypsin activation'],hco3P:['pan','Pancreatic juice composition'],bileP:['pan','Common channel · bile reflux']});
 PROV_SYS.hep={code:'GI',sys:'Gastrointestinal · hepatobiliary',tag:'#AK_Step1_v12::#FirstAid::Gastrointestinal (confirm the hepatobiliary subtree path in Anki)',fa:'First Aid 2025 · Gastrointestinal (anatomy, physiology, pathology: liver and biliary)',outline:'Gastrointestinal System · Hepatobiliary'};
 Object.assign(PROV,{hpvein:['hep','Portal vein · portosystemic anastomoses'],triad:['hep','Portal triad · hepatoduodenal ligament'],inlet:['hep','Hepatic microcirculation'],zone1:['hep','Liver zones · zone 1'],zone2:['hep','Liver zones · zone 2'],zone3:['hep','Liver zones · zone 3, centrilobular injury'],
  canal:['hep','Bile canaliculus · bile formation'],hering:['hep','Canal of Hering · progenitor cells'],ductule:['hep','Bile ductules'],bduct:['hep','Intrahepatic bile ducts · PBC'],hepduct:['hep','Biliary tree anatomy · Calot’s triangle'],cystic:['hep','Cystic duct · biliary colic'],gb:['hep','Gallbladder anatomy and function'],cbd:['hep','Common bile duct · choledocholithiasis, cholangitis'],cbdp:['hep','Pancreatic head · Courvoisier sign'],ampulla:['hep','Ampulla of Vater'],oddi:['hep','Sphincter of Oddi · CCK'],
@@ -5284,6 +5815,10 @@ Object.assign(DECKKW,{hpvein:['portal vein','portosystemic','varices','caput med
  lobule:['lobule','acinus','rappaport','hepatocyte','cirrhosis','regenerative nodule'],dualsupply:['hepatic artery','hepatic blood flow','buffer response'],lsec:['sinusoid','fenestra','capillarization','capillarisation'],disse:['disse','perisinusoidal','ito cell','ascites','hepatic lymph'],zonation:['zonation','zone'],ureacycle:['urea cycle','ornithine transcarbamylase','otc deficiency','carbamoyl phosphate','hyperammonemia','hyperammonaemia','hepatic encephalopathy','lactulose','rifaximin','asterixis'],bilirubin:['bilirubin','ugt1a1','glucuronidation','gilbert','crigler','urobilinogen','stercobilin','heme oxygenase','haem oxygenase','biliverdin'],jaundice:['jaundice','icterus','hyperbilirubinemia','hyperbilirubinaemia','cholestasis'],cck:['cholecystokinin','cck','i cell'],apap:['acetaminophen','paracetamol','rumack','nomogram'],nac:['n-acetylcysteine','acetylcysteine','nac'],kings:['king\'s college','acute liver failure','fulminant','liver transplant'],portalhtn:['portal hypertension','hvpg','tips','esophageal varices','oesophageal varices','budd-chiari','splenomegaly'],gallstones:['gallstone','cholelithiasis','cholesterol stone','pigment stone','gallstone ileus','sludge'],case06:['acetaminophen overdose','paracetamol overdose','hepatotoxicity'],
  rbcH:['senescent','extravascular hemolysis','extravascular haemolysis'],pltH:['thrombopoietin','coagulation factor','vitamin k','inr','prothrombin time'],wbcH:['alcoholic hepatitis','mallory'],ubil:['unconjugated','indirect bilirubin','kernicterus'],nh3:['ammonia','glutamine synthetase'],ureaH:['urea','bun'],glucH:['glycogen','gluconeogenesis','glucokinase','glucose-6-phosphatase','glycogenolysis'],lps:['endotoxin','lipopolysaccharide','lps'],apapM:['acetaminophen metabolism','sulfation','glucuronide'],napqi:['napqi','cyp2e1'],gsh:['glutathione'],kupffer:['kupffer'],stellate:['stellate','ito','fibrosis','myofibroblast','vitamin a','retinoid'],pitc:['pit cell','natural killer','nk cell'],micH:['micelle','bile salt','lecithin','phosphatidylcholine'],bili:['conjugated','direct bilirubin','bilirubinuria'],cholv:['biliary cholesterol','supersaturat'],crystal:['cholesterol crystal','nucleation'],hco3:['secretin','bicarbonate','ae2'],tryp:['trypsinogen','enteropeptidase','enterokinase','lipase','amylase'],
  cholangio:['cholangiocyte','cftr','cystic fibrosis liver','polycystic liver'],gbmucosa:['rokitansky','aschoff','gallbladder histology'],oddisph:['sphincter of oddi dysfunction','opioid','morphine sphincter']});
+Object.assign(DECKKW,{parter:['pancreaticoduodenal','gastroduodenal artery','splenic artery','pancreatic blood supply'],islet:['islet','langerhans'],iap:['insulo-acinar','peri-insular'],pacinus:['acinus','acinar'],icd:['intercalated duct','centroacinar'],intral:['intralobular duct'],interl:['interlobular duct','ipmn','intraductal papillary mucinous'],mpd:['main pancreatic duct','wirsung','double duct'],
+ isletcells:['alpha cell','beta cell','delta cell','pp cell','islet cell'],betacell:['k-atp','katp','glucokinase','sulfonylurea','kir6.2','sur1','mody','neonatal diabetes','first phase insulin'],insulinsyn:['proinsulin','preproinsulin','c-peptide','prohormone convertase'],incretin:['incretin','glp-1','gip','dpp-4','exenatide','liraglutide','semaglutide','tirzepatide'],firstpass:['hepatic insulin','insulin clearance','portal insulin'],acinarcell:['acinar cell','cholecystokinin','cck','enzyme secretion'],trypsinact:['enteropeptidase','enterokinase','trypsin','trypsinogen activation','hereditary pancreatitis','prss1'],secretin:['secretin','s cell','s cells'],cftrP:['cftr','cystic fibrosis','pancreatic insufficiency','meconium'],pancanat:['pancreas','uncinate','pancreatic head','pancreatic tail','splenic vein'],pancdev:['pancreas divisum','annular pancreas','ventral bud','dorsal bud','santorini','minor papilla'],
+ acutepanc:['acute pancreatitis','lipase','pancreatitis'],gallpanc:['gallstone pancreatitis','biliary pancreatitis','choledocholithiasis'],pancsev:['ranson','bisap','atlanta','necrotizing pancreatitis','necrotising pancreatitis','pseudocyst','walled-off','grey turner','cullen','saponification','hypocalcemia','hypocalcaemia'],ercp:['ercp','sphincterotomy','post-ercp'],chronicpanc:['chronic pancreatitis','steatorrhea','steatorrhoea','pancreatic calcification','fecal elastase','faecal elastase','autoimmune pancreatitis','igg4'],pancca:['pancreatic adenocarcinoma','pancreatic cancer','courvoisier','ca 19-9','ca19-9','whipple','trousseau','panin'],pnet:['insulinoma','gastrinoma','zollinger','glucagonoma','vipoma','somatostatinoma','men1','men 1','neuroendocrine'],dm1:['type 1 diabetes','insulitis','gad65','autoimmune diabetes'],dm2:['type 2 diabetes','insulin resistance','metformin','sglt2'],case07:['gallstone pancreatitis','epigastric pain'],
+ rbcP:['islet transplant'],pltP:['portal vein thrombosis','splenic vein thrombosis'],wbcP:['sirs','neutrophil'],monoP:['crp','c-reactive','il-6'],glucP:['hyperglycemia','hyperglycaemia','glucose homeostasis'],ins:['insulin','glut4','insulin receptor'],cpep:['c-peptide','factitious hypoglycemia','factitious hypoglycaemia'],iapp:['amylin','iapp','pramlintide','amyloid'],gcg:['glucagon','alpha cell','proglucagon'],sst:['somatostatin','octreotide','delta cell'],lipB:['serum lipase','serum amylase'],zymo:['zymogen'],tgen:['trypsinogen','immunoreactive trypsinogen'],lip:['lipase','colipase','orlistat'],amy:['amylase','macroamylasemia','macroamylasaemia'],spink:['spink1','trypsin inhibitor'],tryA:['autodigestion','cathepsin b'],hco3P:['pancreatic juice','bicarbonate secretion'],bileP:['common channel','bile reflux']});
 Object.assign(DECKKW,{afferent:['afferent','arteriole','autoregulation','juxtaglomerular','renin','renal blood flow','rbf','prostaglandin','nsaid','ace inhibitor'],glom:['glomerul','filtration','gfr','starling','filtration fraction','inulin','creatinine clearance'],bowman:['bowman','filtrate','ultrafiltrate'],pct:['proximal','pct','sglt','brush border','isosmotic','bicarbonate reabsorption','carbonic anhydrase','acetazolamide','fanconi','pah','secretion'],thin:['descending limb','thin limb','aquaporin-1','aqp1','countercurrent'],tip:['papilla','medulla','osmolality','1200'],thinasc:['ascending limb','thin ascending'],tal:['thick ascending','nkcc2','loop diuretic','furosemide','bartter','romk','single effect','diluting segment'],macula:['macula densa','tubuloglomerular','juxtaglomerular','renin','adenosine'],dct:['distal convoluted','dct','ncc','thiazide','gitelman','pth','calcium reabsorption'],ccd:['collecting duct','principal cell','intercalated','enac','aldosterone','amiloride','spironolactone','liddle','rta'],mcd:['collecting duct','adh','vasopressin','aquaporin-2','aqp2','urea','concentrat'],calyx:['calyx','pelvis','ureter','urothelium','transitional','hydronephrosis'],
  gfr:['gfr','filtration fraction','clearance','inulin','creatinine','renal plasma flow','pah','starling'],filtbarrier:['filtration barrier','podocyte','slit diaphragm','nephrin','basement membrane','nephrotic','minimal change','proteinuria','albuminuria','heparan'],autoreg:['autoregulation','myogenic','tubuloglomerular','tgf'],countercurrent:['countercurrent','counter-current','multiplier','medullary gradient','concentrating','loop of henle'],vasarecta:['vasa recta','countercurrent exchange','peritubular'],adh:['adh','vasopressin','aquaporin','diabetes insipidus','siadh','v2 receptor','desmopressin','water deprivation','hypernatremia','hyponatremia'],raas:['renin','angiotensin','aldosterone','ace','raas','arb','hyperkalemia','hyperaldosteronism','conn'],tm:['transport maximum','tm ','threshold','glucosuria','glycosuria','sglt2','empagliflozin','dapagliflozin','splay'],acidbase:['acid-base','acidosis','alkalosis','anion gap','winter','bicarbonate','ammonium','titratable','rta','renal tubular acidosis','compensation'],potassium:['potassium','hyperkalemia','hypokalemia','romk','aldosterone','insulin shift','beta-agonist'],diuretics:['diuretic','furosemide','thiazide','spironolactone','amiloride','acetazolamide','mannitol','osmotic diuretic'],nephronscale:['nephron','juxtamedullary','cortical nephron','million'],case05:['dka','ketoacidosis','diabetic','kussmaul','anion gap','osmotic diuresis'],dka:['dka','ketoacidosis','ketone','beta-hydroxybutyrate','kussmaul','anion gap','insulin','hyperkalemia','cerebral edema','cerebral oedema'],
  h2o:['water reabsorption','aquaporin','free water','obligatory'],na:['sodium reabsorption','natriuresis','fractional excretion','fena'],gluc:['glucose reabsorption','sglt','glucosuria'],urea:['urea','bun','urea recycling','ut-a'],kpot:['potassium secretion','romk','bk channel','aldosterone'],ket:['ketone','ketoacid','anion gap','beta-hydroxybutyrate','acetoacetate'],rbcR:['renal blood flow','hematuria','haematuria'],alb:['albumin','proteinuria','albuminuria','nephrotic','charge barrier'],mdensa:['macula densa'],
@@ -5373,6 +5908,7 @@ const TOPICS=[
  ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle']],
  ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc','teeth','tongue','tonsils','palate']],
  ['lung','Lungs & the pneumonia case',['nose','pharynx','larynx','trachea','carina','bronchus','bronchiole','tbronch','acinus','sac','airwaytree','deadspace','alveolus','surfactant','barrier','vq','hpv','pulmcirc','co2drive','breathsounds','escalator','cough','westzones','pneumonia','case04','scalelung','mucus','dustL','dustM','dustS','gas','amac','neutA','fibrin','rbcA','turbinate','ciliated','bronchiolewall','vocalfold']],
+ ['pan','Pancreas & the gallstone pancreatitis case',['parter','islet','iap','pacinus','icd','intral','interl','mpd','isletcells','betacell','insulinsyn','incretin','firstpass','acinarcell','trypsinact','secretin','cftrP','pancanat','pancdev','acutepanc','gallpanc','pancsev','ercp','chronicpanc','pancca','pnet','dm1','dm2','case07','rbcP','pltP','wbcP','monoP','glucP','ins','cpep','iapp','gcg','sst','lipB','zymo','tgen','lip','amy','spink','tryA','hco3P','bileP']],
  ['hep','Liver & the paracetamol case',['hpvein','triad','inlet','zone1','zone2','zone3','canal','hering','ductule','bduct','hepduct','cystic','gb','cbd','cbdp','ampulla','oddi','lobule','dualsupply','lsec','disse','zonation','ureacycle','bilirubin','jaundice','cck','apap','nac','kings','portalhtn','gallstones','case06','rbcH','pltH','wbcH','ubil','nh3','ureaH','glucH','lps','apapM','napqi','gsh','kupffer','stellate','pitc','micH','bili','cholv','crystal','hco3','tryp','cholangio','gbmucosa','oddisph','bileacids']],
  ['renal','Kidney & the DKA case',['afferent','glom','bowman','pct','thin','tip','thinasc','tal','macula','dct','ccd','mcd','calyx','gfr','filtbarrier','autoreg','countercurrent','vasarecta','adh','raas','tm','acidbase','potassium','diuretics','nephronscale','case05','dka','h2o','na','gluc','urea','kpot','ket','rbcR','alb','mdensa','fenestra','brushborder','thinwall','talcell','cdcell','urothelium']]];
 const topicOf=k=>{const t=TOPICS.find(t=>t[2].includes(k));return t?t[0]:'heart';};
@@ -5381,9 +5917,10 @@ const CELLHOME={rbc:'desc',wbc:'venule',platelet:'syscap',lymph:'cortsinus',mono
 Object.assign(CELLHOME,{villus:'jejunum',gbact:'colon',bolus:'oesoph',chyme:'antrum',micelle:'jejunum',peyer:'ileum',gutlength:'jejunum',gutsurface:'jejunum',villusfork:'jejunum',acid:'stomach',slowwave:'antrum',microbiome:'colon',ens:'jejunum',bileacids:'ileum',coeliac:'jejunum',appendix:'colon',case03:'duodenum',squamous:'oesoph',gastricmucosa:'stomach',crypt:'jejunum',colonmucus:'colon',sphinctermusc:'pylorus'});
 Object.assign(CELLHOME,{mucus:'trachea',dustL:'nose',dustM:'bronchus',dustS:'sac',gas:'acinus',amac:'sac',neutA:'sac',fibrin:'sac',rbcA:'sac',airwaytree:'bronchiole',deadspace:'trachea',alveolus:'sac',surfactant:'sac',barrier:'sac',vq:'acinus',hpv:'acinus',pulmcirc:'acinus',co2drive:'larynx',breathsounds:'bronchus',escalator:'bronchiole',cough:'trachea',westzones:'acinus',pneumonia:'sac',case04:'nose',scalelung:'trachea',turbinate:'nose',ciliated:'trachea',bronchiolewall:'bronchiole',vocalfold:'larynx'});
 Object.assign(CELLHOME,{rbcH:'zone1',pltH:'zone1',wbcH:'zone2',ubil:'zone1',nh3:'zone1',ureaH:'zone3',glucH:'zone1',lps:'zone1',apapM:'zone2',napqi:'zone3',gsh:'zone3',kupffer:'zone1',stellate:'zone2',pitc:'zone2',micH:'bduct',bili:'canal',cholv:'canal',crystal:'gb',hco3:'bduct',tryp:'ampulla',lobule:'zone2',dualsupply:'triad',lsec:'zone2',disse:'zone2',zonation:'zone2',ureacycle:'zone1',bilirubin:'canal',jaundice:'canal',cck:'oddi',apap:'zone3',nac:'zone3',kings:'zone3',portalhtn:'hpvein',gallstones:'gb',case06:'hpvein',cholangio:'bduct',gbmucosa:'gb',oddisph:'oddi'});
+Object.assign(CELLHOME,{rbcP:'islet',pltP:'islet',wbcP:'iap',monoP:'iap',glucP:'islet',ins:'iap',cpep:'iap',iapp:'islet',gcg:'islet',sst:'islet',lipB:'iap',zymo:'pacinus',tgen:'icd',lip:'icd',amy:'icd',spink:'pacinus',tryA:'pacinus',hco3P:'intral',bileP:'ampulla',isletcells:'islet',betacell:'islet',insulinsyn:'islet',incretin:'islet',firstpass:'iap',acinarcell:'pacinus',trypsinact:'oddi',secretin:'icd',cftrP:'icd',pancanat:'mpd',pancdev:'mpd',acutepanc:'pacinus',gallpanc:'ampulla',pancsev:'pacinus',ercp:'oddi',chronicpanc:'intral',pancca:'interl',pnet:'islet',dm1:'islet',dm2:'islet',case07:'parter'});
 Object.assign(CELLHOME,{h2o:'pct',na:'tal',gluc:'pct',urea:'mcd',kpot:'ccd',ket:'pct',rbcR:'glom',alb:'glom',mdensa:'macula',gfr:'glom',filtbarrier:'glom',autoreg:'afferent',countercurrent:'thin',vasarecta:'tip',adh:'ccd',raas:'afferent',tm:'pct',acidbase:'ccd',potassium:'ccd',diuretics:'tal',nephronscale:'pct',case05:'afferent',dka:'pct',fenestra:'glom',brushborder:'pct',thinwall:'thin',talcell:'tal',cdcell:'ccd',urothelium:'calyx'});
 function flyToKey(k){
- const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP].find(w=>w.RANGE[r]);if(!w)return false;
+ const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN].find(w=>w.RANGE[r]);if(!w)return false;
  const [a,b]=w.RANGE[r];closeModals();switchWorld(w,Math.floor(a+(b-a)*.3));toast('Flew to '+(REGIONS[r]?REGIONS[r].n:r)+' — look around, then review again later','good');return true;
 }
 // regions in flow order, per world, for "what comes next" cards
@@ -5401,6 +5938,10 @@ Object.assign(CELLNAME,{rbcH:'Red blood cell',pltH:'Platelet',wbcH:'White cell',
 Object.assign(CELLSUB,{rbcH:'single file through the sinusoid',pltH:'passing through',wbcH:'patrolling the sinusoid',ubil:'on albumin · into the hepatocyte',nh3:'from the gut bacteria · to urea',ureaH:'made in the hepatocytes · to the kidneys',glucH:'stored after meals, released when fasting',lps:'gut bacterial wall · Kupffer cells eat it',apapM:'the drug · from the gut',napqi:'toxic metabolite · CYP2E1',gsh:'the antidote the cell makes',kupffer:'resident macrophage · zone 1',stellate:'vitamin A store · scar cell',pitc:'liver NK cell',micH:'bile salts carrying cholesterol',bili:'glucuronide · into the bile',cholv:'cholesterol + lecithin bubble',crystal:'cholesterol crystals + mucin',hco3:'from cholangiocytes · secretin',tryp:'from the pancreas · at the ampulla'});
 Object.assign(CELLSIZE,{rbcH:'≈ 7.5 µm',pltH:'≈ 2–3 µm',wbcH:'≈ 12 µm',ubil:'≈ 1 nm · 585 Da',nh3:'≈ 0.3 nm',ureaH:'≈ 0.4 nm',glucH:'≈ 0.9 nm',lps:'≈ 10–20 nm aggregates',apapM:'≈ 0.8 nm · 151 Da',napqi:'≈ 0.8 nm · 149 Da',gsh:'≈ 1 nm · 307 Da',kupffer:'≈ 12–15 µm',stellate:'≈ 15 µm body',pitc:'≈ 9 µm',micH:'≈ 5 nm',bili:'≈ 1.5 nm · 937 Da',cholv:'≈ 50–100 nm',crystal:'≈ 0.5–3 mm',hco3:'≈ 0.4 nm',tryp:'≈ 5 nm · 24 kDa'});
 Object.assign(CELLDO,{rbcH:'Squeezing through a sinusoid barely wider than itself, slowly enough for the hepatocytes to exchange with the plasma.',pltH:'Passing through; the hepatocytes make the thrombopoietin that controls their production.',wbcH:'Patrolling the slow sinusoidal flow, the gut’s immune filter.',ubil:'Leaving albumin at the fenestrae to be taken up by OATP into a hepatocyte.',nh3:'Being taken up by zone 1 hepatocytes for the urea cycle.',ureaH:'Leaving the hepatocytes for the kidneys.',glucH:'Moving through GLUT2: into the cells after a meal, out of them when fasting.',lps:'Drifting from the gut, about to be eaten by a Kupffer cell.',apapM:'Arriving from the gut; most will be glucuronidated or sulfated.',napqi:'Binding the cysteines of mitochondrial proteins because glutathione has run out.',gsh:'Neutralising NAPQI as fast as it is made.',kupffer:'Anchored in the sinusoid, eating bacteria, endotoxin and old red cells.',stellate:'Holding vitamin A in the space of Disse.',pitc:'Waiting for virus-infected or tumour cells.',micH:'Carrying cholesterol through the watery bile.',bili:'Flowing out with the bile toward the duodenum.',cholv:'Turning into micelles as the bile concentrates.',crystal:'Settling in the stagnant gallbladder: the start of a stone.',hco3:'Alkalinising the bile, the bicarbonate umbrella.',tryp:'Joining the bile at the ampulla, still inactive until enteropeptidase.'});
+Object.assign(CELLNAME,{rbcP:'Red blood cell',pltP:'Platelet',wbcP:'Neutrophil',monoP:'Monocyte',glucP:'Glucose',ins:'Insulin',cpep:'C-peptide',iapp:'Amylin (IAPP)',gcg:'Glucagon',sst:'Somatostatin',lipB:'Lipase (in the blood)',zymo:'Zymogen granule',tgen:'Trypsinogen',lip:'Lipase',amy:'Amylase',spink:'SPINK1',tryA:'Active trypsin',hco3P:'Bicarbonate',bileP:'Bile (from the CBD)'});
+Object.assign(CELLSUB,{rbcP:'single file through the islet',pltP:'passing through',wbcP:'called in by injured acini',monoP:'on its way to become a macrophage',glucP:'what the β cells are measuring',ins:'from the β cells · to the liver first',cpep:'cut from proinsulin · equal to insulin',iapp:'co-secreted with insulin',gcg:'from the α cells',sst:'from the δ cells · the brake',lipB:'leaking from injured acini',zymo:'opening at the acinar apex',tgen:'inactive until the duodenum',lip:'fat-digesting · secreted active',amy:'starch-digesting',spink:'trypsin inhibitor',tryA:'switched on inside the gland',hco3P:'from the duct cells · secretin',bileP:'joining at the ampulla'});
+Object.assign(CELLSIZE,{rbcP:'≈ 7.5 µm',pltP:'≈ 2–3 µm',wbcP:'≈ 12 µm',monoP:'≈ 15–20 µm',glucP:'≈ 0.9 nm',ins:'≈ 3 nm · 5.8 kDa',cpep:'≈ 2 nm · 3 kDa',iapp:'≈ 3 nm · 3.9 kDa',gcg:'≈ 2 nm · 3.5 kDa',sst:'≈ 1.5 nm · 1.6 kDa',lipB:'≈ 6 nm · 50 kDa',zymo:'≈ 1 µm',tgen:'≈ 5 nm · 24 kDa',lip:'≈ 6 nm · 50 kDa',amy:'≈ 6 nm · 56 kDa',spink:'≈ 3 nm · 6 kDa',tryA:'≈ 5 nm · 24 kDa',hco3P:'≈ 0.4 nm',bileP:'≈ 1.5 nm'});
+Object.assign(CELLDO,{rbcP:'Carrying oxygen past β cells that need a lot of it when glucose is high.',pltP:'Passing through; in severe pancreatitis platelets help clot the small vessels.',wbcP:'Sticking to the capillary wall to squeeze out into the inflamed tissue.',monoP:'Following the neutrophils into the injured lobule.',glucP:'Entering the β cells to be measured by glucokinase.',ins:'Leaving the islet for the portal vein and the liver.',cpep:'Leaving with insulin; the liver will not take it up.',iapp:'Leaving with insulin; it slows the stomach and suppresses glucagon.',gcg:'Leaving the islet to tell the liver to make glucose.',sst:'Holding the α and β cells back.',lipB:'Escaping into the blood, where it is measured to make the diagnosis.',zymo:'Fusing with the apical membrane and emptying into the lumen.',tgen:'Flowing out, inactive, until enteropeptidase cuts it.',lip:'Flowing out to digest fat in the duodenum.',amy:'Flowing out to digest starch.',spink:'Standing by to block any trypsin formed too early.',tryA:'Activating the other proenzymes inside the gland: autodigestion.',hco3P:'Alkalinising the juice to neutralise stomach acid.',bileP:'Mixing with the juice before the duodenum.'});
 const CELLKINDS=Object.keys(CELLNAME);
 // the deck: everything unlocked this session plus anything already in the SRS file (so it survives a reload)
 function srsDeck(){
@@ -5410,11 +5951,12 @@ function srsDeck(){
   deck.push({id:'recall:'+k,type:'recall',k,topic:topicOf(k)});
   if(c.rc)deck.push({id:'rc:'+k,type:'rc',k,topic:topicOf(k)});});
  CELLKINDS.forEach(kd=>{const ck=CODEXKEY[kd]||kd;if(keys.has(ck)||keys.has(kd))deck.push({id:'cell:'+kd,type:'cell',k:kd,topic:topicOf(ck)});});
- [BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
+ [BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
  if(done.has('exam')||done.has('rounds'))QUIZ.forEach((q,i)=>deck.push({id:'quiz:'+i,type:'quiz',q,k:'aortic',topic:'heart'}));
  if(done.has('grounds')||done.has('gexam'))QUIZ_GI.forEach((q,i)=>deck.push({id:'gquiz:'+i,type:'quiz',q,k:'jejunum',topic:'gut'}));
  if(done.has('lrounds')||done.has('lexam'))QUIZ_LU.forEach((q,i)=>deck.push({id:'lquiz:'+i,type:'quiz',q,k:'sac',topic:'lung'}));
  if(done.has('rrounds')||done.has('rexam'))QUIZ_RN.forEach((q,i)=>deck.push({id:'rquiz:'+i,type:'quiz',q,k:'tal',topic:'renal'}));
+ if(done.has('prounds')||done.has('pexam'))QUIZ_PC.forEach((q,i)=>deck.push({id:'pquiz:'+i,type:'quiz',q,k:'acutepanc',topic:'pan'}));
  if(done.has('hrounds')||done.has('hexam'))QUIZ_HP.forEach((q,i)=>deck.push({id:'hquiz:'+i,type:'quiz',q,k:'zone3',topic:'hep'}));
  PREDICT.forEach(p=>{if(SRS.cards['pred:'+p.id])deck.push({id:'pred:'+p.id,type:'pred',p,k:p.k,topic:topicOf(p.k)});});
  deckCardsForStudy().forEach(c=>deck.push(c));
@@ -5542,7 +6084,22 @@ const QUIZ_HP=[
  {q:'The cells that store vitamin A and turn into scar-forming myofibroblasts in cirrhosis are…',a:['Hepatic stellate (Ito) cells in the space of Disse','Kupffer cells','Cholangiocytes','Pit cells'],e:'Activated by injury (TGF-β from Kupffer cells and dying hepatocytes), they lose their retinoid droplets, contract and lay down type I collagen in Disse: capillarisation of the sinusoid.'},
  {q:'Of the King’s College criteria for paracetamol-induced liver failure, which alone justifies listing for transplant?',a:['Arterial pH below 7.30 after fluid resuscitation','ALT above 1,000 U/L','Bilirubin above 50 µmol/L','A paracetamol level above the treatment line'],e:'The other route is all three together within 24 h: INR above 6.5, creatinine above 300 µmol/L and grade 3–4 encephalopathy. A lactate above 3.5 mmol/L at 4 h, or above 3.0 after full resuscitation, was added later (the modified criteria). ALT reflects past damage, not function.'},
 ];
+const QUIZ_PC=[
+ {q:'Acute pancreatitis is diagnosed when two of three are present. Which set is right?',a:['Typical pain, lipase or amylase above 3× the upper limit, characteristic imaging','Pain, fever, raised white count','Lipase above the upper limit, jaundice, raised ALT','Grey Turner sign, Cullen sign, hypocalcaemia'],e:'The revised Atlanta criteria. A CT is not needed to make the diagnosis when the first two are present; it is for doubt, or for complications after 72 hours.'},
+ {q:'In a patient with acute pancreatitis, an ALT above 150 U/L in the first 48 hours mostly tells you…',a:['A gallstone is the likely cause','The attack will be severe','The liver is failing','Alcohol is the likely cause'],e:'A brief transaminase rise is the footprint of a stone passing through or sticking in the ampulla. Look for stones on ultrasound and plan the cholecystectomy.'},
+ {q:'Which predicts a severe course of acute pancreatitis?',a:['Organ failure lasting more than 48 hours','A lipase of 10,000 U/L','Pain radiating to the back','A raised amylase on day 5'],e:'Revised Atlanta: mild = no organ failure or local complications; moderately severe = organ failure resolving within 48 h or local complications; severe = persistent organ failure. Enzyme levels do not track severity; CRP above 150 mg/L at 48 h, BISAP and haematocrit help predict it.'},
+ {q:'Why does the calcium fall in severe pancreatitis?',a:['Lipase frees fatty acids in the peripancreatic fat, which bind calcium as soaps','Calcium is lost in the vomit','Parathyroid hormone is digested by trypsin','Calcium is filtered into the pancreatic juice'],e:'Fat necrosis with saponification is the classic explanation; low albumin and hormonal changes add to it. A low calcium is one of the old Ranson severity markers.'},
+ {q:'The β cell senses glucose mainly through…',a:['Glucokinase: its activity rises with glucose across the normal range, raising ATP and closing K-ATP channels','The insulin receptor on its own surface','A G-protein receptor for glucose','Sodium–glucose cotransport'],e:'Glucose enters (mostly by GLUT1 in human β cells), glucokinase phosphorylates it in proportion to its concentration, ATP/ADP rises, K-ATP (Kir6.2/SUR1) closes, the cell depolarises and calcium entry triggers exocytosis. Sulfonylureas close the same channel; glucokinase mutations cause MODY 2.'},
+ {q:'A patient with recurrent hypoglycaemia has high insulin and very low C-peptide. The most likely explanation is…',a:['Injected insulin','An insulinoma','A sulfonylurea','Adrenal insufficiency'],e:'Proinsulin is cut into insulin and C-peptide in equal amounts, and the liver removes much of the insulin but not the C-peptide. Endogenous excess (insulinoma, sulfonylurea) raises both; injected insulin raises insulin alone. Screen for sulfonylureas before blaming an insulinoma.'},
+ {q:'Bicarbonate-rich pancreatic juice is driven mainly by…',a:['Secretin acting on duct cells (cAMP → CFTR)','CCK acting on acinar cells','Gastrin acting on parietal cells','Somatostatin acting on δ cells'],e:'S cells release secretin when duodenal pH falls below ~4.5. Duct cells exchange chloride for bicarbonate through CFTR and SLC26A6; at high flow the juice carries ~140 mmol/L bicarbonate. In cystic fibrosis the ducts plug with protein and the gland is destroyed early.'},
+ {q:'Trypsinogen is normally activated by…',a:['Enteropeptidase on the duodenal brush border','Trypsin inside the acinar cell','Bile salts in the duct','Pepsin in the stomach'],e:'Once some trypsin forms, it activates more trypsinogen and the other proenzymes. Inside the gland, SPINK1 and trypsin self-destruction guard against early activation; gain-of-function PRSS1 mutations cause hereditary pancreatitis.'},
+ {q:'Pancreas divisum means…',a:['The dorsal and ventral ducts did not fuse, so most of the gland drains through the minor papilla','The pancreas wraps around the second part of the duodenum','The tail is separated from the body by the splenic vein','There are two main ducts both entering at the major papilla'],e:'It is present in about 5–10% of people and is mostly harmless. An annular pancreas is the ring round the duodenum (ventral bud), associated with Down syndrome and duodenal obstruction.'},
+ {q:'Painless obstructive jaundice with a palpable, non-tender gallbladder suggests…',a:['A tumour in the head of the pancreas (Courvoisier’s sign)','A stone in the common bile duct','Acute cholecystitis','Gilbert syndrome'],e:'A slowly growing obstruction lets a healthy gallbladder distend; stones usually leave it scarred and small. Most pancreatic ductal adenocarcinomas arise in the head; CA19-9 and CT stage it, and a Whipple operation is the curative option when it is resectable.'},
+];
 const PREDICT=[
+ {id:'pisl',k:'isletcells',at:'parter',short:'how an islet is built',q:'Prediction — inside a human islet the β cells and α cells are…',a:['Mixed together along the capillaries','Sorted: a core of β cells inside a rim of α cells'],e:'The core-and-mantle islet is the mouse. In human islets the cell types are intermingled, and almost every cell touches a vessel; neighbours signal to each other directly.'},
+ {id:'pjuice',k:'trypsinact',at:'iap',short:'what state the enzymes are in',q:'Prediction — the protein-digesting enzymes in the acinus are…',a:['Inactive proenzymes, switched on only in the duodenum','Already active, ready to digest'],e:'Trypsinogen and the other proteases leave the pancreas inactive; enteropeptidase on the duodenal brush border starts the cascade. When they switch on inside the gland, that is pancreatitis.'},
+ {id:'pstn',k:'gallpanc',at:'mpd',short:'why a stone hurts the pancreas',q:'Prediction — a gallstone stuck in the ampulla injures the pancreas mainly because…',a:['The juice cannot get out, and trypsin is switched on inside the acinar cells','The stone releases toxins into the blood'],e:'Blocked outflow, bile reflux through the common channel and raised duct pressure push acinar cells into calcium overload; trypsinogen is activated inside them and the inflammation follows.'},
  {id:'hzone',k:'zone3',at:'zone2',short:'which cells die first',q:'Prediction — in a paracetamol overdose the first hepatocytes to die are…',a:['Those round the central vein (zone 3): most CYP2E1, least oxygen, least glutathione','Those at the portal triad (zone 1): they meet the drug first'],e:'NAPQI is made where CYP2E1 is densest, round the central vein, and glutathione runs out there first. The same cells die first in shock liver, for the oxygen.'},
  {id:'hbile',k:'canal',at:'zone3',short:'which way bile flows',q:'Prediction — once you become bile, the canaliculus will carry you…',a:['Back toward the portal triad, against the blood','On toward the central vein, with the blood'],e:'Bile runs from the centre of the lobule out to the bile ducts in the portal triads, the opposite way to the blood. The two never mix: tight junctions seal every canaliculus.'},
  {id:'hgb',k:'gb',at:'cystic',short:'the way out of the gallbladder',q:'Prediction — between meals, the bile ahead of you goes…',a:['Into the gallbladder, because the sphincter of Oddi is shut','Straight to the duodenum'],e:'The closed sphincter of Oddi holds the duct pressure up, so bile backs into the gallbladder to be stored and concentrated 5–10×. A meal releases CCK, which contracts the gallbladder and relaxes the sphincter.'},
@@ -5738,6 +6295,7 @@ function envKeyAt(i){
  if(W===NERVE){if(r==='braincap'||r==='bbb')return 'bbbendo';if(r==='cortex')return 'neuropil';const kind=NNODES[Math.max(0,nodeIdx.findIndex(x=>x>i)-1)][4];
   if(kind==='hillock')return 'hillock';if(r==='axon'||r==='decuss'||r==='cord'||r==='pnerve'){const f=nodeAtS(i*DS);return f>.5?'node':f>.08?'paranode':'myelin';}
   if(r==='bouton'||r==='cleft')return 'activezone';if(r==='soma')return 'somamem';if(r==='nmj')return 'endplate';}
+ if(W===PAN){if(r==='parter'||r==='islet')return 'isletenv';if(r==='iap'||r==='pacinus')return 'acinarenv';if(r==='ampulla'||r==='oddi')return 'papenv';return 'ductenv';}
  if(W===HEP){if(r==='hpvein'||r==='triad'||r==='inlet')return 'triadenv';if(r==='zone1'||r==='zone2'||r==='zone3'||r==='canal')return 'sinwall';if(r==='gb')return 'gbmucosa';if(r==='ampulla'||r==='oddi')return 'oddisph';return 'cholangio';}
  if(W===RENAL){if(r==='glom'||r==='afferent')return 'fenestra';if(r==='pct'||r==='bowman')return 'brushborder';if(r==='thin'||r==='tip'||r==='thinasc')return 'thinwall';if(r==='tal'||r==='macula'||r==='dct')return 'talcell';if(r==='calyx')return 'urothelium';return 'cdcell';}
  if(W===LUNG){if(Math.abs(i-GLOT.i)<5)return 'vocalfold';if(r==='nose')return 'turbinate';if(r==='bronchiole')return 'bronchiolewall';if(r==='tbronch'||r==='acinus'||r==='sac')return 'barrier';return 'ciliated';}
@@ -6326,6 +6884,94 @@ Object.assign(ENVANIM,{
   if(c===0xc06858)hpScaleAt(m,sh,1,sh);                                                                  // shut between meals (phasic contractions ~4/min), open after CCK
   else if(c===0xd8e070||c===0xb8a8ff){const k=fed?(t*2+u.ph)%10:(t*.3+u.ph)%2.6;m.position.y=-k;m.position.x=fed&&k>6?(c===0xd8e070?2.4:-2.4)*Math.min(1,(k-6)/2):0;}});},
 });
+// pancreas wall environments (inspect with E / click): each is one piece of the gland cut in section
+Object.assign(ENV,{
+ isletenv:{n:'An islet of Langerhans · in section',sub:'β cells (pale, most of them) · α cells (pink) · δ cells (lilac) · a PP cell · mixed along fenestrated capillaries · a thin capsule · acinar cells all round',codex:'isletcells',size:'islet ≈ 100–200 µm · endocrine cell ≈ 10 µm · insulin granule ≈ 0.3 µm'},
+ acinarenv:{n:'A pancreatic acinus · in section',sub:'pyramidal acinar cells: blue rough ER at the base, round basal nucleus, orange zymogen granules at the apex · a centroacinar cell in the lumen · capillary and stellate cell outside',codex:'acinarcell',size:'acinar cell ≈ 15 µm tall · zymogen granule ≈ 1 µm · lumen ≈ 1–2 µm'},
+ ductenv:{n:'Pancreatic duct cells',sub:'CFTR and the Cl⁻/HCO₃⁻ exchanger on the luminal side · Na⁺–HCO₃⁻ cotransporter on the blood side · carbonic anhydrase inside · water through aquaporins',codex:'cftrP',size:'duct cell ≈ 8–15 µm · juice HCO₃⁻ up to ≈ 140 mmol/L'},
+ papenv:{n:'The ampulla · in section',sub:'common bile duct and main pancreatic duct meeting in a short common channel · sphincter of Oddi · papilla with duodenal villi · where a gallstone sticks',codex:'gallpanc',size:'common channel ≈ 2–10 mm · papilla ≈ 5 mm · stone here ≈ 3–8 mm'},
+});
+const pcR=(s=>()=>{s=(s*16807)%2147483647;return s/2147483647;})(424242);
+Object.assign(ENVBUILD,{
+ isletenv(){const o=[];
+  o.push(part(new THREE.SphereGeometry(10.2,40,24),0xf2e6e0,{s:[1.25,.75,.32],o:.12}));                                                        // the thin collagen capsule
+  // two fenestrated capillaries through the islet, with red cells
+  for(const y of[-2.4,2.6]){o.push(part(new THREE.CylinderGeometry(.9,.9,26,18,1,true),0xc86068,{p:[0,y,0],r:[0,0,Math.PI/2],o:.35,side:THREE.DoubleSide}));
+   for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(.55,12,8),0xc0242a,{p:[-9+k*6,y,0],s:[.4,1,1],e:0x180000}));}
+  // the endocrine cells, mixed as in a human islet: about 55% β, 35% α, 9% δ, a PP cell (in a rodent islet the β cells would make a core)
+  const T={b:[0xeadcc4,0x6ad8ff],a:[0xf08c9c,0xff8a50],d:[0xb8a0e0,0xc8a0ff],p:[0xa8d8a0,0x90e090]};
+  for(let gx=-11;gx<=11;gx+=1.9)for(let gy=-6.6;gy<=6.6;gy+=1.9){if((gx/12.4)**2+(gy/7.4)**2>1)continue;if(Math.abs(gy+2.4)<1||Math.abs(gy-2.6)<1)continue;
+   const u=pcR(),t=u<.55?'b':u<.9?'a':u<.985?'d':'p';const x=gx+(pcR()-.5)*.4,y=gy+(pcR()-.5)*.4;
+   o.push(part(new THREE.BoxGeometry(1.75,1.75,2.4),T[t][0],{p:[x,y,0],rough:.6}));o.push(part(new THREE.SphereGeometry(.42,10,8),0x5a3858,{p:[x,y,1.25]}));
+   for(let j=0;j<3;j++)o.push(part(new THREE.SphereGeometry(t==='b'?.13:.11,6,5),t==='b'?0x4a3a2a:0xb04050,{p:[x-.5+j*.5,y+(j%2?.45:-.45),1.22]}));}  // granules: β dense cores, α smaller and darker pink
+  // hormones leaving into the capillaries (insulin blue, glucagon orange, somatostatin lilac)
+  for(let k=0;k<14;k++)o.push(part(new THREE.SphereGeometry(.12,6,5),0x6ad8ff,{p:[-10+k*1.5,0,1.4],e:0x0a2a3a}));
+  for(let k=0;k<8;k++)o.push(part(new THREE.SphereGeometry(.11,6,5),0xff8a50,{p:[-9+k*2.5,0,1.4],e:0x3a1a08}));
+  for(let k=0;k<3;k++)o.push(part(new THREE.SphereGeometry(.1,6,5),0xc8a0ff,{p:[-6+k*5,0,1.4]}));
+  // acinar cells all round the islet (the halo acini): pink cones, orange apical granules
+  for(let k=0;k<26;k++){const a=k/26*Math.PI*2,x=Math.cos(a)*14.6,y=Math.sin(a)*9.2;o.push(part(new THREE.ConeGeometry(1.4,3.2,8),0xd87a8a,{p:[x,y,0],r:[0,0,a+Math.PI/2]}));
+   o.push(part(new THREE.SphereGeometry(.3,8,6),0xff9a6a,{p:[Math.cos(a)*13.4,Math.sin(a)*8.4,.7],e:0x2a0e04}));}
+  return o;},
+ acinarenv(){const o=[];
+  for(let k=0;k<10;k++){const a=k/10*Math.PI*2,c=Math.cos(a),s=Math.sin(a);
+   o.push(part(new THREE.ConeGeometry(2.3,6,10),0xd8909c,{p:[c*3.6,s*3.6,0],r:[0,0,a+Math.PI/2],rough:.65}));                               // pyramidal acinar cell, apex to the lumen
+   for(let j=0;j<4;j++)o.push(part(new THREE.BoxGeometry(1.9-j*.25,.08,1.4),0x5a5ab8,{p:[c*(6-j*.3),s*(6-j*.3),.2],r:[0,0,a+Math.PI/2]}));   // basal rough ER: the blue (basophilic) half
+   o.push(part(new THREE.SphereGeometry(.7,12,10),0x4a2a5a,{p:[c*5,s*5,.6]}));                                                             // round basal nucleus
+   o.push(part(new THREE.TorusGeometry(.4,.07,5,12,Math.PI),0xe8c0a0,{p:[c*3.8,s*3.8,.7],r:[0,0,a]}));                                    // Golgi
+   for(let j=0;j<6;j++){const r=1.6+(j%3)*.55,b=a+(j-2.5)*.09;o.push(part(new THREE.SphereGeometry(.3,10,8),0xff9a6a,{p:[Math.cos(b)*r,Math.sin(b)*r,.5+(j%2)*.3],e:0x2a0e04,rough:.25}));}   // zymogen granules, eosinophilic
+   for(let j=0;j<2;j++){const r=1.9+j*.6;o.push(part(new THREE.SphereGeometry(.3,10,8),0xff3020,{p:[Math.cos(a+.14)*r,Math.sin(a+.14)*r,.9],e:0x701008}));}  // trypsin switched on inside the cell (case 07)
+   o.push(part(new THREE.SphereGeometry(.55,10,8),0xe0f0ff,{p:[c*2.8,s*2.8,-.6],o:.35}));}                                                  // vacuoles: granules fused with lysosomes (case 07)
+  o.push(part(new THREE.SphereGeometry(.7,12,10),0xf4ecd8,{p:[0,0,.2],o:.5}));                                                               // the lumen, with juice
+  o.push(part(new THREE.SphereGeometry(.9,12,10),0xeee6dc,{p:[.4,.2,1.4],s:[1.3,.6,.8]}));o.push(part(new THREE.SphereGeometry(.35,8,6),0x7a6a8a,{p:[.5,.2,1.7]}));  // centroacinar cell, pale, in the lumen
+  // outside: a capillary with red cells, a pancreatic stellate cell with vitamin A droplets, neutrophils arriving (case 07)
+  o.push(part(new THREE.CylinderGeometry(.9,.9,10,14,1,true),0xc86068,{p:[8.6,0,0],o:.35,side:THREE.DoubleSide}));
+  for(let k=0;k<3;k++)o.push(part(new THREE.SphereGeometry(.55,12,8),0xc0242a,{p:[8.6,-3+k*3,0],s:[1,.4,1],e:0x180000}));
+  o.push(part(new THREE.SphereGeometry(1,12,8),0xe8d8a0,{p:[-6.8,-4.6,0],s:[2,.45,1]}));for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(.25,8,6),0xffd23a,{p:[-7.8+k*.65,-4.5,.3],e:0x3a2a00}));
+  for(let k=0;k<4;k++)o.push(part(hpSpiky(new THREE.IcosahedronGeometry(.75,2),9,.2,k+5),0xf2eef0,{p:[-8+k*5.2,7.4,0]}));
+  return o;},
+ ductenv(){const o=[];                                                                                                                          // lumen above (y>2), blood below
+  o.push(part(new THREE.BoxGeometry(30,4,10),0xf4ecd8,{p:[0,4.4,0],o:.14}));
+  for(let k=0;k<7;k++){const x=-12+k*4;o.push(part(new THREE.BoxGeometry(3.8,4,8),k===0?0xeee6dc:0xe8d0b8,{p:[x,0,0],rough:.6}));                 // cuboidal duct cells (the first is a centroacinar cell)
+   o.push(part(new THREE.SphereGeometry(.8,12,10),0x5a3858,{p:[x,-.6,0]}));
+   for(let j=0;j<2;j++){o.push(part(new THREE.CylinderGeometry(.18,.18,.5,8),0x40d8e8,{p:[x-1+j*2,2.1,-2],e:0x0a3038}));                         // CFTR in the luminal membrane
+    o.push(part(new THREE.CylinderGeometry(.2,.2,.5,8),0xa070e0,{p:[x-1+j*2,2.1,2]}));                                                        // SLC26A6: Cl⁻ in, HCO₃⁻ out
+    o.push(part(new THREE.CylinderGeometry(.2,.2,.5,8),0x70d070,{p:[x-1+j*2,-2.1,0]}));}                                                       // NBC1: Na⁺ and HCO₃⁻ in from the blood
+   o.push(part(new THREE.OctahedronGeometry(.25,0),0xf6d35a,{p:[x+.9,.6,1]}));}                                                                // carbonic anhydrase II: CO₂ + H₂O → HCO₃⁻ + H⁺
+  for(const y of[2.05])for(let k=0;k<6;k++)o.push(part(new THREE.BoxGeometry(.25,.3,8),0x90a0b0,{p:[-10+k*4,y,0]}));                           // tight junctions
+  o.push(part(new THREE.CylinderGeometry(.9,.9,30,14,1,true),0xc86068,{p:[0,-4.4,0],r:[0,0,Math.PI/2],o:.35,side:THREE.DoubleSide}));        // capillary beneath
+  for(let k=0;k<16;k++)o.push(part(new THREE.SphereGeometry(.14,6,5),0xffffff,{p:[-13+k*1.7,2.5,2],e:0x202020}));                             // bicarbonate out into the lumen
+  for(let k=0;k<10;k++)o.push(part(new THREE.SphereGeometry(.12,6,5),0x9aff6a,{p:[-12+k*2.6,2.5,-2]}));                                        // chloride cycling through CFTR
+  for(let k=0;k<10;k++)o.push(part(new THREE.SphereGeometry(.1,6,5),0x8fd0ff,{p:[-12+k*2.6,2.5,0],o:.7}));                                     // water following
+  return o;},
+ papenv(){const o=[];
+  o.push(part(new THREE.BoxGeometry(30,4,8),0xe0a8a0,{p:[0,-7,0],rough:.7}));                                                                   // duodenal wall
+  for(let k=0;k<14;k++)o.push(part(new THREE.CapsuleGeometry(.4,1.4,3,8),0xf0b8b0,{p:[-13+k*2,-4.4,0]}));                                     // villi on the papilla
+  o.push(part(new THREE.CylinderGeometry(1.5,1.5,12,16,1,true),0xd8e070,{p:[-4.6,4.4,0],r:[0,0,-.42],o:.45,side:THREE.DoubleSide}));       // common bile duct
+  o.push(part(new THREE.CylinderGeometry(1.2,1.2,12,16,1,true),0xb8a8ff,{p:[4.8,4.4,0],r:[0,0,.42],o:.45,side:THREE.DoubleSide}));         // main pancreatic duct
+  o.push(part(new THREE.CylinderGeometry(1.5,1.6,6,16,1,true),0xe8c890,{p:[0,-2.2,0],o:.45,side:THREE.DoubleSide}));                          // the common channel through the wall
+  for(let k=0;k<5;k++)o.push(part(new THREE.TorusGeometry(2.2,.4,8,24),0xc06858,{p:[0,-4.6+k*1.3,0],r:[Math.PI/2,0,0]}));                     // sphincter of Oddi
+  o.push(part(hpSpiky(new THREE.DodecahedronGeometry(1.6,1),9,.12,21),0x9a7a3a,{p:[0,-.4,0],rough:.7}));                                       // the stone (case 07, until ERCP)
+  for(let k=0;k<8;k++)o.push(part(new THREE.OctahedronGeometry(.16,0).scale(1.6,.8,.8),0xf0a020,{p:[-6+k*.7,8-k*1.1,0],e:0x3a2004}));          // bile
+  for(let k=0;k<8;k++)o.push(part(new THREE.DodecahedronGeometry(.18,0),0xb8a8ff,{p:[6-k*.7,8-k*1.1,0],e:0x161036}));                         // juice
+  return o;},
+});
+Object.assign(ENVANIM,{
+ isletenv(dt,objs,t){const fed=typeof PC!=='undefined'&&PC.meal;objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*30;
+  if(c===0xc0242a)m.position.x=((t*3+u.ph)%26)-13;
+  else if(c===0x6ad8ff){m.visible=fed||u.ph<9;m.position.y=Math.sin(t*(fed?2:.8)+u.ph)*2.4;}                                                 // insulin: pulses fasting, a flood after a meal
+  else if(c===0xff8a50){m.visible=!fed||u.ph<6;m.position.y=Math.sin(t*1.1+u.ph)*2.4;}
+  else if(c===0xc8a0ff)m.position.y=Math.sin(t*.7+u.ph)*2.4;});},
+ acinarenv(dt,objs,t){const fed=typeof PC!=='undefined'&&PC.meal,st=typeof PC!=='undefined'?PC.stage:0;objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*30;
+  if(c===0xff9a6a){const k=fed?((t*.5+u.ph)%2)/2:0;hpScaleAt(m,1-k*.7,1-k*.7,1-k*.7);}                                                       // after a meal the granules fuse and empty at the apex
+  else if(c===0xff3020||c===0xe0f0ff)m.visible=st===1;else if(c===0xf2eef0)m.visible=st>0;
+  else if(c===0xc0242a)m.position.y=((t*2+u.ph)%10)-5;});},
+ ductenv(dt,objs,t){const fed=typeof PC!=='undefined'&&PC.meal;objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*30;
+  if(c===0xffffff){m.position.y=((t*(fed?1.6:.4)+u.ph)%4.5);m.position.x=((t*(fed?1:.3)+u.ph*3)%28)-14;}
+  else if(c===0x9aff6a)m.position.y=2.4+.9*Math.sin(t*2+u.ph);else if(c===0x8fd0ff)m.position.y=((t*(fed?1.2:.3)+u.ph)%4.5);});},
+ papenv(dt,objs,t){const fed=typeof PC!=='undefined'&&PC.meal,blk=typeof PC!=='undefined'&&PC.stage===1&&!PC.ercp,cut=typeof PC!=='undefined'&&PC.ercp;objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*10;
+  if(c===0x9a7a3a)m.visible=blk;else if(c===0xc06858){const s=cut?1.3:fed?1.2:.8+.04*Math.sin(t*2.6);hpScaleAt(m,s,s,1);}
+  else if(c===0xf0a020||c===0xb8a8ff&&m.geometry.type!=='CylinderGeometry'){const k=blk?(t*.15+u.ph)%2:(t*(fed||cut?1.4:.4)+u.ph)%10;m.position.y=-k;}});},
+});
 function inspectEnv(e){
  const E=ENV[e.key];sfx('scan');if(e.key==='barrier')complete('dock');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key),view:E.view});
  const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',e.name||(rg?rg.n:'—')],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
@@ -6340,23 +6986,25 @@ const VROWS={
  gut:[['Slow wave','vSW'],['Wall','vSWph'],['Lumen pH','vpH'],['Transit here','vTr'],['Bacteria','vBac']],
  lung:[['Breath','vBr'],['Airflow','vAf'],['Generation','vGen'],['SpO₂ · PaO₂','vGas'],['Zone · V/Q','vVQ']],
  hep:[['Flow','vHb'],['Here','vZn'],['Local','vNh'],['Drug','vAp'],['Labs','vBl']],
+ pan:[['Flow','vHb'],['Here','vZn'],['Local','vNh'],['Enzymes','vAp'],['Labs','vBl']],
  renal:[['GFR','vGfr'],['Tubular fluid','vTf'],['Interstitium','vInt'],['Transport','vTx'],['Urine','vUr']],
 };
-const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position',lung:'spirogram · lung volume above FRC',renal:'osmolality of the fluid you are in (pulse in the arteriole)',hep:'oxygen across the lobule (bile: flow with meals)'};
+const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position',lung:'spirogram · lung volume above FRC',renal:'osmolality of the fluid you are in (pulse in the arteriole)',hep:'oxygen across the lobule (bile: flow with meals)',pan:'insulin release, pulsing (juice: flow with meals)'};
 let vitalsWorld='';
 function setVitals(){
  const wn=W.name;if(vitalsWorld===wn)return;vitalsWorld=wn;
  $('vrows').innerHTML=VROWS[wn].map(([l,id])=>id==='phase'?`<div class="vrow"><span>${l}</span><span id="phase" class="dia">DIASTOLE</span></div>`:`<div class="vrow"><span>${l}</span><b id="${id}">—</b></div>`).join('');
- $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract',lung:'respiration',renal:'the kidney',hep:'liver & biliary'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut'||wn==='lung'||wn==='renal'||wn==='hep')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='lung')luCaseTag();else if(wn==='renal')rnCaseTag();else if(wn==='hep')hpCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
+ $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract',lung:'respiration',renal:'the kidney',hep:'liver & biliary',pan:'pancreas'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut'||wn==='lung'||wn==='renal'||wn==='hep'||wn==='pan')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='lung')luCaseTag();else if(wn==='renal')rnCaseTag();else if(wn==='hep')hpCaseTag();else if(wn==='pan')pcCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
 }
 function vmHere(){const [a1,a2]=apPositions(),s=S.idx*DS;let v=-70;[a1,a2].forEach(a=>{const d=a-s;v+=105*Math.exp(-Math.pow((d-.5)/2.2,2))-12*Math.exp(-Math.pow((d+7)/5,2));});return v;}
-function traceVal(){if(W===GUT)return gutTrace();if(W===LUNG)return luTrace();if(W===RENAL)return rnTrace();if(W===HEP)return hpTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
+function traceVal(){if(W===GUT)return gutTrace();if(W===LUNG)return luTrace();if(W===RENAL)return rnTrace();if(W===HEP)return hpTrace();if(W===PAN)return pcTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
 function vitalsTick(){
  setVitals();
  if(W===GUT)gutVitals();
  else if(W===LUNG)luVitals();
  else if(W===RENAL)rnVitals();
  else if(W===HEP)hpVitals();
+ else if(W===PAN)pcVitals();
  else if(W===LYMPH){$('vLyR').textContent='≈17/min (sped up)';const q=lymSq(S.idx);$('vLyPh').textContent=q>0?'CONTRACTING':'FILLING';$('vLyPh').style.color=q>0?'var(--amber)':'';$('vIntP').textContent='−2 mmHg';$('vLyPr').textContent=/sinus|subcap|efferent|cisterna|thoracic|venangle/.test(REG[S.idx])?'3–4 g/dL':'≈2 g/dL';$('vLyF').textContent=(FLOW[S.idx]*flowMul(S.idx)).toFixed(1)+' units/s';}
  else if(W===NERVE){const r=REG[S.idx],v=vmHere();$('vVm').textContent=Math.round(v)+' mV';$('vVm').style.color=v>-20?'var(--cyan)':'';
   $('vCV').textContent=/axon|decuss|cord|pnerve/.test(r)?'Aα 80–120 m/s':r==='cortex'||r==='soma'?'graded EPSPs':r==='nmj'||r==='bouton'||r==='cleft'?'delay 0.5–1 ms':'CBF 50 mL/100g/min';
@@ -6419,7 +7067,7 @@ function onKey(e){
  if(k==='KeyE')scan();
  else if(k==='KeyH')setSteth(true);
  else if(k==='KeyB')toggleBell();
- else if(k==='KeyG'){if(W===GUT)openExamGI();else if(W===LUNG)openExamLU();else if(W===RENAL)openExamRN();else if(W===HEP)openExamHP();else openExam();}
+ else if(k==='KeyG'){if(W===GUT)openExamGI();else if(W===LUNG)openExamLU();else if(W===RENAL)openExamRN();else if(W===HEP)openExamHP();else if(W===PAN)openExamPC();else openExam();}
  else if(k==='KeyZ'&&W===LUNG)cough();
  else if(k==='KeyO'&&W===LUNG)o2Trial();
  else if(k==='KeyU'&&W===LUNG)posture();
@@ -6427,6 +7075,8 @@ function onKey(e){
  else if(k==='KeyU'&&W===RENAL)rnHydration();
  else if(k==='KeyO'&&W===HEP)hpNac();
  else if(k==='KeyU'&&W===HEP)hpMeal();
+ else if(k==='KeyO'&&W===PAN)pcErcp();
+ else if(k==='KeyU'&&W===PAN)pcMeal();
  else if(k==='KeyF'){S.auto=!S.auto;toast(S.auto?'Autopilot on — follows the centreline, waits for valves':'Autopilot off');}
  else if(k==='KeyX'){C.exercise=!C.exercise;C.hrT=C.exercise?118:72;
   if(C.exercise){toast('Flashback: last week, Mr. Reyes climbs the stairs…','warn');if(C.stenosis)setTimeout(()=>{if(C.exercise){toast('“I feel light-headed…” — BP is falling','warn');unlocked.add('exercise');scanned.add('exercise');openCard('exercise',true);renderObj();}},4500);}
@@ -6435,6 +7085,7 @@ function onKey(e){
  else if(k==='KeyV'&&W===LUNG)luToggle();
  else if(k==='KeyV'&&W===RENAL)rnToggle();
  else if(k==='KeyV'&&W===HEP)hpToggle();
+ else if(k==='KeyV'&&W===PAN)pcToggle();
  else if(k==='KeyV'){C.stenosis=!C.stenosis;$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';toast(C.stenosis?'Back to Mr. Reyes\' stenotic valve':'Comparison: a healthy aortic valve. Listen and look again.');}
  else if(k==='KeyJ')openJournal();
  else if(k==='KeyT')openStudy();
@@ -6470,7 +7121,7 @@ function openJournal(){
 // depth picker on start screen
 $('lvPick').innerHTML=[['L1 Curious','kids & curious adults'],['L2 School','secondary-school biology'],['L3 Pre-med','undergrad physiology'],['L4 Med school','pathology & clinical reasoning']].map((l,i)=>`<button class="lv ${i===depth?'on':''}" data-l="${i}"><b>${l[0]}</b>${l[1]}</button>`).join('');
 let startSys='circ';
-$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease'],['lung','Lungs','Case 04 · lobar pneumonia'],['renal','Kidney','Case 05 · diabetic ketoacidosis'],['hep','Liver & biliary','Case 06 · paracetamol overdose']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
+$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease'],['lung','Lungs','Case 04 · lobar pneumonia'],['renal','Kidney','Case 05 · diabetic ketoacidosis'],['hep','Liver & biliary','Case 06 · paracetamol overdose'],['pan','Pancreas','Case 07 · gallstone pancreatitis']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
 $('sysPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;startSys=b.dataset.s;$('sysPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 $('lvPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;depth=+b.dataset.l;$('lvPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 
@@ -6532,9 +7183,9 @@ function openExam(){
 /* --- Rounds (quiz) --- */
 let qi=0,qScore=0,qOrder=[],roundsTry=0;
 function openQuiz(){
- qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:W===LUNG?QUIZ_LU:W===RENAL?QUIZ_RN:W===HEP?QUIZ_HP:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
+ qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:W===LUNG?QUIZ_LU:W===RENAL?QUIZ_RN:W===HEP?QUIZ_HP:W===PAN?QUIZ_PC:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
  const pending=['exam','ra','tricuspid','pulmonic','lungcap','mitral','steth','aortic'].filter(k=>!done.has(k));
- $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':W===LUNG?'Mr. Herrera':W===RENAL?'Ms. Okafor':W===HEP?'Jordan Ellis':'Mr. Reyes'}</h1>
+ $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':W===LUNG?'Mr. Herrera':W===RENAL?'Ms. Okafor':W===HEP?'Jordan Ellis':W===PAN?'Ruth Mensah':'Mr. Reyes'}</h1>
  <p>The consultant asks you ${QZ.length} questions about what you saw and heard inside. ${pending.length?`<br><span style="color:var(--amber)">Tip: you still have ${pending.length} exploration objective${pending.length>1?'s':''} open — the answers are easier if you've seen it.</span>`:'You have seen the whole circuit. Go.'}</p>
  <button class="btn" id="qStart">Start Rounds ▸</button> <button class="btn ghost" data-close>Keep exploring</button>`;
  $('quizSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
@@ -6555,7 +7206,7 @@ function renderQ(){
  });
 }
 function finishQuiz(){
- complete(W===GUT?'grounds':W===LUNG?'lrounds':W===RENAL?'rrounds':W===HEP?'hrounds':'rounds');
+ complete(W===GUT?'grounds':W===LUNG?'lrounds':W===RENAL?'rrounds':W===HEP?'hrounds':W===PAN?'prounds':'rounds');
  const pct=Math.round(qScore/qOrder.length*100);
  const expl=[...done].length;
  $('quizSheet').innerHTML=`<div class="eyebrow">Rounds complete</div><h1 style="font-size:34px">${qScore}/${qOrder.length} · ${pct}%</h1>
@@ -6638,7 +7289,7 @@ function ambience(t){ // what each place sounds like
   if(reg==='bouton'||reg==='nmj'){if(rnd(4))pop(900,480,.06,.07);}
   if(reg==='nmj'){const [a1,a2]=apPositions(),e=N*DS,near=Math.min(Math.abs(a1-e),Math.abs(a2-e))<3;if(near&&!amb.apEnd){pop(70,38,.5,.5);burst(90,1,.5,.35);}amb.apEnd=near;} // the muscle fibre twitches
   if(reg==='braincap')turb=.02;
- }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===LUNG){const g=luAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===RENAL){const g=rnAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===HEP){const g=hpAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
+ }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===LUNG){const g=luAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===RENAL){const g=rnAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===HEP){const g=hpAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===PAN){const g=pcAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
  if(W!==LUNG)A.airBP.frequency.setTargetAtTime(900,t,.3);
  set(A.turbG,turb,.1);set(A.humG,hum,.08);set(A.hushG,hush);set(A.gamG,gam);set(A.somaG,soma);set(A.airG,air*(steth?(W===LUNG?2.2:.3):1),.2);
 }
@@ -6676,13 +7327,13 @@ function updateAudio(flowLocal,thrust){
  const dH=S.pos.distanceTo(heartC);
  const av=AOV;_t.copy(av.c).addScaledVector(av.t,5);const dA=S.pos.distanceTo(_t);
  A.heartLP.frequency.setTargetAtTime(lerp(1800,200,clamp(dH/160,0,1)),t,k);
- A.heart.gain.setTargetAtTime(((W===BLOOD?.25:W===LYMPH?.08:W===LUNG?.12:W===HEP?(HPB.includes(REG[S.idx])?.06:.02):W===RENAL?((REG[S.idx]==='afferent'||REG[S.idx]==='glom')?.2:.05):REG[S.idx]==='braincap'?.14:.03)+1.1*Math.exp(-dH/45))*(steth?1.9:1),t,k);
+ A.heart.gain.setTargetAtTime(((W===BLOOD?.25:W===LYMPH?.08:W===LUNG?.12:W===PAN?(PCB.includes(REG[S.idx])?.05:.02):W===HEP?(HPB.includes(REG[S.idx])?.06:.02):W===RENAL?((REG[S.idx]==='afferent'||REG[S.idx]==='glom')?.2:.05):REG[S.idx]==='braincap'?.14:.03)+1.1*Math.exp(-dH/45))*(steth?1.9:1),t,k);
  A.murLoc.gain.setTargetAtTime(Math.exp(-dA/24)*1.4+.04,t,k);
  const reg=REG[S.idx];const art=KW[S.idx*4+2];
  const surge=art*bump(((C.tc-.05-PD[S.idx]/C.PWV)%C.T+C.T)%C.T,0,.3);
  A.flowG.gain.setTargetAtTime((W===NERVE?.004:.02+.012*flowLocal+.18*surge)*(steth?.2:1),t,.05);
  A.flowLP.frequency.setTargetAtTime(R0[S.idx]<2.2?900:380,t,.2); // a tighter hiss in capillaries
- A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:W===LUNG?29:W===RENAL?26:W===HEP?25:27,t,.5);
+ A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:W===LUNG?29:W===RENAL?26:W===HEP?25:W===PAN?24:27,t,.5);
  ambience(t);
  A.engG.gain.setTargetAtTime(steth?0:.012*thrust,t,.15);A.eng.frequency.setTargetAtTime(40+18*thrust,t,.1);
  // stethoscope chest piece: diaphragm passes highs, bell passes lows
@@ -6700,7 +7351,7 @@ function ecgVal(tc,T){
  return .15*g(tc,T-.17,.025)-.12*g(x,-.035,.006)+1*g(x,-.022,.007)-.25*g(x,-.008,.007)+.3*g(tc,C.sys-.11,.04);
 }
 function drawECG(){
- const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===HEP?'rgba(240,200,120,.9)':W===RENAL?'rgba(255,200,150,.9)':W===LUNG?'rgba(160,210,255,.9)':W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
+ const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===PAN?'rgba(140,210,255,.9)':W===HEP?'rgba(240,200,120,.9)':W===RENAL?'rgba(255,200,150,.9)':W===LUNG?'rgba(160,210,255,.9)':W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
  for(let i=0;i<ECGN;i++){const v=ecgBuf[(ecgHead+i)%ECGN];const x=i/(ECGN-1)*w,y=h*.72-v*h*.6;i?ecgC.lineTo(x,y):ecgC.moveTo(x,y);}ecgC.stroke();
 }
 function drawPCG(pcgC=pcgC0){
@@ -6715,10 +7366,10 @@ function drawPCG(pcgC=pcgC0){
 let routeDirty=true;
 function drawRoute(){
  const w=1520,h=68,c=routeC;c.clearRect(0,0,w,h);
- if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':W.lung?'rgb(120,170,220)':W.hep?'rgb(215,160,90)':W.renal?'rgb(225,150,120)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
+ if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':W.lung?'rgb(120,170,220)':W.pan?'rgb(200,160,230)':W.hep?'rgb(215,160,90)':W.renal?'rgb(225,150,120)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
  else for(let x=0;x<w;x+=2){const i=Math.floor(x/w*N);const f=(SAT[i]-75)/23;c.fillStyle=`rgb(${Math.round(lerp(70,230,f))},${Math.round(lerp(60,40,f))},${Math.round(lerp(150,60,f))})`;c.fillRect(x,30,2,10);}
  c.font='600 17px system-ui,sans-serif';c.textAlign='center';
- const show=W.hep?HSHOW:W.renal?RSHOW:W.lung?LSHOW:W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
+ const show=W.pan?PSHOW:W.hep?HSHOW:W.renal?RSHOW:W.lung?LSHOW:W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
  show.forEach(([r,l])=>{const [a,b]=RANGE[r];const x=(a+b)/2/N*w;c.fillStyle=scanned.has(r)?'#8f747a':'#c9aeb2';c.fillText(l,x,22);});
  VALVES.forEach(v=>{const x=v.i/N*w;c.fillStyle=done.has(v.id)?'#6ee7a0':'#ffb547';c.fillRect(x-2,26,4,18);});
  const px=S.idx/N*w;c.fillStyle='#3ee6d8';c.beginPath();c.moveTo(px,46);c.lineTo(px-9,64);c.lineTo(px+9,64);c.fill();
@@ -6871,6 +7522,7 @@ function mapSubloc(){
  if(W===LUNG)return luSubloc();
  if(W===RENAL)return rnSubloc();
  if(W===HEP)return hpSubloc();
+ if(W===PAN)return pcSubloc();
  if(W===NERVE){
   if(r==='axon')return f<.3?'corona radiata':f<.6?'internal capsule':f<.85?'cerebral peduncle':'pons';
   if(r==='decuss')return f<.6?'medullary pyramid':'pyramidal decussation';
@@ -7012,6 +7664,51 @@ MAPCTX.biliary={title:'Biliary tree · anterior view',draw(c){
  [['liver',[150,20]],['common hepatic d.',[104,80]],['cystic d.',[96,112]],['gallbladder',[10,170]],['CBD',[104,140]],['pancreas',[150,200]],['duodenum (D2)',[8,232]],['papilla · Oddi',[86,232]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
  c.fillStyle=fed?'rgba(120,220,140,.85)':'rgba(255,150,130,.85)';c.fillText(fed?'fed: CCK · gallbladder contracting · Oddi open':'fasting: Oddi shut · bile into the gallbladder',8,292);
  c.restore();}};
+// pancreas maps: one lobule (an islet ringed by acini, the capillary route, the duct tree starting in an acinus) and the whole gland (main duct → ampulla, with the bile duct joining)
+const PLOB_N=PCNODES.findIndex(n=>n[5]==='interl');
+const PLOB2D=PCNODES.slice(0,PLOB_N).map(n=>n[7]),PGRO2D=PCNODES.slice(PLOB_N).map(n=>n[7]);
+PAN.views=[mapView(PAN,'plob',0,PLOB_N-1,PLOB2D,2),mapView(PAN,'pgross',PLOB_N,PCNODES.length-1,PGRO2D,1)];
+MAPCTX.plob={title:'Pancreas · one lobule',draw(c){
+ const ink='rgba(246,236,236,';const k=typeof panCalc==='function'?panCalc():null;c.save();c.lineJoin='round';c.lineCap='round';
+ // acini: berry-like clusters filling the lobule, inflamed in case 07
+ const inf=k?k.uInf:0;let s=11;const r=()=>{s=(s*16807)%2147483647;return s/2147483647;};
+ for(let j=0;j<70;j++){const x=10+r()*180,y=20+r()*240;if(Math.hypot(x-95,(y-118)*1.15)<44)continue;c.fillStyle=inf>.3?`rgba(230,110,90,${.16+.2*inf})`:'rgba(220,130,150,.16)';c.beginPath();c.arc(x,y,6+r()*4,0,Math.PI*2);c.fill();}
+ // the islet: pale, with α (pink) and β (cream) cells mixed through it
+ c.fillStyle='rgba(240,225,200,.22)';c.strokeStyle=ink+'.35)';c.lineWidth=1;c.beginPath();c.ellipse(95,118,42,37,0,0,Math.PI*2);c.fill();c.stroke();
+ for(let j=0;j<46;j++){const a=r()*Math.PI*2,d=Math.sqrt(r())*34,x=95+Math.cos(a)*d*1.1,y=118+Math.sin(a)*d,u=r();c.fillStyle=u<.55?'rgba(240,225,190,.55)':u<.9?'rgba(240,140,160,.55)':'rgba(190,160,230,.6)';c.beginPath();c.arc(x,y,2.1,0,Math.PI*2);c.fill();}
+ // the duct tree: from the acinus down to the lobule's edge
+ c.strokeStyle='rgba(180,170,255,.35)';c.lineWidth=1;c.beginPath();[[60,60],[30,150],[176,200],[190,120]].forEach(([x,y])=>{c.moveTo(x,y);c.quadraticCurveTo(140,150,136,172);});c.stroke();
+ // the route: arterial red into the islet, purple after it, lavender juice in the ducts
+ for(let i=0;i<PLOB2D.length-1;i++){const reg=PCNODES[i][5];if(reg==='iap'&&PCNODES[i+1][5]==='pacinus')continue;const [x0,y0]=PLOB2D[i],[x1,y1]=PLOB2D[i+1];
+  c.strokeStyle=reg==='parter'?'rgba(255,77,94,.9)':reg==='islet'?'rgba(255,120,110,.9)':reg==='iap'?'rgba(170,100,190,.9)':'rgba(180,170,255,.95)';c.lineWidth=reg==='parter'?2.6:reg==='intral'?2.4:1.6;c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+ // the acinus you enter, ringed
+ c.strokeStyle=ink+'.55)';c.lineWidth=1;c.beginPath();c.arc(166,57,9,0,Math.PI*2);c.stroke();
+ c.fillStyle=ink+'.55)';c.font='7px system-ui,sans-serif';c.textAlign='left';
+ [['islet',[78,72]],['acinus',[178,50]],['arteriole',[22,214]],['insulo-acinar',[128,78]],['intercalated d.',[156,96]],['intralobular d.',[146,160]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
+ c.fillStyle=ink+'.4)';c.font='6.5px system-ui,sans-serif';c.fillText('islet ≈ 150 µm · about a million islets, 1–2% of the gland',8,292);
+ if(k&&k.st===1){c.fillStyle='rgba(255,170,90,.85)';c.fillText('case 07: acini inflamed · trypsin active inside',8,282);}
+ c.restore();}};
+MAPCTX.pgross={title:'Pancreas · anterior view',draw(c){
+ const ink='rgba(246,236,236,';const k=typeof panCalc==='function'?panCalc():null;c.save();c.lineJoin='round';c.lineCap='round';
+ // duodenal C-loop (patient's right on the viewer's left) with the head of the pancreas inside it; body over the spine; tail to the spleen
+ c.strokeStyle='rgba(225,160,140,.45)';c.lineWidth=12;c.beginPath();c.moveTo(96,136);c.lineTo(46,140);c.quadraticCurveTo(28,142,28,160);c.lineTo(28,244);c.quadraticCurveTo(28,262,48,262);c.lineTo(112,262);c.quadraticCurveTo(128,260,130,244);c.stroke();
+ const inf=k?k.uInf:0;c.fillStyle=inf>.3?`rgba(235,140,100,${.22+.2*inf})`:'rgba(230,190,140,.24)';c.strokeStyle='rgba(230,190,140,.45)';c.lineWidth=1;
+ c.beginPath();c.moveTo(42,160);c.bezierCurveTo(44,150,80,146,96,150);c.bezierCurveTo(130,130,170,112,192,104);c.bezierCurveTo(198,112,194,124,180,128);c.bezierCurveTo(150,138,120,150,104,166);c.bezierCurveTo(96,190,92,228,74,240);c.bezierCurveTo(52,246,40,228,42,160);c.closePath();c.fill();c.stroke();
+ c.fillStyle='rgba(150,100,170,.3)';c.beginPath();c.ellipse(186,90,12,18,.5,0,Math.PI*2);c.fill();                                       // spleen
+ // superior mesenteric vessels behind the neck; portal vein forming there
+ c.strokeStyle='rgba(150,90,170,.5)';c.lineWidth=4;c.beginPath();c.moveTo(100,280);c.lineTo(100,150);c.lineTo(92,104);c.stroke();c.strokeStyle='rgba(255,77,94,.5)';c.lineWidth=2.4;c.beginPath();c.moveTo(108,280);c.lineTo(108,150);c.stroke();
+ // the common bile duct coming down behind the head to the ampulla; the accessory duct to the minor papilla
+ c.strokeStyle='rgba(215,220,90,.75)';c.lineWidth=2.2;c.beginPath();c.moveTo(64,40);c.quadraticCurveTo(62,140,46,220);c.stroke();
+ c.strokeStyle='rgba(180,170,255,.4)';c.lineWidth=1.2;c.beginPath();c.moveTo(80,172);c.quadraticCurveTo(56,180,38,196);c.stroke();
+ // the route
+ for(let i=0;i<PGRO2D.length-1;i++){const reg=PCNODES[PLOB_N+i][5],[x0,y0]=PGRO2D[i],[x1,y1]=PGRO2D[i+1];c.strokeStyle=reg==='oddi'?'rgba(225,120,110,.9)':'rgba(180,170,255,.95)';c.lineWidth=reg==='interl'?1.4:2.4;c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+ // the papilla: sphincter ring, and the stone in case 07
+ const open=typeof PC!=='undefined'&&(PC.meal||PC.ercp);c.strokeStyle=open?'rgba(120,220,140,.9)':'rgba(255,120,110,.9)';c.lineWidth=1.6;c.beginPath();c.arc(42,230,4.4,0,Math.PI*2);c.stroke();
+ if(k&&k.blocked){c.fillStyle='rgba(200,160,80,.95)';c.beginPath();c.arc(47,218,3.2,0,Math.PI*2);c.fill();}
+ c.fillStyle=ink+'.55)';c.font='7px system-ui,sans-serif';c.textAlign='left';
+ [['tail',[172,128]],['body',[136,124]],['neck',[106,146]],['head',[52,196]],['CBD',[68,62]],['spleen',[176,70]],['SMV · SMA',[112,276]],['duodenum (D2)',[4,150]],['minor papilla',[4,192]],['ampulla',[54,224]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
+ c.fillStyle=k&&k.blocked?'rgba(255,170,90,.9)':open?'rgba(120,220,140,.85)':'rgba(255,150,130,.85)';c.fillText(k&&k.blocked?'case 07: gallstone in the ampulla':PC.ercp?'after ERCP: sphincter cut, open':open?'fed: Oddi open':'fasting: Oddi shut',8,292);
+ c.restore();}};
 function curView(){return (W.views||[]).find(v=>S.idx>=v.s0&&S.idx<v.s1)||W.views[0];}
 function drawBody(){
  const c=bodyC,v=curView(),M=MAPCTX[v.ctx];c.setTransform(1.6,0,0,1.6,0,0);c.clearRect(0,0,200,305);
@@ -7062,11 +7759,11 @@ const SYSTEMS=[
  {id:'lung',name:'Pulmonary',sub:'Case 04 · Mr. Herrera · lobar pneumonia',desc:'The air side of the barrier you crossed from the blood: ride one breath from the nose down 23 generations, let the carina take you right, watch the escalator climb past you, feel the flow die at generation 17, dock at a septum, and leave with the oxygen in a red cell.',go:enterLung,ready:1},
  {id:'renal',name:'Kidney',sub:'Case 05 · Ms. Okafor · diabetic ketoacidosis',desc:'One nephron from the blood side: the glomerulus at 60 mmHg and the choice to filter, the brush border taking back two thirds of everything, the loop down to 1200 mOsm and the thick limb diluting on the way up, the macula densa touching your own glomerulus, the collecting duct where ADH decides. Watch glucose overrun its carriers and drag the litres out.',go:enterRenal,ready:1},
  {id:'hep',name:'Liver & biliary',sub:'Case 06 · Jordan Ellis · paracetamol overdose',desc:'From the portal vein across one lobule: zone 1 clearing ammonia and bacteria, zone 3 where paracetamol kills first, then the central vein door into the bile canaliculus, the ducts, a gallbladder that only a meal can empty, and the sphincter of Oddi into the duodenum. Start acetylcysteine and watch glutathione come back.',go:enterHep,ready:1},
- {id:'pancreas',name:'Pancreas',sub:'Acinus & islet',ready:0,desc:'Planned: exocrine zymogen cascade and the islet of Langerhans.'},
+ {id:'pan',name:'Pancreas',sub:'Case 07 · Ruth Mensah · gallstone pancreatitis',desc:'Through one islet of Langerhans (β, α and δ cells answering a meal), out along the insulo-acinar capillaries, then across an acinar cell into the juice: the ducts, the main pancreatic duct and the ampulla, where a gallstone is stuck. Switch trypsin on in the wrong place, then clear the stone with ERCP.',go:enterPan,ready:1},
  {id:'pituitary',name:'Pituitary',sub:'Portal system & axes',ready:0,desc:'Planned: the hypothalamo-hypophyseal portal system and the endocrine axes.'},
 ];
 function openSystems(){
- const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':W===LUNG?'lung':W===RENAL?'renal':W===HEP?'hep':'';
+ const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':W===LUNG?'lung':W===RENAL?'renal':W===HEP?'hep':W===PAN?'pan':'';
  $('sysSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Systems</div><h1 style="font-size:30px">Choose a system to explore</h1>
  <p class="small" style="margin-top:0">Each system is its own flyable world with its own cells, clock and Codex. Jump straight in, or find the natural doorway between systems while flying (K at the labelled junctions).</p>
  <div class="sysgrid">${SYSTEMS.map(s=>`<button class="sys ${s.ready?'':'soon'} ${s.id===cur?'cur':''}" data-s="${s.id}" ${s.ready?'':'disabled'}><b>${s.name}</b><small>${s.sub}</small><span>${s.desc}</span>${s.ready?(s.id===cur?'<em>you are here</em>':'<em>enter ▸</em>'):'<em>in build</em>'}</button>`).join('')}</div>`;
@@ -7329,7 +8026,7 @@ function stepShip(dt,time){
  S.sF=S.idx+d.dot(_t)/DS;
  if(!W.closed&&S.sF<3){S.pos.addScaledVector(_t,(3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb<0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=3;}
  if(!W.closed&&S.sF>N-3){S.pos.addScaledVector(_t,(N-3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb>0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=N-3;}
- if(W===GUT){gutGates(prevS,prevPos);if(MOUTH.built)mouthTick();}else if(W===LUNG)luGates(prevS,prevPos);else if(W===RENAL)rnGates(prevS,prevPos);else if(W===HEP)hpGates(prevS,prevPos);
+ if(W===GUT){gutGates(prevS,prevPos);if(MOUTH.built)mouthTick();}else if(W===LUNG)luGates(prevS,prevPos);else if(W===RENAL)rnGates(prevS,prevPos);else if(W===HEP)hpGates(prevS,prevPos);else if(W===PAN)pcGates(prevS,prevPos);
  // valves: one-way doors with timing
  for(const v of VALVES){
   const a=wrapD(prevS-v.i),b=wrapD(S.sF-v.i);
@@ -8765,7 +9462,7 @@ function frame(now){
 }
 function update(dt){
  time+=dt;
- if(W===GUT){gutTick(dt);gutGateSlow();}else if(W===LUNG)luTick(dt);else if(W===RENAL)rnTick(dt);else if(W===HEP)hpTick(dt);
+ if(W===GUT){gutTick(dt);gutGateSlow();}else if(W===LUNG)luTick(dt);else if(W===RENAL)rnTick(dt);else if(W===HEP)hpTick(dt);else if(W===PAN)pcTick(dt);
  if(started&&dt>0&&(time%1)<dt)checkPredict();
  stepCycle(dt);
  if(!started){S.auto=true;}
@@ -8779,6 +9476,7 @@ function update(dt){
  if(started&&W===LUNG&&S.sF>=N-8)exitLung();
  if(started&&W===RENAL&&S.sF>=N-8)exitRenal();
  if(started&&W===HEP&&S.sF>=N-8)exitHep();
+ if(started&&W===PAN&&S.sF>=N-8)exitPan();
  updateNerve(dt);
  if(started&&W===NERVE){if(REG[S.idx]==='bouton'&&S.sF>=RANGE.cleft[0]-5)crossSynapse();else if(S.sF>=N-8)exitNerve();}
  // motes ride the local flow and wrap around the camera
@@ -8853,12 +9551,12 @@ $('go').onclick=()=>{
  placeAt(Math.floor(nodeIdx[1]-20));renderObj();buildLabels();
  if(startSys!=='circ'){const s=SYSTEMS.find(x=>x.id===startSys);setTimeout(()=>warp('Entering: '+s.name,()=>{s.go();buildLabels();renderObj();toast(s.name+' — '+s.sub,'good');}),300);}
  setTimeout(()=>toast('Your back thrusters hold you still against the current. W to fly, drag the view to steer, F for autopilot. Hover over any cell to see what it is; click it for details.'),600);
- setTimeout(()=>toast(startSys==='hep'?'Start at the bedside: press G for Jordan Ellis. Then fly in through the portal vein to see which cells are dying.':startSys==='renal'?'Start at the bedside: press G for Ms. Okafor\'s numbers. Then fly in to see where the litres go.':startSys==='lung'?'Start at the bedside: press G to examine Mr. Herrera\'s chest. Then fly in to see why he is blue.':startSys==='gi'?'Start at the bedside: press G to examine Ms. Nair. Then fly in.':'Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
+ setTimeout(()=>toast(startSys==='pan'?'Start at the bedside: press G for Ruth Mensah. Then fly in through an islet and down the ducts to find what is blocking them.':startSys==='hep'?'Start at the bedside: press G for Jordan Ellis. Then fly in through the portal vein to see which cells are dying.':startSys==='renal'?'Start at the bedside: press G for Ms. Okafor\'s numbers. Then fly in to see where the litres go.':startSys==='lung'?'Start at the bedside: press G to examine Mr. Herrera\'s chest. Then fly in to see why he is blue.':startSys==='gi'?'Start at the bedside: press G to examine Ms. Nair. Then fly in.':'Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
