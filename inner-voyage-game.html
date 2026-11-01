@@ -115,6 +115,7 @@ body.mobile #labels .lbl{font-size:10px}
 @media(max-width:1180px){#hint{display:none}}
 #body{left:14px;bottom:34px;width:196px;padding:8px 8px 6px}
 #bodyC{width:172px;height:262px;display:block;margin:0 auto}
+#magWhere{font-size:9.5px;color:var(--faint);text-align:center;font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}body.mobile #magWhere{font-size:8px}
 #bodyWhere{font-size:11px;color:var(--cyan);text-align:center;font-family:var(--mono);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #body.hide{display:none}
 @media(max-height:760px){#bodyC{height:207px;width:136px}#body{width:160px}}
@@ -331,7 +332,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
   <div class="stethHead"><span id="stethWhere">Listening…</span><span>release <span class="kbd">H</span> to exit</span></div>
 </div>
 
-<div id="body" class="hud panel" title="M hides the map · click it for the gross-anatomy atlas (N)"><div class="eyebrow" id="bodyTitle" style="text-align:center">Body · circulation + lymph</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div></div>
+<div id="body" class="hud panel" title="M hides the map · click it for the gross-anatomy atlas (N)"><div class="eyebrow" id="bodyTitle" style="text-align:center">Body · circulation + lymph</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div><div id="magWhere"></div></div>
 <div id="route" class="hud panel"><canvas id="routeC" width="1520" height="68"></canvas></div>
 <div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>Q</kbd> zoom out · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>Tab</kbd> systems · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
 <button id="stethBtn" title="Hold for Stethoscope Mode">🩺</button>
@@ -3175,6 +3176,7 @@ function rnSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)
 function rnAmbience(now,rnd,reg){const o={turb:0,hush:0,air:0};if(reg==='afferent'||reg==='glom'){const pu=pulseShape(C.tc/C.T*2%1);if(amb.prevR<.3&&pu>=.3)pop(90,48,.25,.3);amb.prevR=pu;o.turb=.08;}
  if(reg==='calyx'&&rnd(.6))pop(1200,500,.08,.08);if(reg==='tip'||reg==='mcd')o.hush=.06;if((reg==='pct'||reg==='tal')&&rnd(2))pop(2200+Math.random()*1500,1800,.02,.03);return o;}
 Object.assign(CELLS,CELLS_RN);buildSphincters();buildGlottis();buildSacCap();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();
+delete CELLS.mito.dens.cortex;delete CELLS.vesicle.dens.cortex;delete CELLS.microglia.dens.soma;delete CELLS.microglia.dens.bouton;CELLS.schwann.dens.pnerve=0;CELLS.mito.dens.bouton=.15;CELLS.mito.dens.nmj=.25;
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
  D.meshes.forEach((m,mi)=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);m.frustumCulled=false;m.renderOrder=mi;scene.add(m);});return D;});
@@ -3209,6 +3211,42 @@ const _m0=new THREE.Matrix4().makeScale(0,0,0);
 const hideCell=(D,k)=>{D.a[k].sc=0;for(const m of D.meshes)m.setMatrixAt(k,_m0);};
 const _m=new THREE.Matrix4(),_q=new THREE.Quaternion(),_q2=new THREE.Quaternion(),_sc=new V3(1,1,1),_c=new V3(),_n=new V3(),_b=new V3(),_t=new V3(),_seg=new V3(),_w=new V3();
 const lerp3=(A,i,j,f,out)=>out.set(lerp(A[i*3],A[j*3],f),lerp(A[i*3+1],A[j*3+1],f),lerp(A[i*3+2],A[j*3+2],f));
+
+/* ===== True scale (1 Nov 2026) =====
+   REGUM[world][region] = [µm per world unit at this spot, real lumen diameter in µm (0 = not a tube)]. The magnification is chosen so the props that
+   belong there are true to each other; where the tube itself is drawn wider or narrower than life the HUD says so. PROPUM[kind] = real size of the
+   prop's largest dimension in µm (a number, or {region: µm, _: default}). The engine scales each prop to real ÷ magnification, never below SFLOOR
+   (then it is labelled enlarged) and never wider than the lumen. Molecules and ions can never be seen; they are drawn at SFLOOR as symbols. */
+const SFLOOR=.08;
+const REGUM={
+ blood:{_:[7,0],ivc:[7,25000],ra:[7,40000],tricuspid:[7,30000],rv:[7,40000],pulmonic:[7,22000],pa:[7,25000],lungcap:[7,7],pv:[7,15000],la:[7,40000],mitral:[7,30000],lv:[7,45000],aortic:[7,22000],asc:[7,30000],arch:[7,27000],desc:[7,22000],syscap:[7,7],venule:[7,20]},
+ lymph:{_:[7,0],interstitium:[7,0],lymphcap:[7,40],collecting:[7,200],subcap:[7,30],cortsinus:[7,30],medsinus:[7,40],efferent:[7,300],cisterna:[7,8000],thoracic:[7,5000],venangle:[7,10000]},
+ nerve:{_:[7,0],braincap:[7,6],bbb:[7,0],cortex:[7,0],axon:[2.5,12],decuss:[2.5,12],cord:[2.5,12],bouton:[.3,1.5],cleft:[.3,.03],soma:[4.5,60],pnerve:[2.5,12],nmj:[.5,3]},
+ gut:{_:[4500,0],mouth:[4500,40000],pharynx:[4500,25000],oesoph:[4500,20000],les:[4500,15000],stomach:[4500,90000],antrum:[4500,50000],pylorus:[4500,15000],duodenum:[1000,30000],jejunum:[1000,25000],ileum:[1000,22000],ileocaecal:[2000,15000],colon:[4500,50000],rectum:[4500,40000]},
+ lung:{_:[1700,0],nose:[1700,20000],pharynx:[1700,15000],larynx:[1700,12000],trachea:[1800,18000],carina:[1800,18000],bronchus:[1700,12000],bronchiole:[200,1000],tbronch:[100,500],acinus:[50,350],sac:[45,400]},
+ renal:{_:[6,0],afferent:[4,18],glom:[4,8],bowman:[10,0],pct:[5,25],thin:[7,15],tip:[7,15],thinasc:[7,15],tal:[6,20],macula:[6,20],dct:[7,25],ccd:[8,40],mcd:[20,150],calyx:[500,8000]},
+};
+const PROPUM={rbc:8,platelet:2.5,wbc:13,lymph:9,mono:18,eos:13,
+ lymphL:9,macro:21,dc:30,bact:2,chylo:1,
+ neuron:80,astro:60,microglia:40,oligo:30,schwann:60,mito:{_:2,bouton:.8,nmj:1},vesicle:.1,endosome:.5,svesicle:{_:.045,nmj:.05},
+ villus:700,peyer:1200,gbact:2,bolus:10000,chyme:{_:1500,duodenum:800,jejunum:500,ileum:400,ileocaecal:400,colon:2000,rectum:2000},micelle:.005,
+ mucus:{_:500,bronchiole:150,tbronch:60},dustL:30,dustM:5,dustS:1,gas:.0003,amac:21,neutA:13,fibrin:20,rbcA:7.5,
+ h2o:.0003,na:.0002,gluc:.0009,urea:.0004,kpot:.0003,ket:.0006,rbcR:7.5,alb:.014,mdensa:8};
+function umAt(Wd,i){if(!Wd.UM){const t=REGUM[Wd.name]||{},d=(t._||[7])[0],N=Wd.N,raw=new Float32Array(N),um=new Float32Array(N),h=14;
+  for(let j=0;j<N;j++){const e=t[Wd.REG[j]];raw[j]=Math.log(e?e[0]:d);}
+  for(let j=0;j<N;j++){let a=0,n=0;for(let q=Math.max(0,j-h);q<=Math.min(N-1,j+h);q++){a+=raw[q];n++;}um[j]=Math.exp(a/n);}Wd.UM=um;}   // magnification eases across region borders
+ return Wd.UM[Math.max(0,Math.min(Wd.N-1,i))];}
+function propReal(D,reg){const r=PROPUM[D.kind];if(r===undefined)return undefined;return typeof r==='number'?r:(r[reg]!==undefined?r[reg]:r._);}
+function propDim0(D){if(D.dim0===undefined){let m=0;const v=new V3();for(const ms of D.meshes){ms.geometry.computeBoundingBox();ms.geometry.boundingBox.getSize(v);m=Math.max(m,v.x,v.y,v.z);}D.dim0=m||1;}return D.dim0;}
+// target size in world units at sample i: true size, floored for visibility, capped to the lumen
+function propSize(D,i){const real=propReal(D,W.REG[i]);if(real===undefined)return null;const t=real/umAt(W,i),cap=(D.wall?.9:.8)*2*W.R0[i]*scaleAt(i);return {t,d:Math.max(SFLOOR,Math.min(t,cap)),real};}
+function propMul(D,i){const z=propSize(D,i);return z?z.d/propDim0(D):1;}
+const fmtUm=u=>u>=1000?(+(u/1000).toPrecision(2))+' mm':u>=1?(+u.toPrecision(2))+' µm':u>=.001?Math.round(u*1000)+' nm':(+(u*1e4).toFixed(1))+' Å';
+const fmtX=x=>x>=1e6?Math.round(x/1e6).toLocaleString()+' million':x>=1e4?Math.round(x/1000).toLocaleString()+' thousand':x>=100?Math.round(x).toLocaleString():x.toFixed(x<10?1:0);
+function scaleTxt(D,i){const z=propSize(D,i);if(!z)return '—';if(z.d>z.t*1.02)return `enlarged ×${fmtX(z.d/z.t)} so you can see it · real ${fmtUm(z.real)}`;if(z.d<z.t*.98)return `drawn ${fmtX(z.t/z.d)}× smaller than life to fit this tube · real ${fmtUm(z.real)}`;return `true size for this magnification · real ${fmtUm(z.real)}`;}
+// the HUD line under the map: magnification here, and how the tube compares with life
+function magTxt(){const i=S.idx,um=umAt(W,i),e=(REGUM[W.name]||{})[REG[i]],real=e?e[1]:0,drawn=2*R0[i]*scaleAt(i)*um;
+ let t='1 unit ≈ '+fmtUm(um);if(real>0){const k=drawn/real;t+=' · tube '+(k>1.4?`drawn ×${fmtX(k)} wide (real Ø ${fmtUm(real)})`:k<.7?`drawn ${fmtX(1/k)}× narrow (real Ø ${fmtUm(real)})`:`true width (Ø ${fmtUm(real)})`);}return t;}
 function updateCells(D,dt,time){
  _seg.subVectors(S.pos,camPos);const segL2=Math.max(_seg.lengthSq(),1e-4);
  if(D.cap){const li=D.liveIn={};for(const q of D.a)if(q.live){const r=REG[wrapI(Math.floor(q.s))];li[r]=(li[r]||0)+1;}}
@@ -3238,16 +3276,16 @@ function updateCells(D,dt,time){
   const j=Math.floor(p.s),f=p.s-j,j0=wrapI(j),j1=wrapI(j+1);
   lerp3(P,j0,j1,f,_c);lerp3(NR,j0,j1,f,_n);lerp3(BN,j0,j1,f,_b);
   const R=lerp(R0[j0]*scaleAt(j0),R0[j1]*scaleAt(j1),f);
-  const rr=Math.min(p.rf,1)*Math.max(.15,R-D.clear);
+  const mS=propMul(D,j0);p.m=mS;const rr=Math.min(p.rf,1)*Math.max(.15,R-D.clear*mS);
   p.pos.copy(_c).addScaledVector(_n,Math.cos(p.ang)*rr).addScaledVector(_b,Math.sin(p.ang)*rr);
   // tumbling follows shear: almost none in the core, more at the wall, wild in a jet
   p.rot+=(D.spin!==undefined?D.spin:D.fixed?0:D.wall?.5:(.15+2.2*p.rf*p.rf+7*tb))*dt;_q.setFromAxisAngle(p.ax,p.rot+p.tw);
   // fade in on spawn; shrink away from the camera and from the line of sight to the ship
   p.age+=dt;let sc=Math.min(1,p.age/.6);
-  const dc=p.pos.distanceTo(camPos);sc*=clamp((dc-.4-D.size*.6)/1.1,0,1);
+  const dc=p.pos.distanceTo(camPos);sc*=clamp((dc-.4-D.size*mS*.6)/1.1,0,1);
   _w.subVectors(p.pos,camPos);const tl=clamp(_w.dot(_seg)/segL2,0,1.2);_w.addScaledVector(_seg,-tl);
-  const dl=_w.length()-D.size*.7;if(tl>0&&tl<1.15)sc*=clamp((dl-.25)/.7,0,1);
-  p.sc=sc;if(D.radial){_t.copy(_c).sub(p.pos).normalize();_q.setFromUnitVectors(_vY,_t);_q.multiply(_q2.setFromAxisAngle(_vY,p.tw));}_sc.set(sc,sc*(D.sy||1),sc);_m.compose(p.pos,_q,_sc);
+  const dl=_w.length()-D.size*mS*.7;if(tl>0&&tl<1.15)sc*=clamp((dl-.25)/.7,0,1);
+  p.sc=sc;if(D.radial){_t.copy(_c).sub(p.pos).normalize();_q.setFromUnitVectors(_vY,_t);_q.multiply(_q2.setFromAxisAngle(_vY,p.tw));}_sc.set(sc*mS,sc*(D.sy||1)*mS,sc*mS);_m.compose(p.pos,_q,_sc);
   for(const m of D.meshes)m.setMatrixAt(k,_m);
   if(D.kind==='rbc'){tmpC.copy(VEN).lerp(ART,clamp((SAT[j0]-75)/23,0,1));D.meshes[0].setColorAt(k,tmpC);}
  }
@@ -4367,7 +4405,7 @@ function findTarget(){
  const k=(innerHeight/2)/Math.tan(camera.fov*Math.PI/360);let best=null,bd=1e9;
  ALL.forEach(D=>{if(!D.on)return;for(const p of D.a){if(!p.live||!(p.sc>.5))continue;const dist=p.pos.distanceTo(camPos);if(dist>45)continue;
   _pv.copy(p.pos).project(camera);if(_pv.z>1)continue;
-  const dx=(_pv.x+1)/2*innerWidth-mouseX,dy=(1-_pv.y)/2*innerHeight-mouseY,r=D.size*k/dist+6;if(Math.abs(dx)>r||Math.abs(dy)>r)continue;
+  const dx=(_pv.x+1)/2*innerWidth-mouseX,dy=(1-_pv.y)/2*innerHeight-mouseY,r=D.size*(p.m||1)*k/dist+6;if(Math.abs(dx)>r||Math.abs(dy)>r)continue;
   const dd=Math.hypot(dx,dy);if(dd>r)continue;const sc=dd/r+dist*.03;if(sc<bd){bd=sc;best={kind:D.kind,p,D};}}});
  return best;
 }
@@ -4666,6 +4704,7 @@ function cellFacts(t){
  const rows=[['Where',rg?rg.n:'—'],['Lane',lane]];
  if(t.kind==='rbc')rows.splice(1,0,['Oxygen',`SO₂ ${sat}% · ${sat>90?'bright red, Hb loaded with O₂':sat>80?'partly unloaded':'darker, O₂ handed to the tissues'}`]);
  else rows.push(['Doing',CELLDO[t.kind]]);
+ rows.push(['Scale',scaleTxt(D,i)]);
  return rows;
 }
 /* --- 3D close-up of the clicked cell, in its own little viewer on the Codex card --- */
@@ -6183,7 +6222,7 @@ function drawBody(){
  c.strokeStyle='rgba(62,230,216,.6)';c.lineWidth=1;c.beginPath();c.arc(x,y,6*pulse,0,Math.PI*2);c.stroke();
  c.fillStyle='#3ee6d8';c.beginPath();c.arc(x,y,3,0,Math.PI*2);c.fill();
  c.setTransform(1,0,0,1,0,0);
- const sub=mapSubloc();$('bodyWhere').textContent='▸ '+REGIONS[REG[S.idx]].n+(sub?' · '+sub:'');
+ const sub=mapSubloc();$('bodyWhere').textContent='▸ '+REGIONS[REG[S.idx]].n+(sub?' · '+sub:'');$('magWhere').textContent=magTxt();
 }
 
 // legacy: spread one anchor per node over a whole world (the atlas still uses it)
@@ -8000,7 +8039,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
