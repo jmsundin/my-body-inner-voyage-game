@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inner Voyage save test</title>
+<style>
+ :root{--bg:#0b1016;--panel:#121a23;--ink:#e6edf3;--mute:#8b98a5;--acc:#5ec8e5;--good:#5fd38d;--warn:#f0b35a;--line:#22303c}
+ @media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f5f7f9;--panel:#fff;--ink:#14202b;--mute:#5b6875;--acc:#0b7fa3;--good:#1f8a4c;--warn:#a86400;--line:#d9e0e6}}
+ *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;padding:16px}
+ main{max-width:760px;margin:0 auto;display:grid;gap:14px}
+ section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+ h1{font-size:20px;margin:4px 0}h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:0 0 8px}
+ input{width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;margin:4px 0 8px}
+ button{padding:8px 12px;border-radius:6px;border:1px solid var(--acc);background:transparent;color:var(--acc);font:inherit;cursor:pointer;margin:2px 4px 2px 0}
+ button:hover{background:color-mix(in srgb,var(--acc) 15%,transparent)}
+ .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+ .pill{display:inline-block;padding:2px 8px;border-radius:99px;border:1px solid var(--line);font-size:13px;color:var(--mute)}
+ .good{color:var(--good)}.warn{color:var(--warn)}
+ pre{white-space:pre-wrap;word-break:break-word;font-size:12px;max-height:340px;overflow:auto;margin:0;color:var(--mute)}
+ p.small{font-size:13px;color:var(--mute);margin:4px 0}
+</style>
+</head>
+<body>
+<main>
+ <div><h1>Inner Voyage · save and login test</h1>
+ <p class="small">Checks your Supabase setup without touching the game. Progress here is fake; it uses the same save slot the game will use, so press “New voyage” when you are done.</p></div>
+
+ <section>
+  <h2>1 · Supabase project</h2>
+  <label>Project URL<input id="url" placeholder="https://abcd1234.supabase.co"></label>
+  <label>Anon (public) key<input id="key" placeholder="eyJhbGciOi…"></label>
+  <button id="saveCfg">Use these</button>
+  <p class="small">Both values are public by design (row-level security protects the data). Find them in Supabase → Project Settings → API.</p>
+ </section>
+
+ <section>
+  <h2>2 · Sign in</h2>
+  <div class="row"><span id="who" class="pill">Not signed in</span><span id="status" class="pill">local</span></div>
+  <label>Email<input id="email" type="email" placeholder="you@example.com"></label>
+  <div class="row"><button id="magic">Email me a sign-in link</button><button id="google">Sign in with Google</button><button id="out">Sign out</button></div>
+  <p class="small" id="msg"></p>
+ </section>
+
+ <section>
+  <h2>3 · Fake some progress</h2>
+  <div class="row">
+   <button data-w="blood">Fly to the heart</button><button data-w="lung">Fly to the lungs</button><button data-w="renal">Fly to the kidney</button>
+   <button id="obj">Complete an objective</button><button id="xp">+120 Cardio XP</button><button id="flush">Save now</button><button id="reset">New voyage</button>
+  </div>
+  <p class="small">Open this page on a second device (or a private window), sign in with the same account, and the progress should appear there. Do things on both while one is offline, reconnect, and both sets of progress should survive.</p>
+ </section>
+
+ <section><h2>Continue button would say</h2><div id="cont" class="pill">New voyage</div>
+  <div id="sup" hidden><p class="small warn">Your voyage moved on another device.</p><button id="jump">Jump there</button><button id="stay">Stay here</button></div></section>
+ <section><h2>Save object</h2><pre id="dump"></pre></section>
+</main>
+<script src="iv-save.js"></script>
+<script>
+(async () => {
+ const $ = id => document.getElementById(id);
+ const CFG = 'iv.demo.cfg';
+ const cfg = (() => { try { return JSON.parse(localStorage.getItem(CFG)) || {}; } catch (e) { return {}; } })();
+ $('url').value = cfg.url || ''; $('key').value = cfg.key || '';
+ $('saveCfg').onclick = () => { try { localStorage.setItem(CFG, JSON.stringify({ url: $('url').value.trim(), key: $('key').value.trim() })); } catch (e) {} location.reload(); };
+
+ // the "game": a tiny fake state the snapshot/restore hooks read and write
+ const game = { world: null, idx: 0, done: new Set() };
+ const OBJS = ['exam', 'ra', 'tricuspid', 'pulmonic', 'lungcap', 'mitral', 'steth', 'aortic'];
+ const LABEL = { blood: 'Circulation · right atrium', lung: 'Lungs · generation 16', renal: 'Kidney · glomerulus' };
+
+ IVSave.on(() => render());
+ await IVSave.init({
+  supabaseUrl: cfg.url, supabaseAnonKey: cfg.key, gameVersion: 'save-demo',
+  snapshot: () => ({ where: { world: game.world, idx: game.idx, scale: 'tube', label: LABEL[game.world] || '' }, learned: { done: [...game.done] } }),
+  restore: s => { game.world = s.where.world; game.idx = s.where.idx; game.done = new Set(s.learned.done); }
+ });
+ IVSave.restore();
+
+ function render() {
+  const u = IVSave.user;
+  $('who').textContent = u ? 'Signed in: ' + u.email : 'Not signed in';
+  $('status').textContent = IVSave.cloudAvailable ? IVSave.status : 'local only (open over https with a project set)';
+  $('status').className = 'pill ' + (IVSave.status === 'synced' ? 'good' : IVSave.status === 'offline' ? 'warn' : '');
+  $('cont').textContent = IVSave.continueLabel() ? 'Continue · ' + IVSave.continueLabel() : 'New voyage';
+  $('sup').hidden = !IVSave.superseded;
+  $('dump').textContent = JSON.stringify(IVSave.state, null, 1);
+ }
+ const msg = t => ($('msg').textContent = t);
+ $('magic').onclick = async () => { try { await IVSave.signInEmail($('email').value); msg('Check your inbox and open the link on this device.'); } catch (e) { msg(e.message); } };
+ $('google').onclick = () => { try { IVSave.signInGoogle(); } catch (e) { msg(e.message); } };
+ $('out').onclick = async () => { await IVSave.signOut(); render(); };
+ document.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { game.world = b.dataset.w; game.idx = Math.floor(Math.random() * 200); IVSave.touch('move'); setTimeout(render, 1700); });
+ $('obj').onclick = () => { const next = OBJS.find(o => !game.done.has(o)); if (next) game.done.add(next); IVSave.touch('objective'); setTimeout(render, 1700); };
+ $('xp').onclick = () => { IVSave.addXp('cardio', 120); IVSave.touch('xp'); setTimeout(render, 1700); };
+ $('jump').onclick = () => { IVSave.restore(); render(); };
+ $('stay').onclick = () => { IVSave.takeOver(); render(); };
+ $('flush').onclick = async () => { await IVSave.flush(); render(); };
+ $('reset').onclick = async () => { IVSave.reset(); game.world = null; game.done = new Set(); await IVSave.flush(); render(); };
+ render();
+})();
+</script>
+</body>
+</html>
