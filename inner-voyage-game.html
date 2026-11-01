@@ -405,6 +405,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
   <p><b>The kidney (Tab → Kidney)</b> is one juxtamedullary nephron flown from the blood side: afferent arteriole → glomerulus at 60 mmHg (the capillary is a dead end: press K to cross the filtration barrier, or to stay in the blood and leave by the efferent arteriole) → proximal tubule, where the glucose and two thirds of the water leave through the wall → thin limb down into the gradient → the papillary tip at 1200 mOsm → thick limb, diluting as you climb → the macula densa pressed against your own glomerulus → collecting duct → calyx. The HUD reads the fluid and the interstitium around you in mOsm. K anywhere in the tubule is reabsorption (back to the vena cava). Case 05 (diabetic ketoacidosis): V moves Ms. Okafor from healthy to DKA to treated, U changes hydration (ADH), O gives furosemide.</p>
   <p><b>The liver (Tab → Liver &amp; biliary)</b> is one lobule and its bile ducts: portal vein → portal triad → one sinusoid through zone 1 (most oxygen, urea cycle, Kupffer cells) → zone 2 → zone 3 (CYP2E1, least oxygen) → at the central vein press K to stay in the blood or cross a hepatocyte and become bile → canaliculus running back to the triad → ducts → gallbladder (a dead end until a meal) → common bile duct → sphincter of Oddi → duodenum. Case 06 (paracetamol overdose): V moves Jordan Ellis from healthy to 18 hours to day 3, O gives acetylcysteine, U is a meal (CCK opens the gallbladder and the sphincter).</p>
   <p><b>The pancreas (Tab → Pancreas)</b> is one islet and its acini: an arteriole → a capillary through the islet (β, α and δ cells line it, mixed as in a human islet) → the insulo-acinar capillaries that carry its insulin to the acini → at the end press K to stay in the blood (on to the liver) or cross an acinar cell and become juice → the acinar lumen → intercalated, intralobular and interlobular ducts → the main pancreatic duct → the ampulla → the sphincter of Oddi → duodenum. Case 07 (gallstone pancreatitis): V moves Ruth Mensah from healthy to 8 hours to day 3, O is ERCP, U is a meal (insulin up, glucagon down, CCK and secretin turn on the juice).</p>
+  <p><b>The pituitary (Tab → Pituitary)</b> is the hypophyseal portal system: the superior hypophyseal artery → capillary loops in the median eminence, where the hypothalamus releases its hormones → a long portal vein down the stalk → the anterior lobe sinusoids, lateral wing (GH, prolactin) then median wedge (ACTH, TSH, LH, FSH) → out through the cavernous sinus. In the median eminence press K to follow a vasopressin axon down to a Herring body and the posterior lobe. Case 08 (macroprolactinoma): V moves Leah Brennan from healthy to the tumour to three months of treatment, O is cabergoline, U switches between 8 a.m. and 2 a.m. (the sleep GH pulse, the cortisol rhythm).</p>
   <p><b>Your own Anki deck.</b> Study (T) ▸ “Load your Anki deck” reads your .apkg or .txt export in the browser and keeps it on this device only. Cards are placed at the structure they belong to (by tag path, or by an optional AI pass with your own API key) and appear on the Codex card and in Study.</p>
   <p><b>Patient course.</b> There is no ship hull to lose. Wrong calls at the bedside or on Rounds push Mr. Reyes's care off course, and the ending shows what happens to him.</p>
   <p><b>Reality checks.</b> Some Codex cards carry an amber note where the game bends physics or biology for playability, so you know exactly what is simplified.</p>
@@ -456,6 +457,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
  <div id="thxBar"><button id="afFly" class="hot">Overview (O)</button><span class="afb"><button id="afK">In/out of vessel (K)</button><button id="afE">Scan (E)</button><button id="afF">Shrink in (F)</button></span><span class="sep"></span><button id="thxRoundsBtn" class="hot">Chest rounds (R)</button><button id="thxLayBtn">Layers</button><span id="thxLay"><span class="sep"></span><button data-l="lungs">Lungs</button><button data-l="glass">Glass lungs (G)</button><button data-m="surface">Surface</button><button data-m="lobes">Lobes (X)</button><button data-m="segments">Segments</button><span class="sep"></span><button data-l="heart">Heart (H)</button><button data-l="terr">Coronary map (T)</button><button data-l="vessels">Vessels (V)</button><button data-l="tree">Airways (B)</button><button data-l="med">Nerves &amp; oesophagus (M)</button><button data-l="bones">Skeleton (U)</button><button data-l="skin">Skin (J)</button><button data-l="ct">CT (I)</button><button data-l="beat">Beat (P)</button><button data-l="labels">Labels (L)</button><span class="sep"></span><button data-v="front">Front</button><button data-v="back">Back</button><button data-v="left">Left</button><button data-v="right">Right</button><button data-v="top">Top</button></span><span class="sep"></span><button id="thxBrain">Brain ▸</button><button id="thxClose">✕ Shrink back (Q)</button></div>
 </div>
 <div class="modal" id="mExamLU"><div class="sheet" id="examLUSheet" style="max-width:880px"></div></div>
+<div class="modal" id="mExamPT"><div class="sheet" id="examPTSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamPC"><div class="sheet" id="examPCSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamHP"><div class="sheet" id="examHPSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamRN"><div class="sheet" id="examRNSheet" style="max-width:880px"></div></div>
@@ -492,7 +494,7 @@ body.afOn #brainInfo.idle{display:none}#mBrain #afIntro{left:50%;bottom:92px;tra
 <script>
 /* ---------- Learning content (draft — needs review by the medical accuracy lead) ---------- */
 const LEVEL_NAMES=['L1 Curious','L2 School','L3 Pre-med','L4 Med school'];
-const REF={heart:'OpenStax Anatomy & Physiology 2e, ch. 19 (The Heart)',vessels:'OpenStax A&P 2e, ch. 20 (Blood Vessels & Circulation)',resp:'OpenStax A&P 2e, ch. 22 (Respiratory System)',blood:'OpenStax A&P 2e, ch. 18 (Blood)',as:'2020 ACC/AHA Guideline for Valvular Heart Disease',lymph:'OpenStax A&P 2e, ch. 21 (The Lymphatic and Immune System)',neuro:'OpenStax A&P 2e, ch. 12–14 (Nervous System) & Kandel, Principles of Neural Science 6e',gi:'OpenStax A&P 2e, ch. 23 (Digestive System) · Boron & Boulpaep · Helander & Fändriks 2014',pan:'OpenStax A&P 2e, ch. 17 and 23 · Boron & Boulpaep · Guyton & Hall · revised Atlanta classification (2012) · ACG 2024 and AGA acute pancreatitis guidelines',hep:'OpenStax A&P 2e, ch. 23 (Accessory organs: liver, gallbladder) · Boron & Boulpaep · Sherlock’s Diseases of the Liver and Biliary System · MHRA/NICE paracetamol guidance',renal:'OpenStax A&P 2e, ch. 25 (The Urinary System) · Boron & Boulpaep · Koeppen & Stanton, Renal Physiology'};
+const REF={heart:'OpenStax Anatomy & Physiology 2e, ch. 19 (The Heart)',vessels:'OpenStax A&P 2e, ch. 20 (Blood Vessels & Circulation)',resp:'OpenStax A&P 2e, ch. 22 (Respiratory System)',blood:'OpenStax A&P 2e, ch. 18 (Blood)',as:'2020 ACC/AHA Guideline for Valvular Heart Disease',lymph:'OpenStax A&P 2e, ch. 21 (The Lymphatic and Immune System)',neuro:'OpenStax A&P 2e, ch. 12–14 (Nervous System) & Kandel, Principles of Neural Science 6e',gi:'OpenStax A&P 2e, ch. 23 (Digestive System) · Boron & Boulpaep · Helander & Fändriks 2014',pit:'OpenStax A&P 2e, ch. 17 · Boron & Boulpaep · Guyton & Hall · Williams Textbook of Endocrinology · Endocrine Society clinical practice guidelines (hyperprolactinaemia, hypopituitarism)',pan:'OpenStax A&P 2e, ch. 17 and 23 · Boron & Boulpaep · Guyton & Hall · revised Atlanta classification (2012) · ACG 2024 and AGA acute pancreatitis guidelines',hep:'OpenStax A&P 2e, ch. 23 (Accessory organs: liver, gallbladder) · Boron & Boulpaep · Sherlock’s Diseases of the Liver and Biliary System · MHRA/NICE paracetamol guidance',renal:'OpenStax A&P 2e, ch. 25 (The Urinary System) · Boron & Boulpaep · Koeppen & Stanton, Renal Physiology'};
 
 const CODEX={
  ivc:{title:'Inferior vena cava',tag:'Vein · returns blood from the lower body',src:REF.vessels,L:[
@@ -2118,6 +2120,325 @@ const CODEX={
   'Bile salts make the micelles that lipase needs; bilirubin colours the stool. Normally the higher pressure in the pancreatic duct keeps bile out of it.',
   'When a stone blocks the common channel, bile can flow back up the pancreatic duct (the “common channel” theory of gallstone pancreatitis, proposed in 1901), and bile acids injure acinar cells directly.'],
   rc:'Shown amber, the same symbol as conjugated bilirubin in the liver world.'},
+ // ---- pituitary (built 1 Nov 2026 from standard physiology in our own words; sources OpenStax A&P 2e ch. 17, Boron & Boulpaep, Guyton & Hall, Williams Textbook of Endocrinology, Endocrine Society guidelines) ----
+ sha:{title:'Superior hypophyseal artery',tag:'From the internal carotid · feeds the median eminence',src:REF.pit,L:[
+  'A small artery that brings blood to the base of the brain just above the pituitary.',
+  'Several superior hypophyseal arteries leave each internal carotid artery as it climbs beside the sella. They supply the median eminence, the upper stalk and the optic chiasm.',
+  'They break up into the primary capillary plexus: the first of the two capillary beds of the hypophyseal portal system. The anterior lobe itself gets almost no direct arterial blood.',
+  'Because they also feed the chiasm, aneurysms and surgery here put vision at risk. The inferior hypophyseal arteries, from the cavernous part of the carotid, supply the posterior lobe instead.'],
+  rc:'Drawn at capillary magnification, so the artery looks narrow; the HUD gives its real width.'},
+ medem:{title:'Median eminence',tag:'Primary plexus · outside the blood–brain barrier',src:REF.pit,L:[
+  'The spot under the brain where the hypothalamus releases its hormones into the blood.',
+  'It is the bulge of the hypothalamic floor where the stalk begins. Its outer zone holds the endings of small (parvocellular) neurons around fenestrated capillary loops; its inner zone carries the large (magnocellular) axons on their way to the posterior lobe. Tanycytes line the ventricle above it.',
+  'Releasing hormones (CRH, TRH, GnRH, GHRH), somatostatin and dopamine are released in pulses into the perivascular space and cross the fenestrae. It is one of the circumventricular organs, where the blood–brain barrier is open.',
+  'It is a target in disease and drugs: GnRH pulse failure in hypothalamic amenorrhoea, tumours and infiltrations (sarcoid, histiocytosis) here cause diabetes insipidus and hypopituitarism together.'],
+  rc:'The loops (gomitoli) are a tangle; you fly one strand of it.'},
+ stalkpv:{title:'Long portal veins',tag:'Down the stalk · the anterior lobe’s blood supply',src:REF.pit,L:[
+  'Veins that carry blood from the base of the brain straight down into the pituitary.',
+  'They gather the blood of the median eminence and run down the front of the pituitary stalk to break up again into the sinusoids of the anterior lobe. Short portal vessels from the posterior lobe add a little.',
+  'A vein running between two capillary beds is a portal system, as in the liver. The anterior lobe gets most of its blood this way, carrying the hypothalamic hormones undiluted.',
+  'Stalk compression or section cuts the supply: prolactin rises (no dopamine) and the other hormones fall. Pituitary infarction in shock (Sheehan syndrome) reflects this low-pressure supply.'],
+  rc:'Several portal veins run in the stalk; you ride one.'},
+ adlat:{title:'Anterior lobe · lateral wings',tag:'Somatotrophs and lactotrophs',src:REF.pit,L:[
+  'The sides of the front of the pituitary, where growth hormone and prolactin are made.',
+  'Somatotrophs (about half of all anterior cells) and lactotrophs crowd the lateral wings. Both stain pink with eosin: acidophils.',
+  'Somatotrophs answer GHRH and ghrelin and are held back by somatostatin and IGF-1. Lactotrophs are restrained by dopamine and stimulated by TRH, oestrogen and suckling.',
+  'Most GH-secreting and prolactin-secreting adenomas arise here, so they often sit laterally on MRI and can invade the cavernous sinus.'],
+  rc:'The cells are seen through the wall shader and in the section (E); real sinusoids are lined by a fenestrated endothelium over cords of cells.'},
+ admed:{title:'Anterior lobe · median wedge',tag:'Corticotrophs, thyrotrophs, gonadotrophs',src:REF.pit,L:[
+  'The middle of the front of the pituitary, where the hormones for the adrenals, thyroid and gonads are made.',
+  'Corticotrophs crowd the central “mucoid wedge”, thyrotrophs lie anteromedially, and gonadotrophs are scattered through the lobe. They stain purple with periodic acid–Schiff: basophils.',
+  'Corticotrophs cut POMC into ACTH (and MSH and β-endorphin). TSH, LH and FSH are glycoproteins sharing one α subunit, with a β subunit each (as does hCG).',
+  'Cushing disease tumours are usually tiny and central; gonadotroph adenomas are the commonest non-functioning macroadenomas.'],
+  rc:'The real anterior lobe has no sharp boundary between the wings and the wedge.'},
+ hypov:{title:'Hypophyseal veins',tag:'Out to the cavernous sinus',src:REF.pit,L:[
+  'Veins carrying the pituitary’s hormones away into the circulation.',
+  'They drain the anterior and posterior lobes into the cavernous sinuses on either side.',
+  'All six anterior hormones and both posterior ones leave this way and reach their targets within a minute.',
+  'Sampling here is the basis of inferior petrosal sinus sampling: comparing ACTH in the petrosal sinuses with the arm, after CRH, distinguishes a pituitary source of ACTH from an ectopic one.'],
+  rc:'One vein stands for several.'},
+ cavsin:{title:'Cavernous sinus',tag:'ICA · III, IV, V1, V2, VI',src:REF.pit,L:[
+  'A pool of veins on each side of the pituitary with important nerves and an artery running through it.',
+  'It lies beside the sella and drains to the petrosal sinuses. The internal carotid artery and the abducens nerve (VI) run through it; the oculomotor (III), trochlear (IV) and the first two divisions of the trigeminal (V1, V2) run in its lateral wall.',
+  'Pituitary tumours that invade it rarely compress the carotid but can cause double vision; a sixth nerve palsy is often first because that nerve is free inside.',
+  'Cavernous sinus thrombosis (from facial or sinus infection) causes proptosis, ophthalmoplegia and sensory loss in V1–V2; a carotid–cavernous fistula causes a pulsating eye.'],
+  rc:'You leave through it at a run; in life it is a mesh of venous channels, not one tube.'},
+ mcax:{title:'Magnocellular axon',tag:'Supraoptic → posterior lobe · unmyelinated',src:REF.pit,L:[
+  'A long nerve fibre from the hypothalamus that carries vasopressin down to the pituitary.',
+  'Large neurons of the supraoptic and paraventricular nuclei send unmyelinated axons, about a micrometre wide, through the inner median eminence and down the stalk to the posterior lobe.',
+  'Vasopressin and oxytocin are made in the cell bodies as larger precursors with their carrier proteins (neurophysins) and carried down in dense-core granules by fast axonal transport, a few millimetres an hour. Vasopressin neurons fire in phasic bursts.',
+  'A tumour or surgery in the stalk cuts these axons: diabetes insipidus (AVP deficiency), often transient if the cut is low because axons regrow and release from higher up.'],
+  rc:'Each neuron makes either vasopressin or oxytocin; this axon carries vasopressin.'},
+ herring:{title:'Herring body',tag:'A store of neurosecretory granules',src:REF.pit,L:[
+  'A swelling in a nerve fibre where hormone is stored.',
+  'Herring bodies are dilated parts of magnocellular axons in the stalk and posterior lobe, packed with dense-core granules.',
+  'They hold enough vasopressin for days of normal release. Most of the posterior lobe is axons, their terminals and swellings, and glial pituicytes: it makes no hormone of its own.',
+  'On MRI the stored vasopressin makes the normal posterior lobe bright on T1 (the “bright spot”); it is often lost in central diabetes insipidus.'],
+  rc:'Shown as a bulge of the tube; real Herring bodies vary from a few to tens of micrometres.'},
+ ppterm:{title:'Neurohypophyseal terminal',tag:'Exocytosis onto a fenestrated capillary',src:REF.pit,L:[
+  'The end of the nerve fibre, where the hormone is released into the blood.',
+  'Terminals end on the basement membrane around fenestrated capillaries of the posterior lobe, with pituicyte processes around them.',
+  'Each action potential opens calcium channels and granules fuse; bursts of firing release more per spike than steady firing. Vasopressin and its carrier neurophysin II and the glycopeptide copeptin are released together.',
+  'Copeptin, stable in blood, is now measured as a stand-in for vasopressin: low after a hypertonic saline or arginine stimulus in AVP deficiency, high in AVP resistance.'],
+  rc:'Granules are drawn about true size against the terminal.'},
+ ppcap:{title:'Posterior lobe capillary',tag:'Inferior hypophyseal artery · fenestrated',src:REF.pit,L:[
+  'A small blood vessel in the back of the pituitary that collects vasopressin and oxytocin.',
+  'The posterior lobe has its own arterial supply from the inferior hypophyseal arteries, so it often survives when the anterior lobe infarcts.',
+  'Released vasopressin enters through the fenestrae and reaches the kidney in under a minute; its half-life is about 10–20 minutes.',
+  'Part of this blood flows on through short portal vessels to the anterior lobe, so vasopressin also helps CRH release ACTH.'],
+  rc:'The exit warps you through the veins to the vena cava.'},
+ pitanat:{title:'Pituitary · anatomy',tag:'Sella, diaphragma, chiasm, cavernous sinuses',src:REF.pit,L:[
+  'A pea-sized gland hanging from the base of the brain in a bony cup.',
+  'It weighs about 0.6 g and measures about 13 × 9 × 6 mm, sitting in the sella turcica of the sphenoid bone with the sphenoid sinus below. Its roof, the diaphragma sellae, is pierced by the stalk; the optic chiasm lies 5–10 mm above.',
+  'The anterior lobe (adenohypophysis) is about three quarters of it; the posterior lobe (neurohypophysis) is an extension of the hypothalamus. It enlarges in pregnancy, mainly from lactotroph growth.',
+  'The relations explain the clinical picture of a tumour: up into the chiasm (bitemporal field loss), sideways into the cavernous sinus (diplopia), down into the sphenoid (the surgical route), and pressure on normal gland (hypopituitarism).'],
+  rc:'The world is a magnified slice of the gland; the section (E) shows the whole sella.'},
+ pitdev:{title:'How the pituitary forms',tag:'Rathke’s pouch · craniopharyngioma',src:REF.pit,L:[
+  'The pituitary is made of two pieces from different places that grow together.',
+  'The anterior lobe grows up from the roof of the embryonic mouth (Rathke’s pouch, ectoderm); the posterior lobe grows down from the floor of the brain (the infundibulum, neuroectoderm).',
+  'That is why the anterior lobe is a gland controlled by blood-borne hormones, while the posterior lobe is nerve endings. Transcription factors (PROP1, PIT1) direct the cell lines; their mutations cause combined pituitary hormone deficiency.',
+  'Remnants of Rathke’s pouch give Rathke cleft cysts and craniopharyngiomas: calcified, cystic tumours above the sella, mostly in children, with field loss, growth failure and diabetes insipidus.'],
+  rc:'Development is told in the codex only.'},
+ portalsys:{title:'The hypophyseal portal system',tag:'Two capillary beds in series',src:REF.pit,L:[
+  'A private blood route that carries the brain’s signals to the pituitary.',
+  'Blood passes through capillaries in the median eminence, collects into portal veins down the stalk and spreads out again into the sinusoids of the anterior lobe.',
+  'The hypothalamic hormones arrive in tiny amounts, in pulses, at concentrations that would be lost in the general circulation. Geoffrey Harris showed in the mid-20th century that this is how the brain controls the gland; the vessels had been described in 1930.',
+  'It explains why stalk damage raises prolactin and lowers the rest, and why the anterior pituitary is so vulnerable to shock.'],
+  rc:'The real stalk has many portal veins running in parallel.'},
+ pitcells:{title:'Anterior pituitary cells',tag:'Acidophils · basophils · chromophobes',src:REF.pit,L:[
+  'Five types of hormone cell, each making its own hormone.',
+  'Somatotrophs (GH, ~50%), lactotrophs (prolactin, ~15–20%), corticotrophs (ACTH, ~15–20%), gonadotrophs (LH and FSH, ~10%) and thyrotrophs (TSH, ~5%). Folliculostellate cells support them.',
+  'In H&E: acidophils (pink: somatotrophs, lactotrophs), basophils (purple: the glycoprotein makers and corticotrophs), chromophobes (pale, few granules). Immunostains name them properly today.',
+  'Pituitary tumours are now classified by the transcription factor lineage (PIT1, TPIT, SF1) rather than by staining.'],
+  rc:'The pink, purple and pale cells in the section copy the classic stain, not real colours.'},
+ hpaaxis:{title:'The adrenal axis',tag:'CRH → ACTH → cortisol',src:REF.pit,L:[
+  'The stress chain: brain → pituitary → adrenal glands → cortisol.',
+  'Paraventricular neurons release CRH (with vasopressin); corticotrophs release ACTH; the adrenal cortex makes cortisol.',
+  'Cortisol peaks around waking and is lowest near midnight, with pulses through the day. It feeds back on the pituitary and hypothalamus; stress overrides the rhythm.',
+  'Steroid treatment suppresses the axis, so stopping steroids suddenly can cause an adrenal crisis. Loss of the midnight nadir is an early sign of Cushing’s syndrome (late-night salivary cortisol).'],
+  rc:'U jumps between 8 a.m. and 2 a.m.; the real rhythm is continuous.'},
+ hptaxis:{title:'The thyroid axis',tag:'TRH → TSH → T4/T3',src:REF.pit,L:[
+  'The brain sets how much thyroid hormone the body makes.',
+  'TRH (just three amino acids) from the paraventricular nucleus drives thyrotrophs to release TSH, which drives the thyroid.',
+  'T4 and T3 feed back, mostly on the pituitary, where deiodinase converts T4 to T3. TSH is very sensitive: a twofold change in free T4 shifts TSH about a hundredfold.',
+  'In pituitary failure TSH is low or inappropriately normal with a low free T4, so TSH alone cannot be used to monitor treatment. TRH also stimulates prolactin, which is why primary hypothyroidism can raise prolactin.'],
+  rc:'TRH is drawn far larger than a tripeptide is.'},
+ hpgaxis:{title:'The gonadal axis',tag:'Kisspeptin → GnRH pulses → LH, FSH',src:REF.pit,L:[
+  'The brain’s signal that runs puberty, periods and fertility.',
+  'Kisspeptin neurons drive GnRH neurons to fire in pulses; GnRH releases LH and FSH from gonadotrophs; they drive the ovaries or testes.',
+  'Pulse frequency matters: about every 60–120 minutes. Faster pulses favour LH, slower FSH; continuous GnRH shuts the gonadotrophs down. Sex steroids feed back negatively, except the mid-cycle oestrogen surge, which feeds back positively to trigger ovulation.',
+  'Prolactin, stress, low weight and intense exercise all damp the pulses: hypothalamic amenorrhoea and the amenorrhoea of hyperprolactinaemia. Kallmann syndrome is failure of GnRH neurons to migrate, with anosmia.'],
+  rc:'The GnRH pulses are sped up in the game.'},
+ ghaxis:{title:'The growth hormone axis',tag:'GHRH / somatostatin → GH → IGF-1',src:REF.pit,L:[
+  'The brain and pituitary control growth through growth hormone and the liver.',
+  'GHRH stimulates and somatostatin inhibits somatotrophs; ghrelin from the stomach stimulates too. GH acts on the liver to make IGF-1, which does most of the growing.',
+  'GH comes in pulses, the biggest in early slow-wave sleep; between pulses it is often undetectable. It raises glucose and breaks down fat; IGF-1 feeds back on both the pituitary and hypothalamus.',
+  'Deficiency in children causes short stature; in adults, fatigue and central fat. Excess causes gigantism before the growth plates close and acromegaly after. Laron syndrome is GH resistance (receptor defect) with low IGF-1 and high GH.'],
+  rc:'U at 2 a.m. shows the sleep pulse; real pulses last tens of minutes.'},
+ prlctl:{title:'Prolactin control',tag:'Held down by dopamine',src:REF.pit,L:[
+  'Prolactin is the one pituitary hormone the brain mainly switches off rather than on.',
+  'Dopamine from arcuate (tuberoinfundibular) neurons reaches the lactotrophs down the portal veins and acts on D2 receptors.',
+  'Suckling, oestrogen, TRH, stress and sleep raise prolactin; prolactin itself feeds back by increasing hypothalamic dopamine. It drives milk production and suppresses GnRH pulses, which is why breastfeeding delays ovulation.',
+  'Causes of high prolactin: pregnancy, drugs that block dopamine (antipsychotics, metoclopramide), primary hypothyroidism, kidney failure, stalk compression, macroprolactin (a harmless antibody complex), and prolactinomas.'],
+  rc:'Dopamine is drawn as pale blue dots; it is a small molecule.'},
+ feedback:{title:'Negative feedback',tag:'Long, short and ultrashort loops',src:REF.pit,L:[
+  'Hormones turn down the signals that made them, keeping levels steady.',
+  'Long loop: the target hormone (cortisol, T4, oestradiol, testosterone, IGF-1) acts on the pituitary and hypothalamus. Short loop: pituitary hormones act on the hypothalamus.',
+  'Reading an axis means reading both levels together: a high target with a low pituitary hormone points at the target gland; low both points at the pituitary or hypothalamus.',
+  'That pairing is the core of endocrine diagnosis: high TSH with low T4 is primary hypothyroidism; low TSH with low T4 is secondary. Suppression and stimulation tests push the loop and watch the answer.'],
+  rc:'Feedback acts on the cells in the game only through the case numbers.'},
+ adhrel:{title:'Vasopressin release',tag:'Osmolality and blood volume',src:REF.pit,L:[
+  'The brain releases vasopressin to save water when the blood is too concentrated.',
+  'Osmoreceptors in the organum vasculosum of the lamina terminalis sense plasma osmolality; a rise of 1–2% above about 280–285 mOsm/kg releases vasopressin and thirst follows.',
+  'A large fall in blood volume or pressure (about 10% or more) releases it regardless of osmolality. Nausea, pain and some drugs release it too. It acts on V2 receptors in the collecting duct (aquaporin-2) and V1 receptors on vessels.',
+  'Too little: AVP deficiency (central diabetes insipidus). Too much: SIADH. The renal world shows its effect on the collecting duct.'],
+  rc:'Vasopressin release is steady in the game; in life it tracks every sip of water.'},
+ oxytocin:{title:'Oxytocin',tag:'Milk ejection · uterine contraction',src:REF.pit,L:[
+  'The hormone that releases milk during breastfeeding and helps the womb contract in labour.',
+  'Made mainly in paraventricular neurons and released from the posterior lobe, carried with neurophysin I.',
+  'Suckling causes bursts of synchronised firing and pulses of oxytocin that contract the myoepithelial cells round the alveoli of the breast. Stretch of the cervix in labour releases it too (the Ferguson reflex).',
+  'Synthetic oxytocin induces or augments labour and prevents postpartum haemorrhage; carbetocin is a longer-acting analogue.'],
+  rc:'Pink rings in the posterior lobe blood come from neighbouring oxytocin axons, not drawn.'},
+ prolactinoma:{title:'Prolactinoma',tag:'The commonest functioning pituitary tumour',src:REF.pit,L:[
+  'A benign pituitary tumour that makes too much prolactin.',
+  'Small ones (under 1 cm, microprolactinomas) are common in young women; men and older patients more often have large ones (macroprolactinomas), found later.',
+  'Women present with missed periods, galactorrhoea and infertility; men with low libido and erectile dysfunction, later with headaches and field loss. Prolactin is usually very high, and roughly scales with size.',
+  'Dopamine agonists are first line, even with visual loss: cabergoline normalises prolactin in most and shrinks most tumours. Surgery is for resistance, intolerance or apoplexy. Check fields and the other axes; plan for pregnancy, as fertility often returns quickly.'],
+  rc:'Case 08 shows the tumour filling the lateral wing; in life it is a separate, often well-defined mass.'},
+ nfpa:{title:'Non-functioning pituitary adenoma',tag:'Mass effect · stalk effect',src:REF.pit,L:[
+  'A pituitary tumour that makes no hormone excess but grows large enough to press on things.',
+  'Most are gonadotroph adenomas that make little active hormone. They are found from headaches, field loss, hypopituitarism, or by chance on a scan.',
+  'They can raise prolactin modestly by squeezing the stalk (usually under about 2,000 mU/L), not enough to mistake for a prolactinoma of that size if read carefully.',
+  'Treatment of a large one threatening vision is transsphenoidal surgery, then hormone replacement and imaging follow-up; radiotherapy for regrowth. Small incidental ones are often just watched.'],
+  rc:'Not part of case 08; it is the main thing to distinguish from it.'},
+ hypopit:{title:'Hypopituitarism',tag:'Tumours · Sheehan · apoplexy · radiotherapy',src:REF.pit,L:[
+  'The pituitary stops making one or more of its hormones.',
+  'Causes include tumours and their treatment, radiotherapy, head injury, Sheehan syndrome after postpartum haemorrhage, apoplexy, infiltration, infection and hypophysitis (including from immune checkpoint inhibitors).',
+  'Compression tends to take GH first, then LH and FSH, then TSH, then ACTH. Diagnosis pairs pituitary and target hormones, with dynamic tests for cortisol and GH reserve.',
+  'Replace cortisol before thyroxine. Teach sick-day rules and give an emergency hydrocortisone kit. Pituitary apoplexy (sudden headache, eye palsies, visual loss) needs hydrocortisone at once.'],
+  rc:'Not shown in the case; Leah Brennan’s other axes are intact.'},
+ acromegaly:{title:'Acromegaly',tag:'GH excess after the growth plates close',src:REF.pit,L:[
+  'Too much growth hormone in an adult enlarges the hands, feet and face.',
+  'Almost always a somatotroph adenoma. Changes are slow: rings and shoes stop fitting, the jaw and brow grow, the tongue and voice thicken, the skin is oily and sweaty.',
+  'It also causes diabetes, hypertension, heart enlargement, sleep apnoea, carpal tunnel syndrome, arthropathy and colonic polyps. Screen with IGF-1; confirm with failure of GH to suppress after oral glucose.',
+  'Transsphenoidal surgery is first line; somatostatin analogues, pegvisomant (a GH receptor blocker) and radiotherapy follow when needed.'],
+  rc:'Not part of case 08.'},
+ cushingdz:{title:'Cushing disease',tag:'A corticotroph adenoma',src:REF.pit,L:[
+  'A tiny pituitary tumour making too much ACTH, so the adrenals make too much cortisol.',
+  'It is the commonest cause of endogenous Cushing’s syndrome; the tumours are often only a few millimetres.',
+  'Features: central weight gain, round red face, thin skin with purple striae, easy bruising, proximal weakness, hypertension, diabetes, osteoporosis, low mood. Screen with an overnight dexamethasone test, 24-hour urine cortisol or late-night salivary cortisol.',
+  'ACTH that is detectable or high with a pituitary source; high-dose dexamethasone or CRH tests and inferior petrosal sinus sampling separate it from ectopic ACTH. Surgery is first line.'],
+  rc:'Not part of case 08.'},
+ avpdef:{title:'AVP deficiency (central diabetes insipidus)',tag:'Dilute urine · thirst · high sodium if no water',src:REF.pit,L:[
+  'The body cannot make enough vasopressin, so the kidneys lose lots of dilute urine.',
+  'Renamed in 2022 from cranial diabetes insipidus to avoid confusion with diabetes mellitus. Causes: surgery or tumours near the stalk, head injury, infiltrations, autoimmune, genetic and idiopathic.',
+  'Patients pass large volumes of urine (over 3 L/day) and drink to match; sodium stays normal if they can drink, and rises dangerously if they cannot. Diagnosis: copeptin after hypertonic saline or arginine, or a water deprivation test with a desmopressin response.',
+  'Treat with desmopressin, a V2-selective analogue, and watch for hyponatraemia. After pituitary surgery it may be transient, or follow a triple-phase pattern (DI, then SIADH as stored hormone leaks, then permanent DI).'],
+  rc:'Not part of case 08.'},
+ siadh:{title:'SIADH',tag:'Too much vasopressin · hyponatraemia',src:REF.pit,L:[
+  'Too much vasopressin makes the body hold water and dilutes the blood sodium.',
+  'Causes include lung disease and small-cell carcinoma, brain injury and infection, drugs (SSRIs, carbamazepine, cyclophosphamide), pain, nausea and surgery.',
+  'Criteria: low plasma osmolality with an inappropriately concentrated urine and urinary sodium over about 30 mmol/L in a patient who is euvolaemic, with normal thyroid and adrenal function.',
+  'Treat the cause, restrict fluid, and consider urea or tolvaptan. Correct chronic hyponatraemia slowly (no more than about 8–10 mmol/L in 24 hours) to avoid osmotic demyelination.'],
+  rc:'Not part of case 08.'},
+ visfield:{title:'The chiasm and bitemporal field loss',tag:'Crossing nasal fibres',src:REF.pit,L:[
+  'A pituitary tumour pressing on the crossing of the optic nerves takes away the outer half of vision in both eyes.',
+  'In the chiasm, fibres from the nasal half of each retina cross to the other side. The nasal retina sees the temporal visual field.',
+  'Pressure from below damages the lower crossing fibres first, so loss usually begins in the upper temporal quadrants and spreads. Patients bump into things on both sides and may not notice until it is advanced.',
+  'Formal perimetry tracks recovery; optic atrophy on fundoscopy predicts a worse outcome. Fields often begin to improve within days of decompression, by drug or surgery.'],
+  rc:'The section (E) and map show the chiasm lifting; the visual loss itself is described, not simulated.'},
+ cabergoline:{title:'Cabergoline',tag:'Long-acting D2 agonist',src:REF.pit,L:[
+  'A tablet that acts like dopamine to shut down a prolactin tumour.',
+  'It binds D2 receptors on lactotrophs, like the hypothalamic dopamine, and lasts days, so it is taken once or twice a week.',
+  'It lowers prolactin in most patients within weeks and shrinks most prolactinomas, often quickly enough to relieve field loss. It is better tolerated and more effective than bromocriptine.',
+  'Side effects: nausea, dizziness, and impulse control disorders (gambling, shopping, hypersexuality): ask about them. The heart valve fibrosis seen at Parkinson’s doses is rare at prolactinoma doses, but echocardiograms are used on long high-dose treatment. Usually stopped once pregnant.'],
+  rc:'O switches it on at once; real tumour shrinkage takes weeks to months.'},
+ tss:{title:'Transsphenoidal surgery',tag:'Through the nose and sphenoid sinus',src:REF.pit,L:[
+  'Surgery to remove a pituitary tumour through the nose.',
+  'An endoscope passes through the nostril into the sphenoid sinus and through the floor of the sella, avoiding the brain.',
+  'It is first line for most tumours except prolactinomas (and some tumours that cannot be reached this way).',
+  'Watch for diabetes insipidus and later hyponatraemia, CSF leak, hypopituitarism (cortisol cover), and rarely carotid injury. Hormone axes and imaging are checked again after surgery.'],
+  rc:'Not part of case 08 unless cabergoline fails.'},
+ case08:{title:'Case 08 · Leah Brennan, 29',tag:'Macroprolactinoma',src:REF.pit,L:[
+  'A young woman whose periods stopped and who began bumping into door frames: a prolactin-making tumour.',
+  'Eight months of amenorrhoea, galactorrhoea and headaches, then field loss on both sides. Prolactin 4,800 mU/L, with low LH, FSH and oestradiol, and a 2.4 cm tumour lifting the chiasm.',
+  'Pregnancy, dopamine-blocking drugs, hypothyroidism, kidney failure and macroprolactin have been excluded; the other axes are intact. A prolactin this high with a tumour this size means a prolactinoma, not a stalk effect.',
+  'Cabergoline first, even with field loss; urgent formal fields; repeat prolactin and MRI. Surgery if she does not respond, cannot tolerate it, or has apoplexy. Contraception or pregnancy planning: fertility often returns quickly.'],
+  rc:'A composite teaching case, not a real patient; the numbers are typical, not taken from one person.'},
+ rbcT:{title:'Red cell in the portal system',tag:'≈ 7.5 µm',src:REF.pit,L:[
+  'A red blood cell on its way through two capillary beds in a row.',
+  'It squeezes through the loops of the median eminence, down the stalk, then through the anterior lobe sinusoids.',
+  'Portal blood reaches the anterior lobe at low pressure, after already giving up some oxygen in the median eminence.',
+  'That is why the anterior lobe infarcts in shock, especially when enlarged in pregnancy (Sheehan syndrome), while the posterior lobe with its own artery survives.'],
+  rc:'True size for this magnification.'},
+ pltT:{title:'Platelet',tag:'≈ 2–3 µm',src:REF.pit,L:[
+  'A cell fragment that plugs leaks.',
+  'Passing through.',
+  'Platelets carry serotonin and other mediators; they are not part of pituitary control.',
+  'Haemorrhage into an adenoma (apoplexy) is more likely on anticoagulants and after some dynamic tests.'],
+  rc:'Enlarged slightly so you can see it.'},
+ wbcT:{title:'White cell',tag:'≈ 12 µm',src:REF.pit,L:[
+  'A white blood cell passing through.',
+  'A few cross the gland at any time.',
+  'In hypophysitis lymphocytes infiltrate the pituitary and the stalk thickens.',
+  'Immune checkpoint inhibitors (especially anti-CTLA-4) cause hypophysitis with ACTH deficiency: a cause of fatigue in cancer patients that is easy to miss.'],
+  rc:'Few, as in a healthy gland.'},
+ crh:{title:'CRH',tag:'Corticotrophin-releasing hormone · 41 amino acids',src:REF.pit,L:[
+  'The brain’s signal to make ACTH.',
+  'Made by parvocellular neurons of the paraventricular nucleus and released at the median eminence.',
+  'Vasopressin from the same neurons multiplies its effect. Stress, low glucose and the circadian clock drive it; cortisol suppresses it.',
+  'CRH tests help separate pituitary from ectopic ACTH. In depression and chronic stress the axis is often overactive.'],
+  rc:'Pink rods; it is a single peptide chain.'},
+ trh:{title:'TRH',tag:'Thyrotrophin-releasing hormone · 3 amino acids',src:REF.pit,L:[
+  'The brain’s signal to make TSH.',
+  'A tripeptide (pyroglutamyl-histidyl-prolinamide) from paraventricular neurons.',
+  'It releases TSH and also prolactin. T3 and T4 suppress it.',
+  'Its prolactin effect explains raised prolactin in primary hypothyroidism.'],
+  rc:'Drawn much larger than a tripeptide.'},
+ gnrh:{title:'GnRH',tag:'Gonadotrophin-releasing hormone · 10 amino acids · pulses',src:REF.pit,L:[
+  'The brain’s signal for the reproductive hormones.',
+  'A decapeptide from neurons scattered in the preoptic area and arcuate region, released in pulses.',
+  'Pulse frequency decides LH versus FSH; constant exposure desensitises. Kisspeptin drives it; prolactin, stress and energy deficit suppress it.',
+  'Long-acting agonists (leuprorelin) and antagonists (degarelix) shut the axis down for prostate cancer, endometriosis and precocious puberty; a pulsatile pump can restore fertility.'],
+  rc:'Its density drops in case 08: the pulses are damped by prolactin.'},
+ ghrh:{title:'GHRH',tag:'Growth hormone-releasing hormone',src:REF.pit,L:[
+  'The brain’s signal to make growth hormone.',
+  'From arcuate neurons, released at the median eminence.',
+  'It surges in early deep sleep. Rarely, tumours elsewhere (pancreatic, carcinoid) make it and cause acromegaly.',
+  'Tesamorelin, a GHRH analogue, is used to reduce abdominal fat in HIV lipodystrophy.'],
+  rc:'Green rods; more at night.'},
+ srif:{title:'Somatostatin (hypothalamic)',tag:'Inhibits GH and TSH',src:REF.pit,L:[
+  'The brain’s brake on growth hormone.',
+  'Made by periventricular neurons and released at the median eminence; the same peptide as in the pancreatic δ cell.',
+  'It falls when GH pulses, and rises with GH and IGF-1 feedback. It also inhibits TSH.',
+  'Long-acting analogues (octreotide, lanreotide) treat acromegaly and TSH-secreting tumours.'],
+  rc:'Lilac rings, as in the pancreas.'},
+ dopa:{title:'Dopamine (hypothalamic)',tag:'Prolactin-inhibiting factor',src:REF.pit,L:[
+  'The brain chemical that keeps prolactin down.',
+  'From tuberoinfundibular neurons of the arcuate nucleus, released at the median eminence into the portal blood.',
+  'It acts on D2 receptors on lactotrophs. Prolactin feeds back by increasing this dopamine.',
+  'Antipsychotics and metoclopramide block D2 and raise prolactin; dopamine agonists such as cabergoline lower it.'],
+  rc:'Pale blue dots; in case 08 the tumour ignores them.'},
+ ghT:{title:'Growth hormone',tag:'191 amino acids · 22 kDa · pulsatile',src:REF.pit,L:[
+  'The hormone that makes children grow and keeps adult tissues in shape.',
+  'Made by somatotrophs; carried partly bound to a binding protein.',
+  'It acts directly (raises glucose, breaks down fat) and through IGF-1 from the liver (growth of bone, cartilage, muscle). Secretion is pulsatile, largest in slow-wave sleep, and falls with age and obesity.',
+  'Stress, fasting, exercise and low glucose raise it. Measure IGF-1 rather than a random GH.'],
+  rc:'Yellow; its night-time pulse shows when you press U.'},
+ prlT:{title:'Prolactin',tag:'199 amino acids · ~23 kDa',src:REF.pit,L:[
+  'The milk-making hormone.',
+  'Made by lactotrophs; normal levels in women are under about 500 mU/L, in men slightly lower.',
+  'It prepares the breast for milk and keeps it flowing, and suppresses GnRH pulses. It rises in pregnancy, with suckling, sleep and stress.',
+  'In case 08 the tumour drives it to 4,800 mU/L. Big-big prolactin (macroprolactin) can give a falsely high result: labs screen for it.'],
+  rc:'White; far more in case 08.'},
+ acthT:{title:'ACTH',tag:'39 amino acids · from POMC',src:REF.pit,L:[
+  'The pituitary hormone that tells the adrenal glands to make cortisol.',
+  'Cut from pro-opiomelanocortin, which also yields MSH and β-endorphin.',
+  'It drives cortisol (and adrenal androgens) via the MC2 receptor; it peaks in the early morning.',
+  'High ACTH darkens skin (MSH activity) in Addison disease and ectopic ACTH; low ACTH in pituitary failure leaves the skin pale.'],
+  rc:'Orange rods; fewer at 2 a.m.'},
+ tshT:{title:'TSH',tag:'Glycoprotein · α + β subunits',src:REF.pit,L:[
+  'The pituitary hormone that drives the thyroid.',
+  'A glycoprotein with the common α subunit and its own β subunit.',
+  'It drives thyroid growth, iodine uptake and hormone release. Normal about 0.4–4 mU/L.',
+  'The best single test of primary thyroid disease, but useless alone when the pituitary fails.'],
+  rc:'Cyan.'},
+ lhT:{title:'LH',tag:'Luteinising hormone · glycoprotein',src:REF.pit,L:[
+  'The pituitary hormone that triggers ovulation and drives testosterone.',
+  'Made by gonadotrophs; shares its α subunit with FSH, TSH and hCG.',
+  'In women it drives androgen production by theca cells and the mid-cycle surge triggers ovulation; in men it drives Leydig cells to make testosterone.',
+  'Low LH with low oestradiol (as in case 08) points to the pituitary or hypothalamus; high LH with low oestradiol to the ovary.'],
+  rc:'Blue; scarce in case 08.'},
+ fshT:{title:'FSH',tag:'Follicle-stimulating hormone · glycoprotein',src:REF.pit,L:[
+  'The pituitary hormone that grows the egg follicles and supports sperm production.',
+  'Made by gonadotrophs, often in the same cells as LH.',
+  'It drives follicle growth and oestradiol production by granulosa cells, and Sertoli cell function in men. Inhibin from the gonads feeds back on it selectively.',
+  'High FSH is the marker of menopause and primary ovarian insufficiency.'],
+  rc:'Violet-blue; scarce in case 08.'},
+ adhg:{title:'Neurosecretory granule',tag:'≈ 160–200 nm · vasopressin + neurophysin II',src:REF.pit,L:[
+  'A tiny package of vasopressin travelling down the nerve fibre.',
+  'Made in the cell body; the precursor holds vasopressin, its carrier neurophysin II and copeptin, cut apart inside the granule as it travels.',
+  'Granules ride kinesin motors along microtubules down to the terminals and Herring bodies.',
+  'Mutations in the precursor can make it misfold and kill the neurons: familial neurohypophyseal diabetes insipidus, appearing in childhood.'],
+  rc:'About true size for this magnification.'},
+ mitoT:{title:'Mitochondrion in the axon',tag:'≈ 1 µm long',src:REF.pit,L:[
+  'A power station travelling in the nerve fibre.',
+  'Mitochondria are carried along the axon and gather at the terminals.',
+  'They supply ATP for transport and for refilling calcium stores between bursts of firing.',
+  'Long axons depend on them; mitochondrial disease affects long neurons first.'],
+  rc:'About true size.'},
+ avp:{title:'Vasopressin (AVP)',tag:'9 amino acids · antidiuretic hormone',src:REF.pit,L:[
+  'The hormone that tells the kidneys to keep water.',
+  'A nonapeptide with arginine at position 8 (in humans), released from the posterior lobe.',
+  'It acts on V2 receptors (water reabsorption in the collecting duct) and V1 receptors (vasoconstriction). Half-life about 10–20 minutes.',
+  'Vasopressin infusion is used in septic shock; desmopressin (V2-selective) treats AVP deficiency, bedwetting and some bleeding disorders; tolvaptan blocks V2 in SIADH.'],
+  rc:'Blue rings, the same symbol as ADH in the kidney.'},
+ oxyT:{title:'Oxytocin in the blood',tag:'9 amino acids',src:REF.pit,L:[
+  'The milk-ejection hormone, passing into the blood beside vasopressin.',
+  'It differs from vasopressin by only two amino acids.',
+  'It contracts the breast myoepithelium and the uterus; at high doses it can act on vasopressin receptors and cause water retention.',
+  'That is why long oxytocin infusions in labour can cause hyponatraemia.'],
+  rc:'Pink rings.'},
  endothelium:{title:'Endothelium',tag:'Vessel lining · one cell thick · structure',src:REF.vessels,L:[
   'The smooth inner skin of every blood vessel: a single layer of flat cells, like tiles, that the blood slides over.',
   'Endothelial cells are long and thin, lined up with the flow. They stop blood from clotting on the wall and control what passes through.',
@@ -2353,6 +2674,19 @@ const REGIONS={
  intral:{n:'Intralobular duct',s:'Cuboidal duct cells · most of the fluid and bicarbonate are added along here',b:'n'},
  interl:{n:'Interlobular duct',s:'Between the lobules in connective tissue · columnar cells, a few goblet cells',b:'n'},
  mpd:{n:'Main pancreatic duct',s:'Duct of Wirsung · tail → body → neck → head · Ø 2–3.5 mm',b:'n'},
+ // pituitary (b:'a' arterial; 'v' once it carries the hypothalamic and pituitary hormones; 'n' inside a nerve fibre)
+ sha:{n:'Superior hypophyseal artery',s:'From the internal carotid · feeds the median eminence and the stalk',b:'a'},
+ medem:{n:'Median eminence · primary plexus',s:'Capillary loops under the hypothalamus · releasing hormones enter here · K: follow a magnocellular axon',b:'a'},
+ stalkpv:{n:'Long portal vein',s:'Down the pituitary stalk · carrying hypothalamic hormones to the anterior lobe',b:'v'},
+ adlat:{n:'Anterior lobe sinusoid · lateral wing',s:'Somatotrophs (GH) and lactotrophs (prolactin) line it',b:'v'},
+ admed:{n:'Anterior lobe sinusoid · median wedge',s:'Corticotrophs (ACTH), thyrotrophs (TSH) and gonadotrophs (LH, FSH)',b:'v'},
+ hypov:{n:'Hypophyseal vein',s:'Out of the gland · toward the cavernous sinus',b:'v'},
+ cavsin:{n:'Cavernous sinus',s:'Venous sinus beside the sella · the internal carotid and nerves III, IV, V1, V2, VI run through it',b:'v'},
+ ptgap:{n:'(not drawn)',s:'',b:'v'},
+ mcax:{n:'Magnocellular axon',s:'From a supraoptic neuron down the stalk · vasopressin granules riding the microtubules',b:'n'},
+ herring:{n:'Herring body',s:'A swelling of the axon where neurosecretory granules are stored',b:'n'},
+ ppterm:{n:'Axon terminal · posterior lobe',s:'Granules fuse here when the neuron fires · vasopressin into the blood',b:'n'},
+ ppcap:{n:'Posterior lobe capillary',s:'Fenestrated · from the inferior hypophyseal artery · to the cavernous sinus',b:'v'},
  ivc:{n:'Inferior vena cava',s:'Venous return · SO₂ ~75%',b:'v'},
  ra:{n:'Right atrium',s:'Wait here for the tricuspid valve to open (diastole)',b:'v'},
  tricuspid:{n:'Tricuspid valve',s:'Opens in diastole',b:'v'},
@@ -2678,8 +3012,41 @@ const PCNODES=(()=>{const n=[];let x=5000,y=100,z=0,k=0;
  seg('ampulla','pduct',3,4,2.3,2.2,1,[[50,212],[46,220]]);
  seg('oddi','poddi',3,3,0,0,1,[[44,226],[38,236]],j=>[1.6,1.5,2.2][j]);n[n.length-1][4]='pduct';
  return n;})();
-const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false);PAN.pan=true;panZone();HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
-BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;PAN.fog=0x1e0d12;
+// pituitary kinds: w = [anterior lobe sinusoid (endocrine cords behind a fenestrated endothelium), vessel / capillary loop, axon membrane, pituicytes and glia]; str = endocrine cell seed
+Object.assign(KIND,{
+ ptsha:{f:3,tint:[.55,.16,.2],w:[0,1,0,0],ew:1,el:1.6,nuc:1,str:0,cw:0},
+ ptme:{f:1.5,tint:[.62,.3,.32],w:[0,.6,0,.4],ew:.8,el:1,nuc:.8,str:0,cw:0},
+ ptpv:{f:2,tint:[.5,.18,.26],w:[0,1,0,0],ew:1,el:1.4,nuc:.9,str:0,cw:0},
+ ptad:{f:1.6,tint:[.66,.34,.34],w:[1,0,0,0],ew:.8,el:1,nuc:.8,str:0,cw:0},
+ ptvn:{f:2.5,tint:[.42,.14,.24],w:[0,1,0,0],ew:1.2,el:1.8,nuc:.9,str:0,cw:0},
+ ptax:{f:.5,tint:[.82,.78,.7],w:[0,0,1,0],ew:.6,el:1.4,nuc:0,str:0,cw:0},
+ ptpp:{f:1.4,tint:[.68,.5,.5],w:[0,.3,0,.7],ew:.8,el:1,nuc:.8,str:0,cw:0},
+});
+/* Pituitary: the hypophyseal portal system and the posterior lobe, +x = patient's left, sagittal map.
+   Blood: superior hypophyseal artery → capillary loops of the median eminence (the releasing hormones enter) → long portal veins down the stalk → sinusoids of the anterior lobe,
+   lateral wing (GH, prolactin) then median wedge (ACTH, TSH, LH/FSH) → hypophyseal vein → cavernous sinus (the way out). A connector (never drawn) leads to the second part.
+   Nerve: K in the median eminence follows a magnocellular axon from the supraoptic nucleus down the stalk → a Herring body → the terminal in the posterior lobe → its fenestrated capillary.
+   Lengths are compressed; the HUD states the real sizes. Node[6] = cell seed; node[7] = [map x, map y]. */
+const PTNODES=(()=>{const n=[];let x=6000,y=100,z=0,k=0;
+ const mpAt=(mp,f)=>{if(mp.length===1)return mp[0].slice();const t=f*(mp.length-1),i=Math.min(mp.length-2,Math.floor(t)),u=t-i;return [mp[i][0]+(mp[i+1][0]-mp[i][0])*u,mp[i][1]+(mp[i+1][1]-mp[i][1])*u];};
+ const seg=(reg,kind,cnt,step,r0,r1,str,mp,rf)=>{for(let j=0;j<cnt;j++){const f=cnt>1?j/(cnt-1):0,yaw=.55*Math.sin(k*.27)+.22*Math.sin(k*.12),pitch=.3*Math.sin(k*.19+2);
+  x+=step*Math.cos(pitch)*Math.cos(yaw);z+=step*Math.cos(pitch)*Math.sin(yaw);y+=step*Math.sin(pitch);k++;
+  n.push([x,y,z,rf?rf(j):r0+(r1-r0)*f,kind,reg,typeof str==='function'?str(f,j):str,mpAt(mp,f)]);}};
+ seg('sha','ptsha',5,5,3,2.4,0,[[22,150],[80,136]]);
+ seg('medem','ptme',10,3.6,1.4,1.4,0,[[84,134],[88,124],[92,134],[96,124],[100,134],[104,124],[108,136]],j=>1.35+.15*Math.sin(j*2.1));   // capillary loops (gomitoli)
+ seg('stalkpv','ptpv',8,4.5,1.8,2,0,[[104,140],[98,178]]);
+ seg('adlat','ptad',8,4,1.7,1.7,(f,j)=>(j*.41)%1,[[92,186],[66,198],[68,222]],j=>1.6+.15*Math.sin(j*1.9));
+ seg('admed','ptad',7,4,1.7,1.7,(f,j)=>.5+(j*.29)%.5,[[78,228],[96,216],[106,202]],j=>1.6+.15*Math.sin(j*1.7+1));
+ seg('hypov','ptvn',4,5,2,2.4,0,[[110,196],[138,180]]);
+ seg('cavsin','ptvn',4,6,3,3.4,0,[[146,176],[176,168]]);
+ seg('ptgap','ptvn',4,8,2,2,0,[[176,168],[60,100]]);
+ seg('mcax','ptax',12,4,2.8,2.8,0,[[60,100],[84,118],[104,132],[106,156],[108,178]]);
+ seg('herring','ptax',3,4,3.6,3.6,0,[[110,186],[113,194]],j=>[3.4,5,3.6][j]);
+ seg('ppterm','ptax',3,3.5,2.6,2.2,0,[[116,202],[121,212]]);
+ seg('ppcap','ptpp',5,4,1.7,1.7,0,[[126,218],[142,226]]);
+ return n;})();
+const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false),PIT=buildWorld('pit',PTNODES,[],false);PAN.pan=true;panZone();PIT.pit=true;pitZone();HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
+BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;PAN.fog=0x1e0d12;PIT.fog=0x1a0c14;
 useWorld(BLOOD);
 const heartC=new V3();[2,4,13,15].forEach(k=>heartC.add(new V3(NODES[k][0],NODES[k][1],NODES[k][2])));heartC.multiplyScalar(.25);
 
@@ -2694,6 +3061,7 @@ function scaleAt(i){
  if(W.nerve)return 1-KW[i*4]*.3*nodeAtS(i*DS);
  if(W.gut){const k=i*4;return 1-(.16+.14*KW[k+1])*gSlow(i)-.5*gWave(i);}
  if(W.lung)return 1+CW[i]*BR.vol-KW[i*4+3]*.35*wallU.uCons.value;
+ if(W.pit)return PT.stage===1&&REG[i]==='stalkpv'?.8:1-KW[i*4+1]*.04*(.5+.5*Math.sin(time*7.3));
  if(W.pan)return 1-KW[i*4+1]*.05*(.5+.5*Math.sin(time*7.3));
  if(W.hep)return 1-KW[i*4+3]*.12*HP.mealK*(.6+.4*Math.sin(time*1.3));
  if(W.renal)return 1-CW[i]*.1*(.5+.5*Math.sin(time*.251));
@@ -2771,6 +3139,13 @@ void main(){
   s-=aKind.y*.07*(.5+.5*sin(th*9.))*(1.-band);                           // rugae: longitudinal folds that flatten as the wall stretches
  }
 #endif
+#ifdef PIT
+ {float th=aUV.x/aUV.z*6.2832;
+  s+=aKind.x*.06*(vn(vec3(th*2.6,aS*.7,7.))-.5)*(1.-uNec*.6);                     // endocrine cords bulge under the endothelium; the adenoma's sheets are flatter
+  s-=aKind.w*.04*vn(vec3(th*4.,aS*1.5,8.));                                       // pituicyte processes
+  s+=aKind.z*.015*sin(th*14.+aS*.3);                                              // axolemma ripples
+ }
+#endif
 #ifdef PAN
  {float th=aUV.x/aUV.z*6.2832;
   s+=aKind.x*.07*(vn(vec3(th*2.4,aS*.7,5.))-.5);                                 // endocrine cells bulge under the thin endothelium
@@ -2818,12 +3193,12 @@ ${NOISE}
 ${NODEFN}
 void main(){
  vec3 n=normalize(vN);float sk=vX.y;
-#if defined(LUNG) || defined(RENAL) || defined(HEP) || defined(PAN)
+#if defined(LUNG) || defined(RENAL) || defined(HEP) || defined(PAN) || defined(PIT)
  sk=0.;
 #endif
  float h=fbm(vPos*.45)+.15*vn(vPos*2.2);
  float gcm=0.,cells=0.,nodeR=0.,trk=0.,np=0.,nis=0.,gvf=0.,gpit=0.,gcr=0.,lcart=0.,lraft=0.,lcapl=0.,lpocket=0.,lost=0.,lkohn=0.,lgob=0.,rbrush=0.,rfen=0.,rcd=0.,rint=0.,rspark=0.,hfen=0.,hnec=0.,hnuc=0.,hhc=0.,pcell=0.,pgran=0.,pinf=0.;
-#if !defined(NERVE) && !defined(GUT) && !defined(LUNG) && !defined(RENAL) && !defined(HEP) && !defined(PAN)
+#if !defined(NERVE) && !defined(GUT) && !defined(LUNG) && !defined(RENAL) && !defined(HEP) && !defined(PAN) && !defined(PIT)
  float ridge=1.-abs(vn(vPos*vec3(.16,.55,.16)+vec3(vS*.02))*2.-1.);   // trabeculae carneae in ventricles
  h+=vKind.y*ridge*ridge*1.4+vKind.x*.4*vn(vPos*vec3(.9,.25,.9)); // pectinate texture in atria
  cells=vn(vPos*1.6);h+=vKind.w*(1.-abs(cells*2.-1.))*.6;           // alveolar bubbles behind capillary wall
@@ -2863,6 +3238,16 @@ void main(){
  gpit=smoothstep(.62,.72,vn(vPos*3.2+vec3(7.)));h+=vKind.y*(.2*vn(vPos*1.3)-gpit*.5);
  gcr=smoothstep(.7,.78,vn(vPos*4.5+vec3(3.)));h-=vKind.z*gcr*.35;
  h+=vKind.w*.05*vn(vPos*2.);fib*=(1.-vKind.x)*(1.-vKind.w)*.5;
+#endif
+#ifdef PIT
+ {pcell=vn(vPos*1.4+vec3(vX.y*5.));
+  pgran=vKind.x*smoothstep(.6,.68,vn(vPos*8.));
+  hnuc=(vKind.x+vKind.w*.7)*smoothstep(.74,.8,vn(vPos*2.+vec3(2.)));
+  hfen=vKind.x*smoothstep(.55,.6,vn(vPos*1.2+vec3(5.)))*smoothstep(.62,.7,vn(vPos*20.));
+  pinf=uNec*vKind.x;
+  h+=vKind.x*.2*vn(vPos*1.3)-hnuc*.25-hfen*.25+pgran*.12+vKind.z*.06*vn(vPos*vec3(1.,1.,6.))+vKind.w*.12*vn(vPos*3.);
+  fib=0.;
+ }
 #endif
 #ifdef PAN
  {pcell=vn(vPos*1.5+vec3(vX.y*7.));                                                           // which endocrine cell lies under this patch of wall
@@ -2938,6 +3323,12 @@ void main(){
  base=mix(base,mix(vec3(.86,.76,.7),vec3(.48,.4,.72),nis),vKind.z);          // Nissl substance stains violet
  base=mix(base,base*vec3(.8,.85,1.),vKind.w*jn*mos);
 #endif
+#ifdef PIT
+ {vec3 ec=pcell<.5?vec3(.9,.52,.58):pcell<.6?vec3(.62,.5,.8):vec3(.86,.8,.74);                  // acidophil pink · basophil purple · chromophobe pale
+  ec=mix(ec,vec3(.94,.78,.8),pinf);                                                               // case 08: uniform sheets of adenoma cells
+  base=mix(base,ec,vKind.x*.62);base=mix(base,vec3(.5,.2,.32),hnuc*.7);base=mix(base,vec3(.08,.02,.03),hfen*.8);base=mix(base,vec3(.95,.85,.7),pgran*.5);
+  base=mix(base,vec3(.9,.86,.76),vKind.z*.75);base=mix(base,vec3(.86,.76,.5),vKind.w*.5);vline=0.;}
+#endif
 #ifdef PAN
  {vec3 ec=pcell<.5?vec3(.84,.74,.6):pcell<.56?vec3(.68,.58,.82):vec3(.88,.5,.58);                // β cream · δ lilac · α pink, seen through the endothelium
   base=mix(base,ec,vKind.x*.6);base=mix(base,vec3(.55,.2,.3),hnuc*.7);base=mix(base,vec3(.08,.02,.03),hfen*.8);
@@ -2978,6 +3369,9 @@ void main(){
 #endif
 #ifdef LUNG
  spec*=1.+lcart*1.5+lraft*3.+lgob*1.5;
+#endif
+#ifdef PIT
+ spec*=1.+pgran*1.2+vKind.z*.8;
 #endif
 #ifdef PAN
  spec*=1.+pgran*1.5+vKind.w*.4;
@@ -3318,11 +3712,12 @@ const wallMatN=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:
 const wallMatG=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{GUT:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatP=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LUNG:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatCap=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{LUNG:1},side:THREE.BackSide,vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
+const wallMatPT=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{PIT:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatPC=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{PAN:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatH=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{HEP:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatR=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{RENAL:1},vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
 const wallMatCapR=new THREE.ShaderMaterial({uniforms:wallU,extensions:{derivatives:true},defines:{RENAL:1},side:THREE.BackSide,vertexShader:wallMat.vertexShader,fragmentShader:wallMat.fragmentShader});
-moPrep();buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);buildWalls(LUNG,wallMatP);buildWalls(RENAL,wallMatR);buildWalls(HEP,wallMatH);buildWalls(PAN,wallMatPC);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group,LUNG.group,RENAL.group,HEP.group,PAN.group);
+moPrep();buildWalls(BLOOD,wallMat);buildWalls(LYMPH,wallMatL);buildWalls(NERVE,wallMatN);buildWalls(GUT,wallMatG);buildWalls(LUNG,wallMatP);buildWalls(RENAL,wallMatR);buildWalls(HEP,wallMatH);buildWalls(PAN,wallMatPC);buildWalls(PIT,wallMatPT);scene.add(BLOOD.group,LYMPH.group,NERVE.group,GUT.group,LUNG.group,RENAL.group,HEP.group,PAN.group,PIT.group);
 
 /* --- valves, built from real anatomy: unequal leaflets, scalloped posterior mitral leaflet, branching chordae on
        papillary muscles, a crown-shaped (semilunar) or saddle-shaped (mitral) annulus, lunulae, nodules and coronary ostia --- */
@@ -3400,7 +3795,7 @@ VALVES.forEach(vl=>{
 }
 const _u=new V3(),_h=new V3(),_p=new V3(),_e=new V3(),_e2=new V3(),_q3=new V3();
 const uAt=(vl,th,out)=>out.copy(vl.n).multiplyScalar(Math.cos(th)).addScaledVector(vl.b,Math.sin(th));
-[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
+[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN,PIT].forEach(w=>{useWorld(w);buildValves();});useWorld(BLOOD);
 const AOV=BLOOD.VALVES[3];
 // one point on leaflet l: f runs commissure→commissure along the edge, rho = 1 at the hinge, 0 at the free edge
 function leafPoint(vl,l,f,rho,out){
@@ -4251,7 +4646,129 @@ const PSHOW=[['parter','Arteriole'],['islet','Islet'],['iap','Insulo-acinar'],['
 function pcSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);
  if(r==='mpd')return f<.35?'body':f<.55?'neck':'head';if(r==='islet')return f<.5?'into the islet':'out of the islet';if(r==='icd')return f<.3?'centroacinar cells':null;return null;}
 function pcAmbience(now,rnd,reg){const o={turb:0,hush:0,air:0};if(PCB.includes(reg)){o.turb=reg==='parter'?.05:.02;o.hush=.04;}if(reg==='oddi'&&(PC.meal||PC.ercp)&&rnd(.8))pop(180,90,.1,.08);if(reg==='pacinus'&&rnd(PC.meal?1.5:.5))pop(900+Math.random()*500,700,.02,.03);return o;}
-Object.assign(CELLS,CELLS_PC);buildSphincters();buildGlottis();buildSacCap();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();buildHepGates();buildPanGates();
+Object.assign(CELLS,CELLS_PC);
+/* ===== Pituitary (1 Nov 2026) =====
+   One small model (pitCalc) drives the HUD, the cells and the shader: the hypothalamic releasing hormones in the portal blood, the six anterior hormones
+   with their day-night rhythm, the vasopressin axon; in case 08 a macroprolactinoma (prolactin up, gonadotrophins down, the chiasm lifted) and cabergoline. */
+const PT={stage:0,cab:0,night:0,nightK:0,meT:0,wT:0,dT:0,hT:0};
+function pitZone(){const Wd=PIT;for(let k=0;k<PTNODES.length;k++){const a=Wd.nodeIdx[k],b=k+1<PTNODES.length?Wd.nodeIdx[k+1]:Wd.N;for(let i=a;i<b;i++)Wd.STR[i]=PTNODES[k][6];}}
+function pitCalc(){const st=PT.stage,cab=PT.cab,nt=PT.night;                                     // stage 0 healthy · 1 macroprolactinoma · 2 three months on cabergoline
+ const prl=st===0?(nt?350:200):st===1?(cab?'falling over weeks from 4,800':4800):320;
+ const prlN=typeof prl==='number'?prl:3000;
+ return {st,cab,nt,prl,prlN,lh:st===1?1.2:6,fsh:st===1?2.6:5,e2:st===1?90:300,tsh:1.8,ft4:14,cort:nt?'<50 (midnight)':'380 (9 am)',
+  gh:nt?'pulse ~10 µg/L (deep sleep)':'<1 µg/L between pulses',fields:st===1?(cab?'improving':'bitemporal hemianopia'):'full',uTum:st===1?(cab?.75:1):st===2?.3:0,
+  tumMm:st===1?24:st===2?11:0};}
+function ptFlow(i){const r=REG[i];if(r==='stalkpv'&&PT.stage===1)return .7;if(r==='mcax'||r==='herring'||r==='ppterm')return .6;return 1;}
+// ---- the gates: K in the median eminence (follow a vasopressin axon), the way out through the cavernous sinus, the posterior lobe exit ----
+const PTG={stalk:0,cavEnd:0,ax0:0};
+function buildPitGates(){const R=PIT.RANGE;PTG.stalk=R.stalkpv[0]+2;PTG.cavEnd=R.cavsin[1]-1;PTG.ax0=R.mcax[0]+1;PIT.wallSkip=[R.ptgap[0]-1,R.ptgap[1]+1];}
+function ptBounce(prevS,prevPos){const t=gv(PIT.T,S.idx,new V3());S.pos.copy(prevPos);const vt=S.vel.dot(t);S.vel.addScaledVector(t,-vt*1.6);S.idx=nearestIdx(S.pos,S.idx);S.sF=prevS;S.bumpT=.25;sfx('bonk');}
+function ptGates(prevS,prevPos){const cross=g=>{const a=prevS-g,b=S.sF-g;if(Math.abs(a)>40||Math.abs(b)>40)return 0;return a<0&&b>=0?1:a>=0&&b<0?-1:0;};
+ let c=cross(PTG.stalk);if(c>0&&!done.has('hypoportal')){complete('hypoportal');addCodex('portalsys');toast('A long portal vein, running down the pituitary stalk. The blood here has already been through one capillary bed (the median eminence) and is on its way to a second (the anterior lobe sinusoids): a portal system. Releasing hormones reach their target cells undiluted by the rest of the circulation.','good');}
+ c=cross(PTG.cavEnd);if(c>0){exitPit('cav');return;}
+ c=cross(PTG.ax0);if(c<0){ptBounce(prevS,prevPos);toastOnce('ptax0','Back up the axon toward the cell body: not drawn. Vasopressin granules only travel this way, down to the terminals.','warn');return;}}
+function exitPit(how){if(warping)return;warp(how==='cav'?'Through the cavernous sinus, the petrosal sinuses and the internal jugular vein, down to the heart…':'Out of the posterior lobe by the inferior hypophyseal veins, the cavernous sinus and the jugular vein…',()=>{complete(how==='cav'?'cavsin':'ptpost');switchWorld(BLOOD,BLOOD.nodeIdx[0]+6);toast(how==='cav'?'Back in the vena cava, carrying all six anterior pituitary hormones to their targets: liver (GH → IGF-1), adrenal (ACTH), thyroid (TSH), gonads (LH, FSH), breast (prolactin).':'Back in the circulation with vasopressin on board: in a minute it reaches the collecting ducts and aquaporin-2 goes into their membranes.','good');});}
+function enterPit(){switchWorld(PIT,PIT.nodeIdx[1]);complete('pit');PT.meT=0;PT.wT=0;PT.dT=0;PT.hT=0;setTimeout(()=>{if(W===PIT)addCodex('case08');},900);}
+function ptDetour(){const r=REG[S.idx];
+ if(r==='medem'){warp('Out of the capillary loop into the internal zone of the median eminence, and into a magnocellular axon passing through on its way from the supraoptic nucleus…',()=>{placeAt(PIT.RANGE.mcax[0]+4);complete('magno');addCodex('mcax');toast('Inside a vasopressin axon. It is unmyelinated and about a micrometre wide; the dense-core granules around you were made in the cell body in the hypothalamus and are being carried down the microtubules to the posterior lobe.','good');});return;}
+ if(r==='sha'){toastOnce('ptk1','Fly on into the capillary loops of the median eminence: that is where the hypothalamus speaks to the blood, and where K leads into a vasopressin axon.','warn');return;}
+ if(r==='adlat'||r==='admed'){toastOnce('ptk2','The endocrine cells are right behind this fenestrated endothelium. Press E on the wall to see them in section: acidophils, basophils and chromophobes.','warn');return;}
+ toastOnce('ptk3','No doorway here. The anterior lobe has almost no arterial supply of its own: nearly all its blood arrives through the portal veins you came down.','warn');}
+// ---- cells: releasing hormones in the portal blood, the anterior lobe's six hormones, vasopressin granules in the axon ----
+const PTB=['sha','medem','stalkpv','adlat','admed','hypov','cavsin'],PTX=['mcax','herring','ppterm'];
+const ptRH=v=>({medem:.6*v,stalkpv:v,adlat:.45*v,admed:.4*v,hypov:.15*v,cavsin:.08*v});
+const ptOut=(a,m,v)=>({adlat:a*v,admed:m*v,hypov:v,cavsin:v});
+const CELLS_PT={
+ rbcT:{world:'pit',n:240,ahead:60,behind:25,rmax:.86,speedK:1,clear:.45,size:.45,confine:1,dens:{...hpD(PTB,1),ppcap:1},
+  meshes:[new THREE.InstancedMesh(at(rbcGeometry(),0,0,0).scale(.5,.5,.5),new THREE.MeshPhysicalMaterial({color:0xb81f24,roughness:.32,clearcoat:.5,clearcoatRoughness:.35,emissive:0x140000}),240)]},
+ pltT:{world:'pit',n:40,ahead:50,behind:20,rmax:.9,speedK:1,spin:1.5,clear:.08,size:.12,confine:1,dens:{...hpD(PTB,1),ppcap:1},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.13,8,6).scale(1,.35,1),hpMat(0xe8d6c8,0x1a1410,.85),40)]},
+ wbcT:{world:'pit',n:5,ahead:60,behind:30,rmax:.6,speedK:.45,clear:.7,size:.7,confine:1,dens:hpD(PTB,.3),
+  meshes:[new THREE.InstancedMesh(hpSpiky(new THREE.IcosahedronGeometry(.6,3),9,.18,11),hpMat(0xf2eef0,0x1a1820),5)]},
+ crh:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.04,size:.08,confine:1,dens:ptRH(.7),
+  meshes:[new THREE.InstancedMesh(new THREE.CylinderGeometry(.025,.025,.15,6),hpMat(0xff7aa8,0x3a0a20),40)]},
+ trh:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:2,clear:.04,size:.06,confine:1,dens:ptRH(.6),
+  meshes:[new THREE.InstancedMesh(new THREE.TetrahedronGeometry(.05,0),hpMat(0x40e0c8,0x0a2a24),40)]},
+ gnrh:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:2,clear:.04,size:.07,confine:1,dens:ptRH(.6),
+  meshes:[new THREE.InstancedMesh(new THREE.OctahedronGeometry(.05,0).scale(1.5,.8,.8),hpMat(0xb070ff,0x200a3a),40)]},
+ ghrh:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.04,size:.08,confine:1,dens:ptRH(.5),
+  meshes:[new THREE.InstancedMesh(new THREE.CylinderGeometry(.022,.022,.16,6),hpMat(0x90f070,0x123008),40)]},
+ srif:{world:'pit',n:30,ahead:40,behind:18,rmax:.97,speedK:1,spin:2,clear:.04,size:.06,confine:1,dens:ptRH(.4),
+  meshes:[new THREE.InstancedMesh(new THREE.TorusGeometry(.035,.012,5,10),hpMat(0xc8a0ff,0x1e1030),30)]},
+ dopa:{world:'pit',n:60,ahead:40,behind:18,rmax:.95,speedK:1,spin:3,clear:.04,size:.05,confine:1,dens:ptRH(1),
+  meshes:[new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.035,0),hpMat(0xd8e8ff,0x101828),60)]},
+ ghT:{world:'pit',n:70,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.2,clear:.05,size:.09,confine:1,dens:ptOut(.6,.7,.6),
+  meshes:[new THREE.InstancedMesh(new THREE.DodecahedronGeometry(.06,0),hpMat(0xffd060,0x3a2a08),70)]},
+ prlT:{world:'pit',n:120,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.2,clear:.05,size:.09,confine:1,dens:ptOut(.4,.4,.35),
+  meshes:[new THREE.InstancedMesh(new THREE.DodecahedronGeometry(.06,0),hpMat(0xfff0f4,0x2a2028),120)]},
+ acthT:{world:'pit',n:50,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.5,clear:.04,size:.08,confine:1,dens:ptOut(0,.6,.6),
+  meshes:[new THREE.InstancedMesh(new THREE.CylinderGeometry(.025,.025,.14,6),hpMat(0xff6030,0x3a1408),50)]},
+ tshT:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.2,clear:.05,size:.09,confine:1,dens:ptOut(0,.4,.4),
+  meshes:[new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.06,0),hpMat(0x60d8ff,0x0a2838),40)]},
+ lhT:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.2,clear:.05,size:.09,confine:1,dens:ptOut(0,.45,.4),
+  meshes:[new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.06,0),hpMat(0x6080ff,0x0a1438),40)]},
+ fshT:{world:'pit',n:40,ahead:40,behind:18,rmax:.95,speedK:1,spin:1.2,clear:.05,size:.09,confine:1,dens:ptOut(0,.45,.4),
+  meshes:[new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.06,0).scale(1.2,.85,1),hpMat(0x9a70ff,0x180a38),40)]},
+ adhg:{world:'pit',n:160,ahead:40,behind:18,rmax:.85,speedK:1,spin:.5,clear:.08,size:.12,confine:1,dens:{mcax:1,herring:2.2,ppterm:1.4},
+  meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.12,12,10),new THREE.MeshPhysicalMaterial({color:0x5a4a6a,roughness:.3,clearcoat:.5,emissive:0x0c0814}),160)]},
+ mitoT:{world:'pit',n:16,ahead:40,behind:18,rmax:.7,speedK:.3,spin:.2,clear:.2,size:.4,confine:1,dens:{mcax:.25,herring:.15,ppterm:.6},
+  meshes:[new THREE.InstancedMesh(new THREE.CapsuleGeometry?new THREE.CapsuleGeometry(.08,.3,4,8):new THREE.CylinderGeometry(.08,.08,.4,8),new THREE.MeshStandardMaterial({color:0xc85a48,roughness:.5,emissive:0x2a0a06}),16)]},
+ avp:{world:'pit',n:60,ahead:40,behind:18,rmax:.95,speedK:1,spin:2,clear:.04,size:.06,confine:1,dens:{ppterm:.25,ppcap:1},
+  meshes:[new THREE.InstancedMesh(new THREE.TorusGeometry(.03,.012,5,9),hpMat(0x8fd0ff,0x0a2238),60)]},
+ oxyT:{world:'pit',n:30,ahead:40,behind:18,rmax:.95,speedK:1,spin:2,clear:.04,size:.06,confine:1,dens:{ppcap:.4},
+  meshes:[new THREE.InstancedMesh(new THREE.TorusGeometry(.03,.012,5,9),hpMat(0xffa0d0,0x2a0a20),30)]},
+};
+// case 08 (V): healthy → macroprolactinoma → three months on cabergoline; night (U): morning ↔ 2 a.m. deep sleep; cabergoline (O)
+const PTST=[{n:'HEALTHY',t:'A healthy pituitary. Dopamine from the hypothalamus arrives down the portal veins and holds the lactotrophs back; every other anterior hormone is driven by a releasing hormone, in pulses.'},
+ {n:'MACROPROLACTINOMA',t:'A 2.4 cm lactotroph adenoma fills the lateral wing and pushes up out of the sella against the optic chiasm. It ignores the dopamine and floods the blood with prolactin (white). Prolactin quietens the GnRH pulse generator in the hypothalamus, so LH and FSH (blue) are scarce and her periods have stopped. Press O for cabergoline.'},
+ {n:'3 MONTHS ON CABERGOLINE',t:'Three months of cabergoline, twice a week. Prolactin is down to 320 mU/L, the tumour has shrunk to 1.1 cm and come off the chiasm, her visual fields are full and her periods are back. LH and FSH are pulsing again.'}];
+function ptToggle(){PT.stage=(PT.stage+1)%3;PT.cab=PT.stage===2?1:0;const c=PTST[PT.stage];toast(c.t,PT.stage===0?'good':PT.stage===1?'warn':'');ptCaseTag();if(PT.stage===1){complete('ptcase');addCodex('prolactinoma');}}
+function ptNight(){if(W!==PIT)return;PT.night=PT.night?0:1;complete('ptnight');ptCaseTag();
+ toast(PT.night?'2 a.m., deep slow-wave sleep: GHRH surges and somatostatin falls, so the somatotrophs fire their biggest GH pulse of the day (yellow). Prolactin rises in sleep too. ACTH and cortisol are at their lowest around midnight and start climbing before you wake.':'8 a.m.: ACTH and cortisol peak around waking; GH is low between pulses. Every anterior hormone comes in pulses on top of this daily rhythm, which is why single random samples can mislead.',PT.night?'good':'');}
+function ptCab(){if(W!==PIT)return;if(PT.stage!==1){toast(PT.stage===0?'Cabergoline is a dopamine agonist for a prolactin-secreting tumour. There is none here: press V to load the case first.':'Already on cabergoline for three months.','');return;}
+ PT.cab=PT.cab?0:1;complete('ptcab');addCodex('cabergoline');ptCaseTag();toast(PT.cab?'Cabergoline: a long-acting D2 agonist, taken once or twice a week. It does what the portal dopamine could not: shuts off the adenoma’s prolactin and shrinks its cells. Prolactin falls within days, the tumour over weeks to months; the visual fields often start to recover within days.':'Cabergoline stopped (for the comparison).',PT.cab?'good':'warn');}
+function ptCaseTag(){const c=PTST[PT.stage],k=pitCalc();$('caseTag').textContent='Case 08 · '+c.n+(PT.stage===1&&PT.cab?' · on cabergoline':'')+' · '+(PT.night?'2 a.m.':'8 a.m.')+' · prolactin '+(typeof k.prl==='number'?k.prl.toLocaleString():'falling');$('caseTag').style.color=PT.stage===1?'var(--amber)':PT.stage===2?'var(--cyan)':'var(--green)';}
+function ptTick(dt){const c=pitCalc(),r=REG[S.idx];if(!C.exercise)C.hrT=PT.night?58:72;
+ PT.nightK+=(PT.night-PT.nightK)*Math.min(1,dt*.6);wallU.uMeal.value=PT.nightK;wallU.uNec.value+=(c.uTum-wallU.uNec.value)*Math.min(1,dt*.8);
+ const pk=PT.night?2:1,prlK=c.st===1?(c.cab?2.2:3.2):c.st===2?1.2:(PT.night?1.4:1),gnK=c.st===1?.25:1,acK=PT.night?.35:1;
+ Object.assign(CELLS.ghT.dens,ptOut(.6*pk,.7*pk,.6*pk));Object.assign(CELLS.prlT.dens,ptOut(.4*prlK,.35*prlK,.35*prlK));Object.assign(CELLS.acthT.dens,ptOut(0,.6*acK,.6*acK));
+ Object.assign(CELLS.lhT.dens,ptOut(0,.45*gnK,.4*gnK));Object.assign(CELLS.fshT.dens,ptOut(0,.45*gnK,.4*gnK));Object.assign(CELLS.gnrh.dens,ptRH(.6*gnK*(.6+.4*Math.max(0,Math.sin(time*.7)))));
+ Object.assign(CELLS.ghrh.dens,ptRH(PT.night?.9:.4));Object.assign(CELLS.srif.dens,ptRH(PT.night?.15:.5));Object.assign(CELLS.dopa.dens,ptRH(c.st===1?.7:1));
+ if(r==='medem'){PT.meT+=dt;if(PT.meT>3&&!done.has('medem')){complete('medem');addCodex('medem');toast('The median eminence: these capillary loops sit outside the blood–brain barrier. Hypothalamic neurons end on them and release their hormones in pulses: CRH (pink), TRH (teal), GnRH (violet), GHRH (green), somatostatin (lilac) and dopamine (pale blue). Press K to follow a vasopressin axon instead.','good');}}
+ if(r==='adlat'){PT.wT+=dt;if(PT.wT>3&&!done.has('ptwing')){complete('ptwing');addCodex('adlat');toast(c.st===1?'The lateral wing, taken over by the adenoma: sheets of identical lactotrophs, deaf to dopamine, pouring out prolactin (white).':'The lateral wing: somatotrophs (about half of all anterior cells, making GH, yellow) and lactotrophs (prolactin, white), both acidophils. Lactotrophs are the only pituitary cells held down rather than driven: by dopamine.','good');}}
+ if(r==='admed'){PT.dT+=dt;if(PT.dT>3&&!done.has('ptwedge')){complete('ptwedge');addCodex('admed');toast('The median wedge: corticotrophs (ACTH, orange), thyrotrophs (TSH, cyan) and gonadotrophs (LH and FSH, blue), basophils. Each answers its own releasing hormone, and each is switched down by the hormone its target makes: negative feedback.','good');}}
+ if(r==='herring'){PT.hT+=dt;if(PT.hT>1.5&&!done.has('herring')){complete('herring');addCodex('herring');toast('A Herring body: a swelling of the axon packed with neurosecretory granules, a store of vasopressin waiting near the end of the line.','good');}}}
+// ---- bedside for case 08 ----
+function openExamPT(){if(!started||anyModal())return;closeModals();const sh=$('examPTSheet');
+ sh.innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Bedside · Case 08</div><h1 style="font-size:28px">Leah Brennan, 29</h1>
+ <p class="small">No periods for 8 months; a milky discharge from both nipples; headaches for 3 months; lately she has been walking into door frames on both sides. Pregnancy test negative. No regular medicines (no antipsychotics, no metoclopramide).</p>
+ <div class="exgrid"><div><b>Examination</b><br>BP 118/74 · HR 72 · BMI 24 · bitemporal hemianopia to a red pin · fundi normal · galactorrhoea on expression · no features of acromegaly or Cushing’s.</div>
+ <div><b>Bloods (9 am)</b><br>Prolactin 4,800 mU/L (women under ~500) · macroprolactin negative · LH 1.2 IU/L · FSH 2.6 · oestradiol 90 pmol/L · TSH 1.8 mU/L, free T4 14 pmol/L · cortisol 380 nmol/L · IGF-1 normal for age · sodium 139.</div>
+ <div><b>MRI pituitary</b><br>2.4 cm sellar mass rising out of the sella and lifting the optic chiasm; cavernous sinuses not invaded.</div>
+ <div><b>Already done</b><br>Formal visual fields booked. Not yet started: treatment.</div></div>
+ <p><b>Why have her periods stopped?</b></p>
+ <div id="exptQ">${shuffle([['gn','High prolactin suppresses the hypothalamic GnRH pulses, so LH and FSH fall',1],['de','The tumour has destroyed all the gonadotrophs',0],['er','Prolactin blocks the oestrogen receptors in the uterus',0],['da','Dopamine made by the tumour shuts down the ovaries',0]]).map(([id,t,ok])=>`<button class="opt" data-ok="${ok}">${t}</button>`).join('')}</div><div id="exptFb"></div>`;
+ sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+ sh.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const ok=b.dataset.ok==='1';sfx(ok?'chime':'buzz');sh.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right');});if(!ok)b.classList.add('wrong');
+  $('exptFb').innerHTML=`<div class="expl">${ok?'✓ ':'✗ '}Prolactin quietens the kisspeptin neurons that drive the GnRH pulse generator, so LH and FSH fall, oestrogen is low and the periods stop (and over years, the bones thin). A prolactin this high with a macroadenoma means a prolactinoma. A large tumour with a prolactin only modestly raised would point instead to stalk compression by a non-functioning adenoma cutting off the dopamine, or to the hook effect (ask the lab to dilute). Treatment is medical even with field loss: cabergoline usually normalises prolactin and shrinks the tumour, and the fields often improve within days to weeks. Check the other axes and repeat formal fields; surgery is for resistance, intolerance or apoplexy. Her fertility may return quickly: talk about contraception or pregnancy plans.</div><button class="btn" data-close>Fly in ▸</button>`;
+  $('exptFb').querySelector('[data-close]').onclick=closeModals;complete('ptexam');addCodex('case08');if(PT.stage===0){PT.stage=1;PT.cab=0;ptCaseTag();}});
+ show('mExamPT');}
+// ---- vitals, trace, route, sub-locations, ambience ----
+const PTHERE={sha:'from the internal carotid · Ø ~0.2 mm',medem:'capillary loops · fenestrated · outside the blood–brain barrier',stalkpv:'pituitary stalk · ~3 mm thick, ~1 cm long',adlat:'somatotrophs ~50% · lactotrophs ~15–20%',admed:'corticotrophs ~15–20% · gonadotrophs ~10% · thyrotrophs ~5%',hypov:'hypophyseal vein',cavsin:'ICA · nerves III, IV, V1, V2, VI',mcax:'unmyelinated · Ø ~1 µm · supraoptic → posterior lobe',herring:'storage swelling of the axon',ppterm:'terminal on a fenestrated capillary',ppcap:'posterior lobe · inferior hypophyseal artery'};
+function ptVitals(){const c=pitCalc(),r=REG[S.idx],ax=PTX.includes(r);
+ $('vHb').textContent=ax?'fast axonal transport · a few mm per hour':r==='sha'?'arterial · from the internal carotid':r==='medem'?'first capillary bed of the portal system':r==='stalkpv'?(c.st===1?'portal flow squeezed by the tumour':'portal blood · most of the anterior lobe’s supply'):r==='adlat'||r==='admed'?'second capillary bed · sinusoids':r==='ppcap'?'posterior lobe · own arterial supply':'venous · to the cavernous sinus, then the jugular';
+ $('vHb').style.color=c.st===1&&r==='stalkpv'?'var(--amber)':'';
+ $('vZn').textContent=PTHERE[r]||'—';
+ $('vNh').textContent=ax?'vasopressin + neurophysin II in dense-core granules':r==='ppcap'?'vasopressin ~1–3 pg/mL · osmolality 287 mOsm/kg':r==='sha'?'no hypophysiotropic hormones yet':r==='medem'||r==='stalkpv'?`CRH · TRH · GnRH${c.st===1?' (pulses damped)':''} · GHRH · somatostatin · dopamine`:r==='adlat'?`GH ${c.gh} · prolactin ${typeof c.prl==='number'?c.prl.toLocaleString()+' mU/L':c.prl}`:r==='admed'?`ACTH (cortisol ${c.cort}) · TSH ${c.tsh} · LH ${c.lh} · FSH ${c.fsh}`:'all six anterior hormones leaving';
+ $('vAp').textContent=c.st===1?`gonadal axis down · oestradiol ${c.e2} pmol/L · fields: ${c.fields}`:`HPA · HPT · HPG · GH axes normal${PT.night?' · night: GH pulse, cortisol nadir':' · morning: cortisol peak'}`;
+ $('vAp').style.color=c.st===1?'var(--amber)':'';
+ $('vBl').textContent=`PRL ${typeof c.prl==='number'?c.prl.toLocaleString():'↓'} · LH ${c.lh} · FSH ${c.fsh} · fT4 ${c.ft4} · tumour ${c.tumMm?c.tumMm+' mm':'none'}`;$('vBl').style.color=c.st===1?'var(--amber)':'';}
+function ptTrace(){const r=REG[S.idx];if(PTX.includes(r)){const ph=time%6;return ph<3.5?.2+.6*((Math.sin(time*40)>.6)?1:0):.2;}               // vasopressin neurons fire in phasic bursts
+ return .25+(PT.night?.5:.15)*Math.pow(.5+.5*Math.sin(time*.4),6)+.04*Math.sin(time*2);}
+const PTSHOW=[['sha','Artery'],['medem','Median em.'],['stalkpv','Portal v.'],['adlat','Lat. wing'],['admed','Med. wedge'],['cavsin','Cav. sinus'],['mcax','Axon'],['herring','Herring'],['ppcap','Post. lobe']];
+function ptSubloc(){const r=REG[S.idx],[a,b]=RANGE[r]||[S.idx,S.idx],f=(S.idx-a)/Math.max(1,b-a);if(r==='mcax')return f<.35?'hypothalamus':f<.6?'median eminence, internal zone':'stalk';if(r==='stalkpv')return f<.5?'upper stalk':'lower stalk';return null;}
+function ptAmbience(now,rnd,reg){const o={turb:0,hush:0,air:0};if(PTB.includes(reg)){o.turb=reg==='sha'?.05:reg==='cavsin'?.04:.02;o.hush=.04;}if(PTX.includes(reg)){o.hush=.08;if((time%6)<3.5&&rnd(6))pop(1400,900,.03,.02);}return o;}
+Object.assign(CELLS,CELLS_PT);buildSphincters();buildGlottis();buildSacCap();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();buildHepGates();buildPanGates();buildPitGates();
 delete CELLS.mito.dens.cortex;delete CELLS.vesicle.dens.cortex;delete CELLS.microglia.dens.soma;delete CELLS.microglia.dens.bouton;CELLS.schwann.dens.pnerve=0;CELLS.mito.dens.bouton=.15;CELLS.mito.dens.nmj=.25;
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
@@ -4262,7 +4779,7 @@ let playerS=0; // continuous sample index of the probe
 let _avO=0,_sys=0;
 const pulseShape=x=>(x<0||x>.42)?0:Math.pow(Math.sin(Math.PI*x/.42),2); // smooth raised-cosine pulse, no hard edges
 function pulseAt(i){let tp=C.tc-.05-PD[i]/C.PWV;tp=((tp%C.T)+C.T)%C.T;return pulseShape(tp);}
-function flowMul(i){if(W.nerve)return 1;if(W.pan)return pcFlow(i);if(W.hep)return hpFlow(i);if(W.renal)return rnFlow(i);if(W.lung)return brFlow(i);if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
+function flowMul(i){if(W.nerve)return 1;if(W.pit)return ptFlow(i);if(W.pan)return pcFlow(i);if(W.hep)return hpFlow(i);if(W.renal)return rnFlow(i);if(W.lung)return brFlow(i);if(W.gut){if(KW[i*4+3]>.5)return .02+2.6*gWave(i);return .45+1.3*gSlow(i);}if(W.lymph){const c=CW[i];return c>0?.3+1.6*c*lymSq(i-8)+.3*(1-c):.75;}
  const k=i*4,a=KW[k],v=KW[k+1],ar=KW[k+2],cp=KW[k+3],rest=Math.max(0,1-a-v-ar-cp);
  return rest*(.82+.28*_avO)+a*(.6+.6*_avO)+v*(.65+.85*_sys+.2*_avO)+ar*(.65+1.05*pulseAt(i))+cp;}
 // turbulence lives where it does in a real body: jets and eddies just past valves, worst through the stenosis
@@ -4301,6 +4818,7 @@ const REGUM={
  gut:{_:[4500,0],mouth:[4500,40000],pharynx:[4500,25000],oesoph:[4500,20000],les:[4500,15000],stomach:[4500,90000],antrum:[4500,50000],pylorus:[4500,15000],duodenum:[1000,30000],jejunum:[1000,25000],ileum:[1000,22000],ileocaecal:[2000,15000],colon:[4500,50000],rectum:[4500,40000]},
  lung:{_:[1700,0],nose:[1700,20000],pharynx:[1700,15000],larynx:[1700,12000],trachea:[1800,18000],carina:[1800,18000],bronchus:[1700,12000],bronchiole:[200,1000],tbronch:[100,500],acinus:[50,350],sac:[45,400]},
  hep:{_:[3.3,0],hpvein:[3.3,12000],triad:[3.3,50],inlet:[3.3,20],zone1:[3.3,10],zone2:[3.3,10],zone3:[3.3,10],canal:[.5,1],hering:[1,2],ductule:[3,8],bduct:[12,50],hepduct:[1000,5000],cystic:[900,3000],gb:[2500,30000],gbx:[1000,3000],cbd:[1000,6000],cbdp:[1000,5000],ampulla:[900,4000],oddi:[900,3000]},
+ pit:{_:[4,0],sha:[4,200],medem:[4,12],stalkpv:[4,40],adlat:[4,15],admed:[4,15],hypov:[4,60],cavsin:[4,5000],ptgap:[4,0],mcax:[.25,1],herring:[.8,8],ppterm:[.4,2],ppcap:[4,12]},
  pan:{_:[4,0],parter:[4,20],islet:[4,10],iap:[4,7],pacinus:[.4,1.5],icd:[1,5],intral:[5,30],interl:[25,150],mpd:[600,3000],ampulla:[900,4000],oddi:[900,3000]},
  renal:{_:[6,0],afferent:[4,18],glom:[4,8],bowman:[10,0],pct:[5,25],thin:[7,15],tip:[7,15],thinasc:[7,15],tal:[6,20],macula:[6,20],dct:[7,25],ccd:[8,40],mcd:[20,150],calyx:[500,8000]},
 };
@@ -4310,11 +4828,12 @@ const PROPUM={rbc:8,platelet:2.5,wbc:13,lymph:9,mono:18,eos:13,
  villus:700,peyer:1200,gbact:2,bolus:10000,chyme:{_:1500,duodenum:800,jejunum:500,ileum:400,ileocaecal:400,colon:2000,rectum:2000},micelle:.005,
  mucus:{_:500,bronchiole:150,tbronch:60},dustL:30,dustM:5,dustS:1,gas:.0003,amac:21,neutA:13,fibrin:20,rbcA:7.5,
  rbcH:7.5,pltH:2.5,wbcH:12,ubil:.001,nh3:.0003,ureaH:.0004,glucH:.0009,lps:.02,apapM:.0008,napqi:.0008,gsh:.001,kupffer:12,stellate:15,pitc:9,micH:.005,bili:.0015,cholv:.1,crystal:1000,hco3:.0004,tryp:.005,
+ rbcT:7.5,pltT:2.5,wbcT:12,crh:.004,trh:.0008,gnrh:.0015,ghrh:.004,srif:.0015,dopa:.0006,ghT:.004,prlT:.004,acthT:.003,tshT:.005,lhT:.005,fshT:.005,adhg:.18,mitoT:1,avp:.0015,oxyT:.0015,
  rbcP:7.5,pltP:2.5,wbcP:12,monoP:16,glucP:.0009,ins:.003,cpep:.002,iapp:.003,gcg:.002,sst:.0015,lipB:.006,zymo:1,tgen:.005,lip:.006,amy:.006,spink:.003,tryA:.005,hco3P:.0004,bileP:.0015,
  h2o:.0003,na:.0002,gluc:.0009,urea:.0004,kpot:.0003,ket:.0006,rbcR:7.5,alb:.014,mdensa:8};
 function umAt(Wd,i){if(!Wd.UM){const t=REGUM[Wd.name]||{},d=(t._||[7])[0],N=Wd.N,raw=new Float32Array(N),um=new Float32Array(N),h=14;
   for(let j=0;j<N;j++){const e=t[Wd.REG[j]];raw[j]=Math.log(e?e[0]:d);}
-  for(let j=0;j<N;j++){let a=0,n=0;for(let q=Math.max(0,j-h);q<=Math.min(N-1,j+h);q++){a+=raw[q];n++;}um[j]=Math.exp(a/n);}Wd.UM=um;}   // magnification eases across region borders
+  const sk=Wd.wallSkip;for(let j=0;j<N;j++){let a=0,n=0;for(let q=Math.max(0,j-h);q<=Math.min(N-1,j+h);q++){if(sk&&((j<sk[0])!==(q<sk[0])||(j>sk[1])!==(q>sk[1])))continue;a+=raw[q];n++;}um[j]=Math.exp(a/Math.max(1,n));}Wd.UM=um;}   // magnification eases across region borders
  return Wd.UM[Math.max(0,Math.min(Wd.N-1,i))];}
 function propReal(D,reg){const r=PROPUM[D.kind];if(r===undefined)return undefined;return typeof r==='number'?r:(r[reg]!==undefined?r[reg]:r._);}
 function propDim0(D){if(D.dim0===undefined){let m=0;const v=new V3();for(const ms of D.meshes){ms.geometry.computeBoundingBox();ms.geometry.boundingBox.getSize(v);m=Math.max(m,v.x,v.y,v.z);}D.dim0=m||1;}return D.dim0;}
@@ -5236,14 +5755,14 @@ function bgCellLabels(){const C=BG.cell;if(!C||BG.fly)return '';const cam=BRAIN.
 function bgClose(){if(BG.cell){BRAIN.scene.remove(BG.cell.G);BG.cell=null;}BG.cellOn=false;BG.fly=null;if(BRAIN.cam)BRAIN.cam.up.set(0,1,0);if(BG.open)bgRounds(false);}
 
 
-const MBLAB={lung:{KeyO:['O₂','oxygen'],KeyZ:['💨','cough'],KeyU:['⇵','posture']},renal:{KeyO:['💧','furosemide'],KeyU:['⇵','ADH']},hep:{KeyO:['💉','NAC'],KeyU:['🍽','meal']},pan:{KeyO:['✂','ERCP'],KeyU:['🍽','meal']}};
+const MBLAB={lung:{KeyO:['O₂','oxygen'],KeyZ:['💨','cough'],KeyU:['⇵','posture']},renal:{KeyO:['💧','furosemide'],KeyU:['⇵','ADH']},hep:{KeyO:['💉','NAC'],KeyU:['🍽','meal']},pan:{KeyO:['✂','ERCP'],KeyU:['🍽','meal']},pit:{KeyO:['💊','cabergoline'],KeyU:['🌙','night']}};
 function mbRelabel(){const tb=$('touchBar'),L=W&&MBLAB[W.name];if(!tb||!L)return;['KeyO','KeyZ','KeyU'].forEach(c=>{const b=tb.querySelector(`[data-code="${c}"]`);if(!b)return;const v=L[c];b.style.display=v?'':'none';if(v){b.querySelector('span').textContent=v[0];b.querySelector('small').textContent=v[1];}});}
 function switchWorld(w,idx){setTimeout(mbRelabel,0);if(w===GUT&&!MOUTH.built)buildMouth();
  exitStudy();useWorld(w);if((w===BLOOD||w===LUNG)&&!window._thxH&&started){window._thxH=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the chest.'),3200);}if(w===NERVE&&!BRAIN.hinted){BRAIN.hinted=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the brain.'),3200);}if(typeof hidePredict==='function')hidePredict();if(w!==LUNG&&!C.exercise)C.hrT=72;
- BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;LUNG.group.visible=w===LUNG;RENAL.group.visible=w===RENAL;HEP.group.visible=w===HEP;PAN.group.visible=w===PAN;
+ BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;LUNG.group.visible=w===LUNG;RENAL.group.visible=w===RENAL;HEP.group.visible=w===HEP;PAN.group.visible=w===PAN;PIT.group.visible=w===PIT;
  ALL.forEach(D=>{D.on=D.world===w.name;D.meshes.forEach(m=>m.visible=D.on);D.a.forEach(p=>{p.live=false;p.sc=0;});});
  FOG.set(w.fog);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);
- motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:w.lung?0xe8eef4:w.pan?0xf0d0c8:w.hep?0xe8c8a8:w.renal?0xf4e6d8:0xffc9a8);
+ motes.material.color.set(w.lymph?0xfff0b8:w.nerve?0xd8e6ff:w.gut?0xf0dcb0:w.lung?0xe8eef4:w.pit?0xe8d0e0:w.pan?0xf0d0c8:w.hep?0xe8c8a8:w.renal?0xf4e6d8:0xffc9a8);
  placeAt(idx);curReg=null;target=null;if(started)buildLabels();
 }
 let warping=false;
@@ -5257,6 +5776,7 @@ function detour(){
  if(W===RENAL){rnDetour();return;}
  if(W===HEP){hpDetour();return;}
  if(W===PAN){pcDetour();return;}
+ if(W===PIT){ptDetour();return;}
  const r=REG[S.idx];
  if(!W.lymph&&(r==='syscap'||r==='venule')){
   warp('Squeezing out through a gap between two endothelial cells…',()=>{switchWorld(LYMPH,8);complete('leak');addCodex('leak');
@@ -5412,18 +5932,32 @@ const OBJ=[
  {id:'poddi',pc:1,t:'Out through the papilla (after a meal, or the cut sphincter)'},
  {id:'pduod',pc:1,t:'Arrive in the duodenum, where trypsin belongs'},
  {id:'prounds',pc:1,t:'Present Ruth Mensah on Rounds (R)'},
+ {id:'pit',pt:1,t:'Enter the pituitary (Tab → Pituitary)'},
+ {id:'ptexam',pt:1,t:'Bedside: read Leah Brennan’s results and say why her periods stopped (G)'},
+ {id:'medem',pt:1,t:'Median eminence: hover 3 s and watch the releasing hormones enter'},
+ {id:'hypoportal',pt:1,t:'Ride a long portal vein down the stalk'},
+ {id:'ptwing',pt:1,t:'Lateral wing: the GH and prolactin cells'},
+ {id:'ptwedge',pt:1,t:'Median wedge: the ACTH, TSH, LH and FSH cells'},
+ {id:'ptnight',pt:1,t:'Sleep (U): the 2 a.m. growth hormone pulse'},
+ {id:'ptcase',pt:1,t:'Case toggle (V): load the macroprolactinoma'},
+ {id:'ptcab',pt:1,t:'Cabergoline (O): do what the dopamine could not'},
+ {id:'cavsin',pt:1,t:'Leave through the cavernous sinus'},
+ {id:'magno',pt:1,t:'In the median eminence press K: follow a vasopressin axon'},
+ {id:'herring',pt:1,t:'Reach a Herring body'},
+ {id:'ptpost',pt:1,t:'Out through the posterior lobe capillary'},
+ {id:'ptrounds',pt:1,t:'Present Leah Brennan on Rounds (R)'},
 ];
-const OBJHEAD={blood:['Case 01 · Objectives','The patient who fainted on the stairs'],lymph:['Lymph detour · Objectives','Where the leaked plasma goes'],nerve:['Nervous system · Objectives','From cortex to muscle'],gut:['Case 03 · Objectives','The anaemia that kept coming back'],lung:['Case 04 · Objectives','The cough that turned to rust'],renal:['Case 05 · Objectives','Drowning in urine, dying of thirst'],hep:['Case 06 · Objectives','Sixteen grams and a good night’s sleep'],pan:['Case 07 · Objectives','A stone in the wrong place']};
+const OBJHEAD={blood:['Case 01 · Objectives','The patient who fainted on the stairs'],lymph:['Lymph detour · Objectives','Where the leaked plasma goes'],nerve:['Nervous system · Objectives','From cortex to muscle'],gut:['Case 03 · Objectives','The anaemia that kept coming back'],lung:['Case 04 · Objectives','The cough that turned to rust'],renal:['Case 05 · Objectives','Drowning in urine, dying of thirst'],hep:['Case 06 · Objectives','Sixteen grams and a good night’s sleep'],pan:['Case 07 · Objectives','A stone in the wrong place'],pit:['Case 08 · Objectives','Milk, no periods, and a door frame']};
 const done=new Set();
 function renderObj(){
  // finished steps fold into one line so the open ones stay visible; the section you're in comes first
  const sec=(list,title)=>{const next=list.find(o=>!done.has(o.id)),nd=list.filter(o=>done.has(o.id)).length;
-  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':list[0].lu?'lung':list[0].rn?'renal':list[0].hp?'hep':list[0].pc?'pan':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
+  const gate=list[0].ly?'leak':list[0].ns?'carotid':list[0].gi?'gut':list[0].lu?'lung':list[0].rn?'renal':list[0].hp?'hep':list[0].pc?'pan':list[0].pt?'pit':null,open=list.filter(o=>!done.has(o.id)),shown=gate&&!done.has(gate)?open.slice(0,1):open;
   return (title?`<li class="sec">${title}</li>`:'')+(nd?`<li class="sum">${nd} done</li>`:'')+shown.map(o=>{let t=o.t;if(o.id==='scan')t+=` · ${Math.min(scanned.size,6)}/6`;return `<li class="${o===next?'next':''}">${t}</li>`;}).join('');};
- const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03'),lu=sec(OBJ.filter(o=>o.lu),'Lungs · Case 04'),rn=sec(OBJ.filter(o=>o.rn),'Kidney · Case 05'),hp=sec(OBJ.filter(o=>o.hp),'Liver · Case 06'),pc=sec(OBJ.filter(o=>o.pc),'Pancreas · Case 07');
+ const gi=sec(OBJ.filter(o=>o.gi),'Gut · Case 03'),lu=sec(OBJ.filter(o=>o.lu),'Lungs · Case 04'),rn=sec(OBJ.filter(o=>o.rn),'Kidney · Case 05'),hp=sec(OBJ.filter(o=>o.hp),'Liver · Case 06'),pc=sec(OBJ.filter(o=>o.pc),'Pancreas · Case 07'),pt=sec(OBJ.filter(o=>o.pt),'Pituitary · Case 08');
  if(W){const hh=OBJHEAD[W.name]||OBJHEAD.blood;$('objCase').textContent=hh[0];$('objTitle').textContent=hh[1];}
- const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi&&!o.lu&&!o.rn&&!o.hp&&!o.pc),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
- $('objList').innerHTML=W&&W.pan?pc+hp+gi+main+ly+ns+lu+rn:W&&W.hep?hp+pc+gi+main+ly+ns+lu+rn:W&&W.renal?rn+main+ly+ns+gi+lu+hp+pc:W&&W.lung?lu+main+ly+ns+gi+rn+hp+pc:W&&W.gut?gi+hp+pc+ly+main+lu+rn:W&&W.lymph?ly+ns+gi+main+lu+rn+hp+pc:W&&W.nerve?ns+ly+gi+main+lu+rn+hp+pc:main+ly+ns+gi+lu+rn+hp+pc;
+ const main=sec(OBJ.filter(o=>!o.ly&&!o.ns&&!o.gi&&!o.lu&&!o.rn&&!o.hp&&!o.pc&&!o.pt),W&&!W.closed?'Mr. Reyes':''),ly=sec(OBJ.filter(o=>o.ly),'Lymph detour'),ns=sec(OBJ.filter(o=>o.ns),'Nervous system');
+ $('objList').innerHTML=W&&W.pit?pt+ns+rn+main+ly+gi+lu+hp+pc:W&&W.pan?pc+hp+gi+main+ly+ns+lu+rn+pt:W&&W.hep?hp+pc+gi+main+ly+ns+lu+rn+pt:W&&W.renal?rn+main+ly+ns+gi+lu+hp+pc+pt:W&&W.lung?lu+main+ly+ns+gi+rn+hp+pc+pt:W&&W.gut?gi+hp+pc+ly+main+lu+rn+pt:W&&W.lymph?ly+ns+gi+main+lu+rn+hp+pc+pt:W&&W.nerve?ns+pt+ly+gi+main+lu+rn+hp+pc:main+ly+ns+gi+lu+rn+hp+pc+pt;
 }
 function complete(id){
  if(done.has(id)||!OBJ.some(o=>o.id===id))return;done.add(id);renderObj();
@@ -5583,6 +6117,11 @@ Object.assign(PROV,{afferent:['renal','Renal blood flow · autoregulation, JG ap
  h2o:['renal','Water reabsorption · aquaporins'],na:['renal','Sodium reabsorption along the nephron'],gluc:['renal','Glucose reabsorption · SGLT2/SGLT1'],urea:['renal','Urea handling · recycling'],kpot:['renal','Potassium secretion · ROMK'],ket:['renal','Ketoacid anions · anion gap'],rbcR:['renal','Renal blood flow'],alb:['renal','Albumin · charge and size selectivity'],mdensa:['renal','Macula densa cells'],
  fenestra:['renal','Filtration barrier histology · podocytes'],brushborder:['renal','Proximal tubule histology · transporters'],thinwall:['renal','Thin limb histology · vasa recta'],talcell:['renal','Thick limb histology · NKCC2, ROMK, Bartter'],cdcell:['renal','Collecting duct histology · AQP2 trafficking'],urothelium:['renal','Urothelium · transitional epithelium']});
 provIndex();
+PROV_SYS.pit={code:'EN',sys:'Endocrine · hypothalamus and pituitary',tag:'#AK_Step1_v12::#FirstAid::Endocrine (confirm the pituitary subtree path in Anki)',fa:'First Aid 2025 · Endocrine (hypothalamus and pituitary: anatomy, physiology, pathology)',outline:'Endocrine System · Hypothalamus and Pituitary'};
+Object.assign(PROV,{sha:['pit','Pituitary blood supply'],medem:['pit','Median eminence · circumventricular organs'],stalkpv:['pit','Hypophyseal portal system'],adlat:['pit','Anterior pituitary · somatotrophs, lactotrophs'],admed:['pit','Anterior pituitary · corticotrophs, thyrotrophs, gonadotrophs'],hypov:['pit','Pituitary venous drainage · petrosal sinus sampling'],cavsin:['pit','Cavernous sinus'],mcax:['pit','Magnocellular neurons · neurohypophysis'],herring:['pit','Herring bodies · posterior pituitary'],ppterm:['pit','Posterior pituitary release · copeptin'],ppcap:['pit','Posterior pituitary blood supply'],
+ pitanat:['pit','Pituitary · anatomy and relations'],pitdev:['pit','Pituitary embryology · Rathke’s pouch, craniopharyngioma'],portalsys:['pit','Hypophyseal portal system'],pitcells:['pit','Anterior pituitary cell types'],hpaaxis:['pit','Hypothalamic–pituitary–adrenal axis'],hptaxis:['pit','Hypothalamic–pituitary–thyroid axis'],hpgaxis:['pit','Hypothalamic–pituitary–gonadal axis'],ghaxis:['pit','Growth hormone axis · IGF-1'],prlctl:['pit','Prolactin regulation · dopamine'],feedback:['pit','Endocrine feedback loops'],adhrel:['pit','ADH release · osmoregulation'],oxytocin:['pit','Oxytocin'],
+ prolactinoma:['pit','Prolactinoma'],nfpa:['pit','Non-functioning pituitary adenoma'],hypopit:['pit','Hypopituitarism · Sheehan, apoplexy'],acromegaly:['pit','Acromegaly'],cushingdz:['pit','Cushing disease'],avpdef:['pit','Central diabetes insipidus · AVP deficiency'],siadh:['pit','SIADH'],visfield:['pit','Optic chiasm · bitemporal hemianopia'],cabergoline:['pit','Dopamine agonists'],tss:['pit','Transsphenoidal surgery'],case08:['pit','Case 08 · macroprolactinoma presentation'],
+ rbcT:['pit','Pituitary perfusion'],pltT:['pit','Pituitary apoplexy · risk factors'],wbcT:['pit','Hypophysitis'],crh:['pit','CRH'],trh:['pit','TRH'],gnrh:['pit','GnRH · pulsatility'],ghrh:['pit','GHRH'],srif:['pit','Somatostatin'],dopa:['pit','Dopamine · prolactin inhibition'],ghT:['pit','Growth hormone'],prlT:['pit','Prolactin'],acthT:['pit','ACTH · POMC'],tshT:['pit','TSH'],lhT:['pit','LH'],fshT:['pit','FSH'],adhg:['pit','Neurosecretory granules · neurophysin'],mitoT:['pit','Axonal mitochondria'],avp:['pit','Vasopressin · V1, V2 receptors'],oxyT:['pit','Oxytocin']});
 PROV_SYS.pan={code:'GI',sys:'Gastrointestinal · pancreas',tag:'#AK_Step1_v12::#FirstAid::Gastrointestinal and ::Endocrine (confirm the pancreas subtree paths in Anki)',fa:'First Aid 2025 · Gastrointestinal (pancreas) and Endocrine (pancreas, diabetes)',outline:'Gastrointestinal System · Pancreas; Endocrine System · Pancreas'};
 Object.assign(PROV,{parter:['pan','Pancreatic blood supply · islet microcirculation'],islet:['pan','Islet microcirculation · fenestrated endothelium'],iap:['pan','Insulo-acinar portal system'],pacinus:['pan','Pancreatic acinus · histology'],icd:['pan','Intercalated duct · centroacinar cells'],intral:['pan','Pancreatic ducts · intralobular'],interl:['pan','Pancreatic ducts · interlobular, IPMN'],mpd:['pan','Main pancreatic duct · double duct sign'],
  isletcells:['pan','Islet cell types'],betacell:['pan','Insulin secretion · K-ATP channel'],insulinsyn:['pan','Insulin synthesis · proinsulin, C-peptide'],incretin:['pan','Incretins · GLP-1, GIP'],firstpass:['pan','Hepatic insulin clearance'],acinarcell:['pan','Acinar cell · enzyme secretion'],trypsinact:['pan','Pancreatic enzyme activation · enteropeptidase'],secretin:['pan','Secretin'],cftrP:['pan','CFTR · pancreatic bicarbonate secretion'],pancanat:['pan','Pancreas · gross anatomy and blood supply'],pancdev:['pan','Pancreas embryology · divisum, annular'],
@@ -5819,6 +6358,10 @@ Object.assign(DECKKW,{parter:['pancreaticoduodenal','gastroduodenal artery','spl
  isletcells:['alpha cell','beta cell','delta cell','pp cell','islet cell'],betacell:['k-atp','katp','glucokinase','sulfonylurea','kir6.2','sur1','mody','neonatal diabetes','first phase insulin'],insulinsyn:['proinsulin','preproinsulin','c-peptide','prohormone convertase'],incretin:['incretin','glp-1','gip','dpp-4','exenatide','liraglutide','semaglutide','tirzepatide'],firstpass:['hepatic insulin','insulin clearance','portal insulin'],acinarcell:['acinar cell','cholecystokinin','cck','enzyme secretion'],trypsinact:['enteropeptidase','enterokinase','trypsin','trypsinogen activation','hereditary pancreatitis','prss1'],secretin:['secretin','s cell','s cells'],cftrP:['cftr','cystic fibrosis','pancreatic insufficiency','meconium'],pancanat:['pancreas','uncinate','pancreatic head','pancreatic tail','splenic vein'],pancdev:['pancreas divisum','annular pancreas','ventral bud','dorsal bud','santorini','minor papilla'],
  acutepanc:['acute pancreatitis','lipase','pancreatitis'],gallpanc:['gallstone pancreatitis','biliary pancreatitis','choledocholithiasis'],pancsev:['ranson','bisap','atlanta','necrotizing pancreatitis','necrotising pancreatitis','pseudocyst','walled-off','grey turner','cullen','saponification','hypocalcemia','hypocalcaemia'],ercp:['ercp','sphincterotomy','post-ercp'],chronicpanc:['chronic pancreatitis','steatorrhea','steatorrhoea','pancreatic calcification','fecal elastase','faecal elastase','autoimmune pancreatitis','igg4'],pancca:['pancreatic adenocarcinoma','pancreatic cancer','courvoisier','ca 19-9','ca19-9','whipple','trousseau','panin'],pnet:['insulinoma','gastrinoma','zollinger','glucagonoma','vipoma','somatostatinoma','men1','men 1','neuroendocrine'],dm1:['type 1 diabetes','insulitis','gad65','autoimmune diabetes'],dm2:['type 2 diabetes','insulin resistance','metformin','sglt2'],case07:['gallstone pancreatitis','epigastric pain'],
  rbcP:['islet transplant'],pltP:['portal vein thrombosis','splenic vein thrombosis'],wbcP:['sirs','neutrophil'],monoP:['crp','c-reactive','il-6'],glucP:['hyperglycemia','hyperglycaemia','glucose homeostasis'],ins:['insulin','glut4','insulin receptor'],cpep:['c-peptide','factitious hypoglycemia','factitious hypoglycaemia'],iapp:['amylin','iapp','pramlintide','amyloid'],gcg:['glucagon','alpha cell','proglucagon'],sst:['somatostatin','octreotide','delta cell'],lipB:['serum lipase','serum amylase'],zymo:['zymogen'],tgen:['trypsinogen','immunoreactive trypsinogen'],lip:['lipase','colipase','orlistat'],amy:['amylase','macroamylasemia','macroamylasaemia'],spink:['spink1','trypsin inhibitor'],tryA:['autodigestion','cathepsin b'],hco3P:['pancreatic juice','bicarbonate secretion'],bileP:['common channel','bile reflux']});
+Object.assign(DECKKW,{sha:['superior hypophyseal'],medem:['median eminence','circumventricular','tanycyte'],stalkpv:['portal vessels','pituitary stalk','infundibulum'],adlat:['somatotroph','lactotroph','acidophil'],admed:['corticotroph','thyrotroph','gonadotroph','basophil'],hypov:['petrosal sinus','ipss'],cavsin:['cavernous sinus'],mcax:['supraoptic','paraventricular','magnocellular','neurohypophysis'],herring:['herring bod','posterior pituitary','pituicyte','bright spot'],ppterm:['copeptin'],ppcap:['inferior hypophyseal'],
+ pitanat:['pituitary','sella turcica','diaphragma sellae'],pitdev:['rathke','craniopharyngioma','prop1','pit1','empty sella'],portalsys:['hypophyseal portal','portal system'],pitcells:['chromophobe','acidophil','basophil','folliculostellate'],hpaaxis:['crh','acth','cortisol','hpa axis','adrenal insufficiency'],hptaxis:['trh','tsh','central hypothyroidism','secondary hypothyroidism'],hpgaxis:['gnrh','kisspeptin','kallmann','hypothalamic amenorrhea','hypothalamic amenorrhoea','hypogonadotropic'],ghaxis:['growth hormone','igf-1','somatomedin','ghrelin','laron'],prlctl:['prolactin','hyperprolactinemia','hyperprolactinaemia','galactorrhea','galactorrhoea','tuberoinfundibular'],feedback:['negative feedback','feedback loop'],adhrel:['osmoreceptor','osmolality','vasopressin release','thirst'],oxytocin:['oxytocin','milk let-down','ferguson'],
+ prolactinoma:['prolactinoma','microprolactinoma','macroprolactinoma'],nfpa:['nonfunctioning','non-functioning','stalk effect','pituitary adenoma','incidentaloma'],hypopit:['hypopituitarism','sheehan','apoplexy','hypophysitis','panhypopituitarism'],acromegaly:['acromegaly','gigantism','pegvisomant'],cushingdz:['cushing disease','cushing\'s disease','dexamethasone suppression','petrosal'],avpdef:['diabetes insipidus','central di','avp deficiency','desmopressin','water deprivation'],siadh:['siadh','hyponatremia','hyponatraemia','tolvaptan','osmotic demyelination'],visfield:['bitemporal','hemianopia','optic chiasm','quadrantanopia'],cabergoline:['cabergoline','bromocriptine','dopamine agonist'],tss:['transsphenoidal'],case08:['amenorrhea','amenorrhoea','galactorrhea','galactorrhoea'],
+ rbcT:['pituitary infarction'],pltT:['apoplexy'],wbcT:['hypophysitis','ipilimumab','checkpoint inhibitor'],crh:['corticotropin-releasing','crh'],trh:['thyrotropin-releasing','trh'],gnrh:['gnrh','leuprolide','leuprorelin','degarelix'],ghrh:['ghrh','tesamorelin'],srif:['somatostatin','octreotide','lanreotide'],dopa:['dopamine','d2 receptor','antipsychotic'],ghT:['growth hormone'],prlT:['prolactin','macroprolactin'],acthT:['acth','pomc','msh'],tshT:['tsh','thyrotropin'],lhT:['luteinizing','luteinising','lh surge'],fshT:['follicle-stimulating','fsh','inhibin'],adhg:['neurophysin'],mitoT:['axonal transport'],avp:['vasopressin','adh','v2 receptor','aquaporin'],oxyT:['oxytocin']});
 Object.assign(DECKKW,{afferent:['afferent','arteriole','autoregulation','juxtaglomerular','renin','renal blood flow','rbf','prostaglandin','nsaid','ace inhibitor'],glom:['glomerul','filtration','gfr','starling','filtration fraction','inulin','creatinine clearance'],bowman:['bowman','filtrate','ultrafiltrate'],pct:['proximal','pct','sglt','brush border','isosmotic','bicarbonate reabsorption','carbonic anhydrase','acetazolamide','fanconi','pah','secretion'],thin:['descending limb','thin limb','aquaporin-1','aqp1','countercurrent'],tip:['papilla','medulla','osmolality','1200'],thinasc:['ascending limb','thin ascending'],tal:['thick ascending','nkcc2','loop diuretic','furosemide','bartter','romk','single effect','diluting segment'],macula:['macula densa','tubuloglomerular','juxtaglomerular','renin','adenosine'],dct:['distal convoluted','dct','ncc','thiazide','gitelman','pth','calcium reabsorption'],ccd:['collecting duct','principal cell','intercalated','enac','aldosterone','amiloride','spironolactone','liddle','rta'],mcd:['collecting duct','adh','vasopressin','aquaporin-2','aqp2','urea','concentrat'],calyx:['calyx','pelvis','ureter','urothelium','transitional','hydronephrosis'],
  gfr:['gfr','filtration fraction','clearance','inulin','creatinine','renal plasma flow','pah','starling'],filtbarrier:['filtration barrier','podocyte','slit diaphragm','nephrin','basement membrane','nephrotic','minimal change','proteinuria','albuminuria','heparan'],autoreg:['autoregulation','myogenic','tubuloglomerular','tgf'],countercurrent:['countercurrent','counter-current','multiplier','medullary gradient','concentrating','loop of henle'],vasarecta:['vasa recta','countercurrent exchange','peritubular'],adh:['adh','vasopressin','aquaporin','diabetes insipidus','siadh','v2 receptor','desmopressin','water deprivation','hypernatremia','hyponatremia'],raas:['renin','angiotensin','aldosterone','ace','raas','arb','hyperkalemia','hyperaldosteronism','conn'],tm:['transport maximum','tm ','threshold','glucosuria','glycosuria','sglt2','empagliflozin','dapagliflozin','splay'],acidbase:['acid-base','acidosis','alkalosis','anion gap','winter','bicarbonate','ammonium','titratable','rta','renal tubular acidosis','compensation'],potassium:['potassium','hyperkalemia','hypokalemia','romk','aldosterone','insulin shift','beta-agonist'],diuretics:['diuretic','furosemide','thiazide','spironolactone','amiloride','acetazolamide','mannitol','osmotic diuretic'],nephronscale:['nephron','juxtamedullary','cortical nephron','million'],case05:['dka','ketoacidosis','diabetic','kussmaul','anion gap','osmotic diuresis'],dka:['dka','ketoacidosis','ketone','beta-hydroxybutyrate','kussmaul','anion gap','insulin','hyperkalemia','cerebral edema','cerebral oedema'],
  h2o:['water reabsorption','aquaporin','free water','obligatory'],na:['sodium reabsorption','natriuresis','fractional excretion','fena'],gluc:['glucose reabsorption','sglt','glucosuria'],urea:['urea','bun','urea recycling','ut-a'],kpot:['potassium secretion','romk','bk channel','aldosterone'],ket:['ketone','ketoacid','anion gap','beta-hydroxybutyrate','acetoacetate'],rbcR:['renal blood flow','hematuria','haematuria'],alb:['albumin','proteinuria','albuminuria','nephrotic','charge barrier'],mdensa:['macula densa'],
@@ -5908,6 +6451,7 @@ const TOPICS=[
  ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle']],
  ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc','teeth','tongue','tonsils','palate']],
  ['lung','Lungs & the pneumonia case',['nose','pharynx','larynx','trachea','carina','bronchus','bronchiole','tbronch','acinus','sac','airwaytree','deadspace','alveolus','surfactant','barrier','vq','hpv','pulmcirc','co2drive','breathsounds','escalator','cough','westzones','pneumonia','case04','scalelung','mucus','dustL','dustM','dustS','gas','amac','neutA','fibrin','rbcA','turbinate','ciliated','bronchiolewall','vocalfold']],
+ ['pit','Pituitary & the prolactinoma case',['sha','medem','stalkpv','adlat','admed','hypov','cavsin','mcax','herring','ppterm','ppcap','pitanat','pitdev','portalsys','pitcells','hpaaxis','hptaxis','hpgaxis','ghaxis','prlctl','feedback','adhrel','oxytocin','prolactinoma','nfpa','hypopit','acromegaly','cushingdz','avpdef','siadh','visfield','cabergoline','tss','case08','rbcT','pltT','wbcT','crh','trh','gnrh','ghrh','srif','dopa','ghT','prlT','acthT','tshT','lhT','fshT','adhg','mitoT','avp','oxyT']],
  ['pan','Pancreas & the gallstone pancreatitis case',['parter','islet','iap','pacinus','icd','intral','interl','mpd','isletcells','betacell','insulinsyn','incretin','firstpass','acinarcell','trypsinact','secretin','cftrP','pancanat','pancdev','acutepanc','gallpanc','pancsev','ercp','chronicpanc','pancca','pnet','dm1','dm2','case07','rbcP','pltP','wbcP','monoP','glucP','ins','cpep','iapp','gcg','sst','lipB','zymo','tgen','lip','amy','spink','tryA','hco3P','bileP']],
  ['hep','Liver & the paracetamol case',['hpvein','triad','inlet','zone1','zone2','zone3','canal','hering','ductule','bduct','hepduct','cystic','gb','cbd','cbdp','ampulla','oddi','lobule','dualsupply','lsec','disse','zonation','ureacycle','bilirubin','jaundice','cck','apap','nac','kings','portalhtn','gallstones','case06','rbcH','pltH','wbcH','ubil','nh3','ureaH','glucH','lps','apapM','napqi','gsh','kupffer','stellate','pitc','micH','bili','cholv','crystal','hco3','tryp','cholangio','gbmucosa','oddisph','bileacids']],
  ['renal','Kidney & the DKA case',['afferent','glom','bowman','pct','thin','tip','thinasc','tal','macula','dct','ccd','mcd','calyx','gfr','filtbarrier','autoreg','countercurrent','vasarecta','adh','raas','tm','acidbase','potassium','diuretics','nephronscale','case05','dka','h2o','na','gluc','urea','kpot','ket','rbcR','alb','mdensa','fenestra','brushborder','thinwall','talcell','cdcell','urothelium']]];
@@ -5917,10 +6461,11 @@ const CELLHOME={rbc:'desc',wbc:'venule',platelet:'syscap',lymph:'cortsinus',mono
 Object.assign(CELLHOME,{villus:'jejunum',gbact:'colon',bolus:'oesoph',chyme:'antrum',micelle:'jejunum',peyer:'ileum',gutlength:'jejunum',gutsurface:'jejunum',villusfork:'jejunum',acid:'stomach',slowwave:'antrum',microbiome:'colon',ens:'jejunum',bileacids:'ileum',coeliac:'jejunum',appendix:'colon',case03:'duodenum',squamous:'oesoph',gastricmucosa:'stomach',crypt:'jejunum',colonmucus:'colon',sphinctermusc:'pylorus'});
 Object.assign(CELLHOME,{mucus:'trachea',dustL:'nose',dustM:'bronchus',dustS:'sac',gas:'acinus',amac:'sac',neutA:'sac',fibrin:'sac',rbcA:'sac',airwaytree:'bronchiole',deadspace:'trachea',alveolus:'sac',surfactant:'sac',barrier:'sac',vq:'acinus',hpv:'acinus',pulmcirc:'acinus',co2drive:'larynx',breathsounds:'bronchus',escalator:'bronchiole',cough:'trachea',westzones:'acinus',pneumonia:'sac',case04:'nose',scalelung:'trachea',turbinate:'nose',ciliated:'trachea',bronchiolewall:'bronchiole',vocalfold:'larynx'});
 Object.assign(CELLHOME,{rbcH:'zone1',pltH:'zone1',wbcH:'zone2',ubil:'zone1',nh3:'zone1',ureaH:'zone3',glucH:'zone1',lps:'zone1',apapM:'zone2',napqi:'zone3',gsh:'zone3',kupffer:'zone1',stellate:'zone2',pitc:'zone2',micH:'bduct',bili:'canal',cholv:'canal',crystal:'gb',hco3:'bduct',tryp:'ampulla',lobule:'zone2',dualsupply:'triad',lsec:'zone2',disse:'zone2',zonation:'zone2',ureacycle:'zone1',bilirubin:'canal',jaundice:'canal',cck:'oddi',apap:'zone3',nac:'zone3',kings:'zone3',portalhtn:'hpvein',gallstones:'gb',case06:'hpvein',cholangio:'bduct',gbmucosa:'gb',oddisph:'oddi'});
+Object.assign(CELLHOME,{rbcT:'medem',pltT:'medem',wbcT:'stalkpv',crh:'medem',trh:'medem',gnrh:'medem',ghrh:'medem',srif:'medem',dopa:'stalkpv',ghT:'adlat',prlT:'adlat',acthT:'admed',tshT:'admed',lhT:'admed',fshT:'admed',adhg:'mcax',mitoT:'ppterm',avp:'ppcap',oxyT:'ppcap',pitanat:'adlat',pitdev:'adlat',portalsys:'stalkpv',pitcells:'adlat',hpaaxis:'admed',hptaxis:'admed',hpgaxis:'admed',ghaxis:'adlat',prlctl:'adlat',feedback:'admed',adhrel:'ppcap',oxytocin:'ppcap',prolactinoma:'adlat',nfpa:'admed',hypopit:'admed',acromegaly:'adlat',cushingdz:'admed',avpdef:'mcax',siadh:'ppcap',visfield:'medem',cabergoline:'adlat',tss:'cavsin',case08:'sha'});
 Object.assign(CELLHOME,{rbcP:'islet',pltP:'islet',wbcP:'iap',monoP:'iap',glucP:'islet',ins:'iap',cpep:'iap',iapp:'islet',gcg:'islet',sst:'islet',lipB:'iap',zymo:'pacinus',tgen:'icd',lip:'icd',amy:'icd',spink:'pacinus',tryA:'pacinus',hco3P:'intral',bileP:'ampulla',isletcells:'islet',betacell:'islet',insulinsyn:'islet',incretin:'islet',firstpass:'iap',acinarcell:'pacinus',trypsinact:'oddi',secretin:'icd',cftrP:'icd',pancanat:'mpd',pancdev:'mpd',acutepanc:'pacinus',gallpanc:'ampulla',pancsev:'pacinus',ercp:'oddi',chronicpanc:'intral',pancca:'interl',pnet:'islet',dm1:'islet',dm2:'islet',case07:'parter'});
 Object.assign(CELLHOME,{h2o:'pct',na:'tal',gluc:'pct',urea:'mcd',kpot:'ccd',ket:'pct',rbcR:'glom',alb:'glom',mdensa:'macula',gfr:'glom',filtbarrier:'glom',autoreg:'afferent',countercurrent:'thin',vasarecta:'tip',adh:'ccd',raas:'afferent',tm:'pct',acidbase:'ccd',potassium:'ccd',diuretics:'tal',nephronscale:'pct',case05:'afferent',dka:'pct',fenestra:'glom',brushborder:'pct',thinwall:'thin',talcell:'tal',cdcell:'ccd',urothelium:'calyx'});
 function flyToKey(k){
- const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN].find(w=>w.RANGE[r]);if(!w)return false;
+ const r=CELLHOME[k]||k;const w=[BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN,PIT].find(w=>w.RANGE[r]);if(!w)return false;
  const [a,b]=w.RANGE[r];closeModals();switchWorld(w,Math.floor(a+(b-a)*.3));toast('Flew to '+(REGIONS[r]?REGIONS[r].n:r)+' — look around, then review again later','good');return true;
 }
 // regions in flow order, per world, for "what comes next" cards
@@ -5942,6 +6487,10 @@ Object.assign(CELLNAME,{rbcP:'Red blood cell',pltP:'Platelet',wbcP:'Neutrophil',
 Object.assign(CELLSUB,{rbcP:'single file through the islet',pltP:'passing through',wbcP:'called in by injured acini',monoP:'on its way to become a macrophage',glucP:'what the β cells are measuring',ins:'from the β cells · to the liver first',cpep:'cut from proinsulin · equal to insulin',iapp:'co-secreted with insulin',gcg:'from the α cells',sst:'from the δ cells · the brake',lipB:'leaking from injured acini',zymo:'opening at the acinar apex',tgen:'inactive until the duodenum',lip:'fat-digesting · secreted active',amy:'starch-digesting',spink:'trypsin inhibitor',tryA:'switched on inside the gland',hco3P:'from the duct cells · secretin',bileP:'joining at the ampulla'});
 Object.assign(CELLSIZE,{rbcP:'≈ 7.5 µm',pltP:'≈ 2–3 µm',wbcP:'≈ 12 µm',monoP:'≈ 15–20 µm',glucP:'≈ 0.9 nm',ins:'≈ 3 nm · 5.8 kDa',cpep:'≈ 2 nm · 3 kDa',iapp:'≈ 3 nm · 3.9 kDa',gcg:'≈ 2 nm · 3.5 kDa',sst:'≈ 1.5 nm · 1.6 kDa',lipB:'≈ 6 nm · 50 kDa',zymo:'≈ 1 µm',tgen:'≈ 5 nm · 24 kDa',lip:'≈ 6 nm · 50 kDa',amy:'≈ 6 nm · 56 kDa',spink:'≈ 3 nm · 6 kDa',tryA:'≈ 5 nm · 24 kDa',hco3P:'≈ 0.4 nm',bileP:'≈ 1.5 nm'});
 Object.assign(CELLDO,{rbcP:'Carrying oxygen past β cells that need a lot of it when glucose is high.',pltP:'Passing through; in severe pancreatitis platelets help clot the small vessels.',wbcP:'Sticking to the capillary wall to squeeze out into the inflamed tissue.',monoP:'Following the neutrophils into the injured lobule.',glucP:'Entering the β cells to be measured by glucokinase.',ins:'Leaving the islet for the portal vein and the liver.',cpep:'Leaving with insulin; the liver will not take it up.',iapp:'Leaving with insulin; it slows the stomach and suppresses glucagon.',gcg:'Leaving the islet to tell the liver to make glucose.',sst:'Holding the α and β cells back.',lipB:'Escaping into the blood, where it is measured to make the diagnosis.',zymo:'Fusing with the apical membrane and emptying into the lumen.',tgen:'Flowing out, inactive, until enteropeptidase cuts it.',lip:'Flowing out to digest fat in the duodenum.',amy:'Flowing out to digest starch.',spink:'Standing by to block any trypsin formed too early.',tryA:'Activating the other proenzymes inside the gland: autodigestion.',hco3P:'Alkalinising the juice to neutralise stomach acid.',bileP:'Mixing with the juice before the duodenum.'});
+Object.assign(CELLNAME,{rbcT:'Red blood cell',pltT:'Platelet',wbcT:'White cell',crh:'CRH',trh:'TRH',gnrh:'GnRH',ghrh:'GHRH',srif:'Somatostatin',dopa:'Dopamine',ghT:'Growth hormone',prlT:'Prolactin',acthT:'ACTH',tshT:'TSH',lhT:'LH',fshT:'FSH',adhg:'Neurosecretory granule',mitoT:'Mitochondrion',avp:'Vasopressin (ADH)',oxyT:'Oxytocin'});
+Object.assign(CELLSUB,{rbcT:'through two capillary beds in a row',pltT:'passing through',wbcT:'passing through',crh:'to the corticotrophs',trh:'to the thyrotrophs',gnrh:'to the gonadotrophs · in pulses',ghrh:'to the somatotrophs',srif:'the brake on GH',dopa:'holding the lactotrophs back',ghT:'from the somatotrophs',prlT:'from the lactotrophs',acthT:'from the corticotrophs',tshT:'from the thyrotrophs',lhT:'from the gonadotrophs',fshT:'from the gonadotrophs',adhg:'vasopressin on its way down',mitoT:'powering the terminal',avp:'into the blood · to the kidney',oxyT:'from neighbouring axons'});
+Object.assign(CELLSIZE,{rbcT:'≈ 7.5 µm',pltT:'≈ 2–3 µm',wbcT:'≈ 12 µm',crh:'≈ 4 nm · 4.8 kDa',trh:'≈ 0.8 nm · 362 Da',gnrh:'≈ 1.5 nm · 1.2 kDa',ghrh:'≈ 4 nm · 5 kDa',srif:'≈ 1.5 nm · 1.6 kDa',dopa:'≈ 0.6 nm · 153 Da',ghT:'≈ 4 nm · 22 kDa',prlT:'≈ 4 nm · 23 kDa',acthT:'≈ 3 nm · 4.5 kDa',tshT:'≈ 5 nm · 28 kDa',lhT:'≈ 5 nm · 30 kDa',fshT:'≈ 5 nm · 30 kDa',adhg:'≈ 160–200 nm',mitoT:'≈ 1 µm long',avp:'≈ 1.5 nm · 1.1 kDa',oxyT:'≈ 1.5 nm · 1 kDa'});
+Object.assign(CELLDO,{rbcT:'Squeezing through the capillary loops of the median eminence and on down the stalk.',pltT:'Passing through.',wbcT:'Passing through.',crh:'Riding the portal blood to the corticotrophs.',trh:'Riding the portal blood to the thyrotrophs (and lactotrophs).',gnrh:'Arriving in a pulse for the gonadotrophs.',ghrh:'Arriving for the somatotrophs.',srif:'Holding the somatotrophs back between pulses.',dopa:'Arriving at the lactotrophs’ D2 receptors.',ghT:'Leaving for the liver, to make IGF-1.',prlT:'Leaving for the breast.',acthT:'Leaving for the adrenal cortex.',tshT:'Leaving for the thyroid.',lhT:'Leaving for the gonads.',fshT:'Leaving for the gonads.',adhg:'Riding a microtubule down to the terminal.',mitoT:'Supplying ATP for transport and release.',avp:'Leaving for the collecting ducts and the vessels.',oxyT:'Leaving for the breast and uterus.'});
 const CELLKINDS=Object.keys(CELLNAME);
 // the deck: everything unlocked this session plus anything already in the SRS file (so it survives a reload)
 function srsDeck(){
@@ -5951,11 +6500,12 @@ function srsDeck(){
   deck.push({id:'recall:'+k,type:'recall',k,topic:topicOf(k)});
   if(c.rc)deck.push({id:'rc:'+k,type:'rc',k,topic:topicOf(k)});});
  CELLKINDS.forEach(kd=>{const ck=CODEXKEY[kd]||kd;if(keys.has(ck)||keys.has(kd))deck.push({id:'cell:'+kd,type:'cell',k:kd,topic:topicOf(ck)});});
- [BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
+ [BLOOD,LYMPH,NERVE,GUT,LUNG,RENAL,HEP,PAN,PIT].forEach(w=>{const seq=regionSeq(w);seq.forEach((r,i)=>{if(!keys.has(r)||!REGIONS[r])return;const nx=seq[(i+1)%seq.length];if(!w.closed&&i===seq.length-1)return;deck.push({id:'next:'+r,type:'next',k:r,nx,w,topic:topicOf(r)});});});
  if(done.has('exam')||done.has('rounds'))QUIZ.forEach((q,i)=>deck.push({id:'quiz:'+i,type:'quiz',q,k:'aortic',topic:'heart'}));
  if(done.has('grounds')||done.has('gexam'))QUIZ_GI.forEach((q,i)=>deck.push({id:'gquiz:'+i,type:'quiz',q,k:'jejunum',topic:'gut'}));
  if(done.has('lrounds')||done.has('lexam'))QUIZ_LU.forEach((q,i)=>deck.push({id:'lquiz:'+i,type:'quiz',q,k:'sac',topic:'lung'}));
  if(done.has('rrounds')||done.has('rexam'))QUIZ_RN.forEach((q,i)=>deck.push({id:'rquiz:'+i,type:'quiz',q,k:'tal',topic:'renal'}));
+ if(done.has('ptrounds')||done.has('ptexam'))QUIZ_PT.forEach((q,i)=>deck.push({id:'ptquiz:'+i,type:'quiz',q,k:'prolactinoma',topic:'pit'}));
  if(done.has('prounds')||done.has('pexam'))QUIZ_PC.forEach((q,i)=>deck.push({id:'pquiz:'+i,type:'quiz',q,k:'acutepanc',topic:'pan'}));
  if(done.has('hrounds')||done.has('hexam'))QUIZ_HP.forEach((q,i)=>deck.push({id:'hquiz:'+i,type:'quiz',q,k:'zone3',topic:'hep'}));
  PREDICT.forEach(p=>{if(SRS.cards['pred:'+p.id])deck.push({id:'pred:'+p.id,type:'pred',p,k:p.k,topic:topicOf(p.k)});});
@@ -6096,7 +6646,22 @@ const QUIZ_PC=[
  {q:'Pancreas divisum means…',a:['The dorsal and ventral ducts did not fuse, so most of the gland drains through the minor papilla','The pancreas wraps around the second part of the duodenum','The tail is separated from the body by the splenic vein','There are two main ducts both entering at the major papilla'],e:'It is present in about 5–10% of people and is mostly harmless. An annular pancreas is the ring round the duodenum (ventral bud), associated with Down syndrome and duodenal obstruction.'},
  {q:'Painless obstructive jaundice with a palpable, non-tender gallbladder suggests…',a:['A tumour in the head of the pancreas (Courvoisier’s sign)','A stone in the common bile duct','Acute cholecystitis','Gilbert syndrome'],e:'A slowly growing obstruction lets a healthy gallbladder distend; stones usually leave it scarred and small. Most pancreatic ductal adenocarcinomas arise in the head; CA19-9 and CT stage it, and a Whipple operation is the curative option when it is resectable.'},
 ];
+const QUIZ_PT=[
+ {q:'Why does the hypothalamus reach the anterior pituitary through a portal system rather than the general circulation?',a:['Its releasing hormones arrive concentrated, in pulses, before being diluted in the whole blood volume','The anterior lobe has no other way to get oxygen','Portal blood is filtered by the liver first','The posterior lobe needs the blood afterwards'],e:'Tiny amounts of CRH, TRH, GnRH, GHRH, somatostatin and dopamine go from one capillary bed (the median eminence) straight to a second (the anterior lobe sinusoids). Diluted in 5 L of blood they would be too weak to act.'},
+ {q:'The pituitary stalk is cut. Which anterior hormone rises?',a:['Prolactin','Growth hormone','ACTH','LH'],e:'Prolactin is the only one held down rather than driven: by dopamine from the arcuate nucleus. Cut the stalk (or squeeze it) and the dopamine stops; every other hormone loses its releasing hormone and falls.'},
+ {q:'A pituitary tumour pressing up on the optic chiasm usually causes…',a:['Bitemporal hemianopia, often starting in the upper temporal fields','Homonymous hemianopia','Central scotoma in one eye','Total blindness in one eye'],e:'The fibres crossing in the chiasm come from the nasal halves of both retinas, which see the temporal fields. Pressure from below hits the lower crossing fibres first, so the upper temporal quadrants go first; a craniopharyngioma pressing from above tends to take the lower ones first.'},
+ {q:'A patient with hypopituitarism lacks cortisol and thyroxine. You replace…',a:['Hydrocortisone first, then levothyroxine','Levothyroxine first, then hydrocortisone','Both together at full dose','Only levothyroxine; cortisol recovers'],e:'Thyroxine speeds cortisol clearance and raises the demand for it, and can tip unrecognised adrenal insufficiency into crisis.'},
+ {q:'Sudden severe headache, double vision and drowsiness in a man with a known pituitary macroadenoma. The first treatment is…',a:['Intravenous hydrocortisone','Cabergoline','Urgent radiotherapy','Desmopressin'],e:'Pituitary apoplexy: bleeding or infarction in the tumour. ACTH loss can cause a fatal adrenal crisis; give hydrocortisone, then image and involve neurosurgery, especially if vision is threatened.'},
+ {q:'To diagnose acromegaly you…',a:['Measure IGF-1, then show that GH fails to fall after an oral glucose load','Measure a random GH','Measure prolactin','Do a dexamethasone suppression test'],e:'GH is pulsatile, so a single value misleads; IGF-1 integrates it. In acromegaly glucose fails to suppress GH. Treatment is transsphenoidal surgery, then somatostatin analogues or pegvisomant.'},
+ {q:'Vasopressin concentrates the urine by…',a:['V2 receptors in collecting duct principal cells inserting aquaporin-2','Constricting the afferent arteriole','Increasing sodium reabsorption in the thick ascending limb only','Blocking aldosterone'],e:'V2 → cAMP → aquaporin-2 vesicles fuse with the apical membrane; water follows the medullary gradient. V1 receptors on vascular smooth muscle mediate its pressor effect.'},
+ {q:'A 4 cm non-functioning pituitary adenoma with prolactin of 1,200 mU/L. The prolactin is high because…',a:['The tumour squeezes the stalk and cuts off dopamine (stalk effect)','The tumour is a prolactinoma','The patient is pregnant','Prolactin is made by the optic chiasm'],e:'A prolactinoma this size would make far more prolactin, often many thousands. A modest rise with a large tumour points to the stalk effect, or the hook effect in a real prolactinoma, so ask the lab to dilute the sample.'},
+ {q:'A continuous (non-pulsatile) GnRH agonist given for weeks…',a:['Suppresses LH and FSH after an initial flare','Increases LH and FSH permanently','Has no effect on the pituitary','Raises prolactin'],e:'Gonadotrophs need pulses (roughly every 60–120 minutes); constant stimulation desensitises them. That is how leuprorelin treats prostate cancer, endometriosis and precocious puberty.'},
+ {q:'After a severe postpartum haemorrhage, the first sign of Sheehan syndrome is often…',a:['Failure to breastfeed','Diabetes insipidus','Hypertension','Galactorrhoea'],e:'The pituitary enlarges in pregnancy and its portal blood supply makes it vulnerable to shock. Loss of prolactin shows first, then amenorrhoea, then thyroid and adrenal failure. The posterior lobe, with its own arterial supply, is usually spared.'},
+];
 const PREDICT=[
+ {id:'ppor',k:'portalsys',at:'sha',short:'where the anterior lobe gets its blood',q:'Prediction — the anterior lobe gets most of its blood from…',a:['Portal veins coming down the stalk from the median eminence','Its own arteries straight from the carotid'],e:'The anterior lobe has almost no direct arterial supply. Its blood has already passed through the capillary loops of the median eminence, picking up the hypothalamic hormones on the way.'},
+ {id:'pprl',k:'prlctl',at:'medem',short:'which hormone the brain holds down',q:'Prediction — if the stalk were cut, prolactin would…',a:['Rise: the dopamine could no longer reach the lactotrophs','Fall, like the other anterior hormones'],e:'Prolactin is the only anterior hormone held down rather than driven. Cut or squeeze the stalk and it rises while GH, ACTH, TSH, LH and FSH fall.'},
+ {id:'pvp',k:'mcax',at:'stalkpv',short:'where vasopressin is made',q:'Prediction — the vasopressin released from the posterior lobe is made…',a:['In neurons of the hypothalamus, and carried down their axons','By the cells of the posterior lobe itself'],e:'The posterior lobe is nerve endings and glia. Vasopressin and oxytocin are made in the supraoptic and paraventricular nuclei and travel down the stalk in granules; cut the stalk high and diabetes insipidus follows.'},
  {id:'pisl',k:'isletcells',at:'parter',short:'how an islet is built',q:'Prediction — inside a human islet the β cells and α cells are…',a:['Mixed together along the capillaries','Sorted: a core of β cells inside a rim of α cells'],e:'The core-and-mantle islet is the mouse. In human islets the cell types are intermingled, and almost every cell touches a vessel; neighbours signal to each other directly.'},
  {id:'pjuice',k:'trypsinact',at:'iap',short:'what state the enzymes are in',q:'Prediction — the protein-digesting enzymes in the acinus are…',a:['Inactive proenzymes, switched on only in the duodenum','Already active, ready to digest'],e:'Trypsinogen and the other proteases leave the pancreas inactive; enteropeptidase on the duodenal brush border starts the cascade. When they switch on inside the gland, that is pancreatitis.'},
  {id:'pstn',k:'gallpanc',at:'mpd',short:'why a stone hurts the pancreas',q:'Prediction — a gallstone stuck in the ampulla injures the pancreas mainly because…',a:['The juice cannot get out, and trypsin is switched on inside the acinar cells','The stone releases toxins into the blood'],e:'Blocked outflow, bile reflux through the common channel and raised duct pressure push acinar cells into calcium overload; trypsinogen is activated inside them and the inflammation follows.'},
@@ -6295,6 +6860,7 @@ function envKeyAt(i){
  if(W===NERVE){if(r==='braincap'||r==='bbb')return 'bbbendo';if(r==='cortex')return 'neuropil';const kind=NNODES[Math.max(0,nodeIdx.findIndex(x=>x>i)-1)][4];
   if(kind==='hillock')return 'hillock';if(r==='axon'||r==='decuss'||r==='cord'||r==='pnerve'){const f=nodeAtS(i*DS);return f>.5?'node':f>.08?'paranode':'myelin';}
   if(r==='bouton'||r==='cleft')return 'activezone';if(r==='soma')return 'somamem';if(r==='nmj')return 'endplate';}
+ if(W===PIT){if(r==='sha'||r==='medem')return 'medemenv';if(r==='adlat'||r==='admed'||r==='stalkpv')return 'antenv';if(r==='hypov'||r==='cavsin')return 'sellaenv';return 'postenv';}
  if(W===PAN){if(r==='parter'||r==='islet')return 'isletenv';if(r==='iap'||r==='pacinus')return 'acinarenv';if(r==='ampulla'||r==='oddi')return 'papenv';return 'ductenv';}
  if(W===HEP){if(r==='hpvein'||r==='triad'||r==='inlet')return 'triadenv';if(r==='zone1'||r==='zone2'||r==='zone3'||r==='canal')return 'sinwall';if(r==='gb')return 'gbmucosa';if(r==='ampulla'||r==='oddi')return 'oddisph';return 'cholangio';}
  if(W===RENAL){if(r==='glom'||r==='afferent')return 'fenestra';if(r==='pct'||r==='bowman')return 'brushborder';if(r==='thin'||r==='tip'||r==='thinasc')return 'thinwall';if(r==='tal'||r==='macula'||r==='dct')return 'talcell';if(r==='calyx')return 'urothelium';return 'cdcell';}
@@ -6972,6 +7538,75 @@ Object.assign(ENVANIM,{
   if(c===0x9a7a3a)m.visible=blk;else if(c===0xc06858){const s=cut?1.3:fed?1.2:.8+.04*Math.sin(t*2.6);hpScaleAt(m,s,s,1);}
   else if(c===0xf0a020||c===0xb8a8ff&&m.geometry.type!=='CylinderGeometry'){const k=blk?(t*.15+u.ph)%2:(t*(fed||cut?1.4:.4)+u.ph)%10;m.position.y=-k;}});},
 });
+// pituitary wall environments (inspect with E / click)
+Object.assign(ENV,{
+ medemenv:{n:'Median eminence · in section',sub:'floor of the third ventricle lined by tanycytes · parvocellular axon terminals releasing into the perivascular space · fenestrated capillary loop · magnocellular axons passing through the internal zone',codex:'medem',size:'capillary loop Ø ≈ 10–15 µm · terminal ≈ 1–2 µm · dense-core vesicle ≈ 100 nm'},
+ antenv:{n:'Anterior lobe · in section',sub:'cords of endocrine cells round fenestrated sinusoids · acidophils (GH, prolactin, pink) · basophils (ACTH, TSH, LH/FSH, purple) · chromophobes (pale) · folliculostellate cells',codex:'pitcells',size:'endocrine cell ≈ 10–20 µm · secretory granule ≈ 150–500 nm'},
+ postenv:{n:'Posterior lobe · in section',sub:'unmyelinated magnocellular axons · Herring bodies packed with granules · pituicytes (glia) · terminals on fenestrated capillaries',codex:'herring',size:'axon Ø ≈ 1 µm · Herring body up to tens of µm · granule ≈ 160–200 nm'},
+ sellaenv:{n:'The sella and its neighbours',sub:'sella turcica · anterior and posterior lobes · stalk · optic chiasm above · sphenoid sinus below · cavernous sinuses with the carotid arteries either side · in case 08 a macroadenoma lifting the chiasm',codex:'pitanat',size:'pituitary ≈ 13 × 9 × 6 mm, ~0.6 g · chiasm ≈ 5–10 mm above the diaphragma sellae'},
+});
+Object.assign(ENVBUILD,{
+ medemenv(){const o=[];
+  o.push(part(new THREE.BoxGeometry(30,1,10),0x3a5068,{p:[0,7.6,0],o:.4}));                                                                      // CSF of the third ventricle above
+  for(let k=0;k<12;k++){const x=-13+k*2.36;o.push(part(new THREE.BoxGeometry(2.2,1.2,6),0xd8c8b0,{p:[x,6.5,0]}));                                // tanycyte bodies lining the floor
+   o.push(part(new THREE.CylinderGeometry(.12,.06,5.5,5),0xd8c8b0,{p:[x+.3,3.4,(k%3-1)*1.5]}));}                                                // their long processes down to the capillaries
+  for(let k=0;k<6;k++)o.push(part(new THREE.CylinderGeometry(.35,.35,30,8),0xf0e6d0,{p:[0,4.4,-3.6+k*.5],r:[0,0,Math.PI/2],o:.7}));          // magnocellular axons passing through to the posterior lobe
+  // the capillary loop (gomitolo) with red cells
+  o.push(part(new THREE.TorusGeometry(5.4,1.1,12,40,Math.PI),0xc86068,{p:[0,-3.6,0],o:.4,side:THREE.DoubleSide}));
+  for(let k=0;k<4;k++){const a=.4+k*.75;o.push(part(new THREE.SphereGeometry(.6,12,8),0xc0242a,{p:[Math.cos(a)*5.4,-3.6+Math.sin(a)*5.4,0],s:[1,.4,1],e:0x180000}));}
+  // parvocellular axon terminals on the perivascular space, each with dense-core vesicles of one hormone
+  const H=[0xff7aa8,0x40e0c8,0xb070ff,0x90f070,0xc8a0ff,0xd8e8ff];
+  for(let k=0;k<6;k++){const a=.3+k*.5,x=Math.cos(a)*7.6,y=-3.6+Math.sin(a)*7.6;o.push(part(new THREE.SphereGeometry(.9,12,10),0xe8dcc8,{p:[x,y,1.2]}));
+   for(let j=0;j<4;j++)o.push(part(new THREE.SphereGeometry(.16,8,6),H[k],{p:[x+(j%2-.5)*.6,y+(j>1?.3:-.3),1.9],e:0x101010}));
+   for(let j=0;j<3;j++)o.push(part(new THREE.SphereGeometry(.12,6,5),H[k],{p:[x*.9,y,1.4],e:0x101010}));}                                     // released, drifting into the capillary
+  return o;},
+ antenv(){const o=[];
+  for(const y of[-4,4])o.push(part(new THREE.CylinderGeometry(1.2,1.2,28,16,1,true),0xc86068,{p:[0,y,0],r:[0,0,Math.PI/2],o:.35,side:THREE.DoubleSide}));     // sinusoids
+  for(const y of[-4,4])for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(.65,12,8),0xc0242a,{p:[-10+k*6,y,0],s:[.4,1,1],e:0x180000}));
+  // endocrine cells in cords between the sinusoids: acidophils, basophils, chromophobes; the adenoma takes the left half in case 08
+  let s=7;const r=()=>{s=(s*16807)%2147483647;return s/2147483647;};
+  for(let gx=-12.5;gx<=12.5;gx+=2.1)for(const gy of[-8.2,-6.2,-1.6,0,1.6,6.2,8.2]){const u=r(),x=gx+(r()-.5)*.3;const adeno=gx<0;
+   const col=u<.5?0xe8788c:u<.8?0x9a70c8:0xe8dccc;o.push(part(new THREE.BoxGeometry(1.9,1.4,2.2),col,{p:[x,gy,0],rough:.6}));o.push(part(new THREE.SphereGeometry(.38,10,8),0x4a2a5a,{p:[x,gy,1.15]}));
+   if(adeno)o.push(part(new THREE.BoxGeometry(1.95,1.45,2.25),0xf2c8cc,{p:[x,gy,0],rough:.7}));}                                                 // adenoma cells (shown only in case 08)
+  for(let k=0;k<5;k++)o.push(part(hpSpiky(new THREE.IcosahedronGeometry(.5,2),7,.9,k+3),0xc8d0b0,{p:[-9+k*4.5,-.2,1.6]}));                     // folliculostellate cells
+  for(let k=0;k<16;k++)o.push(part(new THREE.SphereGeometry(.14,6,5),k%2?0xffd060:0xfff0f4,{p:[-12+k*1.6,4,1.2],e:0x202010}));                    // GH and prolactin leaving
+  return o;},
+ postenv(){const o=[];
+  for(let k=0;k<7;k++)o.push(part(new THREE.CylinderGeometry(.35,.35,26,8),0xf0e6d0,{p:[-1+k*.2,0,-4.5+k*1.5],r:[0,0,Math.PI/2+.1*(k%3-1)],rough:.5}));   // axons
+  for(let k=0;k<3;k++){const x=-8+k*7,z=-3+k*2.6;o.push(part(new THREE.SphereGeometry(1.8,16,12),0xf0e6d0,{p:[x,0,z],s:[1.4,1,1],o:.55}));       // Herring bodies
+   for(let j=0;j<14;j++)o.push(part(new THREE.SphereGeometry(.2,8,6),0x5a4a6a,{p:[x+(j%5-2)*.45,(j%3-1)*.5,z+(j%2?.4:-.4)],e:0x0c0814}));}
+  for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(1.2,12,10),0xe8d070,{p:[-10+k*6.5,-4,0],s:[1.3,.8,1]}));                               // pituicytes
+  for(let k=0;k<4;k++)for(let j=0;j<3;j++)o.push(part(new THREE.SphereGeometry(.22,8,6),0xffe8a0,{p:[-10.6+k*6.5+j*.5,-3.6,.6],e:0x2a2000}));  // their lipid droplets
+  o.push(part(new THREE.CylinderGeometry(1.1,1.1,28,16,1,true),0xc86068,{p:[0,5.2,0],r:[0,0,Math.PI/2],o:.35,side:THREE.DoubleSide}));          // fenestrated capillary
+  for(let k=0;k<4;k++)o.push(part(new THREE.SphereGeometry(.6,12,8),0xc0242a,{p:[-9+k*6,5.2,0],s:[.4,1,1],e:0x180000}));
+  for(let k=0;k<10;k++)o.push(part(new THREE.TorusGeometry(.14,.05,5,9),0x8fd0ff,{p:[-11+k*2.4,3.4,0],e:0x0a2238}));                              // vasopressin crossing into the blood
+  return o;},
+ sellaenv(){const o=[];
+  o.push(part(new THREE.SphereGeometry(6.2,32,16,0,Math.PI*2,Math.PI/2,Math.PI/2),0xe8dcc0,{p:[0,0,0],side:THREE.DoubleSide,rough:.8}));        // the bony sella (a cup)
+  o.push(part(new THREE.BoxGeometry(18,5,12),0x4a6a80,{p:[0,-9,0],o:.25}));                                                                      // sphenoid sinus (air) below
+  o.push(part(new THREE.SphereGeometry(3.2,20,14),0xc88880,{p:[-1.2,-2,0],s:[1.2,.9,1]}));                                                      // anterior lobe
+  o.push(part(new THREE.SphereGeometry(2,16,12),0xe0d0b8,{p:[3,-2.2,0],s:[1,1.1,1]}));                                                          // posterior lobe
+  o.push(part(new THREE.CylinderGeometry(.8,1,6,12),0xe0c0b0,{p:[1.6,3.6,0],r:[0,0,.12]}));                                                      // stalk
+  o.push(part(new THREE.BoxGeometry(18,3,12),0xd8c8c0,{p:[0,8.2,0],o:.35}));                                                                     // hypothalamus above
+  for(const z of[-8.5,8.5]){o.push(part(new THREE.CylinderGeometry(2.6,2.6,10,16,1,true),0x5a2a50,{p:[0,-1,z],r:[0,0,Math.PI/2],o:.35,side:THREE.DoubleSide}));   // cavernous sinuses
+   o.push(part(new THREE.CylinderGeometry(1,1,10,14),0xd02a30,{p:[0,-1,z],r:[0,0,Math.PI/2]}));}                                                 // internal carotid in each
+  // the optic chiasm: an X of optic nerves and tracts above the stalk (crossing fibres from the nasal retinas run through its middle)
+  for(const a of[.55,-.55])o.push(part(new THREE.CylinderGeometry(.75,.75,14,12),0xf4f0e8,{p:[-1,5.6,0],r:[a,0,Math.PI/2],rough:.4}));
+  o.push(part(new THREE.SphereGeometry(4.2,24,16),0xe0a0a8,{p:[-1,1.2,0],o:.85,rough:.5}));                                                       // macroadenoma (case 08)
+  return o;},
+});
+Object.assign(ENVANIM,{
+ medemenv(dt,objs,t){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*30;
+  if(c===0xc0242a){m.position.x=Math.sin(t*.8+u.ph)*1.2;m.position.y=Math.cos(t*.8+u.ph)*.6;}
+  else if(m.geometry.type==='SphereGeometry'&&m.geometry.parameters.radius===.12){m.position.y=-((t*.8+u.ph)%2.4);}});},
+ antenv(dt,objs,t){const st=typeof PT!=='undefined'?PT.stage:0,cab=typeof PT!=='undefined'&&PT.cab;objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*30;
+  if(c===0xf2c8cc){m.visible=st===1||st===2&&u.ph<10;const k=st===1&&!cab?1:.85;hpScaleAt(m,k,k,k);}
+  else if(c===0xc0242a)m.position.x=((t*3+u.ph)%28)-14;else if(c===0xffd060||c===0xfff0f4)m.position.x=((t*2+u.ph)%26)-13;});},
+ postenv(dt,objs,t){objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex(),u=m.userData;if(u.ph===undefined)u.ph=Math.random()*30;
+  if(c===0x8fd0ff)m.position.y=((t*.9+u.ph)%2.2);else if(c===0xc0242a)m.position.x=((t*3+u.ph)%28)-14;});},
+ sellaenv(dt,objs,t){const st=typeof PT!=='undefined'?PT.stage:0,cab=typeof PT!=='undefined'&&PT.cab;const tk=st===1?(cab?.8:1):st===2?.45:0;objs.forEach(m=>{if(!m.material)return;const c=m.material.color.getHex();
+  if(c===0xe0a0a8){m.visible=tk>0;hpScaleAt(m,tk,tk,tk);}else if(c===0xf4f0e8)m.position.y=tk>.7?1.2*tk:0;});},                            // the tumour lifts the chiasm
+});
 function inspectEnv(e){
  const E=ENV[e.key];sfx('scan');if(e.key==='barrier')complete('dock');addCodex(E.codex==='@region'?REG[e.i]:E.codex);previewCell({kind:e.key,meshes:envMeshes(e.key),view:E.view});
  const rg=REGIONS[REG[e.i]];const el=$('cardCell');el.innerHTML='<b>This structure</b><br>'+[['Where',e.name||(rg?rg.n:'—')],['Layer',E.sub],['Scale',E.size]].map(([a,b])=>`<span class="k">${a}</span> ${b}`).join('<br>');el.style.display='block';
@@ -6986,18 +7621,19 @@ const VROWS={
  gut:[['Slow wave','vSW'],['Wall','vSWph'],['Lumen pH','vpH'],['Transit here','vTr'],['Bacteria','vBac']],
  lung:[['Breath','vBr'],['Airflow','vAf'],['Generation','vGen'],['SpO₂ · PaO₂','vGas'],['Zone · V/Q','vVQ']],
  hep:[['Flow','vHb'],['Here','vZn'],['Local','vNh'],['Drug','vAp'],['Labs','vBl']],
+ pit:[['Flow','vHb'],['Here','vZn'],['Local','vNh'],['Axes','vAp'],['Labs','vBl']],
  pan:[['Flow','vHb'],['Here','vZn'],['Local','vNh'],['Enzymes','vAp'],['Labs','vBl']],
  renal:[['GFR','vGfr'],['Tubular fluid','vTf'],['Interstitium','vInt'],['Transport','vTx'],['Urine','vUr']],
 };
-const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position',lung:'spirogram · lung volume above FRC',renal:'osmolality of the fluid you are in (pulse in the arteriole)',hep:'oxygen across the lobule (bile: flow with meals)',pan:'insulin release, pulsing (juice: flow with meals)'};
+const VTRACE={blood:'ECG · lead II',lymph:'lymphangion contraction',nerve:'membrane potential at your position',gut:'slow wave (interstitial cells of Cajal) at your position',lung:'spirogram · lung volume above FRC',renal:'osmolality of the fluid you are in (pulse in the arteriole)',hep:'oxygen across the lobule (bile: flow with meals)',pan:'insulin release, pulsing (juice: flow with meals)',pit:'GH pulses (axon: vasopressin neurons firing in bursts)'};
 let vitalsWorld='';
 function setVitals(){
  const wn=W.name;if(vitalsWorld===wn)return;vitalsWorld=wn;
  $('vrows').innerHTML=VROWS[wn].map(([l,id])=>id==='phase'?`<div class="vrow"><span>${l}</span><span id="phase" class="dia">DIASTOLE</span></div>`:`<div class="vrow"><span>${l}</span><b id="${id}">—</b></div>`).join('');
- $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract',lung:'respiration',renal:'the kidney',hep:'liver & biliary',pan:'pancreas'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut'||wn==='lung'||wn==='renal'||wn==='hep'||wn==='pan')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='lung')luCaseTag();else if(wn==='renal')rnCaseTag();else if(wn==='hep')hpCaseTag();else if(wn==='pan')pcCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
+ $('vTitle').textContent='Host vitals · '+({blood:'circulation',lymph:'lymphatics',nerve:'nervous system',gut:'gastrointestinal tract',lung:'respiration',renal:'the kidney',hep:'liver & biliary',pan:'pancreas',pit:'pituitary'}[wn]);$('vTrace').textContent=VTRACE[wn];$('caseTag').style.display=(wn==='blood'||wn==='gut'||wn==='lung'||wn==='renal'||wn==='hep'||wn==='pan'||wn==='pit')?'':'none';if(wn==='gut')gutCaseTag();else if(wn==='lung')luCaseTag();else if(wn==='renal')rnCaseTag();else if(wn==='hep')hpCaseTag();else if(wn==='pan')pcCaseTag();else if(wn==='pit')ptCaseTag();else if(wn==='blood'){$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';}
 }
 function vmHere(){const [a1,a2]=apPositions(),s=S.idx*DS;let v=-70;[a1,a2].forEach(a=>{const d=a-s;v+=105*Math.exp(-Math.pow((d-.5)/2.2,2))-12*Math.exp(-Math.pow((d+7)/5,2));});return v;}
-function traceVal(){if(W===GUT)return gutTrace();if(W===LUNG)return luTrace();if(W===RENAL)return rnTrace();if(W===HEP)return hpTrace();if(W===PAN)return pcTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
+function traceVal(){if(W===GUT)return gutTrace();if(W===LUNG)return luTrace();if(W===RENAL)return rnTrace();if(W===HEP)return hpTrace();if(W===PAN)return pcTrace();if(W===PIT)return ptTrace();if(W===NERVE)return clamp((vmHere()+70)/105,-.15,1);if(W===LYMPH)return lymSq(S.idx)*.9;return ecgVal(C.tc,C.T);}
 function vitalsTick(){
  setVitals();
  if(W===GUT)gutVitals();
@@ -7005,6 +7641,7 @@ function vitalsTick(){
  else if(W===RENAL)rnVitals();
  else if(W===HEP)hpVitals();
  else if(W===PAN)pcVitals();
+ else if(W===PIT)ptVitals();
  else if(W===LYMPH){$('vLyR').textContent='≈17/min (sped up)';const q=lymSq(S.idx);$('vLyPh').textContent=q>0?'CONTRACTING':'FILLING';$('vLyPh').style.color=q>0?'var(--amber)':'';$('vIntP').textContent='−2 mmHg';$('vLyPr').textContent=/sinus|subcap|efferent|cisterna|thoracic|venangle/.test(REG[S.idx])?'3–4 g/dL':'≈2 g/dL';$('vLyF').textContent=(FLOW[S.idx]*flowMul(S.idx)).toFixed(1)+' units/s';}
  else if(W===NERVE){const r=REG[S.idx],v=vmHere();$('vVm').textContent=Math.round(v)+' mV';$('vVm').style.color=v>-20?'var(--cyan)':'';
   $('vCV').textContent=/axon|decuss|cord|pnerve/.test(r)?'Aα 80–120 m/s':r==='cortex'||r==='soma'?'graded EPSPs':r==='nmj'||r==='bouton'||r==='cleft'?'delay 0.5–1 ms':'CBF 50 mL/100g/min';
@@ -7067,7 +7704,7 @@ function onKey(e){
  if(k==='KeyE')scan();
  else if(k==='KeyH')setSteth(true);
  else if(k==='KeyB')toggleBell();
- else if(k==='KeyG'){if(W===GUT)openExamGI();else if(W===LUNG)openExamLU();else if(W===RENAL)openExamRN();else if(W===HEP)openExamHP();else if(W===PAN)openExamPC();else openExam();}
+ else if(k==='KeyG'){if(W===GUT)openExamGI();else if(W===LUNG)openExamLU();else if(W===RENAL)openExamRN();else if(W===HEP)openExamHP();else if(W===PAN)openExamPC();else if(W===PIT)openExamPT();else openExam();}
  else if(k==='KeyZ'&&W===LUNG)cough();
  else if(k==='KeyO'&&W===LUNG)o2Trial();
  else if(k==='KeyU'&&W===LUNG)posture();
@@ -7077,6 +7714,8 @@ function onKey(e){
  else if(k==='KeyU'&&W===HEP)hpMeal();
  else if(k==='KeyO'&&W===PAN)pcErcp();
  else if(k==='KeyU'&&W===PAN)pcMeal();
+ else if(k==='KeyO'&&W===PIT)ptCab();
+ else if(k==='KeyU'&&W===PIT)ptNight();
  else if(k==='KeyF'){S.auto=!S.auto;toast(S.auto?'Autopilot on — follows the centreline, waits for valves':'Autopilot off');}
  else if(k==='KeyX'){C.exercise=!C.exercise;C.hrT=C.exercise?118:72;
   if(C.exercise){toast('Flashback: last week, Mr. Reyes climbs the stairs…','warn');if(C.stenosis)setTimeout(()=>{if(C.exercise){toast('“I feel light-headed…” — BP is falling','warn');unlocked.add('exercise');scanned.add('exercise');openCard('exercise',true);renderObj();}},4500);}
@@ -7086,6 +7725,7 @@ function onKey(e){
  else if(k==='KeyV'&&W===RENAL)rnToggle();
  else if(k==='KeyV'&&W===HEP)hpToggle();
  else if(k==='KeyV'&&W===PAN)pcToggle();
+ else if(k==='KeyV'&&W===PIT)ptToggle();
  else if(k==='KeyV'){C.stenosis=!C.stenosis;$('caseTag').textContent=C.stenosis?'Aortic valve: STENOTIC (case)':'Aortic valve: NORMAL (comparison)';$('caseTag').style.color=C.stenosis?'var(--amber)':'var(--green)';toast(C.stenosis?'Back to Mr. Reyes\' stenotic valve':'Comparison: a healthy aortic valve. Listen and look again.');}
  else if(k==='KeyJ')openJournal();
  else if(k==='KeyT')openStudy();
@@ -7121,7 +7761,7 @@ function openJournal(){
 // depth picker on start screen
 $('lvPick').innerHTML=[['L1 Curious','kids & curious adults'],['L2 School','secondary-school biology'],['L3 Pre-med','undergrad physiology'],['L4 Med school','pathology & clinical reasoning']].map((l,i)=>`<button class="lv ${i===depth?'on':''}" data-l="${i}"><b>${l[0]}</b>${l[1]}</button>`).join('');
 let startSys='circ';
-$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease'],['lung','Lungs','Case 04 · lobar pneumonia'],['renal','Kidney','Case 05 · diabetic ketoacidosis'],['hep','Liver & biliary','Case 06 · paracetamol overdose'],['pan','Pancreas','Case 07 · gallstone pancreatitis']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
+$('sysPick').innerHTML=[['circ','Circulation','Case 01 · start at the bedside'],['lymph','Lymphatics','the detour on its own'],['nerve','Nervous system','brain to muscle'],['gi','Gut','Case 03 · coeliac disease'],['lung','Lungs','Case 04 · lobar pneumonia'],['renal','Kidney','Case 05 · diabetic ketoacidosis'],['hep','Liver & biliary','Case 06 · paracetamol overdose'],['pan','Pancreas','Case 07 · gallstone pancreatitis'],['pit','Pituitary','Case 08 · macroprolactinoma']].map(([id,n,s])=>`<button class="lv ${id==='circ'?'on':''}" data-s="${id}"><b>${n}</b>${s}</button>`).join('');
 $('sysPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;startSys=b.dataset.s;$('sysPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 $('lvPick').addEventListener('click',e=>{const b=e.target.closest('.lv');if(!b)return;depth=+b.dataset.l;$('lvPick').querySelectorAll('.lv').forEach(x=>x.classList.toggle('on',x===b));});
 
@@ -7183,9 +7823,9 @@ function openExam(){
 /* --- Rounds (quiz) --- */
 let qi=0,qScore=0,qOrder=[],roundsTry=0;
 function openQuiz(){
- qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:W===LUNG?QUIZ_LU:W===RENAL?QUIZ_RN:W===HEP?QUIZ_HP:W===PAN?QUIZ_PC:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
+ qi=0;qScore=0;const QZ=W===GUT?QUIZ_GI:W===LUNG?QUIZ_LU:W===RENAL?QUIZ_RN:W===HEP?QUIZ_HP:W===PAN?QUIZ_PC:W===PIT?QUIZ_PT:QUIZ;qOrder=QZ.map(q=>{const idx=q.a.map((_,i)=>i).sort(()=>Math.random()-.5);return {...q,idx};});
  const pending=['exam','ra','tricuspid','pulmonic','lungcap','mitral','steth','aortic'].filter(k=>!done.has(k));
- $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':W===LUNG?'Mr. Herrera':W===RENAL?'Ms. Okafor':W===HEP?'Jordan Ellis':W===PAN?'Ruth Mensah':'Mr. Reyes'}</h1>
+ $('quizSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Rounds · OSCE-style</div><h1 style="font-size:30px">Present ${W===GUT?'Ms. Nair':W===LUNG?'Mr. Herrera':W===RENAL?'Ms. Okafor':W===HEP?'Jordan Ellis':W===PAN?'Ruth Mensah':W===PIT?'Leah Brennan':'Mr. Reyes'}</h1>
  <p>The consultant asks you ${QZ.length} questions about what you saw and heard inside. ${pending.length?`<br><span style="color:var(--amber)">Tip: you still have ${pending.length} exploration objective${pending.length>1?'s':''} open — the answers are easier if you've seen it.</span>`:'You have seen the whole circuit. Go.'}</p>
  <button class="btn" id="qStart">Start Rounds ▸</button> <button class="btn ghost" data-close>Keep exploring</button>`;
  $('quizSheet').querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
@@ -7206,7 +7846,7 @@ function renderQ(){
  });
 }
 function finishQuiz(){
- complete(W===GUT?'grounds':W===LUNG?'lrounds':W===RENAL?'rrounds':W===HEP?'hrounds':W===PAN?'prounds':'rounds');
+ complete(W===GUT?'grounds':W===LUNG?'lrounds':W===RENAL?'rrounds':W===HEP?'hrounds':W===PAN?'prounds':W===PIT?'ptrounds':'rounds');
  const pct=Math.round(qScore/qOrder.length*100);
  const expl=[...done].length;
  $('quizSheet').innerHTML=`<div class="eyebrow">Rounds complete</div><h1 style="font-size:34px">${qScore}/${qOrder.length} · ${pct}%</h1>
@@ -7289,7 +7929,7 @@ function ambience(t){ // what each place sounds like
   if(reg==='bouton'||reg==='nmj'){if(rnd(4))pop(900,480,.06,.07);}
   if(reg==='nmj'){const [a1,a2]=apPositions(),e=N*DS,near=Math.min(Math.abs(a1-e),Math.abs(a2-e))<3;if(near&&!amb.apEnd){pop(70,38,.5,.5);burst(90,1,.5,.35);}amb.apEnd=near;} // the muscle fibre twitches
   if(reg==='braincap')turb=.02;
- }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===LUNG){const g=luAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===RENAL){const g=rnAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===HEP){const g=hpAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===PAN){const g=pcAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
+ }else if(W===GUT){const g=gutAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===LUNG){const g=luAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===RENAL){const g=rnAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===HEP){const g=hpAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===PAN){const g=pcAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}else if(W===PIT){const g=ptAmbience(now,rnd,reg);turb=g.turb;hush=g.hush;air=g.air;}
  if(W!==LUNG)A.airBP.frequency.setTargetAtTime(900,t,.3);
  set(A.turbG,turb,.1);set(A.humG,hum,.08);set(A.hushG,hush);set(A.gamG,gam);set(A.somaG,soma);set(A.airG,air*(steth?(W===LUNG?2.2:.3):1),.2);
 }
@@ -7327,13 +7967,13 @@ function updateAudio(flowLocal,thrust){
  const dH=S.pos.distanceTo(heartC);
  const av=AOV;_t.copy(av.c).addScaledVector(av.t,5);const dA=S.pos.distanceTo(_t);
  A.heartLP.frequency.setTargetAtTime(lerp(1800,200,clamp(dH/160,0,1)),t,k);
- A.heart.gain.setTargetAtTime(((W===BLOOD?.25:W===LYMPH?.08:W===LUNG?.12:W===PAN?(PCB.includes(REG[S.idx])?.05:.02):W===HEP?(HPB.includes(REG[S.idx])?.06:.02):W===RENAL?((REG[S.idx]==='afferent'||REG[S.idx]==='glom')?.2:.05):REG[S.idx]==='braincap'?.14:.03)+1.1*Math.exp(-dH/45))*(steth?1.9:1),t,k);
+ A.heart.gain.setTargetAtTime(((W===BLOOD?.25:W===LYMPH?.08:W===LUNG?.12:W===PIT?(PTB.includes(REG[S.idx])?.05:.02):W===PAN?(PCB.includes(REG[S.idx])?.05:.02):W===HEP?(HPB.includes(REG[S.idx])?.06:.02):W===RENAL?((REG[S.idx]==='afferent'||REG[S.idx]==='glom')?.2:.05):REG[S.idx]==='braincap'?.14:.03)+1.1*Math.exp(-dH/45))*(steth?1.9:1),t,k);
  A.murLoc.gain.setTargetAtTime(Math.exp(-dA/24)*1.4+.04,t,k);
  const reg=REG[S.idx];const art=KW[S.idx*4+2];
  const surge=art*bump(((C.tc-.05-PD[S.idx]/C.PWV)%C.T+C.T)%C.T,0,.3);
  A.flowG.gain.setTargetAtTime((W===NERVE?.004:.02+.012*flowLocal+.18*surge)*(steth?.2:1),t,.05);
  A.flowLP.frequency.setTargetAtTime(R0[S.idx]<2.2?900:380,t,.2); // a tighter hiss in capillaries
- A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:W===LUNG?29:W===RENAL?26:W===HEP?25:W===PAN?24:27,t,.5);
+ A.drone.frequency.setTargetAtTime(W===BLOOD?36:W===LYMPH?31:W===GUT?24:W===LUNG?29:W===RENAL?26:W===HEP?25:W===PAN?24:W===PIT?23:27,t,.5);
  ambience(t);
  A.engG.gain.setTargetAtTime(steth?0:.012*thrust,t,.15);A.eng.frequency.setTargetAtTime(40+18*thrust,t,.1);
  // stethoscope chest piece: diaphragm passes highs, bell passes lows
@@ -7351,7 +7991,7 @@ function ecgVal(tc,T){
  return .15*g(tc,T-.17,.025)-.12*g(x,-.035,.006)+1*g(x,-.022,.007)-.25*g(x,-.008,.007)+.3*g(tc,C.sys-.11,.04);
 }
 function drawECG(){
- const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===PAN?'rgba(140,210,255,.9)':W===HEP?'rgba(240,200,120,.9)':W===RENAL?'rgba(255,200,150,.9)':W===LUNG?'rgba(160,210,255,.9)':W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
+ const w=440,h=88;ecgC.clearRect(0,0,w,h);ecgC.strokeStyle=W===PIT?'rgba(255,200,230,.9)':W===PAN?'rgba(140,210,255,.9)':W===HEP?'rgba(240,200,120,.9)':W===RENAL?'rgba(255,200,150,.9)':W===LUNG?'rgba(160,210,255,.9)':W===GUT?'rgba(240,180,110,.9)':W===NERVE?'rgba(62,230,216,.9)':W===LYMPH?'rgba(255,181,71,.9)':'rgba(110,231,160,.9)';ecgC.lineWidth=2;ecgC.beginPath();
  for(let i=0;i<ECGN;i++){const v=ecgBuf[(ecgHead+i)%ECGN];const x=i/(ECGN-1)*w,y=h*.72-v*h*.6;i?ecgC.lineTo(x,y):ecgC.moveTo(x,y);}ecgC.stroke();
 }
 function drawPCG(pcgC=pcgC0){
@@ -7366,10 +8006,10 @@ function drawPCG(pcgC=pcgC0){
 let routeDirty=true;
 function drawRoute(){
  const w=1520,h=68,c=routeC;c.clearRect(0,0,w,h);
- if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':W.lung?'rgb(120,170,220)':W.pan?'rgb(200,160,230)':W.hep?'rgb(215,160,90)':W.renal?'rgb(225,150,120)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
+ if(!W.closed){c.fillStyle=W.lymph?'rgb(90,180,105)':W.gut?'rgb(205,140,95)':W.lung?'rgb(120,170,220)':W.pit?'rgb(240,170,200)':W.pan?'rgb(200,160,230)':W.hep?'rgb(215,160,90)':W.renal?'rgb(225,150,120)':'rgb(200,170,70)';c.fillRect(0,30,w,10);}
  else for(let x=0;x<w;x+=2){const i=Math.floor(x/w*N);const f=(SAT[i]-75)/23;c.fillStyle=`rgb(${Math.round(lerp(70,230,f))},${Math.round(lerp(60,40,f))},${Math.round(lerp(150,60,f))})`;c.fillRect(x,30,2,10);}
  c.font='600 17px system-ui,sans-serif';c.textAlign='center';
- const show=W.pan?PSHOW:W.hep?HSHOW:W.renal?RSHOW:W.lung?LSHOW:W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
+ const show=W.pit?PTSHOW:W.pan?PSHOW:W.hep?HSHOW:W.renal?RSHOW:W.lung?LSHOW:W.gut?GSHOW:W.nerve?[['braincap','Brain cap.'],['cortex','Cortex'],['axon','Axon'],['decuss','Decussation'],['cord','Cord'],['bouton','Synapse'],['soma','Motor neuron'],['pnerve','Femoral n.'],['nmj','End plate']]:W.lymph?[['interstitium','Tissue'],['lymphcap','Lymph cap.'],['collecting','Collecting'],['subcap','Node'],['medsinus','Medulla'],['efferent','Efferent'],['cisterna','Cisterna'],['thoracic','Thoracic duct'],['venangle','Vein']]:[['ivc','IVC'],['ra','RA'],['rv','RV'],['pa','Pulm. art.'],['lungcap','Lungs'],['la','LA'],['lv','LV'],['arch','Aorta'],['syscap','Muscle']];
  show.forEach(([r,l])=>{const [a,b]=RANGE[r];const x=(a+b)/2/N*w;c.fillStyle=scanned.has(r)?'#8f747a':'#c9aeb2';c.fillText(l,x,22);});
  VALVES.forEach(v=>{const x=v.i/N*w;c.fillStyle=done.has(v.id)?'#6ee7a0':'#ffb547';c.fillRect(x-2,26,4,18);});
  const px=S.idx/N*w;c.fillStyle='#3ee6d8';c.beginPath();c.moveTo(px,46);c.lineTo(px-9,64);c.lineTo(px+9,64);c.fill();
@@ -7523,6 +8163,7 @@ function mapSubloc(){
  if(W===RENAL)return rnSubloc();
  if(W===HEP)return hpSubloc();
  if(W===PAN)return pcSubloc();
+ if(W===PIT)return ptSubloc();
  if(W===NERVE){
   if(r==='axon')return f<.3?'corona radiata':f<.6?'internal capsule':f<.85?'cerebral peduncle':'pons';
   if(r==='decuss')return f<.6?'medullary pyramid':'pyramidal decussation';
@@ -7709,6 +8350,33 @@ MAPCTX.pgross={title:'Pancreas · anterior view',draw(c){
  [['tail',[172,128]],['body',[136,124]],['neck',[106,146]],['head',[52,196]],['CBD',[68,62]],['spleen',[176,70]],['SMV · SMA',[112,276]],['duodenum (D2)',[4,150]],['minor papilla',[4,192]],['ampulla',[54,224]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
  c.fillStyle=k&&k.blocked?'rgba(255,170,90,.9)':open?'rgba(120,220,140,.85)':'rgba(255,150,130,.85)';c.fillText(k&&k.blocked?'case 07: gallstone in the ampulla':PC.ercp?'after ERCP: sphincter cut, open':open?'fed: Oddi open':'fasting: Oddi shut',8,292);
  c.restore();}};
+// pituitary maps: one midline sagittal drawing (front of the head on the left) used for both parts of the route
+const PTG0=PTNODES.findIndex(n=>n[5]==='ptgap'),PTX0=PTNODES.findIndex(n=>n[5]==='mcax');
+PIT.views=[mapView(PIT,'pitsag',0,PTG0-1,PTNODES.slice(0,PTG0).map(n=>n[7]),2),mapView(PIT,'pitsag2',PTX0,PTNODES.length-1,PTNODES.slice(PTX0).map(n=>n[7]),2)];
+function ptSagBase(c,part){const ink='rgba(246,236,236,';const k=typeof pitCalc==='function'?pitCalc():null;c.save();c.lineJoin='round';c.lineCap='round';
+ // hypothalamus and third ventricle, mammillary body; sphenoid bone with the sella; sphenoid sinus below
+ c.fillStyle='rgba(220,190,190,.14)';c.beginPath();c.moveTo(20,40);c.bezierCurveTo(60,20,150,20,184,50);c.lineTo(178,118);c.bezierCurveTo(140,124,120,126,108,130);c.lineTo(92,130);c.bezierCurveTo(70,128,40,124,20,118);c.closePath();c.fill();
+ c.fillStyle='rgba(80,120,160,.25)';c.beginPath();c.moveTo(60,40);c.bezierCurveTo(90,34,130,36,150,50);c.bezierCurveTo(140,80,120,110,104,124);c.bezierCurveTo(90,110,72,80,60,40);c.fill();     // third ventricle
+ c.fillStyle='rgba(200,170,200,.35)';c.beginPath();c.arc(150,118,7,0,Math.PI*2);c.fill();                                                                                            // mammillary body
+ [['SON',[56,98]],['PVN',[86,70]],['arcuate',[100,112]]].forEach(([t,[x,y]])=>{c.fillStyle='rgba(255,210,150,.45)';c.beginPath();c.arc(x,y,4,0,Math.PI*2);c.fill();});
+ c.fillStyle='rgba(225,215,190,.22)';c.beginPath();c.moveTo(10,240);c.lineTo(40,232);c.bezierCurveTo(46,196,56,184,70,182);c.lineTo(140,182);c.bezierCurveTo(156,186,160,200,156,236);c.lineTo(194,232);c.lineTo(194,292);c.lineTo(10,292);c.closePath();c.fill();
+ c.fillStyle='rgba(60,90,120,.35)';c.fillRect(50,248,110,36);                                                                                                                       // sphenoid sinus
+ // optic chiasm in front of the stalk, lifted in case 08
+ const lift=k&&k.st===1?(k.cab?6:12):k&&k.st===2?2:0;c.fillStyle='rgba(245,240,225,.75)';c.beginPath();c.ellipse(70,136-lift,14,5,-.15,0,Math.PI*2);c.fill();
+ // stalk, anterior lobe, posterior lobe
+ c.fillStyle='rgba(220,170,160,.4)';c.beginPath();c.moveTo(96,130);c.lineTo(112,130);c.lineTo(108,182);c.lineTo(98,182);c.closePath();c.fill();
+ c.fillStyle='rgba(225,130,140,.35)';c.beginPath();c.ellipse(86,208,28,22,0,0,Math.PI*2);c.fill();c.fillStyle='rgba(235,220,190,.4)';c.beginPath();c.ellipse(124,208,15,18,0,0,Math.PI*2);c.fill();
+ if(k&&k.tumMm){const r=k.tumMm*(k.cab?.8:1)*.95;c.fillStyle='rgba(240,150,160,.5)';c.strokeStyle='rgba(255,170,180,.8)';c.lineWidth=1;c.beginPath();c.arc(78,196-r*.25,r,0,Math.PI*2);c.fill();c.stroke();}
+ // the route
+ const L=part===1?PTNODES.slice(0,PTG0):PTNODES.slice(PTX0);
+ for(let i=0;i<L.length-1;i++){const reg=L[i][5],[x0,y0]=L[i][7],[x1,y1]=L[i+1][7];c.strokeStyle=reg==='sha'?'rgba(255,77,94,.9)':reg==='medem'?'rgba(255,140,120,.9)':PTX.includes(reg)?'rgba(255,230,160,.95)':reg==='ppcap'?'rgba(255,120,110,.9)':'rgba(170,100,190,.9)';c.lineWidth=reg==='cavsin'?3:1.8;c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+ c.fillStyle=ink+'.55)';c.font='7px system-ui,sans-serif';c.textAlign='left';
+ [['hypothalamus',[24,32]],['3rd ventricle',[88,52]],['mammillary b.',[150,108]],['chiasm',[44,150-lift]],['stalk',[114,160]],['anterior',[64,240]],['posterior',[116,240]],['sphenoid sinus',[70,270]],['SON',[40,94]],['PVN',[74,66]]].forEach(([t,[x,y]])=>c.fillText(t,x,y));
+ c.fillStyle=ink+'.4)';c.font='6.5px system-ui,sans-serif';c.fillText('pituitary ≈ 13 × 9 × 6 mm · front on the left',8,292);
+ if(k&&k.st===1){c.fillStyle='rgba(255,170,90,.85)';c.fillText('case 08: macroadenoma lifting the chiasm',8,282);}
+ c.restore();}
+MAPCTX.pitsag={title:'Pituitary · portal system (sagittal)',draw(c){ptSagBase(c,1);}};
+MAPCTX.pitsag2={title:'Pituitary · vasopressin axon (sagittal)',draw(c){ptSagBase(c,2);}};
 function curView(){return (W.views||[]).find(v=>S.idx>=v.s0&&S.idx<v.s1)||W.views[0];}
 function drawBody(){
  const c=bodyC,v=curView(),M=MAPCTX[v.ctx];c.setTransform(1.6,0,0,1.6,0,0);c.clearRect(0,0,200,305);
@@ -7760,10 +8428,10 @@ const SYSTEMS=[
  {id:'renal',name:'Kidney',sub:'Case 05 · Ms. Okafor · diabetic ketoacidosis',desc:'One nephron from the blood side: the glomerulus at 60 mmHg and the choice to filter, the brush border taking back two thirds of everything, the loop down to 1200 mOsm and the thick limb diluting on the way up, the macula densa touching your own glomerulus, the collecting duct where ADH decides. Watch glucose overrun its carriers and drag the litres out.',go:enterRenal,ready:1},
  {id:'hep',name:'Liver & biliary',sub:'Case 06 · Jordan Ellis · paracetamol overdose',desc:'From the portal vein across one lobule: zone 1 clearing ammonia and bacteria, zone 3 where paracetamol kills first, then the central vein door into the bile canaliculus, the ducts, a gallbladder that only a meal can empty, and the sphincter of Oddi into the duodenum. Start acetylcysteine and watch glutathione come back.',go:enterHep,ready:1},
  {id:'pan',name:'Pancreas',sub:'Case 07 · Ruth Mensah · gallstone pancreatitis',desc:'Through one islet of Langerhans (β, α and δ cells answering a meal), out along the insulo-acinar capillaries, then across an acinar cell into the juice: the ducts, the main pancreatic duct and the ampulla, where a gallstone is stuck. Switch trypsin on in the wrong place, then clear the stone with ERCP.',go:enterPan,ready:1},
- {id:'pituitary',name:'Pituitary',sub:'Portal system & axes',ready:0,desc:'Planned: the hypothalamo-hypophyseal portal system and the endocrine axes.'},
+ {id:'pit',name:'Pituitary',sub:'Case 08 · Leah Brennan · macroprolactinoma',desc:'Down the hypophyseal portal system: the median eminence where the hypothalamus releases its hormones, a portal vein down the stalk, and the sinusoids of the anterior lobe where GH, prolactin, ACTH, TSH, LH and FSH are made. Or follow a vasopressin axon to the posterior lobe. Find the tumour lifting the chiasm, and shrink it with cabergoline.',go:enterPit,ready:1},
 ];
 function openSystems(){
- const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':W===LUNG?'lung':W===RENAL?'renal':W===HEP?'hep':W===PAN?'pan':'';
+ const cur=W===BLOOD?'circ':W===LYMPH?'lymph':W===NERVE?'nerve':W===GUT?'gi':W===LUNG?'lung':W===RENAL?'renal':W===HEP?'hep':W===PAN?'pan':W===PIT?'pit':'';
  $('sysSheet').innerHTML=`<button class="x" data-close>✕</button><div class="eyebrow">Systems</div><h1 style="font-size:30px">Choose a system to explore</h1>
  <p class="small" style="margin-top:0">Each system is its own flyable world with its own cells, clock and Codex. Jump straight in, or find the natural doorway between systems while flying (K at the labelled junctions).</p>
  <div class="sysgrid">${SYSTEMS.map(s=>`<button class="sys ${s.ready?'':'soon'} ${s.id===cur?'cur':''}" data-s="${s.id}" ${s.ready?'':'disabled'}><b>${s.name}</b><small>${s.sub}</small><span>${s.desc}</span>${s.ready?(s.id===cur?'<em>you are here</em>':'<em>enter ▸</em>'):'<em>in build</em>'}</button>`).join('')}</div>`;
@@ -7941,7 +8609,7 @@ function updateAtlasMe(){if(!atlasBuilt)return;const x=atlasXY[S.idx*2],y=atlasX
 const LBL=[];
 function buildLabels(){
  const host=$('labels');host.innerHTML='';LBL.length=0;
- Object.keys(REGIONS).forEach(r=>{if(!RANGE[r])return;const [a,b]=RANGE[r];let i=Math.floor((a+b)/2);
+ Object.keys(REGIONS).forEach(r=>{if(!RANGE[r]||REGIONS[r].n==='(not drawn)')return;const [a,b]=RANGE[r];let i=Math.floor((a+b)/2);
   if(r==='ivc')i=Math.floor(a+(b-a)*.75);
   VALVES.forEach(v=>{if(v.id===r)i=v.i;});
   const el=document.createElement('div');el.className='lbl';host.appendChild(el);LBL.push({r,i,el,pos:gv(P,i,new V3())});});
@@ -8026,7 +8694,7 @@ function stepShip(dt,time){
  S.sF=S.idx+d.dot(_t)/DS;
  if(!W.closed&&S.sF<3){S.pos.addScaledVector(_t,(3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb<0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=3;}
  if(!W.closed&&S.sF>N-3){S.pos.addScaledVector(_t,(N-3-S.sF)*DS);const vb=S.vel.dot(_t);if(vb>0)S.vel.addScaledVector(_t,-vb*1.5);S.sF=N-3;}
- if(W===GUT){gutGates(prevS,prevPos);if(MOUTH.built)mouthTick();}else if(W===LUNG)luGates(prevS,prevPos);else if(W===RENAL)rnGates(prevS,prevPos);else if(W===HEP)hpGates(prevS,prevPos);else if(W===PAN)pcGates(prevS,prevPos);
+ if(W===GUT){gutGates(prevS,prevPos);if(MOUTH.built)mouthTick();}else if(W===LUNG)luGates(prevS,prevPos);else if(W===RENAL)rnGates(prevS,prevPos);else if(W===HEP)hpGates(prevS,prevPos);else if(W===PAN)pcGates(prevS,prevPos);else if(W===PIT)ptGates(prevS,prevPos);
  // valves: one-way doors with timing
  for(const v of VALVES){
   const a=wrapD(prevS-v.i),b=wrapD(S.sF-v.i);
@@ -9462,7 +10130,7 @@ function frame(now){
 }
 function update(dt){
  time+=dt;
- if(W===GUT){gutTick(dt);gutGateSlow();}else if(W===LUNG)luTick(dt);else if(W===RENAL)rnTick(dt);else if(W===HEP)hpTick(dt);else if(W===PAN)pcTick(dt);
+ if(W===GUT){gutTick(dt);gutGateSlow();}else if(W===LUNG)luTick(dt);else if(W===RENAL)rnTick(dt);else if(W===HEP)hpTick(dt);else if(W===PAN)pcTick(dt);else if(W===PIT)ptTick(dt);
  if(started&&dt>0&&(time%1)<dt)checkPredict();
  stepCycle(dt);
  if(!started){S.auto=true;}
@@ -9477,6 +10145,7 @@ function update(dt){
  if(started&&W===RENAL&&S.sF>=N-8)exitRenal();
  if(started&&W===HEP&&S.sF>=N-8)exitHep();
  if(started&&W===PAN&&S.sF>=N-8)exitPan();
+ if(started&&W===PIT&&S.sF>=N-8)exitPit('post');
  updateNerve(dt);
  if(started&&W===NERVE){if(REG[S.idx]==='bouton'&&S.sF>=RANGE.cleft[0]-5)crossSynapse();else if(S.sF>=N-8)exitNerve();}
  // motes ride the local flow and wrap around the camera
@@ -9551,12 +10220,12 @@ $('go').onclick=()=>{
  placeAt(Math.floor(nodeIdx[1]-20));renderObj();buildLabels();
  if(startSys!=='circ'){const s=SYSTEMS.find(x=>x.id===startSys);setTimeout(()=>warp('Entering: '+s.name,()=>{s.go();buildLabels();renderObj();toast(s.name+' — '+s.sub,'good');}),300);}
  setTimeout(()=>toast('Your back thrusters hold you still against the current. W to fly, drag the view to steer, F for autopilot. Hover over any cell to see what it is; click it for details.'),600);
- setTimeout(()=>toast(startSys==='pan'?'Start at the bedside: press G for Ruth Mensah. Then fly in through an islet and down the ducts to find what is blocking them.':startSys==='hep'?'Start at the bedside: press G for Jordan Ellis. Then fly in through the portal vein to see which cells are dying.':startSys==='renal'?'Start at the bedside: press G for Ms. Okafor\'s numbers. Then fly in to see where the litres go.':startSys==='lung'?'Start at the bedside: press G to examine Mr. Herrera\'s chest. Then fly in to see why he is blue.':startSys==='gi'?'Start at the bedside: press G to examine Ms. Nair. Then fly in.':'Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
+ setTimeout(()=>toast(startSys==='pit'?'Start at the bedside: press G for Leah Brennan. Then fly in through the portal system to find what is making all that prolactin.':startSys==='pan'?'Start at the bedside: press G for Ruth Mensah. Then fly in through an islet and down the ducts to find what is blocking them.':startSys==='hep'?'Start at the bedside: press G for Jordan Ellis. Then fly in through the portal vein to see which cells are dying.':startSys==='renal'?'Start at the bedside: press G for Ms. Okafor\'s numbers. Then fly in to see where the litres go.':startSys==='lung'?'Start at the bedside: press G to examine Mr. Herrera\'s chest. Then fly in to see why he is blue.':startSys==='gi'?'Start at the bedside: press G to examine Ms. Nair. Then fly in.':'Start at the bedside: press G to listen on his chest. Then fly in to see why.'),4800);
 };
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
