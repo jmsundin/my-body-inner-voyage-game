@@ -253,6 +253,24 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 #brainBar button.hot{border-color:var(--amber);color:var(--amber)}.blab.bst{color:#9ff0ff;font-weight:500;font-size:10.5px}.blab.btr{color:#e8e0ff;font-weight:500;font-size:10.5px;opacity:.85}.blab.blay{font-size:11px;color:#f0e4ff;transform:translate(0,-50%);font-weight:500}.blab.blay.dim{opacity:.6}
 .bleg{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11px;margin:6px 0}.bleg i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:-1px}
 @media (max-width:760px){#brainRounds{left:10px;right:10px;width:auto;top:84px;max-height:34vh;padding:9px 11px}body.bgRoundsOn #brainLegend{display:none}#brainRounds h3{font-size:15px}}
+#mThx{background:transparent;padding:0;z-index:12;touch-action:none;cursor:grab}#mThx.show{display:block}
+#mThx .bpanel{position:absolute;background:rgba(22,10,14,.84);border:1px solid var(--line);border-radius:14px;padding:12px 14px;backdrop-filter:blur(6px);cursor:default}
+#thxTop{left:16px;top:16px;max-width:min(440px,calc(100vw - 32px))}#thxWhere{font-size:13px;margin-top:4px}#thxScale{font:12px var(--mono);color:var(--amber);margin-top:6px}
+#thxInfo{right:16px;top:16px;width:min(340px,calc(100vw - 32px));max-height:calc(100vh - 150px);overflow:auto}#thxInfo h3{margin:4px 0 6px;font-size:18px}#thxInfo .small{font-size:12.5px;line-height:1.45;margin:6px 0}#thxInfo .btn{margin-top:8px;padding:9px 14px;font-size:13px}
+#thxBar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:calc(100vw - 24px);cursor:default}
+#thxBar button{background:rgba(22,10,14,.86);border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:6px 10px;font:12px var(--sans);cursor:pointer}#thxBar button.on{border-color:var(--cyan);color:var(--cyan)}#thxBar button.hot{border-color:var(--amber);color:var(--amber)}#thxBar .sep{width:1px;background:var(--line);margin:0 4px}
+#thxLegend{right:16px;bottom:118px;display:flex;flex-wrap:wrap;gap:6px 12px;max-width:300px;font-size:11.5px}#thxLegend:empty{display:none}#thxLegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+#thxLabels{position:absolute;inset:0;pointer-events:none}.blab.tlobe{font-size:12.5px;color:#ffe9ee}.blab.tseg{font-size:10.5px;color:#fff;font-weight:500}.blab.trib{font:600 10.5px var(--mono);color:#ffe7b0;opacity:.85}
+#thxTip{position:fixed;display:none;pointer-events:none;background:rgba(10,4,6,.9);border:1px solid var(--line);border-radius:8px;padding:4px 8px;font:12px var(--sans);color:var(--fg);z-index:20;max-width:300px}
+#thxRounds{left:16px;top:118px;width:min(370px,calc(100vw - 32px));max-height:calc(100vh - 210px);overflow:auto}#thxRounds h3{margin:4px 0 6px;font-size:17px}#thxRounds .small{font-size:12.5px;line-height:1.45;margin:6px 0}#thxRounds .ask{color:var(--cyan)}#thxRounds .fb{color:#ffe2b8}
+.txopt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}.txopt button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:8px 8px;font:12.5px var(--sans);cursor:pointer;text-align:left}.txopt button:hover{border-color:var(--cyan)}.txopt button.ok{border-color:#7dff9a;color:#7dff9a}.txopt button.no{border-color:#ff6070;color:#ff8090}
+.txpin{position:absolute;transform:translate(-50%,-140%);background:var(--cyan);color:#071012;font:700 13px var(--sans);border-radius:12px;padding:3px 9px;box-shadow:0 0 0 3px rgba(62,230,216,.25),0 2px 8px #000}.txpin:after{content:'';position:absolute;left:50%;bottom:-7px;margin-left:-5px;border:5px solid transparent;border-top-color:var(--cyan)}
+.txsvg{width:100%;max-width:300px;border-radius:8px;margin:6px 0;display:block}
+#thxCT{left:16px;bottom:64px;width:min(292px,calc(100vw - 32px));padding:9px 10px}#thxCT .eyebrow{font-size:10px}.ctwrap{position:relative;margin-top:6px}#ctCv{width:100%;aspect-ratio:1;display:block;border-radius:6px;background:#000;cursor:crosshair;touch-action:none}.ctR,.ctL{position:absolute;top:4px;font:600 11px var(--mono);color:#ffe7b0}.ctR{left:6px}.ctL{right:6px}
+#ctY{width:100%;margin:6px 0 2px;accent-color:var(--cyan)}.ctRow{display:flex;flex-wrap:wrap;gap:5px}.ctRow button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:4px 8px;font:11.5px var(--sans);cursor:pointer}.ctRow button.on{border-color:var(--cyan);color:var(--cyan)}
+@media(min-width:761px){body.txRoundsOn.txCTOn #thxCT{left:auto;right:16px;bottom:64px}body.txCTOn #thxLegend{display:none}body.txRoundsOn.txCTOn #thxInfo{max-height:calc(100vh - 540px)}}
+@media(max-width:760px){#thxInfo{top:auto;bottom:58px;left:10px;right:10px;width:auto;max-height:36vh;padding:10px 12px}#thxInfo.idle{display:none}#thxInfo h3{font-size:16px}#thxTop{left:10px;top:10px;padding:8px 11px}#thxWhere{font-size:12px}#thxScale{font-size:10.5px}#thxBar{left:8px;right:8px;bottom:8px;transform:none;max-width:none;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}#thxBar::-webkit-scrollbar{display:none}#thxBar button{padding:8px 10px;font-size:12px;white-space:nowrap;flex:0 0 auto}#thxBar .sep{flex:0 0 1px}#thxLegend{bottom:auto;top:96px;left:10px;right:auto;max-width:calc(100vw - 20px);padding:8px 10px;font-size:11px}
+ #thxRounds{left:10px;right:10px;width:auto;top:84px;max-height:34vh;padding:9px 11px}#thxRounds h3{font-size:15px}body.txRoundsOn #thxLegend{display:none}#thxCT{left:8px;bottom:56px;width:min(58vw,250px);padding:6px 7px}#thxCT .eyebrow{display:none}.ctRow button{padding:4px 6px;font-size:10.5px}body.txRoundsOn #thxTop{display:none}#thxCT{width:min(48vw,200px)}body.txCTOn #thxInfo{bottom:auto;top:84px;max-height:30vh}}
 </style>
 </head>
 <body>
@@ -301,7 +319,7 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 
 <div id="body" class="hud panel" title="M hides the map · click it for the gross-anatomy atlas (N)"><div class="eyebrow" id="bodyTitle" style="text-align:center">Body · circulation + lymph</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div></div>
 <div id="route" class="hud panel"><canvas id="routeC" width="1520" height="68"></canvas></div>
-<div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>Tab</kbd> systems · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
+<div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>Q</kbd> zoom out · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>Tab</kbd> systems · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
 <button id="stethBtn" title="Hold for Stethoscope Mode">🩺</button>
 
 <aside id="card" class="hud panel">
@@ -411,7 +429,14 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
  <div class="bpanel" id="brainTop"><div class="eyebrow">Zoom out · brain atlas</div><div id="brainWhere"></div><div id="brainScale"></div></div>
  <div class="bpanel" id="brainInfo"></div><div class="bpanel" id="brainLegend"></div>
  <div class="bpanel" id="brainRounds" style="display:none"></div>
- <div id="brainBar"><button id="bgRoundsBtn" class="hot">Neuro rounds (R)</button><span class="sep"></span><button data-b="surface">Surface</button><button data-b="lobes">Lobes</button><button data-b="func">Functional areas</button><span class="sep"></span><button data-b="glass">Glass (G)</button><button data-b="cut">Midline cut (C)</button><button data-b="art">Arteries (A)</button><button data-b="wire">Wiring (W)</button><button data-b="route">Your route</button><button data-b="labels">Labels (L)</button><span class="sep"></span><button data-v="lateralL">Left</button><button data-v="lateralR">Right</button><button data-v="superior">Top</button><button data-v="anterior">Front</button><button data-v="posterior">Back</button><button data-v="inferior">Base</button><button data-v="medial">Medial</button><span class="sep"></span><button id="brainClose">✕ Shrink back (Q)</button></div>
+ <div id="brainBar"><button id="bgRoundsBtn" class="hot">Neuro rounds (R)</button><span class="sep"></span><button data-b="surface">Surface</button><button data-b="lobes">Lobes</button><button data-b="func">Functional areas</button><span class="sep"></span><button data-b="glass">Glass (G)</button><button data-b="cut">Midline cut (C)</button><button data-b="art">Arteries (A)</button><button data-b="wire">Wiring (W)</button><button data-b="route">Your route</button><button data-b="labels">Labels (L)</button><span class="sep"></span><button data-v="lateralL">Left</button><button data-v="lateralR">Right</button><button data-v="superior">Top</button><button data-v="anterior">Front</button><button data-v="posterior">Back</button><button data-v="inferior">Base</button><button data-v="medial">Medial</button><span class="sep"></span><button id="brainChest">Chest ▸</button><button id="brainClose">✕ Shrink back (Q)</button></div>
+</div>
+<div class="modal" id="mThx"><div id="thxLabels"></div><div id="thxTip"></div>
+ <div class="bpanel" id="thxTop"><div class="eyebrow">Zoom out · chest atlas</div><div id="thxWhere"></div><div id="thxScale"></div></div>
+ <div class="bpanel" id="thxInfo"></div><div class="bpanel" id="thxLegend"></div>
+ <div class="bpanel" id="thxRounds" style="display:none"></div>
+ <div class="bpanel" id="thxCT" style="display:none"><div class="eyebrow">CT pulmonary angiogram · axial · <span id="ctLev"></span></div><div class="ctwrap"><canvas id="ctCv" width="216" height="216"></canvas><span class="ctR">R</span><span class="ctL">L</span></div><input type="range" id="ctY" min="-16" max="10" step="0.5"><div class="ctRow"><button data-w="lung">Lung</button><button data-w="med">Soft tissue</button><button data-w="bone">Bone</button><button id="ctCut">Cut 3D</button></div></div>
+ <div id="thxBar"><button id="thxRoundsBtn" class="hot">Chest rounds (R)</button><span class="sep"></span><button data-l="lungs">Lungs</button><button data-l="glass">Glass lungs (G)</button><button data-m="surface">Surface</button><button data-m="lobes">Lobes (X)</button><button data-m="segments">Segments</button><span class="sep"></span><button data-l="heart">Heart (H)</button><button data-l="terr">Coronary map (T)</button><button data-l="vessels">Vessels (V)</button><button data-l="tree">Airways (B)</button><button data-l="med">Nerves &amp; oesophagus (M)</button><button data-l="bones">Skeleton (S)</button><button data-l="skin">Skin (K)</button><button data-l="ct">CT (C)</button><button data-l="beat">Beat (P)</button><button data-l="labels">Labels (L)</button><span class="sep"></span><button data-v="front">Front</button><button data-v="back">Back</button><button data-v="left">Left</button><button data-v="right">Right</button><button data-v="top">Top</button><span class="sep"></span><button id="thxBrain">Brain ▸</button><button id="thxClose">✕ Shrink back (Q)</button></div>
 </div>
 <div class="modal" id="mExamLU"><div class="sheet" id="examLUSheet" style="max-width:880px"></div></div>
 <div class="modal" id="mExamRN"><div class="sheet" id="examRNSheet" style="max-width:880px"></div></div>
@@ -3704,7 +3729,7 @@ function bWire(){const el=$('mBrain');let drag=null,pinch=null;const pts=new Map
  el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
  el.addEventListener('wheel',e=>{e.preventDefault();BRAIN.dist=clamp(BRAIN.dist*(e.deltaY>0?1.1:.9),bMinD(),80);BRAIN.anim=null;},{passive:false});
  document.querySelectorAll('#brainBar [data-b]').forEach(b=>b.onclick=()=>{const k=b.dataset.b;if(['surface','lobes','func'].includes(k))BRAIN.mode=k;else BRAIN[k]=!BRAIN[k];bApply();});
- document.querySelectorAll('#brainBar [data-v]').forEach(b=>b.onclick=()=>{if(BG.cellOn)bgCellExit();else bView(b.dataset.v);});$('bgRoundsBtn').onclick=()=>bgRounds();$('brainClose').onclick=()=>bClose();}
+ document.querySelectorAll('#brainBar [data-v]').forEach(b=>b.onclick=()=>{if(BG.cellOn)bgCellExit();else bView(b.dataset.v);});$('bgRoundsBtn').onclick=()=>bgRounds();$('brainClose').onclick=()=>bClose();$('brainChest').onclick=()=>{bClose(true);openThx();};}
 /* ===== The brain as a game (31 Oct 2026; Jon: "a connectome of neurons and glial cells … part of the game rather than just a zoomed-out view") =====
    Three layers on top of the atlas:
    1. Wiring (W): the major tracts as bundles of streamlines, coloured the way diffusion tractography colours them (red left–right,
@@ -4068,7 +4093,7 @@ function bgClose(){if(BG.cell){BRAIN.scene.remove(BG.cell.G);BG.cell=null;}BG.ce
 
 
 function switchWorld(w,idx){if(w===GUT&&!MOUTH.built)buildMouth();
- exitStudy();useWorld(w);if(w===NERVE&&!BRAIN.hinted){BRAIN.hinted=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the brain.'),3200);}if(typeof hidePredict==='function')hidePredict();if(w!==LUNG&&!C.exercise)C.hrT=72;
+ exitStudy();useWorld(w);if((w===BLOOD||w===LUNG)&&!window._thxH&&started){window._thxH=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the chest.'),3200);}if(w===NERVE&&!BRAIN.hinted){BRAIN.hinted=1;setTimeout(()=>toast('Press Q to zoom out until you are bigger than the brain.'),3200);}if(typeof hidePredict==='function')hidePredict();if(w!==LUNG&&!C.exercise)C.hrT=72;
  BLOOD.group.visible=w===BLOOD;LYMPH.group.visible=w===LYMPH;NERVE.group.visible=w===NERVE;GUT.group.visible=w===GUT;LUNG.group.visible=w===LUNG;RENAL.group.visible=w===RENAL;
  ALL.forEach(D=>{D.on=D.world===w.name;D.meshes.forEach(m=>m.visible=D.on);D.a.forEach(p=>{p.live=false;p.sc=0;});});
  FOG.set(w.fog);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);
@@ -4124,7 +4149,7 @@ function exitLymph(){
 const keys={};let mouseDX=0,mouseDY=0,dragging=false,mouseX=-1,mouseY=-1,downX=0,downY=0,downBtn=-1;
 addEventListener('keydown',e=>{
  if(e.code==='Tab'){e.preventDefault();}
- if(e.repeat)return;keys[e.code]=true;if(BRAIN.open){e.preventDefault();brainKey(e.code);return;}onKey(e);
+ if(e.repeat)return;keys[e.code]=true;if(BRAIN.open){e.preventDefault();brainKey(e.code);return;}if(THX.open){e.preventDefault();thxKey(e.code);return;}onKey(e);
 });
 addEventListener('keyup',e=>{keys[e.code]=false;if(e.code==='KeyH')setSteth(false);});
 addEventListener('blur',()=>{for(const k in keys)keys[k]=false;setSteth(false);});
@@ -5540,7 +5565,7 @@ if(MOBILE){
    }}};
  canvas.addEventListener('touchend',endT,{passive:false});canvas.addEventListener('touchcancel',endT,{passive:false});
  // key buttons
- const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyV','⇅','case'],['KeyO','O₂','oxygen'],['KeyZ','💨','cough'],['KeyU','⇵','posture'],['KeyQ','🧠','zoom out'],['KeyP','❚❚','pause'],['F1','?','help']];
+ const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyV','⇅','case'],['KeyO','O₂','oxygen'],['KeyZ','💨','cough'],['KeyU','⇵','posture'],['KeyQ','🔭','zoom out'],['KeyP','❚❚','pause'],['F1','?','help']];
  $('touchBar').innerHTML=BTNS.map(([c,ic,l])=>`<button data-code="${c}"><span>${ic}</span><small>${l}</small></button>`).join('');
  $('touchBar').querySelectorAll('button').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();unlock();const code=b.dataset.code;
   if(code==='KeyG'&&!started)return;
@@ -5590,7 +5615,7 @@ function onKey(e){
  else if(k==='KeyM'){$('body').classList.toggle('hide');}
  else if(k==='KeyN')openAtlas();
  else if(k==='KeyK')detour();
- else if(k==='KeyQ')openBrain();
+ else if(k==='KeyQ'){if(W===NERVE)openBrain();else openThx();}
  else if(k==='KeyY')enterStudy();
  else if(k==='KeyR')openQuiz();
  else if(k==='KeyL'){depth=(depth+1)%4;toast('Depth: '+LEVEL_NAMES[depth]);if(cardKey){cardLevel=depth;renderCardBody();}}
@@ -6568,12 +6593,841 @@ function updateStudy(){
 }
 addEventListener('wheel',e=>{if(study){study.dist=clamp(study.dist*(e.deltaY>0?1.08:.93),1.1,4.5);}},{passive:true});
 
+/* ===== Gross anatomy as a game: the chest at organ scale (Q from the blood, lymph or lung worlds) =====
+   31 Oct 2026; Jon: "I want to make gross anatomy more part of the game". One adult male chest in centimetres, in the brain atlas's
+   frame (x = patient's LEFT +, y = up, z = anterior +; y = 0 is the T4/5 disc, the level of the sternal angle). Ribs follow their own
+   courses (head at their vertebra, lowest near the costochondral junction; true, false and floating), so the sternal angle, the ribs and
+   the spaces between them can be felt and counted. The lungs are shaped by the cage, the domes of the diaphragm and the mediastinum;
+   lobes come from the fissure surfaces and segments from the territory of each segmental bronchus. The CT viewer samples the same
+   model, so a structure clicked in 3D and the same structure on a slice are one object. */
+const THX={open:false,built:false,yaw:.5,pitch:.14,dist:80,tgt:new V3(0,-3.5,0),anim:null,hover:null,sel:null,lastPick:0,
+ lay:{skin:false,bones:true,heart:true,vessels:true,tree:false,med:false},lungs:0,lmode:'surface',terr:false,labels:true,beat:true,
+ ct:false,ctY:-3,win:'med',cut:true,caseK:null,ctCase:{},mis:null,open2:false,t:0};
+const txSS=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+const txSmin=(a,b,k)=>{const h=clamp(.5+.5*(b-a)/k,0,1);return lerp(b,a,h)-k*h*(1-h);};
+const txSmax=(a,b,k)=>-txSmin(-a,-b,k);
+const TXZC=-.4;                                                                                      // axis of the cage (polar angles are measured about x = 0, z = TXZC)
+const txZV=y=>y>-19?-7.2+1.8*txSS(-2,10,y):-7.2+.14*(-19-y);                                        // vertebral body centre: kyphosis brings the upper thoracic spine forward
+const txYV=n=>1.2+(4-n)*2.4;                                                                         // T1–T12 body centres; T4/5 disc at y = 0
+const txZSt=y=>y>0?lerp(5.6,3.0,y/4.8):lerp(5.6,10.3,-y/11);                                         // front of the sternum (manubrium tilted back towards the inlet)
+// ---- ribs: yh head, yl lowest point (at θ = tl·π), ye sternal end, tc costochondral junction, a half-width; 8–10 join the cartilage above at tj ----
+const TXRIB=[null,
+ {yh:9.2,yl:2.9,tl:.84,ye:3.4,tc:.80,a:5.6,xs:2.4},{yh:6.8,yl:-.6,tl:.86,ye:0,tc:.86,a:8.4,xs:2.0},{yh:4.4,yl:-3.2,tl:.86,ye:-2.5,tc:.85,a:10.4,xs:1.7},
+ {yh:2.0,yl:-5.6,tl:.86,ye:-4.8,tc:.83,a:11.8,xs:1.7},{yh:-.4,yl:-7.9,tl:.85,ye:-7.0,tc:.80,a:12.8,xs:1.7},{yh:-2.8,yl:-10.2,tl:.82,ye:-9.0,tc:.78,a:13.4,xs:1.6},
+ {yh:-5.2,yl:-13.2,tl:.72,ye:-10.6,tc:.72,a:13.8,xs:1.4},{yh:-7.6,yl:-16,tl:.66,tj:.84,tc:.66,a:14},{yh:-10,yl:-18.5,tl:.62,tj:.76,tc:.62,a:13.9},
+ {yh:-12.4,yl:-20.8,tl:.6,tj:.7,tc:.58,a:13.4},{yh:-14.8,yl:-21.4,tl:.52,tend:.52,tc:.52,a:12.4},{yh:-17.2,yl:-21.2,tl:.36,tend:.36,tc:.36,a:10.6}];
+TXRIB.forEach((R,n)=>{if(!R)return;R.bp=TXZC-(txZV(R.yh)-3);if(n<=7)R.ba=txZSt(R.ye)-.7-TXZC;});
+for(let n=8;n<=12;n++)TXRIB[n].ba=TXRIB[7].ba+.25*(n-7);
+for(let n=1;n<=7;n++){const R=TXRIB[n];R.te=1-Math.asin(Math.min(.9,R.xs/R.ba))/Math.PI;}
+const txRibEnd=n=>{const R=TXRIB[n];return (n<=7?R.te:n<=10?R.tj:R.tend)*Math.PI;};
+function txRibR(n,t){const R=TXRIB[n],s=Math.sin(t),c=Math.cos(t),b=c>0?R.bp:R.ba;let r=1/Math.sqrt((s/R.a)**2+(c/b)**2);
+ if(n>=8&&n<=10)r=lerp(r,txRibR(n-1,t)-.35,txSS(R.tc,R.tj,t/Math.PI));return r;}
+function txRibY(n,t){const R=TXRIB[n],u=t/Math.PI;
+ if(u<=R.tl){const s=clamp(u/R.tl,0,1);return R.yh+(R.yl-R.yh)*(1-(1-s)*(1-s));}
+ if(n<=7)return R.yl+(R.ye-R.yl)*txSS(R.tl,R.te,u);
+ if(n<=10){const yj=txRibY(n-1,R.tj*Math.PI)-.8;return R.yl+(yj-R.yl)*txSS(R.tl,R.tj,u);}
+ return R.yl;}
+const txRibP=(n,t,s)=>{const r=txRibR(n,t);return new V3(s*r*Math.sin(t),txRibY(n,t),TXZC-r*Math.cos(t));};
+// the inner (pleural) surface of the cage at polar angle t and height y, tabulated once
+const TXW={nt:72,ny:150,y0:-24,y1:13.5,tab:null};
+function txWallBuild(){const {nt,ny,y0,y1}=TXW,tab=new Float32Array(nt*ny);
+ for(let i=0;i<nt;i++){const t=i/(nt-1)*Math.PI;const ys=[],rs=[];for(let n=1;n<=12;n++){if(n>7&&t>txRibEnd(n)+.02)continue;ys.push(txRibY(n,Math.min(t,txRibEnd(n))));rs.push(txRibR(n,Math.min(t,txRibEnd(n))));}
+  for(let j=0;j<ny;j++){const y=lerp(y0,y1,j/(ny-1));let r;
+   if(y>=ys[0])r=rs[0];else if(y<=ys[ys.length-1])r=rs[rs.length-1];else{for(let k=0;k<ys.length-1;k++){if(y<=ys[k]&&y>=ys[k+1]){const f=(y-ys[k+1])/Math.max(1e-3,ys[k]-ys[k+1]);r=lerp(rs[k+1],rs[k],f);break;}}if(r===undefined)r=rs[0];}
+   tab[i*ny+j]=r-.6;}}
+ TXW.tab=tab;}
+function txWall(t,y){const {nt,ny,y0,y1,tab}=TXW;const fi=clamp(t/Math.PI,0,1)*(nt-1),fj=clamp((y-y0)/(y1-y0),0,1)*(ny-1);const i=Math.min(nt-2,fi|0),j=Math.min(ny-2,fj|0),a=fi-i,b=fj-j;
+ return lerp(lerp(tab[i*ny+j],tab[i*ny+j+1],b),lerp(tab[(i+1)*ny+j],tab[(i+1)*ny+j+1],b),a);}
+// ---- diaphragm (right dome higher, heart on the central tendon) and the lung apex ----
+const txDome=(dx,z,top)=>top-.12*(dx-6.5)**2-(z<.5?.125:.07)*(z-.5)**2;
+function txDia(x,z){return txSmax(txSmax(txDome(-x,z,-7.3),txDome(x,z,-8.6),1.2),-10.6-.04*x*x-.06*(z-2)**2,1.0);}
+const txApex=(dx,z)=>9.0-.16*(dx-4)**2-.12*(z+2.2)**2;
+// ---- tubes: centre lines in cm; every vessel, airway and nerve is one of these ----
+const TXT={};   // key → {key,pts:[V3 dense],r:[...],box,lay,col}
+function txCurve(P,step){const c=new THREE.CatmullRomCurve3(P.map(p=>new V3(...p)),false,'centripetal');const n=Math.max(4,Math.ceil(c.getLength()/(step||.5)));return c.getSpacedPoints(n);}
+function txT(key,P,r,lay,col,o){const pts=txCurve(P,o&&o.step);const R=pts.map((p,i)=>typeof r==='function'?r(i/(pts.length-1),p):Array.isArray(r)?lerp(r[0],r[1],i/(pts.length-1)):r);
+ const box=new THREE.Box3().setFromPoints(pts);box.expandByScalar(Math.max(...R)+.1);TXT[key]=Object.assign({key,pts,r:R,box,lay,col},o||{});return TXT[key];}
+function txTubeD(T,x,y,z){let best=1e9;const P=T.pts;for(let i=0;i<P.length-1;i++){const a=P[i],b=P[i+1];const bx=b.x-a.x,by=b.y-a.y,bz=b.z-a.z,px=x-a.x,py=y-a.y,pz=z-a.z;const l=bx*bx+by*by+bz*bz;let h=l>0?(px*bx+py*by+pz*bz)/l:0;h=h<0?0:h>1?1:h;
+  const dx=px-bx*h,dy=py-by*h,dz=pz-bz*h;const d=Math.sqrt(dx*dx+dy*dy+dz*dz)-lerp(T.r[i],T.r[i+1],h);if(d<best)best=d;}return best;}
+const txInBox=(T,x,y,z,m)=>x>T.box.min.x-m&&x<T.box.max.x+m&&y>T.box.min.y-m&&y<T.box.max.y+m&&z>T.box.min.z-m&&z<T.box.max.z+m;
+const TXC={art:0xc4463e,pa:0x5a70b4,vein:0x4f548f,pv:0xc4463e,nerve:0xf0d98a,lymph:0xf2eed6,air:0xe6dccb,eso:0xc98a7c,bone:0xe9dcc0,cart:0xc9d8de,lig:0xe8e2d0};
+function txDefineTubes(){
+ // airways (trachea → lobar bronchi); segmental and smaller are generated towards each segment
+ txT('trachea',[[0,13.2,.4],[0,9,-1.0],[.1,5,-1.6],[.2,1.5,-2.2],[.3,-.6,-2.5]],[.95,.9],'tree',TXC.air,{air:1});
+ txT('rmb',[[.3,-.6,-2.5],[-.4,-1.4,-2.6],[-.9,-2.0,-2.7]],.78,'tree',TXC.air,{air:1});
+ txT('rulB',[[-.9,-2.0,-2.7],[-2.1,-1.6,-2.8],[-3.2,-1.2,-2.9]],.5,'tree',TXC.air,{air:1});
+ txT('bi',[[-.9,-2.0,-2.7],[-1.5,-3.6,-2.8],[-2.0,-5.0,-2.9]],[.62,.56],'tree',TXC.air,{air:1});
+ txT('rmlB',[[-2.0,-5.0,-2.9],[-2.9,-5.6,-1.4],[-3.7,-6.0,-.2]],.4,'tree',TXC.air,{air:1});
+ txT('rllB',[[-2.0,-5.0,-2.9],[-2.5,-6.3,-3.2],[-2.9,-7.4,-3.4]],.5,'tree',TXC.air,{air:1});
+ txT('lmb',[[.3,-.6,-2.5],[1.6,-1.8,-2.7],[2.8,-3.0,-2.9],[3.8,-4.0,-3.0]],[.68,.6],'tree',TXC.air,{air:1});
+ txT('lulB',[[3.8,-4.0,-3.0],[4.6,-3.6,-2.0],[5.2,-3.3,-1.2]],.5,'tree',TXC.air,{air:1});
+ txT('lllB',[[3.8,-4.0,-3.0],[4.3,-5.4,-3.4],[4.7,-6.8,-3.7]],.5,'tree',TXC.air,{air:1});
+ // aorta and its arch branches
+ txT('aoAsc',[[0,-4.4,1.8],[-.3,-2.8,2.4],[-1.2,-.8,2.4],[-1.5,1.2,1.6],[-1.0,2.6,.6]],t=>t<.25?1.65:1.5,'vessels',TXC.art,{hu:'ao'});
+ txT('arch',[[-1.0,2.6,.6],[.4,3.3,-.8],[1.9,2.75,-2.4],[2.7,1.2,-4.0]],[1.45,1.3],'vessels',TXC.art,{hu:'ao'});
+ txT('aoDesc',[[2.7,1.2,-4.0],[2.8,-1.0,-5.2],[2.7,-5,-5.9],[2.2,-9,-6.0],[1.4,-13,-5.4],[.6,-17.5,-4.6]],[1.25,1.1],'vessels',TXC.art,{hu:'ao'});
+ txT('bct',[[-.4,3.4,-.4],[-1.2,5.2,-.6],[-2.0,6.6,-.8]],.66,'vessels',TXC.art,{hu:'ao'});
+ txT('rsca',[[-2.0,6.6,-.8],[-3.8,7.6,-.8],[-6.0,7.8,-.9],[-8.8,6.8,-.5],[-12,5.6,0]],.5,'vessels',TXC.art,{hu:'ao'});
+ txT('rcca',[[-2.0,6.6,-.8],[-2.2,10,-.4],[-2.5,14,.4]],.45,'vessels',TXC.art,{hu:'ao'});
+ txT('lcca',[[.8,3.6,-1.2],[1.5,6.5,-1.0],[2.2,10,-.6],[2.5,14,.2]],.45,'vessels',TXC.art,{hu:'ao'});
+ txT('lsca',[[1.7,3.4,-2.2],[2.6,6.2,-2.4],[4.4,7.8,-1.8],[7.0,7.6,-1.0],[9.8,6.4,-.4],[12,5.6,0]],.5,'vessels',TXC.art,{hu:'ao'});
+ // pulmonary trunk and arteries
+ txT('pt',[[1.6,-3.6,4.4],[2.1,-2.6,3.9],[2.3,-1.2,2.8],[2.0,-.3,1.0],[1.8,-.4,.4]],[1.35,1.25],'vessels',TXC.pa,{hu:'pa'});
+ txT('lpa',[[1.8,-.4,.4],[3.3,-.4,-.8],[4.8,-1.2,-1.8],[6.2,-2.2,-2.4]],[1.0,.85],'vessels',TXC.pa,{hu:'pa'});
+ txT('rpa',[[1.8,-.4,.4],[0,-.8,0],[-2.0,-1.6,-.6],[-4.0,-2.6,-1.2],[-5.8,-3.5,-1.6]],[1.05,.9],'vessels',TXC.pa,{hu:'pa'});
+ // veins
+ txT('svc',[[-3.8,3.6,1.0],[-3.8,1.0,1.0],[-3.8,-1.6,1.3],[-3.4,-3.8,1.8]],1.0,'vessels',TXC.vein,{hu:'svc'});
+ txT('rbcv',[[-6.2,6.8,.6],[-4.8,5.4,.9],[-3.8,3.6,1.0]],.75,'vessels',TXC.vein,{hu:'svc'});
+ txT('lbcv',[[6.0,6.6,.2],[3.0,5.4,.8],[0,4.7,.9],[-2.6,4.0,1.0],[-3.8,3.6,1.0]],.68,'vessels',TXC.vein,{hu:'vein'});
+ txT('rijv',[[-3.2,14,1.0],[-4.6,9,.8],[-6.2,6.8,.6]],.6,'vessels',TXC.vein,{hu:'vein'});
+ txT('rscv',[[-12,5.2,1.6],[-9,5.8,1.2],[-6.2,6.8,.6]],.55,'vessels',TXC.vein,{hu:'svc'});
+ txT('lijv',[[3.4,14,1.0],[4.6,9,.6],[6.0,6.6,.2]],.6,'vessels',TXC.vein,{hu:'vein'});
+ txT('lscv',[[12,5.2,1.6],[9,5.8,1.0],[6.0,6.6,.2]],.55,'vessels',TXC.vein,{hu:'vein'});
+ txT('ivc',[[-2.2,-13.8,.6],[-2.5,-11,1.0],[-2.7,-8.4,1.6]],1.1,'vessels',TXC.vein,{hu:'ivc'});
+ txT('rspv',[[-5.6,-3.6,.4],[-3.8,-3.5,-.2],[-2.2,-3.0,-.8]],.62,'vessels',TXC.pv,{hu:'lh'});
+ txT('ripv',[[-5.4,-5.8,-2.0],[-3.4,-5.0,-1.6],[-2.0,-4.4,-1.4]],.62,'vessels',TXC.pv,{hu:'lh'});
+ txT('lspv',[[6.2,-3.4,-.8],[4.6,-3.3,-1.0],[3.4,-3.0,-1.0]],.6,'vessels',TXC.pv,{hu:'lh'});
+ txT('lipv',[[6.0,-6.2,-2.0],[4.6,-5.4,-1.6],[3.2,-4.6,-1.4]],.6,'vessels',TXC.pv,{hu:'lh'});
+ // posterior mediastinum
+ txT('esoph',[[0,13.2,-1.8],[.2,8,-2.9],[.4,4.8,-3.4],[.4,1.2,-4.0],[-.4,-3,-4.2],[-.4,-6,-4.3],[.6,-9.5,-3.6],[2.0,-12.5,-2.0],[3.2,-14.2,-.8]],.85,'med',TXC.eso,{hu:'eso'});
+ txT('azy',[[-1.4,-17,-5.6],[-1.5,-10,-5.4],[-1.6,-4,-5.3],[-1.8,.6,-5.2],[-2.6,2.0,-3.6],[-3.4,1.8,-1.4],[-3.8,1.2,.2]],[.32,.45],'med',TXC.vein,{hu:'azy'});
+ txT('thd',[[.4,-18,-5.5],[.4,-12,-5.4],[.6,-5,-5.3],[.6,-1,-5.1],[1.0,3,-4.4],[1.4,7,-3.4],[2.4,9.6,-2.0],[4.2,9.4,-.6],[5.6,7.6,-.1],[6.0,6.8,.1]],.18,'med',TXC.lymph,{hu:'fat'});
+ txT('lig',[[2.1,.2,-.3],[2.3,1.4,-1.6]],.22,'med',TXC.lig,{hu:'soft'});
+ // nerves
+ txT('rphr',[[-4.2,14,.6],[-4.6,9,.2],[-4.9,5,1.4],[-5.0,1,1.6],[-5.0,-3,2.4],[-5.2,-6,2.6],[-4.4,-9.6,2.2],[-3.6,-10.9,1.8]],.17,'med',TXC.nerve,{hu:'soft'});
+ txT('lphr',[[4.4,14,.6],[4.6,9,0],[3.4,4.6,-.6],[3.3,2.6,-.9],[4.6,-1,.6],[6.6,-4,2.4],[7.6,-7,3.4],[8.0,-9.4,4.4],[7.4,-11,3.6]],.17,'med',TXC.nerve,{hu:'soft'});
+ txT('lvag',[[3.4,14,-.8],[3.0,8,-1.4],[3.4,3.0,-2.4],[3.7,1.0,-3.0],[4.2,-2.2,-4.3],[2.0,-6.5,-3.4],[1.6,-10,-3.0],[2.6,-13.2,-1.8]],.17,'med',TXC.nerve,{hu:'soft'});
+ txT('lrln',[[3.7,1.1,-3.0],[3.0,.25,-2.2],[1.8,.35,-2.9],[1.0,1.5,-3.2],[.95,5,-2.7],[.9,9,-2.1],[.8,13,-1.0]],.12,'med',TXC.nerve,{hu:'soft'});
+ txT('rvag',[[-3.2,14,-.6],[-2.9,8.6,-.6],[-3.0,7.4,.4],[-2.2,4,-1.4],[-2.8,0,-3.6],[-3.0,-2.6,-4.1],[-.8,-7,-5.0],[1.4,-12,-3.2],[2.4,-13.6,-2.0]],.17,'med',TXC.nerve,{hu:'soft'});
+ txT('rrln',[[-3.0,7.6,.3],[-4.0,6.9,-.5],[-3.7,7.2,-1.7],[-1.1,9.5,-2.0],[-.9,13,-1.2]],.12,'med',TXC.nerve,{hu:'soft'});
+ // clavicles (S-shaped: convex forwards medially, concave laterally)
+ for(const s of[1,-1])txT(s>0?'clavL':'clavR',[[2.6*s,5.0,3.2],[5*s,5.6,4.0],[8.5*s,6.2,3.6],[11.5*s,6.8,2.2],[14*s,7.3,0],[16.2*s,7.6,-2.6]],.72,'bones',TXC.bone,{hu:'bone',key2:'clav'});
+}
+// ---- heart: chambers as ellipsoids, smooth-unioned (the grooves become the fat-filled sulci) ----
+function txEll(c,s,ax){const A=ax||[[1,0,0],[0,1,0],[0,0,1]];return {c:new V3(...c),s,A:A.map(a=>new V3(...a).normalize())};}
+function txOrtho(u,hint){const U=new V3(...u).normalize(),H=new V3(...hint);const W2=new V3().crossVectors(U,H).normalize(),V2=new V3().crossVectors(W2,U).normalize();return [U.toArray(),V2.toArray(),W2.toArray()];}
+const TXH={c:new V3(1.2,-5.6,2.2)};
+function txHeartDef(as){
+ const lvA=txOrtho([.6,-.45,.66],[0,0,1]),rvA=txOrtho([.865,-.405,.297],[-.24,-.1,.97]);
+ const lvw=as?1.45:1.0;
+ TXH.ch={lv:txEll([4.2,-6.9,3.0],[5.0,3.0,3.0],lvA),rv:txEll([1.6,-7.4,4.6],[4.3,1.9,3.3],rvA),ra:txEll([-2.6,-5.6,2.2],[2.2,2.8,2.3]),raa:txEll([-1.6,-2.6,3.6],[1.5,.9,1.1]),
+  la:txEll([.6,-3.6,-.6],[3.3,1.9,1.9]),laa:txEll([3.9,-3.0,2.0],[1.5,.8,1.0]),root:txEll([-.2,-3.0,2.2],[1.65,1.65,1.65])};
+ TXH.cav={lv:txEll([4.0,-6.8,2.8],[4.1,3.0-lvw,3.0-lvw],lvA),rv:txEll([1.6,-7.4,4.6],[3.9,1.45,2.9],rvA),ra:txEll([-2.6,-5.6,2.2],[2.0,2.6,2.1]),raa:txEll([-1.6,-2.6,3.6],[1.3,.7,.9]),
+  la:txEll([.6,-3.6,-.6],[3.1,1.7,1.7]),laa:txEll([3.9,-3.0,2.0],[1.3,.6,.8]),root:txEll([-.2,-3.0,2.2],[1.45,1.45,1.45])};
+ TXH.rvot={a:new V3(.6,-5.2,5.0),b:new V3(2.1,-3.0,4.0),r:1.3};TXH.lvh=!!as;}
+function txEllD(E,x,y,z){const dx=x-E.c.x,dy=y-E.c.y,dz=z-E.c.z;let k0=0,k1=0;for(let i=0;i<3;i++){const a=E.A[i],q=(dx*a.x+dy*a.y+dz*a.z),r=E.s[i];k0+=(q/r)**2;k1+=(q/(r*r))**2;}k0=Math.sqrt(k0);k1=Math.sqrt(k1);return k1>1e-6?k0*(k0-1)/k1:-Math.min(...E.s);}
+function txCapD(C,x,y,z){const a=C.a,b=C.b;const bx=b.x-a.x,by=b.y-a.y,bz=b.z-a.z,px=x-a.x,py=y-a.y,pz=z-a.z;let h=(px*bx+py*by+pz*bz)/(bx*bx+by*by+bz*bz);h=clamp(h,0,1);return Math.hypot(px-bx*h,py-by*h,pz-bz*h)-C.r;}
+// heart SDF; returns distance and which chamber is nearest (and the runner-up, for the grooves)
+function txHeartD(x,y,z,info){let d=1e9,b1=1e9,b2=1e9,k1=null;for(const k in TXH.ch){const e=txEllD(TXH.ch[k],x,y,z);d=d>1e8?e:txSmin(d,e,.6);if(e<b1){b2=b1;b1=e;k1=k;}else if(e<b2)b2=e;}
+ const e=txCapD(TXH.rvot,x,y,z);d=txSmin(d,e,.6);if(e<b1){b2=b1;b1=e;k1='rv';}else if(e<b2)b2=e;if(info){info.k=k1;info.g=b2-b1;}return d;}
+function txHeartCav(x,y,z){for(const k in TXH.cav)if(txEllD(TXH.cav[k],x,y,z)<0)return k;const C=TXH.rvot;if(txCapD({a:C.a,b:C.b,r:C.r-.35},x,y,z)<0)return 'rv';return null;}
+// ---- mediastinum (everything the lungs must keep clear of) ----
+const TXMED=['aoAsc','arch','aoDesc','bct','lcca','lsca','rsca','rcca','svc','rbcv','lbcv','pt','lpa','rpa','rspv','ripv','lspv','lipv','trachea','rmb','lmb','bi','rulB','rmlB','rllB','lulB','lllB','esoph','azy','ivc','rijv','lijv','rscv','lscv'];
+const TXTHY=txEll([0,2.4,2.4],[2.6,3.6,1.0]);
+function txMedD(x,y,z){let d=txHeartD(x,y,z)-.15;
+ d=Math.min(d,Math.hypot(x,z-txZV(y))-2.1);                                                               // vertebral bodies
+ d=Math.min(d,txEllD(TXTHY,x,y,z));                                                                         // thymic fat behind the manubrium
+ d=Math.min(d,Math.abs(x)-(z>2?.5:z<-3?.9:.7));                                                            // the mediastinal septum itself
+ for(const k of TXMED){const T=TXT[k];if(!txInBox(T,x,y,z,d>0?d:0))continue;const e=txTubeD(T,x,y,z);if(e<d)d=e;}
+ return d;}
+// lung SDF (s = +1 left, −1 right); < 0 inside
+function txLungD(x,y,z,s){const dx=x*s;if(dx<-.5)return -dx;const rz=z-TXZC,t=Math.atan2(Math.max(0,dx),-rz),rr=Math.hypot(dx,rz);
+ let d=rr-txWall(t,y);d=txSmax(d,txDia(x,z)+.2-y,.8);d=txSmax(d,y-txApex(dx,z),1.0);if(d>1.5)return d;d=txSmax(d,.4-txMedD(x,y,z),.5);return d;}
+// fissures and segments
+const txOb=(x,y,z)=>(y-3.0+.8*(z+9))/1.28;                                                                  // > 0 above/in front of the oblique fissure
+const txHz=(x,y,z)=>y-(-4.8+.08*(z-6));                                                                     // right horizontal fissure (4th costal cartilage)
+function txLobe(x,y,z){if(x<0){if(txOb(x,y,z)<0)return 'RLL';return txHz(x,y,z)<0?'RML':'RUL';}return txOb(x,y,z)<0?'LLL':'LUL';}
+const TXSEG={R1:['RUL',[-4.5,6,-1.5]],R2:['RUL',[-8,2,-6]],R3:['RUL',[-8.5,1,5]],R4:['RML',[-10,-6.5,4.5]],R5:['RML',[-5,-8,7]],R6:['RLL',[-7,-2.5,-7.5]],R7:['RLL',[-3.8,-10,-1]],R8:['RLL',[-9.5,-10.5,3]],R9:['RLL',[-12,-11,-3]],R10:['RLL',[-7,-13,-8]],
+ L12:['LUL',[5.5,4.5,-3]],L3:['LUL',[8,.5,5.5]],L4:['LUL',[10.5,-4.5,4]],L5:['LUL',[7.5,-8.5,6]],L6:['LLL',[7,-2.5,-7.5]],L78:['LLL',[8.5,-11,2]],L9:['LLL',[12,-11,-3]],L10:['LLL',[7,-13,-8]]};
+for(const k in TXSEG)TXSEG[k][1]=new V3(...TXSEG[k][1]);
+function txSeg(x,y,z,lobe){lobe=lobe||txLobe(x,y,z);let best=null,bd=1e9;for(const k in TXSEG){const S=TXSEG[k];if(S[0]!==lobe)continue;const p=S[1],d=(x-p.x)**2+(y-p.y)**2*.8+(z-p.z)**2;if(d<bd){bd=d;best=k;}}return best;}
+// ---- geometry helpers ----
+function txIco(level){const t=(1+Math.sqrt(5))/2;let V=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]].map(v=>new V3(...v).normalize());
+ let F=[[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];const par=[];
+ for(let l=0;l<level;l++){const mid=new Map(),F2=[];const m=(a,b)=>{const k=a<b?a+'_'+b:b+'_'+a;if(mid.has(k))return mid.get(k);V.push(V[a].clone().add(V[b]).normalize());par.push([a,b]);mid.set(k,V.length-1);return V.length-1;};
+  for(const [a,b,c] of F){const ab=m(a,b),bc=m(b,c),ca=m(c,a);F2.push([a,ab,ca],[b,bc,ab],[c,ca,bc],[ab,bc,ca]);}F=F2;}
+ return {V,F,par};}
+function txNbr(nv,F){const N=Array.from({length:nv},()=>new Set());for(const [a,b,c] of F){N[a].add(b).add(c);N[b].add(a).add(c);N[c].add(a).add(b);}return N.map(s=>[...s]);}
+// outermost surface of an SDF along rays from c (star-shaped meshing); radius per direction
+function txStar(sdf,c,lvl,rmax,lvlFine){const ico=txIco(lvl),R=new Float32Array(ico.V.length);
+ for(let i=0;i<ico.V.length;i++){const d=ico.V[i];let r=rmax,prev=sdf(c.x+d.x*r,c.y+d.y*r,c.z+d.z*r),hit=-1;
+  while(r>.05){const v=prev;const st=clamp(Math.abs(v)*.8,.08,1.2);const r2=r-st;const v2=sdf(c.x+d.x*r2,c.y+d.y*r2,c.z+d.z*r2);if(v2<0){let lo=r2,hi=r;for(let k=0;k<7;k++){const m=(lo+hi)/2;if(sdf(c.x+d.x*m,c.y+d.y*m,c.z+d.z*m)<0)lo=m;else hi=m;}hit=(lo+hi)/2;break;}r=r2;prev=v2;}
+  R[i]=hit>0?hit:.3;}
+ let V=ico.V,F=ico.F,RR=R;
+ if(lvlFine){const f=txIco(lvl+1);const R2=new Float32Array(f.V.length);R2.set(R);f.par.forEach((p,j)=>{const i=j+12;if(i>=R.length)R2[i]=(R2[p[0]]+R2[p[1]])/2;});
+  // the parent table includes all levels: rebuild radii for the new level only
+  for(let j=0;j<f.par.length;j++){const i=12+j;if(i<R.length)continue;R2[i]=(R2[f.par[j][0]]+R2[f.par[j][1]])/2;}V=f.V;F=f.F;RR=R2;}
+ const N=txNbr(V.length,F);for(let it=0;it<2;it++){const R3=RR.slice();for(let i=0;i<V.length;i++){let s=0;for(const j of N[i])s+=RR[j];R3[i]=RR[i]*.5+.5*s/N[i].length;}RR=R3;}
+ const P=V.map((d,i)=>c.clone().addScaledVector(d,RR[i]));return {P,F,N,dirs:V};}
+function txGeo(P,F,cols,extra){const g=new THREE.BufferGeometry();const pos=new Float32Array(P.length*3);P.forEach((p,i)=>{pos[i*3]=p.x;pos[i*3+1]=p.y;pos[i*3+2]=p.z;});g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+ const idx=new (P.length>65535?Uint32Array:Uint16Array)(F.length*3);F.forEach((f,i)=>{idx[i*3]=f[0];idx[i*3+1]=f[1];idx[i*3+2]=f[2];});g.setIndex(new THREE.BufferAttribute(idx,1));
+ if(cols)g.setAttribute('color',new THREE.BufferAttribute(cols,3));if(extra)for(const k in extra)g.setAttribute(k,extra[k]);g.computeVertexNormals();return g;}
+// tube with an elliptical section; up(i) gives the direction of the first semi-axis
+function txTubeGeo(P,R,o){o=o||{};const seg=o.seg||10,n=P.length,pos=[],idx=[],aw=[];const T=[],N1=[];
+ for(let i=0;i<n;i++){const t=P[Math.min(n-1,i+1)].clone().sub(P[Math.max(0,i-1)]).normalize();T.push(t);}
+ let prev=null;for(let i=0;i<n;i++){let u;if(o.up)u=o.up(i,P[i],T[i]).clone();else if(prev){u=prev.clone();}else{u=Math.abs(T[i].y)<.9?new V3(0,1,0):new V3(1,0,0);}u.addScaledVector(T[i],-u.dot(T[i])).normalize();N1.push(u);prev=u;}
+ for(let i=0;i<n;i++){const r=R[i],r1=Array.isArray(r)?r[0]:r,r2=Array.isArray(r)?r[1]:r,u=N1[i],w=new V3().crossVectors(T[i],u);
+  for(let j=0;j<seg;j++){const a=j/seg*Math.PI*2;pos.push(P[i].x+u.x*Math.cos(a)*r1+w.x*Math.sin(a)*r2,P[i].y+u.y*Math.cos(a)*r1+w.y*Math.sin(a)*r2,P[i].z+u.z*Math.cos(a)*r1+w.z*Math.sin(a)*r2);}}
+ for(let i=0;i<n-1;i++)for(let j=0;j<seg;j++){const a=i*seg+j,b=i*seg+(j+1)%seg,c=(i+1)*seg+j,d=(i+1)*seg+(j+1)%seg;idx.push(a,b,c,b,d,c);}
+ if(o.cap!==false){for(const [i,sg] of[[0,-1],[n-1,1]]){const ci=pos.length/3;pos.push(P[i].x,P[i].y,P[i].z);for(let j=0;j<seg;j++){const a=i*seg+j,b=i*seg+(j+1)%seg;if(sg>0)idx.push(ci,a,b);else idx.push(ci,b,a);}}}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;}
+function txMerge(gs){let nv=0,ni=0;gs.forEach(g=>{nv+=g.attributes.position.count;ni+=g.index.count;});const pos=new Float32Array(nv*3),nor=new Float32Array(nv*3),idx=new Uint32Array(ni);let ov=0,oi=0;const extra={};
+ gs.forEach(g=>{pos.set(g.attributes.position.array,ov*3);nor.set(g.attributes.normal.array,ov*3);const I=g.index.array;for(let i=0;i<I.length;i++)idx[oi+i]=I[i]+ov;
+  for(const k in g.attributes){if(k==='position'||k==='normal')continue;const A=g.attributes[k];if(!extra[k])extra[k]={n:A.itemSize,arr:new Float32Array(nv*A.itemSize)};extra[k].arr.set(A.array,ov*A.itemSize);}ov+=g.attributes.position.count;oi+=I.length;});
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('normal',new THREE.BufferAttribute(nor,3));for(const k in extra)g.setAttribute(k,new THREE.BufferAttribute(extra[k].arr,extra[k].n));g.setIndex(new THREE.BufferAttribute(idx,1));return g;}
+// materials: wet sheen, section faces dimmed when cut, optional heartbeat and a procedural surface pattern
+const TXU={uV:{value:0},uA:{value:0},uTime:{value:0}};
+function txMat(col,o){o=o||{};const m=new THREE.MeshPhysicalMaterial({color:col,roughness:o.rough!=null?o.rough:.45,metalness:0,clearcoat:o.coat!=null?o.coat:.35,clearcoatRoughness:.35,vertexColors:!!o.vc,side:THREE.DoubleSide,transparent:!!o.tr,opacity:o.op!=null?o.op:1,depthWrite:o.tr?false:true});
+ m.userData.base={op:m.opacity,tr:m.transparent};
+ m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,TXU);
+  sh.vertexShader=sh.vertexShader.replace('#include <common>',`#include <common>
+uniform float uV,uA;varying vec3 vWP;${o.beat?'attribute vec2 aw;attribute vec3 adir;':''}`).replace('#include <begin_vertex>',`#include <begin_vertex>
+${o.beat?'transformed-=adir*(aw.x*uV*.32+aw.y*(uA*.28-uV*.08));':''}`).replace('#include <worldpos_vertex>',`#include <worldpos_vertex>
+vWP=(modelMatrix*vec4(transformed,1.)).xyz;`);
+  sh.fragmentShader=sh.fragmentShader.replace('#include <common>',`#include <common>
+varying vec3 vWP;uniform float uTime;
+vec3 txH3(vec3 p){p=vec3(dot(p,vec3(127.1,311.7,74.7)),dot(p,vec3(269.5,183.3,246.1)),dot(p,vec3(113.5,271.9,124.6)));return fract(sin(p)*43758.5453);}
+vec2 txWor(vec3 x){vec3 i=floor(x),f=fract(x);float a=9.,b=9.;for(int k=-1;k<=1;k++)for(int j=-1;j<=1;j++)for(int l=-1;l<=1;l++){vec3 g=vec3(float(j),float(k),float(l));vec3 r=g+txH3(i+g)-f;float d=dot(r,r);if(d<a){b=a;a=d;}else if(d<b)b=d;}return vec2(sqrt(a),sqrt(b));}`)
+  .replace('#include <color_fragment>',`#include <color_fragment>
+${o.lung?`{vec2 w=txWor(vWP*.62);float edge=1.-smoothstep(.0,.05,w.y-w.x);vec2 w2=txWor(vWP*2.3+7.);float sp=step(.86,txH3(floor(vWP*6.)).x)*edge;
+ diffuseColor.rgb*=1.-.22*edge*(.5+.5*txH3(floor(vWP*3.)).x);diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.12,.1,.11),sp*.7);diffuseColor.rgb*=.92+.12*w2.x;}`:''}
+${o.heart?`{vec2 w=txWor(vWP*vec3(1.6,4.,1.6));diffuseColor.rgb*=.88+.2*w.x;}`:''}
+${o.skin?`{vec2 w=txWor(vWP*1.3);diffuseColor.rgb*=.95+.08*w.x;}`:''}`)
+  .replace('#include <dithering_fragment>','#include <dithering_fragment>\nif(!gl_FrontFacing)gl_FragColor.rgb*=.42;');};
+ m.customProgramCacheKey=()=>'tx'+(o.beat?'b':'')+(o.lung?'l':'')+(o.heart?'h':'')+(o.skin?'s':'');return m;}
+
+// ---- skin: a torso model (arms off at the shoulder, as on an anatomy-lab torso) ----
+const TXSK={ys:[-28,-20,-14,-9,-6,-3,1,4,6,8,9.6,11,12.2,18],A:[14.5,15.5,16.4,16.8,16.8,16.2,14.4,15.6,18.6,19.4,16.4,9.4,7.2,6.2],
+ zA:[9.6,11.0,12.0,12.0,11.0,9.6,7.4,5.9,5.6,5.3,4.9,4.2,3.8,3.6],zP:[-11.2,-11.8,-12.5,-13,-13.2,-13.2,-13,-12.4,-11.6,-10.8,-9.4,-7.0,-5.6,-4.8]};
+function txSkI(arr,y){const Y=TXSK.ys;if(y<=Y[0])return arr[0];for(let i=0;i<Y.length-1;i++)if(y<=Y[i+1]){const f=(y-Y[i])/(Y[i+1]-Y[i]),f2=f*f*(3-2*f);return lerp(arr[i],arr[i+1],f2);}return arr[arr.length-1];}
+function txSkinP(ph,y){const A=txSkI(TXSK.A,y),zA=txSkI(TXSK.zA,y),zP=txSkI(TXSK.zP,y),p=.72,s=Math.sin(ph),c=Math.cos(ph);
+ const x=A*Math.sign(s)*Math.pow(Math.abs(s),p);let z=c>0?zP*Math.pow(c,p):zA*Math.pow(-c,p);
+ if(c<0)z-=1.3*Math.exp(-((x/3)**2))*txSS(-16,-10,y)*(1-txSS(3,7,y));else z+=1.0*Math.exp(-((x/2.6)**2))*(1-txSS(6,10,y));
+ return new V3(x,y,z);}
+function txBuildSkin(){const NU=MOBILE?72:120,ys=[];for(let y=-28;y<=18.01;y+=MOBILE?.7:.45)ys.push(y);const P=[],F=[];
+ ys.forEach(y=>{for(let i=0;i<NU;i++)P.push(txSkinP(i/NU*Math.PI*2,y));});
+ for(let j=0;j<ys.length-1;j++)for(let i=0;i<NU;i++){const a=j*NU+i,b=j*NU+(i+1)%NU,c=(j+1)*NU+i,d=(j+1)*NU+(i+1)%NU;F.push([a,b,c],[b,d,c]);}
+ for(const [j,y,sg] of[[0,-28,-1],[ys.length-1,18,1]]){const ci=P.length;P.push(new V3(0,ys[j],sg<0?-.8:-.6));for(let i=0;i<NU;i++){const a=j*NU+i,b=j*NU+(i+1)%NU;F.push(sg>0?[ci,a,b]:[ci,b,a]);}}
+ const m=new THREE.Mesh(txGeo(P,F),txMat(0xd09c84,{rough:.62,coat:.12,skin:1}));m.userData={key:'skin'};
+ // nipples and areolae: 4th intercostal space in the midclavicular line
+ const g=new THREE.Group();g.add(m);THX.nip=[];
+ for(const s of[1,-1]){const x=9.6;const t4=txAngAtX(4,x),t5=txAngAtX(5,x);const y=(txRibY(4,t4)+txRibY(5,t5))/2;const ph=txPhAtX(s*x,y);const p=txSkinP(ph,y),p2=txSkinP(ph+.01*s,y),p3=txSkinP(ph,y+.1);
+  const n=new V3().crossVectors(p2.clone().sub(p),p3.clone().sub(p)).normalize();if(n.z<0)n.negate();
+  const ar=new THREE.Mesh(new THREE.CircleGeometry(1.35,28),new THREE.MeshStandardMaterial({color:0x8a4f42,roughness:.7,polygonOffset:true,polygonOffsetFactor:-2}));ar.position.copy(p).addScaledVector(n,.03);ar.lookAt(p.clone().add(n));
+  const ni=new THREE.Mesh(new THREE.SphereGeometry(.32,12,8),ar.material);ni.position.copy(p).addScaledVector(n,.12);g.add(ar,ni);THX.nip.push(p.clone());}
+ g.userData={key:'skin'};return g;}
+function txAngAtX(n,x){let lo=Math.PI*.5,hi=txRibEnd(n);for(let k=0;k<30;k++){const m=(lo+hi)/2;if(txRibR(n,m)*Math.sin(m)>x)lo=m;else hi=m;}return (lo+hi)/2;}
+function txPhAtX(x,y){const s=Math.sign(x)||1;let lo=Math.PI*.5,hi=Math.PI;for(let k=0;k<30;k++){const m=(lo+hi)/2;if(txSkinP(m*s,y).x*s>Math.abs(x))lo=m;else hi=m;}return s*(lo+hi)/2;}
+// ---- skeleton ----
+function txBuildBones(){const G=new THREE.Group(),bone=txMat(TXC.bone,{rough:.6,coat:.15}),cart=txMat(TXC.cart,{rough:.4,coat:.3});G.userData.mats=[bone,cart];
+ for(let n=1;n<=12;n++)for(const s of[1,-1]){const R=TXRIB[n],zv=txZV(R.yh),te=txRibEnd(n),tc=n>10?te:R.tc*Math.PI;
+  const P=[new V3(s*1.7,R.yh+.3,zv+.1),new V3(s*2.6,R.yh+.15,zv-1.0),new V3(s*3.5,R.yh,zv-1.9)];const C=[];
+  for(let t=.17*Math.PI;t<=te+1e-6;t+=.015*Math.PI){const p=txRibP(n,Math.min(t,te),s);(t<tc?P:C).push(p);}if(C.length){P.push(C[0].clone());C.unshift(P[P.length-2].clone());}
+  const sec=n===1?[.28,.55]:n>=11?[.45,.25]:[.62,.24];
+  const pb=new THREE.CatmullRomCurve3(P).getSpacedPoints(Math.ceil(P.length*1.2));const mb=new THREE.Mesh(txTubeGeo(pb,pb.map((p,i)=>{const f=i/(pb.length-1);return [sec[0]*(f<.08?.75:1),sec[1]*(f<.08?1.6:1)];}),{seg:9,up:()=>new V3(0,1,0)}),bone);
+  mb.userData={key:'rib',n,s};G.add(mb);
+  if(C.length>1){const pc=new THREE.CatmullRomCurve3(C).getSpacedPoints(Math.max(4,C.length));const mc=new THREE.Mesh(txTubeGeo(pc,pc.map(()=>[.45,.32]),{seg:8,up:()=>new V3(0,1,0)}),cart);mc.userData={key:'cart',n,s};G.add(mc);}}
+ // sternum: manubrium, body, xiphoid
+ const SP=[],SR=[];for(let y=4.6;y>=-14;y-=.3){const W=y>0?lerp(3.0,5.4,txSS(.2,4.3,y))-(y>3.9?1.4*Math.exp(-(((y-4.6)/.5)**2)):0):y>-10.6?2.5+.6*Math.sin(Math.PI*(-y)/10.6):lerp(1.9,.5,(-10.6-y)/3.4);
+  const T=(y>0?1.5:y>-10.6?1.1:.5)+.3*Math.exp(-((y/.35)**2));SP.push(new V3(0,y,txZSt(y)-T/2));SR.push([W/2,T/2]);}
+ const st=new THREE.Mesh(txTubeGeo(SP,SR,{seg:16,up:()=>new V3(1,0,0)}),bone);st.userData={key:'sternum'};G.add(st);
+ // vertebrae C7–L2 and discs
+ const gs=[],gd=[];const put=(geo,pos,rot)=>{const m4=new THREE.Matrix4().compose(pos,new THREE.Quaternion().setFromEuler(rot||new THREE.Euler()),new V3(1,1,1));geo.applyMatrix4(m4);return geo;};
+ for(let n=0;n<=14;n++){const yc=n===0?10.8:n<=12?txYV(n):txYV(12)-2.7*(n-12);const zv=txZV(yc),r=n===0?1.2:n<=12?lerp(1.4,1.9,(n-1)/11):2.15,h=n<=12?2.0:2.3;
+  gs.push(put(new THREE.CylinderGeometry(r,r*1.04,h,22),new V3(0,yc,zv)));
+  gd.push(put(new THREE.CylinderGeometry(r*.98,r*.98,n<=12?.42:.55,22),new V3(0,yc-h/2-(n<=12?.21:.27),zv)));
+  const cz=zv-r-.85;gs.push(put(new THREE.TorusGeometry(1.0,.32,8,16,Math.PI*1.25),new V3(0,yc+.1,cz),new THREE.Euler(Math.PI/2,0,Math.PI*-.125-Math.PI*.5)));
+  const sp=new THREE.BoxGeometry(.4,.7,n<=12?2.6:2.2);gs.push(put(sp,new V3(0,yc-(n<=12?.8:.2),cz-1.0-(n<=12?.9:.9)),new THREE.Euler(n<=12&&n>0?-.75:-.15,0,0)));
+  for(const s of[1,-1]){const tp=new THREE.BoxGeometry(1.7,.55,.55);gs.push(put(tp,new V3(s*1.9,yc+.2,cz-.2),new THREE.Euler(0,s*.6,0)));}}
+ const vm=new THREE.Mesh(txMerge(gs),bone);vm.userData={key:'vert'};const dm=new THREE.Mesh(txMerge(gd),txMat(0xbfd0d6,{rough:.35}));dm.userData={key:'disc'};G.add(vm,dm);
+ // scapulae (on the back of ribs 2–7) with the spine of the scapula reaching the acromion
+ for(const s of[1,-1]){const S=new V3(s*6.6,5.4,0),I=new V3(s*8.6,-6.4,0),Gl=new V3(s*13.6,3.6,0),N=MOBILE?14:22,P=[],F=[],idx={};
+  for(let i=0;i<=N;i++)for(let j=0;j<=N-i;j++){const u=i/N,v=j/N,p=S.clone().addScaledVector(I.clone().sub(S),u).addScaledVector(Gl.clone().sub(S),v);p.z=txScapZ(p.x,p.y)-.4*Math.sin(Math.PI*Math.min(1,u+v));idx[i+'_'+j]=P.length;P.push(p);}
+  for(let i=0;i<N;i++)for(let j=0;j<N-i;j++){const a=idx[i+'_'+j],b=idx[(i+1)+'_'+j],c=idx[i+'_'+(j+1)];F.push(s>0?[a,b,c]:[a,c,b]);if(j<N-i-1){const d=idx[(i+1)+'_'+(j+1)];F.push(s>0?[b,d,c]:[b,c,d]);}}
+  const sc=new THREE.Mesh(txGeo(P,F),bone);sc.userData={key:'scap'};G.add(sc);
+  const sp=txCurve([[s*7,3.9,txScapZ(s*7,3.9)-.6],[s*11,4.8,txScapZ(s*11,4.8)-.9],[s*14.6,6.6,-5.4],[s*16.2,7.4,-2.8]],.4);const spm=new THREE.Mesh(txTubeGeo(sp,sp.map((p,i)=>[.55,.3]),{seg:8}),bone);spm.userData={key:'scap'};G.add(spm);}
+ for(const k of['clavL','clavR']){const T=TXT[k];const m=new THREE.Mesh(txTubeGeo(T.pts,T.pts.map((p,i)=>{const f=i/(T.pts.length-1);return [.85*(1+.25*Math.exp(-(((f-.02)/.08)**2))+.3*Math.exp(-(((f-1)/.08)**2))),.62];}),{seg:10,up:()=>new V3(0,1,0)}),bone);m.userData={key:'clav'};G.add(m);}
+ return G;}
+function txScapZ(x,y){const xm=txWall(Math.PI/2,y)*.82,ax=Math.abs(x);return txWallBackZ(Math.min(ax,xm),y)-1.6-.35*Math.max(0,ax-xm);}
+function txWallBackZ(x,y){let lo=0,hi=Math.PI/2;for(let k=0;k<24;k++){const m=(lo+hi)/2;if(txWall(m,y)*Math.sin(m)<Math.abs(x))lo=m;else hi=m;}const t=(lo+hi)/2;return TXZC-(txWall(t,y)+.6)*Math.cos(t);}
+// ---- diaphragm with its central tendon; the costodiaphragmatic recesses slope down to the costal attachments ----
+function txBuildDia(){const NR=MOBILE?16:26,NA=MOBILE?48:80,P=[],F=[],C=[];
+ for(let i=0;i<=NR;i++)for(let j=0;j<NA;j++){const rho=i/NR,a=j/NA*Math.PI*2,s=Math.sin(a)>=0?1:-1,t=Math.acos(clamp(Math.cos(a),-1,1));const rw=(txWall(t,-12)+.2)*rho;const x=s*rw*Math.sin(t),z=TXZC-rw*Math.cos(t);
+  let y=txDia(x,z)-5.5*Math.pow(txSS(.8,1,rho),1.4);if(Math.hypot(x,z-txZV(-14))<2.4)y=Math.min(y,-12);P.push(new V3(x,y,z));
+  const tend=Math.exp(-Math.pow((x/4.6)**2+((z-1.6)/3.4)**2,1.6));C.push(lerp(.62,.86,tend),lerp(.24,.82,tend),lerp(.22,.74,tend));}
+ for(let i=0;i<NR;i++)for(let j=0;j<NA;j++){const a=i*NA+j,b=i*NA+(j+1)%NA,c=(i+1)*NA+j,d=(i+1)*NA+(j+1)%NA;F.push([a,c,b],[b,c,d]);}
+ const m=new THREE.Mesh(txGeo(P,F,new Float32Array(C)),txMat(0xffffff,{vc:1,rough:.5,coat:.25}));m.userData={key:'dia'};return m;}
+// ---- heart ----
+const TXATR={ra:1,raa:1,la:1,laa:1,root:1},TXVEN={lv:1,rv:1};
+function txSurfR(dir){const c=TXH.c;let r=9,hit=.3;while(r>.05){const r2=r-.08;if(txHeartD(c.x+dir.x*r2,c.y+dir.y*r2,c.z+dir.z*r2)<0){hit=r2;break;}r=r2;}return hit;}
+const txOnHeart=(p,off)=>{const d=p.clone().sub(TXH.c).normalize();return TXH.c.clone().addScaledVector(d,txSurfR(d)+(off==null?.14:off));};
+function txBuildHeart(){const M=txStar((x,y,z)=>txHeartD(x,y,z),TXH.c,MOBILE?4:5,9,!MOBILE);const n=M.P.length,cols=new Float32Array(n*3),aw=new Float32Array(n*2),adir=new Float32Array(n*3),vk=new Array(n),inf={};
+ const lab=[];M.P.forEach((p,i)=>{txHeartD(p.x,p.y,p.z,inf);lab[i]=inf.k;vk[i]=inf.k==='root'?'aoAsc':inf.k;const ven=TXVEN[inf.k]?1:0;
+  const fatG=Math.exp(-((inf.g/.27)**2)),nz=.5+.5*Math.sin(p.x*3.1+p.y*2.3)*Math.sin(p.z*2.7-p.y*1.7);let fat=clamp(fatG*(.75+.5*nz),0,1);if(inf.k==='rv')fat=Math.max(fat,.14*txSS(.65,.95,nz));if(inf.k==='root')fat=.55;
+  const base=inf.k==='lv'?[.42,.1,.09]:inf.k==='rv'?[.47,.13,.11]:inf.k==='root'?[.8,.7,.56]:[.36,.09,.12];const fc=[.62,.44,.17];
+  cols[i*3]=lerp(base[0],fc[0],fat);cols[i*3+1]=lerp(base[1],fc[1],fat);cols[i*3+2]=lerp(base[2],fc[2],fat);
+  const g=clamp(inf.g/.6,0,1);aw[i*2]=ven?lerp(.5,1,g):lerp(.5,0,g);aw[i*2+1]=ven?lerp(.5,0,g):lerp(.5,1,g);if(inf.k==='root'){aw[i*2]=0;aw[i*2+1]=0;}
+  const d=p.clone().sub(TXH.c).normalize();adir[i*3]=d.x;adir[i*3+1]=d.y;adir[i*3+2]=d.z;});
+ const geo=txGeo(M.P,M.F,cols,{aw:new THREE.BufferAttribute(aw,2),adir:new THREE.BufferAttribute(adir,3)});const mat=txMat(0xffffff,{vc:1,beat:1,heart:1,rough:.38,coat:.55});
+ const mesh=new THREE.Mesh(geo,mat);mesh.userData={vk,base:cols.slice()};
+ // grooves → coronary arteries and veins
+ const av=[],ivA=[],ivP=[];const u=new V3(.6,-.45,.66).normalize(),e1=new V3(0,1,0).addScaledVector(u,-u.y).normalize(),e2=new V3().crossVectors(u,e1);const dAnt=new V3(-.2,.25,1).normalize(),dInf=new V3(0,-1,.1).normalize();
+ M.N.forEach((nb,i)=>{const a=lab[i];if(TXVEN[a]&&nb.some(j=>TXATR[lab[j]]&&lab[j]!=='root'))av.push(M.P[i]);if(a==='lv'&&nb.some(j=>lab[j]==='rv')){const q=M.P[i].clone().sub(TXH.c);(q.dot(dAnt)>q.dot(dInf)?ivA:ivP).push(M.P[i]);}});
+ const bin=(pts,key,nb,lo,hi)=>{const B=Array.from({length:nb},()=>[]);pts.forEach(p=>{const v=key(p);const b=clamp(Math.floor((v-lo)/(hi-lo)*nb),0,nb-1);B[b].push(p);});return B.filter(b=>b.length).map(b=>b.reduce((a,p)=>a.add(p),new V3()).multiplyScalar(1/b.length));};
+ const ang=p=>{const q=p.clone().sub(TXH.c);return Math.atan2(q.dot(e2),q.dot(e1));};
+ let ring=bin(av,ang,56,-Math.PI,Math.PI);const ax=p=>p.clone().sub(TXH.c).dot(u);
+ const lad=bin(ivA,ax,18,Math.min(...ivA.map(ax)),Math.max(...ivA.map(ax))+1e-3),pda=bin(ivP,ax,16,Math.min(...ivP.map(ax)),Math.max(...ivP.map(ax))+1e-3);
+ const smooth=(P,it)=>{for(let k=0;k<(it||2);k++)P=P.map((p,i)=>i===0||i===P.length-1?p:p.clone().add(P[i-1]).add(P[i+1]).multiplyScalar(1/3));return P;};
+ const near=(P,q)=>{let b=0,bd=1e9;P.forEach((p,i)=>{const d=p.distanceTo(q);if(d<bd){bd=d;b=i;}});return b;};
+ const iA=near(ring,lad[0]),iP=near(ring,pda[0]);const arc=(i,j,dir)=>{const o=[];let k=i;for(let s=0;s<ring.length;s++){o.push(ring[k]);if(k===j)break;k=(k+dir+ring.length)%ring.length;}return o;};
+ let a1=arc(iA,iP,1),a2=arc(iA,iP,-1);const mx=a=>a.reduce((s,p)=>s+p.x,0)/a.length;let rcaArc=mx(a1)<mx(a2)?a1:a2,lcxArc=rcaArc===a1?a2:a1;
+ const ro=new V3(-1.0,-3.0,3.7),lo=new V3(1.0,-3.0,2.9);const iR=near(rcaArc,ro);rcaArc=rcaArc.slice(iR);
+ const apex=TXH.ch.lv.c.clone().addScaledVector(TXH.ch.lv.A[0],TXH.ch.lv.s[0]);
+ const on=(P,off)=>smooth(P.map(p=>txOnHeart(p,off)),3).map(p=>txOnHeart(p,off));
+ const ladP=on([lo,...lad,apex.clone().addScaledVector(dInf,.5)]);const rcaP=on([ro,...rcaArc,...pda.slice(0,Math.ceil(pda.length*.7))]);const lcxP=on([lo,...lcxArc.slice(0,Math.ceil(lcxArc.length*.75))]);
+ TXH.lad=ladP;TXH.rca=rcaP;TXH.lcx=lcxP;TXH.iRcaPda=rcaArc.length;
+ const branch=(P,f,toward,len)=>{const i=Math.floor(f*(P.length-1)),a=P[i];const d0=a.clone().sub(TXH.c).normalize(),d1=d0.clone().add(toward.clone().multiplyScalar(len)).normalize();const out=[];for(let k=0;k<=8;k++){const d=d0.clone().lerp(d1,k/8).normalize();out.push(TXH.c.clone().addScaledVector(d,txSurfR(d)+.12));}return out;};
+ const left=new V3(1,-.25,-.1).normalize();
+ const br=[['diag',ladP,.28,new V3(.9,-.5,.1),.55],['diag',ladP,.5,new V3(.8,-.6,0),.45],['om',lcxP,.45,new V3(.2,-1,.2),.6],['om',lcxP,.8,new V3(-.1,-1,.3),.55],['am',rcaP,.42,new V3(.7,-.5,.6),.55]];
+ const G=new THREE.Group();G.add(mesh);const cm=txMat(0xb3372f,{beat:1,rough:.35,coat:.6}),vm=txMat(0x4b3d6c,{beat:1,rough:.35,coat:.6});TXH.cor={};
+ const tube=(key,P,r0,r1,mat)=>{const pts=new THREE.CatmullRomCurve3(P).getSpacedPoints(Math.max(8,P.length*3));const g=txTubeGeo(pts,pts.map((p,i)=>lerp(r0,r1,i/(pts.length-1))),{seg:7});
+  const n2=g.attributes.position.count,aw2=new Float32Array(n2*2),ad2=new Float32Array(n2*3),q=new V3();for(let i=0;i<n2;i++){q.fromBufferAttribute(g.attributes.position,i);txHeartD(q.x,q.y,q.z,inf);const ven=TXVEN[inf.k]?1:0,gg=clamp(inf.g/.6,0,1);aw2[i*2]=ven?lerp(.5,1,gg):lerp(.5,0,gg);aw2[i*2+1]=1-aw2[i*2];const d=q.sub(TXH.c).normalize();ad2.set([d.x,d.y,d.z],i*3);}
+  g.setAttribute('aw',new THREE.BufferAttribute(aw2,2));g.setAttribute('adir',new THREE.BufferAttribute(ad2,3));const m=new THREE.Mesh(g,mat);m.userData={key};G.add(m);(TXH.cor[key]=TXH.cor[key]||[]).push(pts);return m;};
+ tube('lmca',on([new V3(.3,-3.0,2.4),lo]),.24,.22,cm);tube('lad',ladP,.2,.07,cm);tube('lcx',lcxP,.18,.1,cm);tube('rca',rcaP.slice(0,Math.max(3,rcaP.length-Math.ceil(pda.length*.7))+1),.2,.15,cm);tube('pda',rcaP.slice(rcaP.length-Math.ceil(pda.length*.7)-1),.14,.07,cm);
+ br.forEach(([k,P,f,tw,l])=>tube(k,branch(P,f,tw,l),.12,.05,cm));
+ const gcv=on([...ladP.slice(0,Math.ceil(ladP.length*.7)).reverse(),...lcxArc],.2);tube('gcv',gcv.slice(0,Math.ceil(gcv.length*.8)),.12,.22,vm);
+ const csP=on(lcxArc.slice(Math.floor(lcxArc.length*.6)).concat([ring[iP]]),.28);tube('cs',csP,.3,.42,vm);
+ // territories, for the coronary map and the infarct cases
+ const terr=new Array(n);const sm=[['lad',[...TXH.cor.lad[0],...TXH.cor.diag.flat()]],['lcx',[...TXH.cor.lcx[0],...TXH.cor.om.flat()]],['rca',[...TXH.cor.rca[0],...TXH.cor.pda[0],...TXH.cor.am[0]]]];
+ M.P.forEach((p,i)=>{if(!TXVEN[lab[i]]&&lab[i]!=='ra'&&lab[i]!=='la'){terr[i]=null;return;}let b=null,bd=1e9;for(const [k,S] of sm)for(let j=0;j<S.length;j+=2){const d=S[j].distanceToSquared(p);if(d<bd){bd=d;b=k;}}terr[i]=b;});
+ mesh.userData.terr=terr;mesh.userData.lab=lab;TXH.mesh=mesh;return G;}
+// ---- lungs ----
+const TXLOBECOL={RUL:[.42,.6,.9],RML:[.95,.74,.32],RLL:[.46,.8,.52],LUL:[.62,.52,.9],LLL:[.36,.76,.74]},TXLING={L4:1,L5:1};
+const TXSEGCOL=[[.9,.42,.4],[.95,.7,.3],[.86,.86,.36],[.46,.82,.46],[.34,.78,.8],[.38,.56,.92],[.62,.46,.9],[.88,.46,.8],[.6,.8,.95],[.95,.6,.6]];
+function txBuildLung(s){const c=new V3(s*7.5,-3,-1),hil=new V3(s*5.4,-3.2,-1.6);const M=txStar((x,y,z)=>txLungD(x,y,z,s),c,MOBILE?4:5,16,!MOBILE);const n=M.P.length,vk=new Array(n),lob=new Array(n);
+ M.P.forEach((p,i)=>{const lb=txLobe(p.x,p.y,p.z),dO=txOb(p.x,p.y,p.z),dH=s<0&&dO>0?txHz(p.x,p.y,p.z):9;const d=Math.min(Math.abs(dO),Math.abs(dH));const hz=txSS(3,6,p.distanceTo(hil));
+  const g=(Math.abs(dH)<Math.abs(dO)?1.1:1.6)*Math.pow(Math.max(0,1-d/.95),2)*hz;if(g>0)p.addScaledVector(c.clone().sub(p).normalize(),g);lob[i]=lb;vk[i]=txSeg(p.x,p.y,p.z,lb);});
+ const cols=new Float32Array(n*3),geo=txGeo(M.P,M.F,cols);const mesh=new THREE.Mesh(geo,txMat(0xffffff,{vc:1,lung:1,rough:.42,coat:.5}));mesh.userData={vk,lob,s,c};txLungPaint(mesh);return mesh;}
+function txLungPaint(m){const P=m.geometry.attributes.position,C=m.geometry.attributes.color,{vk,lob}=m.userData,q=new V3();const segs=Object.keys(TXSEG);
+ for(let i=0;i<P.count;i++){q.fromBufferAttribute(P,i);let c;const k=vk[i];
+  if(THX.lmode==='lobes'){c=TXLOBECOL[lob[i]];if(TXLING[k])c=[.86,.56,.78];}
+  else if(THX.lmode==='segments'){const j=segs.filter(x=>x[0]===k[0]).indexOf(k);c=TXSEGCOL[j%10];}
+  else{const dep=txSS(-1,-8,q.z)*.35;c=[lerp(.86,.66,dep),lerp(.62,.42,dep),lerp(.62,.46,dep)];
+   if(THX.caseK==='pna'&&lob[i]==='RLL'&&k!=='R6'){const f=txSS(-6,-9,q.y);c=[lerp(c[0],.46,f),lerp(c[1],.12,f),lerp(c[2],.13,f)];}}
+  if(THX.mis&&THX.mis.hiSeg&&THX.mis.hiSeg.includes(k))c=[c[0]*.6+.4,c[1]*.6+.36,c[2]*.6+.1];
+  C.setXYZ(i,c[0],c[1],c[2]);}C.needsUpdate=true;}
+// bronchial tree below the lobar bronchi (segmental and three generations more), with a pulmonary artery beside each bronchus
+function txBuildTree(lungs){THX.br=[];bgSeed(777);
+ const org={R1:['rulB',1],R2:['rulB',1],R3:['rulB',1],R4:['rmlB',1],R5:['rmlB',1],R6:['rllB',.3],R7:['rllB',1],R8:['rllB',1],R9:['rllB',1],R10:['rllB',1],L12:['lulB',1],L3:['lulB',1],L4:['lulB',1],L5:['lulB',1],L6:['lllB',.3],L78:['lllB',1],L9:['lllB',1],L10:['lllB',1]};
+ const ptsBySeg={};for(const L of lungs){const P=L.geometry.attributes.position,q=new V3();L.userData.vk.forEach((k,i)=>{if(bgR()<.35){q.fromBufferAttribute(P,i);(ptsBySeg[k]=ptsBySeg[k]||[]).push(q.clone().lerp(L.userData.c,.18));}});}
+ const add=(a,b,r,seg,g)=>THX.br.push({a,b,r,seg,g});
+ const grow=(a,pts,r,seg,g)=>{if(g>(MOBILE?2:3)||pts.length<2)return;const cen=pts.reduce((s,p)=>s.add(p),new V3()).multiplyScalar(1/pts.length);let ax=new V3();pts.forEach(p=>{const d=p.clone().sub(cen);if(d.dot(ax)<0)d.negate();ax.add(d);});ax.normalize();
+  const A=pts.filter(p=>p.clone().sub(cen).dot(ax)<0),B=pts.filter(p=>p.clone().sub(cen).dot(ax)>=0);for(const H of[A,B]){if(!H.length)continue;const c2=H.reduce((s,p)=>s.add(p),new V3()).multiplyScalar(1/H.length);const b=a.clone().lerp(c2,.5);add(a,b,r,seg,g);grow(b,H,r*.74,seg,g+1);}};
+ for(const k in org){const T=TXT[org[k][0]],a=T.pts[Math.round(org[k][1]*(T.pts.length-1))].clone();const P=ptsBySeg[k]||[TXSEG[k][1]];const cen=P.reduce((s,p)=>s.add(p),new V3()).multiplyScalar(1/P.length);
+  let b=a.clone().lerp(cen,.42);if(k==='L4'||k==='L5'){const lg=a.clone().add(new V3(.6,-1.0,1.0));add(a,lg,.36,k,0);b=lg.clone().lerp(cen,.38);add(lg,b,.3,k,0);}else add(a,b,.32,k,0);grow(b,P,.24,k,1);}
+ // arteries: one beside each bronchus, fed from the hilar pulmonary arteries
+ THX.pa=[];const off=(br)=>{const d=br.b.clone().sub(br.a).normalize();let o=new V3().crossVectors(d,new V3(0,1,0));if(o.lengthSq()<.01)o.set(1,0,0);o.normalize();if(o.z<0)o.negate();return o.multiplyScalar(br.r*1.1+.12);};
+ THX.br.forEach(br=>{const o=off(br);THX.pa.push({a:br.a.clone().add(o),b:br.b.clone().add(o),r:br.r*1.02,seg:br.seg,g:br.g});});
+ for(const k in org){const s=k[0]==='R'?-1:1,h=TXT[s<0?'rpa':'lpa'],hp=h.pts[h.pts.length-1];const first=THX.pa.find(p=>p.seg===k&&p.g===0);if(first)THX.pa.push({a:hp.clone(),b:first.a.clone(),r:.42,seg:k,g:-1});}
+ const mk=(L,mat,key)=>{const gs=L.map(b=>txTubeGeo([b.a,b.a.clone().lerp(b.b,.5),b.b],[b.r,b.r*.96,b.r*.92],{seg:6}));const m=new THREE.Mesh(txMerge(gs),mat);m.userData={key,list:L};return m;};
+ const G=new THREE.Group();G.add(mk(THX.br,txMat(TXC.air,{rough:.5,coat:.2}),'segB'),mk(THX.pa,txMat(TXC.pa,{rough:.4,coat:.4}),'segA'));return G;}
+// ---- the scene ----
+function txBuild(){const t0=performance.now();txWallBuild();txDefineTubes();txHeartDef(false);
+ const S=THX.scene=new THREE.Scene();S.background=new THREE.Color(0x0e090b);
+ S.add(new THREE.HemisphereLight(0xfff4ee,0x3a2228,.6));THX.key=new THREE.DirectionalLight(0xfff6f0,.95);THX.rim=new THREE.DirectionalLight(0xbfd4ff,.4);S.add(THX.key,THX.rim,THX.key.target,THX.rim.target);
+ THX.cam=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,.01,600);
+ THX.G={};const add=(k,o)=>{THX.G[k]=o;S.add(o);return o;};
+ add('bones',txBuildBones());add('heart',txBuildHeart());add('dia',txBuildDia());
+ THX.L=txBuildLung(1);THX.R=txBuildLung(-1);add('lungs',new THREE.Group()).add(THX.L,THX.R);
+ const V=new THREE.Group(),Md=new THREE.Group(),Tr=new THREE.Group();THX.tubeM={};
+ for(const k in TXT){const T=TXT[k];if(T.lay==='bones')continue;const mat=txMat(T.col,{rough:T.lay==='med'?.5:.38,coat:.45});const m=new THREE.Mesh(txTubeGeo(T.pts,T.r,{seg:T.r[0]<.3?7:14}),mat);m.userData={key:k};THX.tubeM[k]=m;(T.lay==='vessels'?V:T.lay==='tree'?Tr:Md).add(m);}
+ add('vessels',V);add('med',Md);Tr.add(txBuildTree([THX.L,THX.R]));add('tree',Tr);add('skin',txBuildSkin());
+ // you-are-here marker
+ THX.me=new THREE.Mesh(new THREE.SphereGeometry(.45,20,14),new THREE.MeshBasicMaterial({color:0x3ee6d8,transparent:true,opacity:.9,depthTest:false}));THX.me.renderOrder=9;S.add(THX.me);
+ THX.ring=new THREE.Mesh(new THREE.RingGeometry(.6,.75,40),new THREE.MeshBasicMaterial({color:0x3ee6d8,transparent:true,opacity:.7,side:THREE.DoubleSide,depthTest:false}));THX.ring.renderOrder=9;S.add(THX.ring);
+ // CT plane (a slab outline across the body) and the mission marker
+ const pl=new THREE.Group();const fill=new THREE.Mesh(new THREE.PlaneGeometry(44,34),new THREE.MeshBasicMaterial({color:0x3ee6d8,transparent:true,opacity:.07,side:THREE.DoubleSide,depthWrite:false}));fill.rotation.x=-Math.PI/2;fill.position.z=-.5;
+ const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(44,34)),new THREE.LineBasicMaterial({color:0x3ee6d8,transparent:true,opacity:.7}));edge.rotation.x=-Math.PI/2;edge.position.z=-.5;pl.add(fill,edge);pl.visible=false;S.add(pl);THX.plane=pl;
+ THX.clip=new THREE.Plane(new V3(0,-1,0),THX.ctY);
+ THX.mark=new THREE.Mesh(new THREE.TorusGeometry(.9,.12,10,40),new THREE.MeshBasicMaterial({color:0x7dff9a,depthTest:false,transparent:true}));THX.mark.renderOrder=10;THX.mark.visible=false;S.add(THX.mark);
+ THX.dot=new THREE.Mesh(new THREE.SphereGeometry(.5,16,12),new THREE.MeshBasicMaterial({color:0xff5a4a,depthTest:false}));THX.dot.renderOrder=10;THX.dot.visible=false;S.add(THX.dot);
+ THX.lines=new THREE.Group();S.add(THX.lines);THX.pinG=new THREE.Group();S.add(THX.pinG);
+ txAnchors();THX.built=true;THX.buildMs=Math.round(performance.now()-t0);}
+// label anchors: a surface point and an outward direction for each structure
+function txAnchors(){const A=THX.anch={};const out=(p,c)=>({p,n:p.clone().sub(c||new V3(0,-4,-1)).normalize()});
+ for(const k in TXT){const T=TXT[k];const f={trachea:.35,esoph:.62,aoDesc:.45,azy:.45,thd:.4,svc:.4,ivc:.6,rphr:.5,lphr:.55,lvag:.55,rvag:.5,lrln:.35,rrln:.55,arch:.35,aoAsc:.45,pt:.5,rpa:.75,lpa:.8,rsca:.6,lsca:.7,rcca:.6,lcca:.7,lbcv:.35}[k]||.5;
+  const p=T.pts[Math.round(f*(T.pts.length-1))].clone();A[k]=out(p,new V3(p.x*.2,p.y,TXZC));}
+ const hm=TXH.mesh,P=hm.geometry.attributes.position,acc={};hm.userData.vk.forEach((k,i)=>{(acc[k]=acc[k]||[]).push(i);});
+ for(const k in acc){const ids=acc[k];const cen=ids.reduce((s,i)=>s.add(new V3().fromBufferAttribute(P,i)),new V3()).multiplyScalar(1/ids.length);const d=cen.clone().sub(TXH.c).normalize();const cand=new V3();let best=null,bd=-1e9;ids.forEach(i=>{cand.fromBufferAttribute(P,i);const v=cand.clone().sub(TXH.c).normalize().dot(d);if(v>bd){bd=v;best=cand.clone();}});A[k]=out(best,TXH.c);}
+ for(const k in TXH.cor){const pts=TXH.cor[k][0];A[k]=out(pts[Math.round(pts.length*.45)].clone(),TXH.c);}
+ for(const L of[THX.L,THX.R]){const P2=L.geometry.attributes.position,acc2={},accS={};L.userData.lob.forEach((k,i)=>{(acc2[k]=acc2[k]||[]).push(i);(accS[L.userData.vk[i]]=accS[L.userData.vk[i]]||[]).push(i);});
+  const pick=(ids,c)=>{const cen=ids.reduce((s,i)=>s.add(new V3().fromBufferAttribute(P2,i)),new V3()).multiplyScalar(1/ids.length);const d=cen.clone().sub(c).normalize();let best=null,bd=-1e9;const q=new V3();ids.forEach(i=>{q.fromBufferAttribute(P2,i);const v=q.clone().sub(c).normalize().dot(d)-.02*q.distanceTo(cen);if(v>bd){bd=v;best=q.clone();}});return out(best,c);};
+  for(const k in acc2)A[k]=pick(acc2[k],L.userData.c);for(const k in accS)A[k]=pick(accS[k],L.userData.c);}
+ A.dia=out(new V3(-6,-7.6,4),new V3(-6,-14,0));A.sternum=out(new V3(0,-5,txZSt(-5)),new V3(0,-5,0));A.manubrium=out(new V3(0,2.6,txZSt(2.6)),new V3(0,2.6,0));A.clav=out(TXT.clavR.pts[10].clone(),new V3(-8,0,0));
+ A.vert=out(new V3(0,-6,txZV(-6)-5),new V3(0,-6,0));A.scap=out(new V3(-10,0,txWallBackZ(-10,0)-2),new V3(-6,0,0));
+ for(let n=1;n<=12;n++)for(const s of[1,-1]){const t=n<=10?.52*Math.PI:Math.min(txRibEnd(n)-.05,.45*Math.PI);const p=txRibP(n,t,s);A['rib'+n+(s>0?'L':'R')]=out(p,new V3(0,p.y,TXZC));}}
+
+// ---- view state ----
+const TXVIEWS={front:[0,.06],back:[Math.PI,.06],left:[Math.PI/2,.06],right:[-Math.PI/2,.06],top:[0,1.42],oblique:[.55,.22]};
+function txFit(){const a=THX.cam?THX.cam.aspect:innerWidth/innerHeight;return a<1.1?Math.min(160,78*1.1/Math.max(.45,a)):78;}
+function txAnimTo(view,tg,dist,T){const v=Array.isArray(view)?view:TXVIEWS[view]||[THX.yaw,THX.pitch];let y1=v[0];while(y1-THX.yaw>Math.PI)y1-=Math.PI*2;while(y1-THX.yaw<-Math.PI)y1+=Math.PI*2;
+ THX.anim={t:0,T:T||.9,y0:THX.yaw,p0:THX.pitch,d0:THX.dist,y1,p1:v[1],d1:dist||txFit(),tg0:THX.tgt.clone(),tg1:tg||new V3(0,-3.5,0)};}
+function txMats(){if(THX.mats)return THX.mats;const S=new Set();THX.scene.traverse(o=>{if(o.isMesh&&o.material&&o.material.userData&&o.material.userData.base)S.add(o.material);});return THX.mats=[...S];}
+function txApply(){const L=THX.lay,G=THX.G;G.bones.visible=L.bones;G.heart.visible=L.heart;G.vessels.visible=L.vessels;G.tree.visible=L.tree;G.med.visible=L.med;G.skin.visible=L.skin;
+ const sg=L.skin&&!!THX.skinGlass;G.skin.traverse(o=>{if(o.isMesh&&o.material.userData.base){o.material.transparent=sg;o.material.opacity=sg?.28:1;o.material.depthWrite=!sg;o.material.needsUpdate=true;}});
+ G.dia.visible=!L.skin||sg;const lg=THX.lungs===1;G.lungs.visible=THX.lungs<2&&(!L.skin||sg);for(const m of[THX.L,THX.R]){m.material.transparent=lg;m.material.opacity=lg?.16:1;m.material.depthWrite=!lg;m.material.needsUpdate=true;}
+ if(L.skin&&!sg){G.bones.visible=G.heart.visible=G.vessels.visible=G.tree.visible=G.med.visible=false;}
+ const cut=THX.ct&&THX.cut;THX.clip.constant=THX.ctY+.001;txMats().forEach(m=>{m.clippingPlanes=cut?[THX.clip]:[];});THX.plane.visible=THX.ct;THX.plane.position.y=THX.ctY;
+ txLungPaint(THX.L);txLungPaint(THX.R);txHeartPaint();
+ document.querySelectorAll('#thxBar [data-l]').forEach(b=>{const k=b.dataset.l;b.classList.toggle('on',k==='lungs'?THX.lungs<2:k==='glass'?THX.lungs===1:k==='ct'?THX.ct:k==='terr'?THX.terr:k==='labels'?THX.labels:k==='beat'?THX.beat:!!L[k]);});
+ document.querySelectorAll('#thxBar [data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===THX.lmode));
+ $('thxLegend').innerHTML=THX.terr||(THX.mis&&THX.mis.terrOn)?[['lad','LAD',[.95,.55,.25]],['lcx','Circumflex',[.35,.72,.95]],['rca','RCA',[.5,.86,.42]]].map(([k,t,c])=>`<span><i style="background:rgb(${c.map(v=>v*255|0)})"></i>${t}</span>`).join('')
+  :THX.lmode==='lobes'&&THX.lungs<2?Object.entries(TXLOBECOL).map(([k,c])=>`<span><i style="background:rgb(${c.map(v=>v*255|0)})"></i>${TXREG[k].n}</span>`).join('')+`<span><i style="background:rgb(219,143,199)"></i>Lingula</span>`:'';
+ $('thxCT').style.display=THX.ct?'block':'none';document.body.classList.toggle('txCTOn',!!THX.ct);if(THX.ct)txCTDraw();}
+function txHeartPaint(){const m=TXH.mesh,C=m.geometry.attributes.color,B=m.userData.base,T=m.userData.terr;const tcol={lad:[.95,.55,.25],lcx:[.35,.72,.95],rca:[.5,.86,.42]};const M=THX.mis;const inf=M&&M.done&&M.terr;
+ for(let i=0;i<C.count;i++){let r=B[i*3],g=B[i*3+1],b=B[i*3+2];const t=T[i];
+  if((THX.terr||(M&&M.terrOn))&&t){const c=tcol[t];r=lerp(r,c[0],.75);g=lerp(g,c[1],.75);b=lerp(b,c[2],.75);}
+  if(inf&&t===inf){const n=.5+.5*Math.sin(i*1.7);r=lerp(r,.72+.1*n,.7);g=lerp(g,.6+.08*n,.7);b=lerp(b,.55,.7);}
+  C.setXYZ(i,r,g,b);}C.needsUpdate=true;}
+// ---- where the ship is, on the chest ----
+function txWhere(){const r=REG&&REG[S.idx];const at=(k,f)=>{const T=TXT[k];return T.pts[Math.round(clamp(f,0,1)*(T.pts.length-1))].clone();};const rng=(RANGE&&RANGE[r])||[S.idx,S.idx],f=(S.idx-rng[0])/Math.max(1,rng[1]-rng[0]);
+ if(W===BLOOD){const m={ivc:[at('ivc',f),'inferior vena cava, entering the right atrium'],ra:[TXH.ch.ra.c.clone(),'right atrium'],tricuspid:[new V3(-1.0,-6.4,3.4),'tricuspid valve'],rv:[TXH.ch.rv.c.clone(),'right ventricle'],pulmonic:[new V3(2.1,-2.6,3.9),'pulmonary valve'],
+   pa:[f<.5?at('pt',f*2):at('rpa',(f-.5)*2),f<.5?'pulmonary trunk':'right pulmonary artery'],lungcap:[TXSEG.R10[1].clone(),'alveolar capillaries, right lower lobe'],pv:[at('ripv',f),'right inferior pulmonary vein'],la:[TXH.ch.la.c.clone(),'left atrium'],mitral:[new V3(1.6,-5.0,.8),'mitral valve'],
+   lv:[TXH.ch.lv.c.clone(),'left ventricle'],aortic:[new V3(0,-4.2,1.8),'aortic valve (Mr Reyes\' stenosis)'],asc:[at('aoAsc',f),'ascending aorta'],arch:[at('arch',f),'aortic arch'],desc:[at('aoDesc',f),'descending thoracic aorta'],
+   syscap:[at('aoDesc',1),'below the chest: a leg muscle capillary'],venule:[at('ivc',0),'below the chest: a leg venule, heading for the IVC']}[r];return m?{p:m[0],n:m[1]}:null;}
+ if(W===LUNG){if(r==='nose'||r==='pharynx'||r==='larynx')return {p:at('trachea',0),n:'above this view: the '+(r==='nose'?'nose':r==='pharynx'?'pharynx':'larynx')};if(r==='trachea')return {p:at('trachea',f),n:'trachea'};if(r==='carina')return {p:at('trachea',1),n:'carina'};
+  if(r==='bronchus')return {p:f<.3?at('rmb',f/.3):f<.75?at('bi',(f-.3)/.45):at('rllB',(f-.75)/.25),n:f<.3?'right main bronchus':f<.75?'bronchus intermedius':'right lower lobe bronchus'};
+  return {p:TXSEG.R10[1].clone(),n:'posterior basal segment, right lower lobe ('+(r==='sac'||r==='acinus'?'an alveolar sac':'a bronchiole')+')'};}
+ if(W===LYMPH){if(r==='thoracic')return {p:at('thd',f),n:'thoracic duct'};if(r==='venangle')return {p:at('thd',1),n:'left venous angle'};if(r==='cisterna')return {p:at('thd',0),n:'cisterna chyli, just below the diaphragm'};return {p:at('thd',0),n:'below the chest: a leg lymphatic, heading for the thoracic duct'};}
+ return null;}
+// ---- open / close ----
+function openThx(){if(!started||THX.open||warping)return;closeModals();if(!THX.built){toast('Building the chest…');setTimeout(()=>{txBuild();txWire();openThx2();},30);return;}openThx2();}
+function openThx2(){THX.open=true;$('mThx').classList.add('show');document.body.classList.add('brainOn');renderer.localClippingEnabled=true;
+ THX.caseK=W===LUNG?'pna':W===BLOOD?'as':null;if(TXH.lvh!==(THX.caseK==='as'))txHeartDef(THX.caseK==='as');txApply();txInfo(null);
+ const w=txWhere();THX.me.visible=THX.ring.visible=!!w;const start=w?w.p.clone():new V3(0,-4,8);if(w){THX.me.position.copy(w.p);THX.ring.position.copy(w.p);}
+ $('thxWhere').textContent=w?'You were here: '+w.n:'Not inside the chest right now: the whole chest from outside.';
+ if(w&&(W===LUNG)&&THX.lungs===0)THX.lungs=1;txApply();
+ THX.yaw=.3;THX.pitch=.25;THX.tgt.copy(start);THX.dist=.15;THX.anim={t:0,T:3.2,zoom:1,d0:.15,d1:txFit(),tg0:start.clone(),tg1:new V3(0,-3.5,0),y0:.9,y1:.42,p0:.5,p1:.12};sfx&&sfx('scan');}
+function txClose(quiet){if(THX.mis)txEndMis();THX.open=false;$('mThx').classList.remove('show');document.body.classList.remove('brainOn','txCTOn','txRoundsOn');renderer.localClippingEnabled=false;$('thxLabels').innerHTML='';if(!quiet)toast('Back to your own size. Q zooms out again.');}
+function txScale(d){const w=2*d*Math.tan(THX.cam.fov*Math.PI/360)*THX.cam.aspect;return `field of view ${w<1?(w*10).toFixed(1)+' mm':w.toFixed(0)+' cm'} · ${Math.round(w/.005).toLocaleString()}× the view from the ship`;}
+// ---- per frame ----
+function thxFrame(dt){const T=THX;if(T.anim){const a=T.anim;a.t+=dt;const f=clamp(a.t/a.T,0,1),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;
+  T.dist=a.zoom?a.d0*Math.pow(a.d1/a.d0,e):lerp(a.d0,a.d1,e);T.yaw=lerp(a.y0,a.y1,e);T.pitch=lerp(a.p0,a.p1,e);T.tgt.lerpVectors(a.tg0,a.tg1,a.zoom?Math.pow(e,.5):e);if(f>=1)T.anim=null;}
+ if(keys.ArrowLeft)T.yaw-=dt*1.4;if(keys.ArrowRight)T.yaw+=dt*1.4;if(keys.ArrowUp)T.pitch=Math.min(1.5,T.pitch+dt);if(keys.ArrowDown)T.pitch=Math.max(-1.5,T.pitch-dt);
+ const c=T.cam;c.aspect=innerWidth/innerHeight;c.near=Math.max(.01,T.dist*.04);c.far=T.dist+200;c.updateProjectionMatrix();
+ c.position.set(T.tgt.x+T.dist*Math.cos(T.pitch)*Math.sin(T.yaw),T.tgt.y+T.dist*Math.sin(T.pitch),T.tgt.z+T.dist*Math.cos(T.pitch)*Math.cos(T.yaw));c.lookAt(T.tgt);
+ if(T.beat){T.t+=dt;const per=60/70,f=(T.t%per)/per;TXU.uA.value=f<.13?Math.sin(Math.PI*f/.13):0;TXU.uV.value=f>.15&&f<.52?Math.pow(Math.sin(Math.PI*(f-.15)/.37),.8):0;
+  const b=.5-.5*Math.cos(T.t*Math.PI*2/4.6);for(const L of[T.L,T.R]){const s=1+.014*b,sy=1+.026*b,h=new V3(L.userData.s*5.4,-3.2,-1.6);L.scale.set(s,sy,s);L.position.set(h.x*(1-s),h.y*(1-sy),h.z*(1-s));}T.G.dia.position.y=-.9*b;}
+ const pul=1+.25*Math.sin(performance.now()/260),sc=pul*Math.max(.1,Math.min(1.4,T.dist/40));T.me.scale.setScalar(sc);T.ring.scale.setScalar(sc);T.ring.lookAt(c.position);
+ if(T.mark.visible){T.mark.lookAt(c.position);T.mark.scale.setScalar(Math.max(.4,Math.min(1.6,T.dist/50))*(1+.12*Math.sin(performance.now()/180)));}
+ $('thxScale').textContent=txScale(T.dist);
+ const off=new V3(-.45,.75,.35).applyQuaternion(c.quaternion);T.key.position.copy(c.position).addScaledVector(off,T.dist*.6);T.key.target.position.copy(T.tgt);T.rim.position.copy(T.tgt).addScaledVector(new V3().subVectors(T.tgt,c.position),1).add(new V3(0,T.dist*.3,0));T.rim.target.position.copy(T.tgt);
+ if(typeof txMisFrame==='function')txMisFrame(dt);renderer.render(T.scene,c);txLabels();}
+// ---- labels (each anchor knows from which directions it is hidden by the lungs or the heart) ----
+const TXLAB={heart:['ra','rv','lv','la','raa','laa','lad','rca','lcx'],vessels:['aoAsc','arch','aoDesc','svc','ivc','pt','rpa','lpa','bct','lcca','lsca','lbcv','rspv','lipv'],tree:['trachea','rmb','lmb','bi'],med:['esoph','azy','thd','rphr','lphr','lvag','rvag','lrln','lig'],lungs:['RUL','RML','RLL','LUL','LLL']};
+function txOccl(){if(THX.occ)return THX.occ;const D=txIco(1).V,occ={};const keys2=[].concat(...Object.values(TXLAB));
+ for(const k of keys2){const a=THX.anch[k];if(!a)continue;let lm=0,hm=0;D.forEach((d,j)=>{let lg=false,hh=false;for(let r=.5;r<26;r+=.75){const x=a.p.x+d.x*r,y=a.p.y+d.y*r,z=a.p.z+d.z*r;if(!lg&&(txLungD(x,y,z,1)<-.2||txLungD(x,y,z,-1)<-.2))lg=true;if(!hh&&txHeartD(x,y,z)<-.2)hh=true;if(lg&&hh)break;}if(lg)lm|=1<<j;if(hh)hm|=1<<j;});occ[k]=[lm,hm];}
+ THX.occD=D;return THX.occ=occ;}
+function txLabels(){const box=$('thxLabels');if(!THX.labels||THX.lay.skin&&!THX.skinGlass){box.innerHTML=typeof txPinsHTML==='function'?txPinsHTML():'';return;}
+ const cam=THX.cam,cp=cam.position,out=[],v=new V3();const occ=txOccl(),D=THX.occD;
+ const placed=[];const add=(key,p,txt,cls)=>{v.copy(p).project(cam);if(v.z>1||Math.abs(v.x)>1.02||Math.abs(v.y)>1.02)return;const X=(v.x*.5+.5)*innerWidth,Y=(-v.y*.5+.5)*innerHeight,hw=txt.length*(cls==='trib'?3.4:cls==='tseg'?2.9:3.3)+3,hh=cls==='trib'?6:8;
+  if(THX.sel!==key&&placed.some(r=>Math.abs(r[0]-X)<r[2]+hw&&Math.abs(r[1]-Y)<r[3]+hh))return;placed.push([X,Y,hw,hh]);out.push(`<div class="blab ${cls||''}${THX.sel===key?' on':''}" style="left:${X}px;top:${Y}px">${txt}</div>`);};
+ const vis=(k)=>{const a=THX.anch[k];if(!a)return false;const toC=cp.clone().sub(a.p).normalize();if(THX.ct&&THX.cut&&a.p.y>THX.ctY)return false;
+  let bj=0,bd=-2;D.forEach((d,j)=>{const x=d.dot(toC);if(x>bd){bd=x;bj=j;}});const o=occ[k];if(o){if(THX.lungs===0&&(o[0]>>bj)&1)return false;if(THX.lay.heart&&(o[1]>>bj)&1)return false;}return a.n.dot(toC)>.05;};
+ const lay={heart:THX.lay.heart,vessels:THX.lay.vessels,tree:THX.lay.tree,med:THX.lay.med,lungs:THX.lungs===0};
+ for(const g in TXLAB){if(!lay[g])continue;for(const k of TXLAB[g]){if(!vis(k))continue;const nm=(TXREG[k]&&TXREG[k].s)||(TXREG[k]?TXREG[k].n:k);add(k,THX.anch[k].p,nm,g==='lungs'?'tlobe':'');}}
+ if(THX.lungs===0&&THX.lmode==='segments')for(const k in TXSEG){const a=THX.anch[k];if(a&&a.n.dot(cp.clone().sub(a.p).normalize())>.25)add(k,a.p,k.replace('L12','L1+2').replace('L78','L7+8').replace(/^([RL])/,'$1 S'),'tseg');}
+ if(THX.lay.bones&&THX.dist<110){const side=cp.x>0?'L':'R';for(let n=1;n<=12;n++){const a=THX.anch['rib'+n+side];if(a&&a.n.dot(cp.clone().sub(a.p).normalize())>.1)add('rib',a.p,String(n),'trib');}}
+ box.innerHTML=out.join('')+(typeof txPinsHTML==='function'?txPinsHTML():'');}
+// ---- picking ----
+function txPick(cx,cy){const rc=new THREE.Raycaster(),v=new THREE.Vector2(cx/innerWidth*2-1,-(cy/innerHeight)*2+1);rc.setFromCamera(v,THX.cam);const objs=[];
+ THX.scene.traverseVisible(o=>{if(!o.isMesh||!o.material.userData||!o.material.userData.base)return;if(o.material.transparent&&o.material.opacity<.5)return;objs.push(o);});
+ const hits=rc.intersectObjects(objs,false).filter(h=>!(THX.ct&&THX.cut&&h.point.y>THX.ctY+.01));const h=hits[0];THX.hit=h?{p:h.point.clone(),n:h.face?h.face.normal.clone():null,o:h.object}:null;if(!h)return null;
+ const u=h.object.userData;if(u.vk)return u.vk[h.face.a];if(u.list){const b=u.list[Math.floor(h.faceIndex/36)];return b?(u.key==='segB'?'segB:':'segA:')+b.seg:u.key;}
+ if(u.key==='rib'||u.key==='cart'){THX.hit.rib=u.n;THX.hit.side=u.s;return u.key;}if(u.key==='sternum'){const y=h.point.y;return Math.abs(y)<.45?'angle':y>.15?'manubrium':y>-10.6?'sternum':'xiphoid';}
+ if(u.key==='vert'||u.key==='disc'){THX.hit.lev=Math.round(4-(h.point.y-1.2)/2.4);}return u.key;}
+function txName(k){if(!k)return '';if(k.startsWith('segB:'))return 'Segmental bronchi to '+txSegName(k.slice(5));if(k.startsWith('segA:'))return 'Pulmonary artery branches to '+txSegName(k.slice(5));
+ if(k==='rib'||k==='cart'){const h=THX.hit||{};return (k==='rib'?'Rib ':'Costal cartilage ')+(h.rib||'')+(h.side?h.side>0?' (left)':' (right)':'');}if(k==='vert'){const n=THX.hit&&THX.hit.lev;return n>=1&&n<=12?'T'+n+' vertebra':n===0?'C7 vertebra':'L'+(n-12)+' vertebra';}
+ if(TXSEG[k])return txSegName(k);return TXREG[k]?TXREG[k].n:k;}
+const txSegName=k=>TXREG[k]?TXREG[k].n+', '+TXREG[TXSEG[k][0]].n.toLowerCase():k;
+function txSetHover(k){if(k===THX.hover)return;THX.hover=k;const t=$('thxTip');t.textContent=txName(k);t.style.display=k?'block':'none';}
+// ---- info panel ----
+function txInfo(k){const p=$('thxInfo');THX.sel=k;if(!k){p.classList.add('idle');p.innerHTML=`<div class="eyebrow">Chest atlas</div><h3>Pick a structure</h3><p class="small">Hover to name it, click to read it. Drag to turn the chest, scroll or pinch to zoom. Try <b>Chest rounds</b> to use it.</p>`;return;}
+ let key=k;if(k.startsWith('segB:')||k.startsWith('segA:'))key=k.slice(5);const r=TXREG[key]||TXREG[k]||{n:txName(k),g:'',t:''};p.classList.remove('idle');let extra='';
+ if(TXSEG[key]){const L=TXREG[TXSEG[key][0]];extra=`<p class="small"><b>${L.n}</b> · ${L.t}</p>`;}
+ if(k==='rib'||k==='cart'){const n=THX.hit&&THX.hit.rib;const R=TXRIBNOTE[n];if(R)extra=`<p class="small">${R}</p>`;}
+ p.innerHTML=`<div class="eyebrow">${r.g||''}</div><h3>${txName(k)}</h3><p class="small">${r.t||''}</p>${extra}${r.c?`<p class="small"><b>Clinical</b> · ${r.c}</p>`:''}${r.d?`<button class="btn" id="txDive">Shrink back in here ▸</button>`:''}<p class="small" style="color:var(--faint);margin-top:8px">Sources · ${REF.thorax} · unverified, pending clinical review</p>`;
+ if(r.d)$('txDive').onclick=()=>txDive(r.d);}
+function txDive(d){const [w,reg,msg]=d;const world={blood:BLOOD,lung:LUNG,lymph:LYMPH}[w];txClose(true);warp('Shrinking: 30 cm → 1 cm → 1 mm → the width of a capillary…',()=>{if(world===LUNG&&typeof enterLung==='function'&&W!==LUNG)enterLung();else{const R2=world.RANGE[reg];switchWorld(world,R2?R2[0]+2:world.nodeIdx[1]);}toast((msg||'Back inside.')+' Q zooms out again.');});}
+// ---- input ----
+function thxKey(k){const T=THX;if(k==='KeyQ'||k==='Escape'){if(T.slideOpen)return;txClose();return;}
+ const v={Digit1:'front',Digit2:'back',Digit3:'left',Digit4:'right',Digit5:'top',Digit6:'oblique'}[k];if(v){txAnimTo(v);return;}
+ if(k==='KeyL'){T.labels=!T.labels;}else if(k==='KeyG'){T.lungs=(T.lungs+1)%3;}else if(k==='KeyS'){T.lay.bones=!T.lay.bones;}else if(k==='KeyK'){T.lay.skin=!T.lay.skin;}else if(k==='KeyB'){T.lay.tree=!T.lay.tree;if(T.lay.tree&&T.lungs===0)T.lungs=1;}
+ else if(k==='KeyM'){T.lay.med=!T.lay.med;}else if(k==='KeyV'){T.lay.vessels=!T.lay.vessels;}else if(k==='KeyH'){T.lay.heart=!T.lay.heart;}else if(k==='KeyX'){T.lmode=T.lmode==='surface'?'lobes':T.lmode==='lobes'?'segments':'surface';}
+ else if(k==='KeyT'){T.terr=!T.terr;}else if(k==='KeyP'){T.beat=!T.beat;}else if(k==='KeyC'){txCTToggle();return;}else if(k==='KeyR'){txRounds();return;}
+ else if(k==='PageUp'||k==='BracketRight'){if(T.ct){txCTSet(T.ctY+.5);}return;}else if(k==='PageDown'||k==='BracketLeft'){if(T.ct){txCTSet(T.ctY-.5);}return;}
+ else if(k==='Equal'||k==='NumpadAdd'){T.dist=Math.max(4,T.dist*.85);return;}else if(k==='Minus'||k==='NumpadSubtract'){T.dist=Math.min(180,T.dist*1.18);return;}else return;txApply();}
+function txWire(){if(THX.wired)return;THX.wired=true;const el=$('mThx');let drag=null,pinch=null;const pts=new Map();
+ el.addEventListener('pointerdown',e=>{if(e.target.closest('.bpanel,#thxBar,button,canvas'))return;pts.set(e.pointerId,[e.clientX,e.clientY]);el.setPointerCapture(e.pointerId);if(pts.size===1)drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};else if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),dist:THX.dist};drag=null;}});
+ el.addEventListener('pointermove',e=>{if(pts.has(e.pointerId))pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pinch&&pts.size===2){const [a,b]=[...pts.values()];THX.dist=clamp(pinch.dist*pinch.d/Math.max(10,Math.hypot(a[0]-b[0],a[1]-b[1])),4,180);THX.anim=null;return;}
+  if(drag){THX.yaw-=(e.clientX-drag.x)*.006;THX.pitch=clamp(THX.pitch+(e.clientY-drag.y)*.005,-1.5,1.5);drag.x=e.clientX;drag.y=e.clientY;THX.anim=null;return;}
+  const t=performance.now();if(t-THX.lastPick>90&&!e.target.closest('.bpanel,#thxBar')){THX.lastPick=t;const k=txPick(e.clientX,e.clientY);const pal=typeof txPalp==='function'?txPalp(k):null;if(pal){const tp=$('thxTip');tp.textContent=pal;tp.style.display='block';THX.hover=null;}else txSetHover(k);const tip=$('thxTip');tip.style.left=e.clientX+14+'px';tip.style.top=e.clientY+12+'px';}});
+ const up=e=>{const d=drag;pts.delete(e.pointerId);if(pts.size<2)pinch=null;drag=null;if(d&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)<6){const k=txPick(e.clientX,e.clientY);if(typeof txMisClick==='function'&&txMisClick(k))return;txInfo(k);}};
+ el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
+ el.addEventListener('wheel',e=>{if(e.target.closest('#thxCT'))return;e.preventDefault();THX.dist=clamp(THX.dist*(e.deltaY>0?1.1:.9),4,180);THX.anim=null;},{passive:false});
+ document.querySelectorAll('#thxBar [data-l]').forEach(b=>b.onclick=()=>{const k=b.dataset.l;if(k==='lungs')THX.lungs=THX.lungs===2?0:2;else if(k==='glass')THX.lungs=THX.lungs===1?0:1;else if(k==='ct'){txCTToggle();return;}else if(k==='terr')THX.terr=!THX.terr;else if(k==='labels')THX.labels=!THX.labels;else if(k==='beat')THX.beat=!THX.beat;else{THX.lay[k]=!THX.lay[k];if(k==='tree'&&THX.lay.tree&&THX.lungs===0)THX.lungs=1;}txApply();});
+ document.querySelectorAll('#thxBar [data-m]').forEach(b=>b.onclick=()=>{THX.lmode=b.dataset.m;if(THX.lungs===2)THX.lungs=0;txApply();});
+ document.querySelectorAll('#thxBar [data-v]').forEach(b=>b.onclick=()=>txAnimTo(b.dataset.v));
+ $('thxRoundsBtn').onclick=()=>txRounds();$('thxClose').onclick=()=>txClose();$('thxBrain').onclick=()=>{txClose(true);openBrain();};
+ txCTWire();}
+
+// ---- CT: an axial slice sampled from the same model (a CT pulmonary angiogram: contrast arriving from a right-arm vein) ----
+const TXCT={N:MOBILE?168:216,fov:42,z0:15.5,keys:['air'],cache:new Map(),cur:null};
+const txCK=k=>{let i=TXCT.keys.indexOf(k);if(i<0){TXCT.keys.push(k);i=TXCT.keys.length-1;}return i;};
+const TXHU={ao:180,pa:330,svc:900,vein:110,ivc:55,lh:190,azy:70,eso:40,fat:-95,soft:40};
+function txHash(a,b,c){const s=Math.sin(a*127.1+b*311.7+c*74.7)*43758.5453;return s-Math.floor(s);}
+function txCTCompute(Y){const key=Y.toFixed(1)+'|'+(THX.caseK||'')+'|'+(THX.ctCase.pe?'pe':'');if(TXCT.cache.has(key))return TXCT.cache.get(key);
+ const N=TXCT.N,px=TXCT.fov/N,hu=new Float32Array(N*N),lab=new Uint16Array(N*N),X=i=>-TXCT.fov/2+(i+.5)*px,Z=j=>TXCT.z0-(j+.5)*px,I=x=>Math.floor((x+TXCT.fov/2)/px),J=z=>Math.floor((TXCT.z0-z)/px);
+ // skin outline and the deep fascia (subcutaneous fat between them), filled row by row
+ const NU=180,sk=[],fs=[];for(let i=0;i<NU;i++){const ph=i/NU*Math.PI*2;const p=txSkinP(ph,Y);sk.push(p);const c=Math.cos(ph),t=c>0?1.1:Math.abs(Math.sin(ph))>.8?1.5:1.0;const q=p.clone();const L=Math.hypot(q.x,q.z+1);q.x-=q.x/L*t;q.z-=(q.z+1)/L*t;fs.push(q);}
+ const spans=(poly,z)=>{const xs=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];if((a.z>z)!==(b.z>z))xs.push(a.x+(z-a.z)/(b.z-a.z)*(b.x-a.x));}return xs.sort((a,b)=>a-b);};
+ const inS=(xs,x)=>{let n=0;for(const v of xs)if(v<x)n++;return n&1;};
+ const zv=txZV(Y),lev=Math.round(4-(Y-1.2)/2.4),rb=lev<=12?lerp(1.4,1.9,clamp((lev-1)/11,0,1)):2.15,discLv=Math.abs(((Y-1.2)/2.4)-Math.round((Y-1.2)/2.4)-.5)<.09;const cc=zv-rb-.95;
+ const dia=(x,z)=>txDia(x,z),inf={},pe=THX.ctCase.pe;
+ // scapula: where the slice crosses the plate
+ const scap=[];for(const s of[1,-1]){const S=[s*6.6,5.4],I2=[s*8.6,-6.4],G=[s*13.6,3.6],xs=[];for(const [a,b] of[[S,I2],[I2,G],[G,S]])if((a[1]>Y)!==(b[1]>Y))xs.push(a[0]+(Y-a[1])/(b[1]-a[1])*(b[0]-a[0]));if(xs.length===2)scap.push([Math.min(...xs),Math.max(...xs)]);}
+ for(let j=0;j<N;j++){const z=Z(j),sx=spans(sk,z),fx=spans(fs,z);for(let i=0;i<N;i++){const x=X(i),o=j*N+i;let h=-1000,k='air';
+  if(inS(sx,x)){h=-100;k='subcut';if(inS(fx,x)){h=48;k='muscle';const rz=z-TXZC,t=Math.atan2(Math.abs(x),-rz),rr=Math.hypot(x,rz),w=txWall(t,Y);
+    for(const [a,b] of scap)if(x>=a&&x<=b&&Math.abs(z-txScapZ(x,Y))<.33){h=520;k='scap';}
+    const dv=Math.hypot(x,z-zv);if(dv<rb&&Y<11){h=discLv?85:dv>rb-.25?650:230+40*txHash(i,j,1);k=discLv?'disc':'vert';}
+    else{const dc=Math.hypot(x,z-cc);if(dc<.85&&Y<11){h=dc<.45?36:8;k='cord';}else if(dc<1.45&&z<cc+.35&&Y<11){h=480;k='vert';}else if(Math.abs(x)<.3&&z<cc-1.2&&z>cc-3.6&&Y<11){h=500;k='vert';}else if(Math.abs(z-cc-.2)<.35&&Math.abs(x)>1.2&&Math.abs(x)<3.3&&Y<11){h=480;k='vert';}
+     else if(rr<w){const yd=dia(x,z);
+      if(Y<yd-.35){if(x<1.6+.55*(z+2)&&Y>-22){h=62;k='liver';}else if(x>6&&z<-1.5){h=52;k='spleen';}else if(z>-5){if(Y>yd-3.2&&z>.5){h=-1000;k='stomach';}else{h=28;k='stomach';}}else{h=-90;k='abdfat';}}
+      else if(Y<yd+.35){h=50;k='dia';}
+      else{const hd=txHeartD(x,Y,z,inf);
+       if(hd<0){const cv=txHeartCav(x,Y,z);if(cv){h=cv==='ra'||cv==='rv'||cv==='raa'?330:cv==='root'?180:190;k=cv==='root'?'aoAsc':cv;}else{const fat=hd>-.45&&inf.g<.5;h=fat?-80:85;k=inf.k==='root'?'aoAsc':inf.k;}}
+       else if(hd<.3){h=hd<.18?-85:30;k='peri';}
+       else{const ld=Math.min(txLungD(x,Y,z,1),txLungD(x,Y,z,-1));
+        if(ld<0){const lb=txLobe(x,Y,z),sg=txSeg(x,Y,z,lb);k=sg;h=-865+55*txSS(-2,-9,z)+30*(txHash(i,j,Y)-.5);const dO=Math.abs(txOb(x,Y,z)),dH=x<0&&txOb(x,Y,z)>0?Math.abs(txHz(x,Y,z)):9;if(Math.min(dO,dH)<px*.55){h=-420;k='fissure';}
+         else if(txHash(i*.7,j*1.3,Math.round(Y*2))>.986){h=60;}
+         if(THX.caseK==='pna'&&lb==='RLL'&&sg!=='R6'&&Y<-5.5){h=34+14*txHash(i,j,2);}}
+        else{h=-95+10*(txHash(i,j,3)-.5);k='medfat';}}}}}}}
+  hu[o]=h+(h>-900?9*(txHash(i,j,Y*3)-.5)*2:0);lab[o]=txCK(k);}}
+ // tubes: swept spheres sampled where they cross the slice
+ const paint=(cx,cz,r,fn)=>{if(r<=0)return;const i0=Math.max(0,I(cx-r)),i1=Math.min(N-1,I(cx+r)),j0=Math.max(0,J(cz+r)),j1=Math.min(N-1,J(cz-r));for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const d=Math.hypot(X(i)-cx,Z(j)-cz);if(d<=r)fn(j*N+i,d/r);}};
+ const sweep=(P,R,fn,step)=>{for(let s=0;s<P.length-1;s++){const a=P[s],b=P[s+1],ra=Array.isArray(R)?R[s]:R,rbb=Array.isArray(R)?R[s+1]:R,rm=Math.max(ra,rbb);if(Math.min(a.y,b.y)>Y+rm||Math.max(a.y,b.y)<Y-rm)continue;const L=a.distanceTo(b),n=Math.max(1,Math.ceil(L/(step||.2)));
+  for(let q=0;q<=n;q++){const f=q/n,y=lerp(a.y,b.y,f),r=lerp(ra,rbb,f),dy=Math.abs(y-Y);if(dy>=r)continue;paint(lerp(a.x,b.x,f),lerp(a.z,b.z,f),Math.sqrt(r*r-dy*dy),fn);}}};
+ const lungAt=o=>{const kk=TXCT.keys[lab[o]];return !!TXSEG[kk];};
+ // intrapulmonary arteries and bronchi (signet rings), skipped inside consolidation
+ const cons=o=>hu[o]>-200&&lungAt(o);
+ THX.pa.forEach(b=>sweep([b.a,b.b],[b.r,b.r*.92],(o)=>{if(lungAt(o)&&!cons(o)){hu[o]=TXHU.pa+20*txHash(o,1,1);lab[o]=txCK('segA:'+b.seg);}}));
+ THX.br.forEach(b=>{sweep([b.a,b.b],[b.r+.13,b.r*.92+.13],o=>{if(lungAt(o)||TXCT.keys[lab[o]].startsWith('segB')){hu[o]=cons(o)?hu[o]:60;lab[o]=txCK('segB:'+b.seg);}});sweep([b.a,b.b],[b.r,b.r*.92],o=>{hu[o]=-960;lab[o]=txCK('segB:'+b.seg);});});
+ // mediastinal and neck tubes
+ const ord=['thd','azy','esoph','ivc','rijv','lijv','rscv','lscv','rbcv','lbcv','svc','rspv','ripv','lspv','lipv','pt','lpa','rpa','aoAsc','arch','aoDesc','bct','rsca','rcca','lcca','lsca','trachea','rmb','lmb','bi','rulB','rmlB','rllB','lulB','lllB'];
+ for(const kk of ord){const T=TXT[kk];if(T.box.min.y>Y+2||T.box.max.y<Y-2)continue;
+  if(T.air){sweep(T.pts,T.r.map(r=>r+.18),o=>{hu[o]=70;lab[o]=txCK(kk);});sweep(T.pts,T.r,o=>{hu[o]=-980;lab[o]=txCK(kk);});continue;}
+  if(kk==='esoph'){sweep(T.pts,T.r,(o,d)=>{hu[o]=d<.22?-900:42;lab[o]=txCK(kk);});continue;}
+  const H=TXHU[T.hu]!=null?TXHU[T.hu]:40;sweep(T.pts,T.r,(o)=>{hu[o]=H+(T.hu==='svc'?250*txHash(o,2,2):12*txHash(o,3,3));lab[o]=txCK(kk);});}
+ // coronary arteries in their fat
+ for(const kk in TXH.cor)TXH.cor[kk].forEach(P=>sweep(P,kk==='gcv'||kk==='cs'?.3:.2,o=>{hu[o]=kk==='gcv'||kk==='cs'?120:200;lab[o]=txCK(kk);},.15));
+ // pulmonary embolus: a filling defect inside the opacified artery
+ if(pe)paint(pe.p.x,pe.p.z,Math.sqrt(Math.max(0,pe.r*pe.r-(pe.p.y-Y)**2)),o=>{const kk=TXCT.keys[lab[o]];if(kk==='rpa'||kk.startsWith('segA')){hu[o]=42;lab[o]=txCK('clot');}});
+ // calcified aortic valve (case 01)
+ if(THX.caseK==='as'&&Y>-5.1&&Y<-3.4)for(let c=0;c<3;c++){const a=c*Math.PI*2/3+.4;paint(.05+Math.cos(a)*.8,1.8+Math.sin(a)*.8,.42*(1-Math.abs(Y+4.2)/1.0),o=>{hu[o]=950;lab[o]=txCK('avcalc');});}
+ // lymph nodes at the classic stations
+ for(const [c,r,kk] of[[[.4,-2.6,-3.4],.75,'node7'],[[-1.8,2.0,-1.2],.5,'node4R'],[[1.7,.6,-1.2],.42,'node5'],[[-4.6,-3.0,-2.2],.45,'node10R'],[[4.8,-3.4,-2.4],.45,'node10L']]){const dy=Math.abs(Y-c[1]);if(dy<r)paint(c[0],c[2],Math.sqrt(r*r-dy*dy),o=>{if(TXCT.keys[lab[o]]==='medfat'){hu[o]=38;lab[o]=txCK(kk);}});}
+ // bones
+ const bone=(kk,lo,hi)=>(o,d)=>{hu[o]=Math.max(hu[o]>300?hu[o]:-2000,d>.62?hi:lo);lab[o]=txCK(kk);};
+ for(let n=1;n<=12;n++)for(const s of[1,-1]){const R=TXRIB[n],te=txRibEnd(n),tc=n>10?te:R.tc*Math.PI,zvh=txZV(R.yh);const pts=[new V3(s*1.7,R.yh+.3,zvh+.1),new V3(s*2.6,R.yh+.15,zvh-1.0),new V3(s*3.5,R.yh,zvh-1.9)],cart=[];
+  for(let t=.17*Math.PI;t<=te+1e-6;t+=.015*Math.PI){const p=txRibP(n,Math.min(t,te),s);(t<tc?pts:cart).push(p);}
+  if(Math.min(...pts.map(p=>p.y))<Y+1&&Math.max(...pts.map(p=>p.y))>Y-1)sweep(pts,.5,bone('rib'+n+(s>0?'L':'R'),260,820),.12);
+  if(cart.length&&Math.min(...cart.map(p=>p.y))<Y+1&&Math.max(...cart.map(p=>p.y))>Y-1)sweep([pts[pts.length-1],...cart],.42,(o)=>{hu[o]=135+30*txHash(o,4,4);lab[o]=txCK('cart'+n+(s>0?'L':'R'));},.12);}
+ for(const kk of['clavL','clavR'])sweep(TXT[kk].pts,.75,bone('clav',300,820));
+ if(Y<4.9&&Y>-14){const W=Y>0?lerp(3.0,5.4,txSS(.2,4.3,Y)):Y>-10.6?2.5+.6*Math.sin(Math.PI*(-Y)/10.6):lerp(1.9,.5,(-10.6-Y)/3.4),Tk=Y>0?1.5:Y>-10.6?1.1:.5,zc=txZSt(Y)-Tk/2;
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const dx=X(i)/(W/2),dz=(Z(j)-zc)/(Tk/2),e=dx*dx+dz*dz;if(e<1){const o=j*N+i;hu[o]=e>.55?700:260;lab[o]=txCK(Y>.15?'manubrium':Y>-10.6?'sternum':'xiphoid');}}}
+ const out={hu,lab,Y};TXCT.cache.set(key,out);if(TXCT.cache.size>28)TXCT.cache.delete(TXCT.cache.keys().next().value);return out;}
+const TXWIN={lung:[-600,1500],med:[40,420],bone:[400,1800]};
+function txCTDraw(){const cv=$('ctCv');if(!cv)return;const N=TXCT.N;if(cv.width!==N){cv.width=N;cv.height=N;}const S2=TXCT.cur=txCTCompute(THX.ctY);const [L,Wd]=TXWIN[THX.win],lo=L-Wd/2;
+ const ctx=cv.getContext('2d'),img=ctx.createImageData(N,N),D=img.data;for(let o=0;o<N*N;o++){const g=clamp((S2.hu[o]-lo)/Wd,0,1)*255;D[o*4]=D[o*4+1]=D[o*4+2]=g;D[o*4+3]=255;}
+ const M=THX.mis;if(M&&M.ctMark){const {i,j,ok}=M.ctMark;for(let a=0;a<40;a++){const ii=Math.round(i+Math.cos(a/40*Math.PI*2)*5),jj=Math.round(j+Math.sin(a/40*Math.PI*2)*5);if(ii>=0&&jj>=0&&ii<N&&jj<N){const o=jj*N+ii;D[o*4]=ok?90:255;D[o*4+1]=ok?255:80;D[o*4+2]=ok?140:80;}}}
+ ctx.putImageData(img,0,0);const lev=Math.round(4-(THX.ctY-1.2)/2.4);
+ $('ctLev').textContent=`${lev>=1&&lev<=12?'T'+lev:lev<1?'C7–T1':'T12–L1'} · ${THX.ctY>=0?'+':''}${THX.ctY.toFixed(1)} cm · W ${Wd} L ${L}`;$('ctY').value=THX.ctY;
+ document.querySelectorAll('#thxCT [data-w]').forEach(b=>b.classList.toggle('on',b.dataset.w===THX.win));$('ctCut').classList.toggle('on',THX.cut);}
+function txCTSet(y){THX.ctY=clamp(Math.round(y*2)/2,-16,10);THX.clip.constant=THX.ctY+.001;THX.plane.position.y=THX.ctY;txCTDraw();}
+function txCTToggle(on){THX.ct=on==null?!THX.ct:on;if(THX.ct)txAnimTo([.55,.85],new V3(0,THX.ctY,0),txFit()*.95);txApply();}
+function txCTAt(e){const cv=$('ctCv'),r=cv.getBoundingClientRect(),N=TXCT.N;const i=Math.floor((e.clientX-r.left)/r.width*N),j=Math.floor((e.clientY-r.top)/r.height*N);if(i<0||j<0||i>=N||j>=N||!TXCT.cur)return null;return {i,j,k:TXCT.keys[TXCT.cur.lab[j*N+i]]};}
+const TXCTN={air:'Air outside the body',subcut:'Subcutaneous fat',muscle:'Chest wall muscles',scap:'Scapula',vert:'Vertebra',disc:'Intervertebral disc',cord:'Spinal cord in its canal (CSF around it)',liver:'Liver',spleen:'Spleen',stomach:'Stomach (fundus)',abdfat:'Abdominal fat',dia:'Diaphragm',peri:'Pericardium and its fat',medfat:'Mediastinal fat',fissure:'Fissure (the pleura between two lobes)',clot:'Pulmonary embolus (a filling defect)',avcalc:'Calcified aortic valve',node7:'Subcarinal lymph node (station 7)',node4R:'Right lower paratracheal node (station 4R)',node5:'Aortopulmonary window node (station 5)',node10R:'Right hilar node (station 10R)',node10L:'Left hilar node (station 10L)',manubrium:'Manubrium',sternum:'Body of the sternum',xiphoid:'Xiphoid process',clav:'Clavicle'};
+function txCTName(k){if(!k)return '';if(TXCTN[k])return TXCTN[k];let m=k.match(/^rib(\d+)([LR])$/);if(m)return `Rib ${m[1]} (${m[2]==='L'?'left':'right'})`;m=k.match(/^cart(\d+)([LR])$/);if(m)return `Costal cartilage ${m[1]} (${m[2]==='L'?'left':'right'})`;return txName(k);}
+function txCTWire(){const cv=$('ctCv');let dragY=null;
+ cv.addEventListener('wheel',e=>{e.preventDefault();txCTSet(THX.ctY+(e.deltaY>0?-.5:.5));},{passive:false});
+ cv.addEventListener('pointerdown',e=>{dragY={y:e.clientY,y0:e.clientY,v:THX.ctY};cv.setPointerCapture(e.pointerId);});
+ cv.addEventListener('pointermove',e=>{if(dragY&&Math.abs(e.clientY-dragY.y0)>6){txCTSet(dragY.v+(dragY.y0-e.clientY)/12);return;}const h=txCTAt(e);const t=$('thxTip');if(h&&h.k!=='air'){t.textContent=txCTName(h.k);t.style.display='block';t.style.left=e.clientX+14+'px';t.style.top=e.clientY+12+'px';}else t.style.display='none';});
+ cv.addEventListener('pointerup',e=>{const d=dragY;dragY=null;if(d&&Math.abs(e.clientY-d.y0)<=6){const h=txCTAt(e);if(!h)return;if(typeof txMisCT==='function'&&txMisCT(h))return;if(h.k&&h.k!=='air'){const k=/^(rib|cart)\d/.test(h.k)?null:h.k;if(k&&(TXREG[k]||TXSEG[k]||k.startsWith('seg')))txInfo(k);else{const p=$('thxInfo');p.classList.remove('idle');p.innerHTML=`<div class="eyebrow">CT</div><h3>${txCTName(h.k)}</h3><p class="small">${TXCTNOTE[h.k]||'Scroll to follow it up and down through the slices.'}</p>`;}}}});
+ $('ctY').oninput=e=>txCTSet(+e.target.value);document.querySelectorAll('#thxCT [data-w]').forEach(b=>b.onclick=()=>{THX.win=b.dataset.w;txCTDraw();});$('ctCut').onclick=()=>{THX.cut=!THX.cut;txApply();};}
+
+// ---- what each structure is (own words; standard anatomy, pending clinical review) ----
+REF.thorax='Moore, Dalley & Agur, Clinically Oriented Anatomy 8e (Thorax) · Drake et al., Gray\'s Anatomy for Students 4e · ATLS 10th ed (2018) · BTS Guideline for Pleural Disease (2023)';
+const TXREG={
+ ra:{n:'Right atrium',s:'RA',g:'Heart',t:'Receives the superior and inferior venae cavae and the coronary sinus, and forms the right border of the heart on a frontal X-ray. The sinoatrial node lies where the SVC joins it.',c:'Stretched by tricuspid disease and pulmonary hypertension; typical atrial flutter circles the tricuspid ring.',d:['blood','ra','Right atrium.']},
+ raa:{n:'Right auricle',g:'Heart',t:'An ear-shaped pouch of the right atrium, lined with pectinate muscle, overlapping the root of the aorta.'},
+ rv:{n:'Right ventricle',s:'RV',g:'Heart',t:'Most of the front (sternocostal) surface of the heart. Its wall is thin, 3–5 mm, because it pumps into the low-pressure lung circulation; its smooth outflow, the infundibulum, rises to the pulmonary valve.',c:'Right behind the sternum, so it is the chamber a stab wound to the front of the chest reaches first. Infarcts with a proximal RCA occlusion.',d:['blood','rv','Right ventricle.']},
+ la:{n:'Left atrium',s:'LA',g:'Heart',t:'The most posterior chamber: below the carina, directly in front of the oesophagus. The four pulmonary veins open into it.',c:'A big left atrium (mitral stenosis) can press on the oesophagus, splay the carina and, rarely, stretch the left recurrent laryngeal nerve. Transoesophageal echo views it from right behind.',d:['blood','la','Left atrium.']},
+ laa:{n:'Left auricle',g:'Heart',t:'A narrow, hooked pouch of the left atrium beside the pulmonary trunk.',c:'In atrial fibrillation most atrial clots form here; closure devices plug it.'},
+ lv:{n:'Left ventricle',s:'LV',g:'Heart',t:'Forms the apex, most of the left border and the diaphragmatic surface. Its wall is about 10 mm thick, roughly three times the right.',c:'Pressure overload such as Mr Reyes\' aortic stenosis thickens the wall and keeps the cavity small (concentric hypertrophy): a heaving apex that is not displaced.',d:['blood','lv','Left ventricle.']},
+ aoAsc:{n:'Ascending aorta',g:'Great vessel',t:'Rises from the aortic valve behind the left half of the sternum, forwards and to the right, to the level of the sternal angle. The coronary arteries leave from its sinuses just above the cusps.',c:'The high-velocity jet of aortic stenosis strikes its wall and can dilate it. Dissection starting here (type A) needs surgery.',d:['blood','asc','Ascending aorta.']},
+ arch:{n:'Arch of the aorta',g:'Great vessel',t:'Arches backwards and to the left over the left pulmonary artery and left main bronchus, wholly at the level of the manubrium, ending beside T4. Gives the brachiocephalic trunk, left common carotid and left subclavian arteries.',c:'The left recurrent laryngeal nerve hooks under it. On a chest X-ray it is the aortic knuckle.',d:['blood','arch','Aortic arch.']},
+ aoDesc:{n:'Descending thoracic aorta',g:'Great vessel',t:'Runs down on the left side of the vertebral bodies, drifting to the midline, and leaves through the aortic hiatus at T12. Gives posterior intercostal, bronchial and oesophageal branches.',d:['blood','desc','Descending aorta.']},
+ bct:{n:'Brachiocephalic trunk',g:'Great vessel',t:'The first and largest arch branch; divides behind the right sternoclavicular joint into the right subclavian and right common carotid arteries.'},
+ rcca:{n:'Right common carotid artery',g:'Great vessel',t:'From the brachiocephalic trunk up the neck, dividing at about the upper border of the thyroid cartilage (C4).',c:'Mr Reyes\' aortic stenosis murmur radiates here; his carotid pulse is slow-rising.'},
+ lcca:{n:'Left common carotid artery',g:'Great vessel',t:'The second arch branch, arising directly from the arch.'},
+ lsca:{n:'Left subclavian artery',g:'Great vessel',t:'The third arch branch; arches over the dome of the pleura and the first rib behind scalenus anterior.',c:'It grooves the apex of the left lung, the site of apical (Pancoast) tumours.'},
+ rsca:{n:'Right subclavian artery',g:'Great vessel',t:'From the brachiocephalic trunk; the right recurrent laryngeal nerve hooks under it.'},
+ pt:{n:'Pulmonary trunk',g:'Great vessel',t:'Leaves the right ventricle in front of the aorta and runs up and back, dividing in the concavity of the arch at about T5.',c:'A large embolus can straddle its bifurcation ("saddle" embolus).',d:['blood','pa','Pulmonary trunk.']},
+ rpa:{n:'Right pulmonary artery',g:'Great vessel',t:'The longer of the two: passes under the arch, behind the ascending aorta and the SVC and in front of the right main bronchus, to the right hilum.',d:['blood','pa','Right pulmonary artery.']},
+ lpa:{n:'Left pulmonary artery',g:'Great vessel',t:'Short; arches over the left main bronchus to the left hilum. The ligamentum arteriosum joins it to the arch.',d:['blood','pa','Left pulmonary artery.']},
+ svc:{n:'Superior vena cava',s:'SVC',g:'Vein',t:'Formed behind the first right costal cartilage by the two brachiocephalic veins; enters the right atrium at the third costal cartilage. No valves. The azygos vein joins it from behind.',c:'Obstruction (usually by lung cancer or nodes) swells the face and arms and opens chest-wall collateral veins. Central line tips are aimed at its lower end.',d:['blood','ra','Where the SVC empties into the right atrium.']},
+ rbcv:{n:'Right brachiocephalic vein',g:'Vein',t:'Short and nearly vertical, from the junction of the right internal jugular and subclavian veins.'},
+ lbcv:{n:'Left brachiocephalic vein',g:'Vein',t:'Crosses from left to right in front of the arch branches, just behind the manubrium. The thoracic duct empties at its start, the left venous angle.',d:['lymph','venangle','The left venous angle, where the thoracic duct empties.']},
+ rijv:{n:'Right internal jugular vein',g:'Vein',t:'Runs down the neck lateral to the carotid artery to join the subclavian vein behind the sternoclavicular joint.',c:'The usual route for an ultrasound-guided central line: a straight path into the SVC.'},
+ lijv:{n:'Left internal jugular vein',g:'Vein',t:'Joins the left subclavian vein at the left venous angle, where the thoracic duct ends.'},
+ rscv:{n:'Right subclavian vein',g:'Vein',t:'Lies in front of the subclavian artery and scalenus anterior, under the clavicle.',c:'For a subclavian line the needle passes under the clavicle; the dome of the pleura is just behind, hence the pneumothorax risk.'},
+ lscv:{n:'Left subclavian vein',g:'Vein',t:'Lies in front of the subclavian artery, under the clavicle; joins the internal jugular at the left venous angle.'},
+ ivc:{n:'Inferior vena cava',s:'IVC',g:'Vein',t:'Only about 2 cm of it lies in the chest: it passes through the central tendon of the diaphragm at T8 and enters the right atrium at once.',d:['blood','ivc','Inferior vena cava.']},
+ rspv:{n:'Right superior pulmonary vein',g:'Pulmonary vein',t:'Carries oxygenated blood from the right upper and middle lobes to the left atrium; it passes behind the SVC.',c:'Atrial fibrillation triggers often fire from the muscle sleeves around the pulmonary vein openings; ablation isolates them.',d:['blood','pv','Pulmonary vein.']},
+ ripv:{n:'Right inferior pulmonary vein',g:'Pulmonary vein',t:'From the right lower lobe to the left atrium; the lowest structure in the right lung root.',d:['blood','pv','Pulmonary vein.']},
+ lspv:{n:'Left superior pulmonary vein',g:'Pulmonary vein',t:'From the left upper lobe and lingula to the left atrium.',d:['blood','pv','Pulmonary vein.']},
+ lipv:{n:'Left inferior pulmonary vein',g:'Pulmonary vein',t:'From the left lower lobe to the left atrium; the lowest structure in the left lung root.',d:['blood','pv','Pulmonary vein.']},
+ azy:{n:'Azygos vein',g:'Mediastinum',t:'Climbs on the right side of the vertebral bodies, then arches forwards over the root of the right lung at T4 to enter the SVC. Drains the back of the chest wall.',c:'On CT, the "azygos arch" over the right main bronchus marks T4. A bypass route when the IVC or SVC is blocked.'},
+ thd:{n:'Thoracic duct',g:'Lymphatic',t:'Starts at the cisterna chyli (about L1–L2), passes up through the aortic hiatus between the aorta and the azygos vein, crosses to the left at about T5 and empties into the left venous angle. Drains lymph from everywhere except the right upper quarter of the body.',c:'Injured in oesophageal or spinal surgery, it leaks chyle into the pleura: a milky chylothorax.',d:['lymph','thoracic','The thoracic duct.']},
+ lig:{n:'Ligamentum arteriosum',g:'Mediastinum',t:'A fibrous cord from the left pulmonary artery to the underside of the arch: what is left of the fetal ductus arteriosus.',c:'If the ductus stays open, a continuous "machinery" murmur. The left recurrent laryngeal nerve hooks under the arch right beside it.'},
+ esoph:{n:'Oesophagus',g:'Mediastinum',t:'Behind the trachea and the left atrium, in front of the vertebral bodies; leaves through the diaphragm at T10 with the vagal trunks.',c:'Narrowed where the arch and the left main bronchus cross it and at the diaphragm, where swallowed objects tend to stick.'},
+ trachea:{n:'Trachea',g:'Airway',t:'From the cricoid cartilage (C6) to the carina at about the sternal angle (T4/5); 16–20 C-shaped cartilage rings, open at the back where the oesophagus lies.',c:'A big left atrium or enlarged subcarinal nodes widen the angle at the carina.',d:['lung','trachea','The trachea.']},
+ rmb:{n:'Right main bronchus',g:'Airway',t:'Wider, shorter (about 2.5 cm) and more vertical than the left. The right upper lobe bronchus leaves it almost at once, above the pulmonary artery.',c:'Inhaled objects and aspirate usually go right.',d:['lung','bronchus','Right main bronchus.']},
+ lmb:{n:'Left main bronchus',g:'Airway',t:'About 5 cm long and more horizontal; passes under the aortic arch and in front of the oesophagus and the descending aorta.'},
+ bi:{n:'Bronchus intermedius',g:'Airway',t:'The right main bronchus after the upper lobe branch, continuing to the middle and lower lobe bronchi.',d:['lung','bronchus','Bronchus intermedius.']},
+ rulB:{n:'Right upper lobe bronchus',g:'Airway',t:'Leaves the right main bronchus above the pulmonary artery ("eparterial"); three segmental branches: apical, posterior, anterior.'},
+ rmlB:{n:'Right middle lobe bronchus',g:'Airway',t:'Runs forwards from the bronchus intermedius; lateral and medial segmental branches.',c:'Long and narrow, ringed by nodes: prone to compression and recurrent middle lobe collapse.'},
+ rllB:{n:'Right lower lobe bronchus',g:'Airway',t:'Continues the bronchus intermedius down; first the superior segmental bronchus straight back, then four basal branches.',d:['lung','bronchus','Right lower lobe bronchus.']},
+ lulB:{n:'Left upper lobe bronchus',g:'Airway',t:'Divides into an upper division (apicoposterior and anterior) and the lingular bronchus.'},
+ lllB:{n:'Left lower lobe bronchus',g:'Airway',t:'The superior segmental bronchus first, then the basal branches.'},
+ segB:{n:'Segmental bronchi',g:'Airway',t:'Each segmental bronchus aerates one bronchopulmonary segment, with its segmental artery beside it; the veins run between segments. A segment can be removed on its own.'},
+ segA:{n:'Segmental arteries',g:'Pulmonary artery',t:'Each runs with its bronchus; seen end-on on CT, artery and bronchus make a "signet ring" pair of equal size.'},
+ RUL:{n:'Right upper lobe',s:'RUL',g:'Lung',t:'Above the horizontal fissure (the 4th rib and costal cartilage in front) and in front of the oblique fissure. Segments: apical, posterior, anterior.',d:['lung','bronchus','Toward the right lung.']},
+ RML:{n:'Right middle lobe',s:'RML',g:'Lung',t:'A wedge between the horizontal and oblique fissures, mostly at the front against the right heart border. Segments: lateral and medial. Examined at the front.',c:'Middle lobe consolidation hides the right heart border on a frontal X-ray (silhouette sign).'},
+ RLL:{n:'Right lower lobe',s:'RLL',g:'Lung',t:'Behind and below the oblique fissure, which runs from about T3 behind to the 6th costal cartilage in front: most of the back of the right chest. Segments: superior, medial, anterior, lateral and posterior basal.',c:'Tomás Herrera\'s pneumonia (case 04). Lower lobe consolidation hides the diaphragm outline.',d:['lung','acinus','Right lower lobe.']},
+ LUL:{n:'Left upper lobe',s:'LUL',g:'Lung',t:'Above and in front of the oblique fissure, including the lingula, the left lung\'s counterpart of the middle lobe. Segments: apicoposterior, anterior, superior and inferior lingular.'},
+ LLL:{n:'Left lower lobe',s:'LLL',g:'Lung',t:'Behind and below the oblique fissure. Segments: superior, anteromedial basal, lateral basal, posterior basal.',c:'Behind the heart on a frontal X-ray: look through the heart shadow for its consolidation.'},
+ R1:{n:'Apical segment (S1)',g:'Bronchopulmonary segment',t:'The top of the upper lobe, rising into the root of the neck above the clavicle.'},
+ R2:{n:'Posterior segment (S2)',g:'Bronchopulmonary segment',t:'Its bronchus points backwards, so it is dependent when lying flat.',c:'A classic site of aspiration pneumonia and lung abscess, and of reactivation tuberculosis.'},
+ R3:{n:'Anterior segment (S3)',g:'Bronchopulmonary segment',t:'The front of the upper lobe, down to the horizontal fissure.'},
+ R4:{n:'Lateral segment of the middle lobe (S4)',g:'Bronchopulmonary segment',t:'The lateral half of the middle lobe wedge.'},
+ R5:{n:'Medial segment of the middle lobe (S5)',g:'Bronchopulmonary segment',t:'Against the right heart border.'},
+ R6:{n:'Superior segment of the lower lobe (S6)',g:'Bronchopulmonary segment',t:'Its bronchus is the first branch of the lower lobe bronchus and points straight back.',c:'Dependent when supine: where aspirate goes in a patient lying on their back.'},
+ R7:{n:'Medial basal segment (S7)',g:'Bronchopulmonary segment',t:'The medial part of the base, beside the heart and IVC.'},
+ R8:{n:'Anterior basal segment (S8)',g:'Bronchopulmonary segment',t:'The front of the lower lobe base.'},
+ R9:{n:'Lateral basal segment (S9)',g:'Bronchopulmonary segment',t:'The lateral base, in the costodiaphragmatic recess.'},
+ R10:{n:'Posterior basal segment (S10)',g:'Bronchopulmonary segment',t:'The lowest and most posterior part of the lung.',c:'Where aspirate falls in an upright patient; first to show dependent changes.'},
+ L12:{n:'Apicoposterior segment (S1+2)',g:'Bronchopulmonary segment',t:'On the left the apical and posterior segments share one bronchus.'},
+ L3:{n:'Anterior segment (S3)',g:'Bronchopulmonary segment',t:'The front of the left upper lobe.'},
+ L4:{n:'Superior lingular segment (S4)',g:'Bronchopulmonary segment',t:'The upper half of the lingula.'},
+ L5:{n:'Lingula (inferior lingular segment, S5)',g:'Bronchopulmonary segment',t:'The tongue of left upper lobe curling over the heart below the cardiac notch.',c:'Lingular consolidation hides the left heart border on a frontal X-ray.'},
+ L6:{n:'Superior segment of the left lower lobe (S6)',g:'Bronchopulmonary segment',t:'First branch of the left lower lobe bronchus, pointing straight back.',c:'Dependent when supine.'},
+ L78:{n:'Anteromedial basal segment (S7+8)',g:'Bronchopulmonary segment',t:'On the left the medial and anterior basal segments usually share a bronchus.'},
+ L9:{n:'Lateral basal segment (S9)',g:'Bronchopulmonary segment',t:'The lateral base of the left lower lobe.'},
+ L10:{n:'Posterior basal segment (S10)',g:'Bronchopulmonary segment',t:'The lowest, most posterior part of the left lung.'},
+ lmca:{n:'Left main coronary artery',g:'Coronary artery',t:'Leaves the left aortic sinus, passes between the pulmonary trunk and the left auricle, and splits after about 1 cm into the LAD and the circumflex.',c:'Its occlusion threatens most of the left ventricle.'},
+ lad:{n:'Left anterior descending artery',s:'LAD',g:'Coronary artery',t:'Runs in the anterior interventricular groove to the apex, often wrapping round it. Diagonal branches feed the front of the left ventricle; septal branches the front two-thirds of the septum.',c:'ST elevation in V1–V4. A proximal occlusion is the "widow-maker".',d:['blood','lv','Left ventricle.']},
+ lcx:{n:'Circumflex artery',s:'Circumflex',g:'Coronary artery',t:'Runs in the left atrioventricular groove round to the back of the heart. Obtuse marginal branches supply the lateral wall of the left ventricle.',c:'Lateral ST elevation (I, aVL, V5–V6); the occlusion most often hidden on a 12-lead ECG.'},
+ rca:{n:'Right coronary artery',s:'RCA',g:'Coronary artery',t:'From the right aortic sinus along the right atrioventricular groove, round the acute margin to the back. Usually supplies the sinoatrial node (about 60%) and the atrioventricular node (about 80–90%).',c:'Inferior ST elevation (II, III, aVF); slow rhythms and heart block from the nodal branches.'},
+ pda:{n:'Posterior descending artery',g:'Coronary artery',t:'In the posterior interventricular groove: the inferior wall and the back third of the septum. From the RCA in a right-dominant heart (most people), from the circumflex in a left-dominant one.'},
+ diag:{n:'Diagonal branch (of the LAD)',g:'Coronary artery',t:'Runs across the front of the left ventricle towards its lateral wall.'},
+ om:{n:'Obtuse marginal branch (of the circumflex)',g:'Coronary artery',t:'Runs down the lateral (obtuse) margin of the left ventricle.'},
+ am:{n:'Acute marginal branch (of the RCA)',g:'Coronary artery',t:'Runs along the sharp lower right border of the heart over the right ventricle.'},
+ gcv:{n:'Great cardiac vein',g:'Cardiac vein',t:'Climbs beside the LAD, then follows the circumflex round the left atrioventricular groove to become the coronary sinus.'},
+ cs:{n:'Coronary sinus',g:'Cardiac vein',t:'In the posterior atrioventricular groove; drains most of the heart\'s veins into the right atrium.',c:'Biventricular pacemakers pass a lead through it to pace the left ventricle.'},
+ rphr:{n:'Right phrenic nerve',g:'Nerve',t:'C3, 4 and 5: runs down beside the SVC and the right atrium, in front of the lung root, to the diaphragm, its only motor nerve.',c:'Irritation of the diaphragm or pericardium is felt at the shoulder tip (the C4 dermatome).'},
+ lphr:{n:'Left phrenic nerve',g:'Nerve',t:'C3, 4 and 5: crosses the arch, then runs over the pericardium on the left ventricle, in front of the lung root, to the diaphragm.',c:'A hilar tumour can paralyse a hemidiaphragm, which then rises on the X-ray.'},
+ lvag:{n:'Left vagus nerve',g:'Nerve',t:'Crosses the left side of the arch, gives the left recurrent laryngeal nerve there, passes behind the lung root (phrenic in front, vagus behind) and joins the oesophageal plexus.'},
+ rvag:{n:'Right vagus nerve',g:'Nerve',t:'Runs beside the trachea, behind the right lung root, and onto the oesophagus; leaves the chest with it at T10.'},
+ lrln:{n:'Left recurrent laryngeal nerve',g:'Nerve',t:'Leaves the vagus on the arch, hooks under it beside the ligamentum arteriosum, and climbs in the groove between trachea and oesophagus to the larynx. Supplies every intrinsic laryngeal muscle except cricothyroid.',c:'Its long loop makes it vulnerable: arch aneurysm, tumour or nodes in the aortopulmonary window, a huge left atrium; the result is a hoarse voice.'},
+ rrln:{n:'Right recurrent laryngeal nerve',g:'Nerve',t:'Hooks under the right subclavian artery, much higher than the left, and climbs beside the trachea.',c:'At risk in thyroid surgery rather than from chest disease.'},
+ dia:{n:'Diaphragm',g:'Muscle',t:'A muscular dome on each side with a central tendon under the heart; the right dome sits higher, over the liver. Openings: the IVC at T8, the oesophagus at T10, the aorta at T12.',c:'The costodiaphragmatic recess, the lowest part of the pleural cavity, fills first: a blunted costophrenic angle on X-ray.'},
+ manubrium:{n:'Manubrium',g:'Skeleton',t:'The top of the sternum. The clavicles and the first costal cartilages join it; the jugular notch is at about T2/T3.'},
+ sternum:{n:'Body of the sternum',g:'Skeleton',t:'The costal cartilages of ribs 2 (in part) to 7 join its edges.',c:'Chest compressions go on its lower half.'},
+ xiphoid:{n:'Xiphoid process',g:'Skeleton',t:'Joins the body at the xiphisternal joint, about T9.',c:'The landmark for the subxiphoid approach to the pericardium.'},
+ angle:{n:'Sternal angle',g:'Skeleton',t:'The ridge where the manubrium meets the body, level with the T4/5 disc. The 2nd costal cartilage joins here: start counting ribs from it.'},
+ rib:{n:'Rib',g:'Skeleton',t:'The intercostal vein, artery and nerve run in the costal groove under each rib\'s lower border.'},
+ cart:{n:'Costal cartilage',g:'Skeleton',t:'Hyaline cartilage joining a rib to the sternum or to the cartilage above; it calcifies with age.'},
+ clav:{n:'Clavicle',g:'Skeleton',t:'S-shaped and under the skin along its whole length; the midclavicular line drops from its midpoint.'},
+ vert:{n:'Thoracic vertebra',g:'Skeleton',t:'Heart-shaped body, a long spinous process sloping down, and facets on the body and transverse process for the ribs.'},
+ disc:{n:'Intervertebral disc',g:'Skeleton',t:'Fibrocartilage between vertebral bodies; the T4/5 disc is level with the sternal angle.'},
+ scap:{n:'Scapula',g:'Skeleton',t:'Lies over ribs 2–7 at the back; its inferior angle is at about T7.'},
+ skin:{n:'Skin',g:'Surface',t:'Turn the skin off (Skin button) to see inside, or start a bedside case in Chest rounds to palpate landmarks.'}};
+for(const k of['pda','am','diag','om'])TXREG[k].d=['blood','lv','Left ventricular wall.'];
+const TXRIBNOTE={1:'Rib 1: short, broad and flat, grooved by the subclavian vein and artery on either side of scalenus anterior. Hard to feel, under the clavicle.',2:'Rib 2: its cartilage meets the sternum at the sternal angle, where counting starts.',7:'Rib 7: the last true rib; its cartilage reaches the sternum at the xiphisternal joint.',10:'Rib 10: a false rib; its cartilage makes the lowest point of the costal margin.',11:'Rib 11: a floating rib; its tip ends in the muscles of the flank.',12:'Rib 12: a short floating rib, easily mistaken for the 11th when counting from below.'};
+for(const n of[3,4,5,6])TXRIBNOTE[n]=`Rib ${n}: a true rib; its own cartilage reaches the sternum.`;for(const n of[8,9])TXRIBNOTE[n]=`Rib ${n}: a false rib; its cartilage joins the one above, building the costal margin.`;
+const TXCTNOTE={clot:'A dark filling defect in a bright, contrast-filled artery: a pulmonary embolus.',avcalc:'Calcium in the aortic valve cusps. On CT, the amount of valve calcium tracks how severe aortic stenosis is.',fissure:'The two layers of visceral pleura between lobes, seen as a fine line in the lung window.',node7:'Below the carina, between the main bronchi. Biopsied by EBUS or mediastinoscopy when staging lung cancer.',node4R:'Beside the lower trachea on the right.',node5:'Under the arch, beside the ligamentum arteriosum: the aortopulmonary window, close to the left recurrent laryngeal nerve.',node10R:'At the right lung root.',node10L:'At the left lung root.',cord:'The spinal cord in its canal, surrounded by cerebrospinal fluid.',liver:'The dome of the liver under the right hemidiaphragm.',stomach:'The gastric fundus under the left dome; lying supine, its air rises to the front.',spleen:'Under the left dome, at the back.',peri:'The pericardium with a thin layer of fat.',medfat:'Fat filling the mediastinum around the vessels and nodes.'};
+
+// ---- Chest rounds: tag tests, localise-from-the-story cases, routes, bedside landmarks and CT reading ----
+const TXRLL=['R6','R7','R8','R9','R10'];
+const TXMIS=[
+ {id:'T1',type:'tag',title:'Tag test 1 · lungs from outside',v:'Eight pins, 90 seconds, as in an anatomy practical. The camera goes to each pin; name it.',setup:{lungs:0,lmode:'surface',lay:{heart:1,vessels:1,bones:1,med:0,tree:0}},
+  pins:['RUL','RML','RLL','LUL','L5','LLL','dia','clav'],pool:['RUL','RML','RLL','LUL','LLL','L5','dia','clav','R6','R1','sternum','scap']},
+ {id:'T2',type:'tag',title:'Tag test 2 · heart and great vessels',v:'Lungs removed. Eight pins, 90 seconds.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},
+  pins:['aoAsc','arch','svc','pt','raa','rv','lad','lbcv'],pool:['aoAsc','arch','svc','pt','raa','rv','lad','lbcv','lv','ra','rca','bct','lcca','lsca','ivc','lpa','rpa','lcx']},
+ {id:'T3',type:'tag',title:'Tag test 3 · lung roots and the back of the mediastinum',v:'Lungs removed, nerves and oesophagus shown. Eight pins, 90 seconds.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:1,tree:1}},
+  pins:['azy','lrln','lig','aoDesc','esoph','thd','lmb','rphr'],pool:['azy','lrln','lig','aoDesc','esoph','thd','lmb','rphr','lphr','lvag','rvag','rmb','trachea','rrln','svc']},
+ {id:'T4',type:'tag',title:'Tag test 4 · bronchopulmonary segments',v:'Each colour is the territory of one segmental bronchus. Eight pins, 90 seconds.',setup:{lungs:0,lmode:'segments',lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},
+  pins:['R1','R3','R4','R6','R10','L12','L5','L6'],pool:['R1','R2','R3','R4','R5','R6','R7','R8','R9','R10','L12','L3','L4','L5','L6','L78','L9','L10']},
+ {id:'E1',type:'loc',title:'Chest pain, low pressure after GTN',v:'A 58-year-old man with crushing central chest pain for 40 minutes. ECG: ST elevation in II, III and aVF, and in the right-sided lead V4R. His blood pressure falls after one spray of sublingual GTN. Click the artery that is blocked.',
+  setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},view:[-.75,-.25],tg:[0,-6,2],best:['rca'],ok:{pda:'Right territory, but V4R and the GTN response say the right ventricle is involved too: the block is upstream, in the RCA before its right ventricular branches.',am:'An RCA branch; the block is upstream of it, in the RCA itself.'},terr:'rca',dive:['blood','rv','Right ventricle: the wall a proximal RCA block starves.'],
+  why:'II, III and aVF face the inferior wall, which the posterior descending artery supplies; in a right-dominant heart (most people) that comes from the RCA. ST elevation in V4R and a pressure drop with nitrates mean the right ventricle is infarcted as well, so the occlusion is proximal in the RCA. A failing RV depends on its filling pressure, which is why nitrates are avoided and fluids given.'},
+ {id:'E2',type:'loc',title:'Chest pain with ST elevation V1–V4',v:'A 49-year-old smoker, sweaty and grey. ECG: ST elevation in V1 to V4 with reciprocal depression in II, III and aVF. Click the culprit artery.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},view:[.25,.1],tg:[2,-5.5,3],best:['lad'],ok:{lmca:'Close: the left main feeds the LAD, but a left main occlusion would usually take the lateral wall too, often with shock. These leads point to the LAD.',diag:'A branch of the culprit; V1–V4 means the LAD itself, upstream of its diagonal branches.'},terr:'lad',dive:['blood','lv','Left ventricle: the anterior wall and septum the LAD feeds.'],
+  why:'V1 to V4 look at the septum and the anterior wall of the left ventricle, the territory of the left anterior descending artery. A proximal LAD occlusion, before the first septal and diagonal branches, threatens a large part of the left ventricle: the "widow-maker".'},
+ {id:'E3',type:'loc',title:'Chest pain, lateral leads',v:'A 63-year-old woman with chest pain. ECG: ST elevation in I, aVL, V5 and V6. Click the most likely culprit artery.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},view:[1.35,.05],tg:[3,-5.5,1],best:['lcx','om'],ok:{diag:'Possible: a large diagonal of the LAD can produce high lateral changes, but I, aVL plus V5–V6 together point most often to the circumflex.'},terr:'lcx',dive:['blood','lv','Left ventricle: the lateral wall.'],
+  why:'I and aVL (high lateral) with V5 and V6 (low lateral) face the lateral wall of the left ventricle, fed by the circumflex and its obtuse marginal branches. Circumflex occlusions are the ones most often missed on a 12-lead ECG, because no standard lead faces the back of the heart.'},
+ {id:'A1',type:'loc',title:'Found on his back after a night of drinking',v:'A 45-year-old man was found unconscious, lying on his back, after heavy drinking. Three days later: fever and foul-smelling sputum. Click the lung segment where the aspirate most likely went.',setup:{lungs:0,lmode:'surface',lay:{heart:1,vessels:1,bones:1,med:0,tree:0}},view:[Math.PI-.55,.15],tg:[-5,-2,-4],best:['R6','R2'],ok:{L6:'A dependent segment, but on the left; the right main bronchus is wider and more in line with the trachea, so the right side is more likely.',L12:'The left equivalent of a dependent segment; the right side is more likely.'},hi:['R6','R2'],dive:['lung','bronchus','The right lower lobe bronchus: the superior segment branches straight back from here.'],
+  why:'Lying flat on the back, the segments whose bronchi point backwards are lowest: the superior segment of the lower lobe and the posterior segment of the upper lobe. The right side is favoured because the right main bronchus is wider and closer to vertical. Upright, aspirate falls instead into the basal segments of the lower lobes.'},
+ {id:'A2',type:'loc',title:'A peanut in a toddler',v:'A 2-year-old choked on a peanut and now wheezes on one side. Bronchial tree shown (lungs see-through). Click where an inhaled object most often lodges.',setup:{lungs:1,lay:{heart:0,vessels:0,bones:0,med:0,tree:1}},view:[0,.1],tg:[0,-2,-2],best:['rmb','bi','rllB'],ok:{lmb:'It can go left, especially in small children, but the right main bronchus is the commoner site.',trachea:'Large objects can stop in the trachea, but most pass the carina and go right.'},dive:['lung','bronchus','The right main bronchus.'],
+  why:'The right main bronchus is wider, shorter and closer to the line of the trachea than the left, which has to pass under the aortic arch. In young children the difference is smaller and left-sided objects are common, so both sides need examining; rigid bronchoscopy removes it.'},
+ {id:'N1',type:'loc',title:'A hoarse voice',v:'A 66-year-old smoker has a hoarse, breathy voice. CT shows a mass in the aortopulmonary window, the space under the aortic arch. Click the nerve it has damaged.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:1,tree:1}},view:[1.25,.15],tg:[2,1,-2],best:['lrln'],ok:{lvag:'The vagus carries those fibres, but the voice changes because of its recurrent laryngeal branch, which hooks under the arch right where the mass is.'},dive:null,
+  why:'The left recurrent laryngeal nerve leaves the vagus on the arch, hooks under it beside the ligamentum arteriosum, then climbs between trachea and oesophagus to supply the vocal cord muscles. Tumour or nodes in the aortopulmonary window, an arch aneurysm or even a huge left atrium can stretch it. The right nerve hooks under the subclavian artery, much higher, and is spared.'},
+ {id:'P1',type:'loc',title:'Case 04: where is Tomás Herrera\'s pneumonia?',v:'Fever, rusty sputum, pain on breathing in on the right. At the back, low on the right: dull to percussion, bronchial breathing, and his voice carried loudly to the stethoscope. Click the lobe.',setup:{lungs:0,lmode:'surface',lay:{heart:1,vessels:1,bones:1,med:0,tree:0}},caseK:'pna',view:[Math.PI-.4,.05],tg:[-5,-6,-3],best:TXRLL,ok:{R4:'The middle lobe is heard at the front, below the 4th rib on the right. At the back, low down, you are over the lower lobe.',R5:'The middle lobe is heard at the front. At the back, low down, you are over the lower lobe.'},dive:['lung','acinus','An alveolar sac in his right lower lobe.'],
+  why:'Below the scapula at the back, almost everything you hear on the right is the lower lobe; the oblique fissure starts at about T3 behind and runs round to the 6th costal cartilage in front. The middle lobe lies in front, so it is examined anteriorly. On the frontal X-ray, lower lobe consolidation hides the diaphragm outline; middle lobe consolidation hides the right heart border.'},
+ {id:'R1',type:'route',title:'A clot from the calf to the lung',v:'A deep vein clot in the left calf breaks loose. Click each structure it passes, in order, until it lodges. Then find it on the CT.',setup:{lungs:1,lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},view:[-.35,.15],tg:[-1,-4,1],
+  seq:[['ivc'],['ra'],['rv'],['pt'],['rpa'],TXRLL.concat(TXRLL.map(k=>'segA:'+k))],hints:['From the leg veins it rises in the inferior vena cava.','The IVC empties into the right atrium.','Through the tricuspid valve into the right ventricle.','Out through the pulmonary valve into the pulmonary trunk.','Most emboli go to the lower lobes, which get most of the blood flow; take the branch to the right lung.','The right lower lobe: click any of its segments (the lungs are see-through, so click the coloured lobe edge or an artery).'],ct:true,
+  why:'Calf vein → popliteal and femoral veins → iliac veins → IVC → right atrium → tricuspid → right ventricle → pulmonary valve → pulmonary trunk → right pulmonary artery → lower lobe artery. The lungs filter it out; a patent foramen ovale would let it cross to the left heart instead (paradoxical embolism).'},
+ {id:'R2',type:'route',title:'Case 01: from the lung to the brain, past a stiff valve',v:'Follow oxygenated blood from Mr Reyes\' lungs to the right side of his brain. Click each structure in order.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:0,tree:0}},caseK:'as',view:[.3,.2],tg:[0,0,0],
+  seq:[['rspv','ripv','lspv','lipv'],['la'],['lv'],['aoAsc'],['arch'],['bct'],['rcca']],hints:['Blood leaves the lung in a pulmonary vein (there are four).','Pulmonary veins drain into the left atrium, at the back.','Through the mitral valve into the left ventricle.','Through the stenotic aortic valve into the ascending aorta.','Up to the arch.','The first branch of the arch, on the right.','The brachiocephalic trunk divides into the right subclavian and the right common carotid.'],
+  why:'Pulmonary vein → left atrium → mitral valve → left ventricle → (calcified aortic valve) → ascending aorta → arch → brachiocephalic trunk → right common carotid → internal carotid. Mr Reyes\' murmur travels the same way, which is why you hear it over both carotids.'},
+ {id:'R3',type:'route',title:'Lymph home from the gut',v:'Fat absorbed in the gut travels as chyle. Follow it back into the blood. Click each structure in order.',setup:{lungs:2,lay:{heart:1,vessels:1,bones:0,med:1,tree:0}},view:[.9,.15],tg:[2,2,-2],
+  seq:[['thd'],['lbcv','lijv','lscv'],['svc'],['ra']],hints:['Gut lymph collects in the cisterna chyli and rises in the thoracic duct.','The duct empties into the left venous angle, where the internal jugular and subclavian veins join to form the left brachiocephalic vein.','The brachiocephalic veins join to form the superior vena cava.','The SVC empties into the right atrium.'],dive:['lymph','thoracic','The thoracic duct.'],
+  why:'Cisterna chyli → thoracic duct (through the aortic hiatus, up behind the oesophagus, crossing to the left at about T5) → left venous angle → left brachiocephalic vein → SVC → right atrium. The right lymphatic duct drains only the right upper quarter of the body into the right venous angle.'},
+ {id:'X1',type:'proc',title:'Case 01: where is Mr Reyes\' murmur loudest?',v:'An ejection systolic murmur from calcific aortic stenosis. Put the stethoscope where you expect it loudest. Hover to palpate; count down from the sternal angle.',view:[-.25,.1],tg:[-2,-1,5],dist:44,
+  ideal:{side:-1,x:2.6,ics:2},check:L=>L.side==='R'&&L.ics===2&&L.x<4.6?3:L.side==='R'&&(L.ics===2||L.ics===3)&&L.x<6?2:0,
+  why:'The aortic area is the 2nd right intercostal space at the sternal edge. Find the sternal angle (the ridge where the 2nd costal cartilage joins), slide off it to the right onto the 2nd rib; the space below it is the 2nd intercostal space. The murmur radiates up into both carotids.'},
+ {id:'X2',type:'proc',title:'Feel the apex beat',v:'Find Mr Reyes\' apex beat: the lowest and most lateral point where the heartbeat lifts your fingers.',view:[.35,.1],tg:[5,-6,6],dist:50,ideal:{side:1,x:9.0,ics:5},check:L=>L.side==='L'&&L.ics===5&&L.line==='midclavicular'?3:L.side==='L'&&(L.ics===4||L.ics===5||L.ics===6)&&Math.abs(L.x-9)<3.5?2:0,
+  why:'Normally in the 5th intercostal space in the midclavicular line, where the left ventricle\'s apex taps the chest wall. With Mr Reyes\' concentric hypertrophy it is heaving and sustained but not displaced; a volume-loaded, dilated ventricle (as in aortic regurgitation) pushes it down and out.'},
+ {id:'X3',type:'proc',title:'Chest drain on the right',v:'A large right pneumothorax needs a chest drain. The patient lies with the right arm behind his head. Click where you will insert it.',view:[-1.5,.05],tg:[-10,-5,0],dist:50,ideal:{side:-1,theta:.53,ics:5},edge:true,
+  check:L=>L.side==='R'&&(L.ics===4||L.ics===5)&&L.theta>=.43&&L.theta<=.71?3:L.side==='R'&&(L.ics>=3&&L.ics<=6)&&L.theta>=.38&&L.theta<=.76?1:0,
+  why:'The safe triangle: in front, the lateral edge of pectoralis major; behind, the lateral edge of latissimus dorsi; below, a line at the level of the nipple (about the 5th intercostal space); apex just below the axilla. Lower risks the liver and spleen under the diaphragm; further forward risks the internal thoracic vessels and thick muscle.'},
+ {id:'X4',type:'proc',title:'Tension pneumothorax on the left',v:'Trauma: absent breath sounds on the left, trachea pushed right, falling blood pressure. Click where you would decompress with a needle (adult).',view:[1.1,.05],tg:[8,-4,3],dist:56,ideal:{side:1,theta:.6,ics:5},
+  check:L=>L.side==='L'&&(L.ics===4||L.ics===5)&&L.theta>=.5&&L.theta<=.72?3:L.side==='L'&&L.ics===2&&L.line==='midclavicular'?2:0,
+  why:'ATLS 10th edition moved adult needle decompression to the 4th or 5th intercostal space just in front of the mid-axillary line, because at the classic 2nd space in the midclavicular line the chest wall is often thicker than a standard cannula is long. The 2nd space midclavicular site is still used in children. Go above the rib, and follow with a chest drain.'},
+ {id:'X5',type:'proc',title:'Draining a pericardial effusion',v:'Cardiac tamponade: low pressure, raised JVP, muffled heart sounds. Echo guidance is available. Click where the needle goes in for the classic subxiphoid approach.',view:[.15,-.15],tg:[0,-12,8],dist:44,ideal:{sub:1},check:L=>L.sub?3:0,
+  why:'Just below and to the left of the xiphoid process, aiming up towards the left shoulder at about 30–45° to the skin. This route stays below the pleura and away from the internal thoracic arteries, reaching the pericardium over the right ventricle; echo guidance is now the norm.'},
+ {id:'C1',type:'ct',title:'Read the chest CT',v:'A CT pulmonary angiogram of this chest. Scroll through the slices (wheel or drag on the image) and click what is asked. Lung window for airways and lungs, soft-tissue window for the mediastinum.',
+  steps:[{ask:'Scroll up to the level of the aortic arch and click the arch.',k:['arch'],y:2.5},{ask:'Find the azygos vein arching forward over the right main bronchus, and click it.',k:['azy'],y:1.5},{ask:'Find the carina, then click the left main bronchus.',k:['lmb'],y:-1.5},{ask:'Scroll down to the heart and click the left atrium, the most posterior chamber.',k:['la'],y:-4},{ask:'Switch to the lung window and click any segment of the right middle lobe.',k:['R4','R5'],y:-7}],
+  why:'Reading order on CT: soft-tissue window for the mediastinum and heart, lung window for the airways and parenchyma, bone window for the skeleton. The azygos arch sits at about T4 and the carina at T4–T5; the left atrium is the chamber against the oesophagus.'}];
+let TXST={};try{TXST=JSON.parse(localStorage.getItem('ivChest')||'{}')||{};}catch(e){TXST={};}
+const txStars=(id,s)=>{if(s>(TXST[id]||0)){TXST[id]=s;try{localStorage.setItem('ivChest',JSON.stringify(TXST));}catch(e){}}};
+const txTotal=()=>Object.values(TXST).reduce((a,b)=>a+b,0);
+function txRounds(on){THX.rOpen=on==null?!THX.rOpen:on;$('thxRounds').style.display=THX.rOpen?'block':'none';$('thxRoundsBtn').classList.toggle('on',THX.rOpen);document.body.classList.toggle('txRoundsOn',THX.rOpen);if(!THX.rOpen){txEndMis();return;}txRender();}
+const TXTYPE={tag:'Tag test',loc:'Localise',route:'Trace',proc:'Bedside',ct:'CT'};
+function txRender(){const el=$('thxRounds'),M=THX.mis;
+ if(!M){el.innerHTML=`<div class="eyebrow">Chest rounds · ${txTotal()} / ${TXMIS.length*3} ★</div><h3>Pick a case</h3><p class="small">Name tagged structures against the clock, localise from the story, trace a route, find landmarks on the skin, or read the CT.</p><div class="bmis">`+
+  TXMIS.map(m=>`<button data-x="${m.id}"><span class="bt">${TXTYPE[m.type]}</span>${m.title}<span class="bs">${'★'.repeat(TXST[m.id]||0)}${'☆'.repeat(3-(TXST[m.id]||0))}</span></button>`).join('')+`</div>`;
+  el.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>txStart(b.dataset.x));return;}
+ let body='';const done=M.done;
+ if(M.type==='tag'){if(!done){const k=M.pins[M.i];body=`<p class="small ask">Pin ${M.i+1} of ${M.pins.length} · <span id="txTimer">${Math.max(0,Math.ceil(M.left))} s</span> · ${M.score} right</p><div class="txopt">`+M.opts.map(o=>`<button data-o="${o}">${TXREG[o].n}</button>`).join('')+`</div>`;}}
+ else if(M.type==='loc'){if(!done)body=`<p class="small ask">Click the structure.${M.tries&&M.hint?' '+M.hint:''}</p>`;}
+ else if(M.type==='route'){body=`<p class="small ask">${done?(M.ct&&!M.ctDone?'Now the CT pulmonary angiogram: scroll to the lower lobe artery on the right and click the dark filling defect.':'Route complete.'):'Step '+(M.step+1)+' of '+M.seq.length+': click the next structure.'}</p>`;}
+ else if(M.type==='proc'){if(M.edgeAsk)body=`<p class="small ask">Good site. Now: where in the space does the drain go?</p>${TXEDGESVG}<div class="txopt"><button data-e="above">Just above the rib below</button><button data-e="below">Just below the rib above</button></div>`;else if(!done)body=`<p class="small ask">Hover over the skin to feel what is under your fingers, then click.</p>`;}
+ else if(M.type==='ct'){const st=M.steps[M.step];body=done?'':`<p class="small ask">Step ${M.step+1} of ${M.steps.length}: ${st.ask}</p>`;}
+ el.innerHTML=`<div class="eyebrow">Chest rounds · ${TXTYPE[M.type]}</div><h3>${M.title}</h3><p class="small">${M.v}</p>${body}<div class="small fb">${M.fb||''}</div><div class="brow">`+
+  (done&&M.dive?`<button class="btn" id="txGo">Shrink in ▸</button>`:'')+(done&&M.type==='route'&&M.ct&&!M.ctOn?`<button class="btn" id="txCTgo">See it on the CT ▸</button>`:'')+
+  (done?`<button class="btn" id="txNext">Next case ▸</button>`:M.type==='loc'||M.type==='proc'?`<button class="btn ghost" id="txGive">Show me</button>`:'')+`<button class="btn ghost" id="txList">All cases</button></div>`;
+ el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>txTagAns(b.dataset.o,b));el.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>txEdge(b.dataset.e));
+ const go=$('txGo');if(go)go.onclick=()=>txDive(M.dive);const cg=$('txCTgo');if(cg)cg.onclick=()=>txRouteCT();const nx=$('txNext');if(nx)nx.onclick=()=>{const i=TXMIS.indexOf(M);txStart(TXMIS[(i+1)%TXMIS.length].id);};
+ const gv=$('txGive');if(gv)gv.onclick=()=>M.type==='proc'?txProcReveal(0,'Here it is.',null):txReveal(0,'Here it is.');$('txList').onclick=()=>{txEndMis();txRender();};}
+const TXEDGESVG=`<svg viewBox="0 0 220 120" class="txsvg"><rect x="0" y="0" width="220" height="120" fill="#20131a"/><path d="M0 22 H220 M0 98 H220" stroke="#d9a58f" stroke-width="2" opacity=".5"/><text x="4" y="14" fill="#d9a58f" font-size="9">skin side</text>
+<ellipse cx="110" cy="38" rx="30" ry="16" fill="#e9dcc0"/><text x="148" y="34" fill="#e9dcc0" font-size="10">rib above</text><ellipse cx="110" cy="92" rx="30" ry="16" fill="#e9dcc0"/><text x="148" y="96" fill="#e9dcc0" font-size="10">rib below</text>
+<circle cx="96" cy="58" r="3.4" fill="#5560a8"/><circle cx="104" cy="60" r="3.2" fill="#c4463e"/><circle cx="112" cy="61" r="2.6" fill="#f0d98a"/><text x="122" y="64" fill="#cfc" font-size="9">V A N in the costal groove</text></svg>`;
+function txSetup(M){const S2=M.setup||{};THX.skinGlass=false;if(S2.lungs!=null)THX.lungs=S2.lungs;if(S2.lmode)THX.lmode=S2.lmode;if(S2.lay)Object.assign(THX.lay,{skin:false},Object.fromEntries(Object.entries(S2.lay).map(([k,v])=>[k,!!v])));
+ if(M.type==='proc'){THX.lay.skin=true;THX.lungs=0;THX.lmode='surface';}THX.terr=false;THX.ct=M.type==='ct';THX.ctCase={};
+ const ck=M.caseK!==undefined?M.caseK:THX.caseK;if(ck!==THX.caseK){THX.caseK=ck;txHeartDef(ck==='as');}txApply();}
+function txStart(id){txEndMis();const M=TXMIS.find(m=>m.id===id);THX.mis=M;Object.assign(M,{done:false,fb:'',tries:0,step:0,err:0,edgeAsk:false,ctOn:false,ctDone:false,ctMark:null,terrOn:false,hiSeg:null});txSetup(M);txInfo(null);
+ if(M.type==='tag'){M.i=0;M.score=0;M.left=90;M.order=M.pins.slice();txTagPin();}
+ else if(M.type==='ct'){THX.win='med';THX.ctY=M.steps[0].y+4;txCTSet(THX.ctY);txAnimTo([.6,.7],new V3(0,THX.ctY,0),txFit()*.95);}
+ else txAnimTo(M.view||'front',M.tg?new V3(...M.tg):null,M.dist||txFit()*.92);
+ if(M.type==='route'){M.trail=new THREE.Group();THX.lines.add(M.trail);M.prev=null;}
+ txRender();}
+function txEndMis(){const M=THX.mis;if(M&&M.done==null)M.done=false;if(M&&(M.type==='ct'||M.ctOn))THX.ct=false;THX.mis=null;THX.mark.visible=false;THX.dot.visible=false;THX.lines.clear();THX.pinG.clear();THX.skinGlass=false;THX.ctCase={};THX.dotPath=null;if(THX.built){THX.lay.skin=false;txApply();}}
+// ---- tag test ----
+function txTagPin(){const M=THX.mis,k=M.pins[M.i],a=THX.anch[k];const pool=M.pool.filter(x=>x!==k).sort(()=>Math.random()-.5).slice(0,3);M.opts=[k,...pool].sort(()=>Math.random()-.5);
+ const n=a.n.clone();const yaw=Math.atan2(n.x,n.z),pitch=clamp(Math.asin(clamp(n.y,-1,1))*.8,-.6,.9);txAnimTo([yaw,pitch],a.p.clone().lerp(new V3(0,-3.5,0),.35),txFit()*.62,.7);
+ THX.mark.position.copy(a.p);THX.mark.visible=true;M.pinAt=performance.now();txRender();}
+function txPinsHTML(){const M=THX.mis;if(!M||M.type!=='tag'||M.done)return '';const a=THX.anch[M.pins[M.i]];const v=a.p.clone().project(THX.cam);if(v.z>1)return '';return `<div class="txpin" style="left:${(v.x*.5+.5)*innerWidth}px;top:${(-v.y*.5+.5)*innerHeight}px">${M.i+1}</div>`;}
+function txTagAns(o,btn){const M=THX.mis;if(!M||M.done||M.lock)return;const k=M.pins[M.i],ok=o===k;M.lock=true;if(ok){M.score++;sfx&&sfx('chime');}else sfx&&sfx('buzz');
+ btn.classList.add(ok?'ok':'no');if(!ok)document.querySelectorAll('#thxRounds [data-o]').forEach(b=>{if(b.dataset.o===k)b.classList.add('ok');});
+ setTimeout(()=>{M.lock=false;M.i++;if(M.i>=M.pins.length)txTagEnd();else txTagPin();},ok?600:1300);}
+function txTagEnd(){const M=THX.mis;M.done=true;THX.mark.visible=false;const s=M.score>=7?3:M.score>=5?2:M.score>=3?1:0;txStars(M.id,s);M.fb=`<b>${M.score} of ${M.pins.length} named${M.left<=0?' (time ran out)':''}.</b> ${'★'.repeat(s)}<br>`+M.pins.map(k=>TXREG[k].n).join(' · ');txRender();}
+// ---- localise ----
+function txReveal(stars,lead){const M=THX.mis;M.done=true;txStars(M.id,stars);const k=M.best[0];const a=THX.anch[k];if(a){THX.mark.position.copy(a.p);THX.mark.visible=true;}
+ if(M.terr){M.terrOn=true;}if(M.hi)M.hiSeg=M.hi;if(M.best.every(b=>TXSEG[b]))M.hiSeg=M.hiSeg||M.best;
+ M.fb=`<b>${lead}</b> ${stars?'★'.repeat(stars):''}<br>${M.why}`;txApply();txRender();}
+function txMisClick(k){const M=THX.mis;if(!M||M.done&&!(M.type==='route'&&M.ct&&!M.ctDone))return false;if(M.type==='tag'||M.type==='ct')return true;
+ if(M.type==='proc'){if(!THX.hit||k!=='skin')return true;txProcClick(THX.hit.p);return true;}
+ if(!k)return true;const kk=k.startsWith('segA:')||k.startsWith('segB:')?k:k;const base=k.startsWith('seg')?k.slice(5):k;const name=txName(k);
+ if(M.type==='loc'){const hitBest=M.best.includes(k)||M.best.includes(base);if(hitBest){sfx&&sfx('chime');txReveal(M.tries===0?3:M.tries===1?2:1,`Yes: ${name}.`);return true;}
+  const okMsg=M.ok&&(M.ok[k]||M.ok[base]);if(okMsg){sfx&&sfx('chime');txReveal(M.tries===0?2:1,`Nearly: ${name}. ${okMsg}`);return true;}
+  M.tries++;sfx&&sfx('buzz');if(M.tries>=3)txReveal(0,`Not quite (${name}).`);else{M.fb=`Not ${name}. ${M.tries===1?'Think about which structure explains every finding.':'One more try.'}`;txRender();}return true;}
+ if(M.type==='route'){if(M.done)return true;const want=M.seq[M.step];if(want.includes(k)||want.includes(base)){sfx&&sfx('chime');txRouteLeg(base);M.step++;M.fb=`<b>${name}.</b>`;
+   if(M.step>=M.seq.length){M.done=true;const s=M.err===0?3:M.err<=2?2:1;txStars(M.id,s);M.fb=`<b>Route complete.</b> ${'★'.repeat(s)} (${M.err} wrong turn${M.err===1?'':'s'})<br>${M.why}`;}txRender();}
+  else{M.err++;sfx&&sfx('buzz');M.fb=`Not ${name}. ${M.hints[M.step]}`;txRender();}return true;}
+ return false;}
+// route legs: the red dot travels along the vessel itself
+function txRoutePts(k,from){if(TXT[k]){let P=TXT[k].pts.map(p=>p.clone());if(from&&P[0].distanceTo(from)>P[P.length-1].distanceTo(from))P.reverse();return P;}
+ if(TXH.ch[k])return [from||TXH.ch[k].c.clone(),TXH.ch[k].c.clone()];if(TXSEG[k])return [from,TXSEG[k][1].clone().lerp(from,.4)];return [from,THX.anch[k]?THX.anch[k].p.clone():from];}
+function txRouteLeg(k){const M=THX.mis;let from=M.prev;let P=txRoutePts(k,from);if(!from)from=P[0];if(P[0].distanceTo(from)>.01)P.unshift(from.clone());if(k==='rv')P.splice(1,0,new V3(-1.0,-6.4,3.4));if(k==='pt'&&from)P.splice(1,0,TXH.rvot.a.clone());if(k==='lv'&&from)P.splice(1,0,new V3(1.6,-5.0,.8));if(k==='aoAsc'&&from)P.splice(1,0,new V3(0,-4.2,1.8));
+ P=P.filter((p,i)=>i===0||p.distanceTo(P[i-1])>.05);if(P.length<2)P.push(P[0].clone().add(new V3(0,.01,0)));const cv=new THREE.CatmullRomCurve3(P);THX.dotPath={cv,t:0,L:cv.getLength()};THX.dot.visible=true;
+ const m=new THREE.Mesh(new THREE.TubeGeometry(cv,Math.max(8,P.length*6),.16,6,false),new THREE.MeshBasicMaterial({color:0xff7a5a,transparent:true,opacity:.8,depthTest:false}));m.renderOrder=8;M.trail.add(m);M.prev=P[P.length-1].clone();}
+function txRouteCT(){const M=THX.mis;M.ctOn=true;THX.ctCase.pe={p:new V3(-5.2,-3.3,-1.45),r:.85};THX.win='med';THX.ctY=-1;THX.ct=true;txApply();txCTSet(-1);txAnimTo([.6,.75],new V3(0,-1,0),txFit()*.95);txRender();}
+function txMisCT(h){const M=THX.mis;if(!M)return false;
+ if(M.type==='route'&&M.ctOn&&!M.ctDone){M.ctMark={i:h.i,j:h.j,ok:h.k==='clot'};if(h.k==='clot'){M.ctDone=true;sfx&&sfx('chime');M.fb=`<b>That is the embolus:</b> a dark filling defect inside the bright, contrast-filled right lower lobe artery, the sign a CT pulmonary angiogram looks for. Try the lung window too: the lung beyond it looks normal at first; a wedge-shaped infarct can follow.`;}else{sfx&&sfx('buzz');M.fb=`That is ${txCTName(h.k).toLowerCase()}. Look inside the bright pulmonary arteries near the right hilum, a few slices around −3 cm.`;}txCTDraw();txRender();return true;}
+ if(M.type!=='ct'||M.done)return true;const st=M.steps[M.step];const ok=st.k.includes(h.k);M.ctMark={i:h.i,j:h.j,ok};
+ if(ok){sfx&&sfx('chime');M.step++;M.fb=`<b>Yes: ${txCTName(h.k)}.</b>`;if(M.step>=M.steps.length){M.done=true;const s=M.err===0?3:M.err<=3?2:1;txStars(M.id,s);M.fb+=` ${'★'.repeat(s)}<br>${M.why}`;}}
+ else{M.err++;sfx&&sfx('buzz');M.fb=`That is ${txCTName(h.k).toLowerCase()}.${M.err>=2?' Hint: around '+st.y+' cm.':''}`;}txCTDraw();txRender();return true;}
+// ---- bedside landmarks ----
+const TXMCL=9.4;
+function txLandmark(p){const side=p.x>0?'L':'R',ax=Math.abs(p.x),th=Math.atan2(ax,-(p.z-TXZC)),y=p.y,u=th/Math.PI;let ics=null,onRib=null,below=true;
+ for(let n=1;n<=12;n++){if(th>txRibEnd(n)+.01)continue;const yn=txRibY(n,th);if(Math.abs(y-yn)<.62){onRib=n;break;}if(y<yn){ics=n;}else{below=false;break;}}
+ if(onRib)ics=null;const sub=ax<3.2&&p.z>0&&y<-13.6&&y>-17;
+ let line='';if(p.z>0&&ax<3.4)line='sternal edge';else if(p.z>0&&ax<5)line='parasternal';else if(u>.73&&Math.abs(ax-TXMCL)<1.8)line='midclavicular';else if(u>=.64&&u<=.74)line='anterior axillary';else if(u>=.56&&u<.64)line='between anterior and mid-axillary';else if(u>=.44&&u<.56)line='mid-axillary';else if(u>=.36&&u<.44)line='between mid- and posterior axillary';else if(u>=.27&&u<.36)line='posterior axillary';else line=u>.73?'anterior chest':'back';
+ return {side,x:ax,theta:u,ics,onRib,line,sub,y};}
+const txOrd=n=>n+(n===1?'st':n===2?'nd':n===3?'rd':'th');
+function txLmDesc(L){if(L.sub)return 'just below the xiphoid';return `${L.side==='L'?'left':'right'} chest, ${L.onRib?'over the '+txOrd(L.onRib)+' rib':L.ics?txOrd(L.ics)+' intercostal space':'below the costal margin'}, ${L.line}${L.line.includes('line')||L.line.includes('axillary')||L.line==='midclavicular'?L.line.includes('line')?'':' line':''}`;}
+function txPalp(k){const M=THX.mis;if(!M||M.type!=='proc'||k!=='skin'||!THX.hit||THX.skinGlass)return null;const p=THX.hit.p,L=txLandmark(p),ax=Math.abs(p.x);
+ if(p.z>0&&ax<2.2&&p.y>3.6&&p.y<5.6)return 'You feel: the jugular (suprasternal) notch';if(TXT.clavL&&Math.min(txTubeD(TXT.clavL,p.x,p.y,p.z),txTubeD(TXT.clavR,p.x,p.y,p.z))<1.8)return 'You feel: the clavicle';
+ if(THX.nip.some(q=>q.distanceTo(p)<1.6))return 'You feel: the nipple';if(p.z>0&&ax<3&&Math.abs(p.y)<.75)return 'You feel: a ridge across the sternum (the sternal angle; the 2nd costal cartilages join here)';
+ if(p.z>0&&ax<1.8&&p.y<-10.4&&p.y>-14)return 'You feel: the xiphoid process';if(L.sub)return 'You feel: soft epigastrium just below the xiphoid';
+ if(p.z>0&&ax<3.2&&p.y>-10.6)return 'You feel: the sternum';if(L.onRib)return `You feel: a rib${L.onRib>=8&&L.theta>.6?' (the costal margin)':''}`;if(L.ics)return 'You feel: a soft gap between two ribs';return 'You feel: soft abdominal wall below the ribs';}
+function txSkinAtTheta(th,y,s){let lo=0,hi=Math.PI;for(let k=0;k<26;k++){const m=(lo+hi)/2,p=txSkinP(m*s,y),t=Math.atan2(Math.abs(p.x),-(p.z-TXZC));if(t<th)lo=m;else hi=m;}return txSkinP(s*(lo+hi)/2,y);}
+function txIdealP(id){const I=id.ideal;if(I.sub)return txSkinP(Math.PI+.05,-14.6);const s=I.side;if(I.x){const n=I.ics,x=I.x;const t1=txAngAtX(n,x),t2=txAngAtX(n+1,x);const y=(txRibY(n,t1)+txRibY(n+1,t2))/2;return txSkinP(txPhAtX(s*x,y),y);}
+ const th=I.theta*Math.PI,y=(txRibY(I.ics,th)+txRibY(I.ics+1,th))/2;return txSkinAtTheta(th,y,s);}
+function txProcClick(p){const M=THX.mis;if(M.done||M.edgeAsk)return;const L=txLandmark(p);M.last=p.clone();M.lastL=L;const s=M.check(L);
+ if(s>0&&M.edge){M.edgeAsk=true;M.siteStars=M.tries===0?s:Math.min(s,2);M.fb=`You chose the ${txLmDesc(L)}.`;sfx&&sfx('chime');txProcMarks(p,true);txRender();return;}
+ if(s>0){sfx&&sfx('chime');txProcReveal(M.tries===0?s:Math.min(s,2),`Good: ${txLmDesc(L)}.`,p);return;}
+ M.tries++;sfx&&sfx('buzz');if(M.tries>=3){txProcReveal(0,`Not there: you were on the ${txLmDesc(L)}.`,p);return;}M.fb=`You are on the ${txLmDesc(L)}. ${M.tries===1?'Count the ribs from the sternal angle and try again.':'One more try.'}`;txRender();}
+function txProcMarks(p,ok){THX.lines.clear();if(p){const m=new THREE.Mesh(new THREE.SphereGeometry(.55,14,10),new THREE.MeshBasicMaterial({color:ok?0x7dff9a:0xff5a5a,depthTest:false}));m.renderOrder=11;m.position.copy(p);THX.lines.add(m);}}
+function txProcReveal(stars,lead,p){const M=THX.mis;M.done=true;M.edgeAsk=false;txStars(M.id,stars);const ip=txIdealP(M);THX.mark.position.copy(ip);THX.mark.visible=true;THX.skinGlass=true;THX.lay.bones=true;THX.lay.heart=true;THX.lungs=1;
+ txProcMarks(p,stars>0);txDrawLines();M.fb=`<b>${lead}</b> ${stars?'★'.repeat(stars):''}<br>${M.why}`;txApply();txRender();}
+function txEdge(e){const M=THX.mis;const ok=e==='above';M.fb=ok?'<b>Yes: just above the rib below.</b> The intercostal vein, artery and nerve run in the costal groove under the lower border of each rib (vein on top, then artery, then nerve), so the upper border of the rib below is the safe side.':'<b>Not that edge.</b> The intercostal vein, artery and nerve run in the costal groove under the lower border of each rib; going in just under the rib above risks the intercostal artery. Go in just above the rib below.';
+ if(ok)sfx&&sfx('chime');else sfx&&sfx('buzz');const s=ok?M.siteStars:Math.min(1,M.siteStars);M.edgeAsk=false;const keep=M.fb;txProcReveal(s,`Site: ${txLmDesc(M.lastL)}.`,M.last);M.fb=keep+'<br>'+M.fb;txRender();}
+function txDrawLines(){const mat=new THREE.LineBasicMaterial({color:0xffc861,transparent:true,opacity:.9,depthTest:false});const add=P=>{const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(P),mat);l.renderOrder=10;THX.lines.add(l);};
+ for(const s of[1,-1]){const P=[];for(let y=6;y>=-12;y-=.5)P.push(txSkinP(txPhAtX(s*TXMCL,y),y).add(new V3(0,0,.05)));add(P);
+  for(const th of[.69,.5,.31]){const Q=[];for(let y=1;y>=-13;y-=.5)Q.push(txSkinAtTheta(th*Math.PI,y,s).multiplyScalar(1.004));add(Q);}}}
+function txMisFrame(dt){const M=THX.mis;if(THX.dotPath){const d=THX.dotPath;d.t=Math.min(1,d.t+dt*9/Math.max(1,d.L));THX.dot.position.copy(d.cv.getPointAt(d.t));}
+ if(M&&M.type==='tag'&&!M.done){M.left-=dt;const el=$('txTimer');if(el)el.textContent=Math.max(0,Math.ceil(M.left))+' s';if(M.left<=0){M.left=0;txTagEnd();}}}
+
 /* ===== Main loop ===== */
 let last=performance.now(),last0=last,time=0,hudT=0,fpsAcc=0,fpsN=0,lowQ=false;
 function frame(now){
  requestAnimationFrame(frame);
  let dt=Math.min(.05,(now-last)/1000);last=now;
  if(BRAIN.open){brainFrame(dt||1/60);return;}
+ if(THX.open){thxFrame(dt||1/60);return;}
  if(paused)dt=0;
  if(study)dt*=study.frozen?0:study.rate; // slow-motion heartbeat while studying a valve
  update(dt);
@@ -6676,7 +7530,7 @@ $('go').onclick=()=>{
 switchWorld(BLOOD,nodeIdx[13]-10);renderObj();renderPt();
 requestAnimationFrame(frame);
 deckLoad();
-window.__IV={BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
