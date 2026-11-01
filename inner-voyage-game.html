@@ -2765,11 +2765,15 @@ const CELLS_NS={
   meshes:[new THREE.InstancedMesh(new THREE.SphereGeometry(.13,8,6),new THREE.MeshStandardMaterial({color:0xdff3f0,roughness:.3,emissive:0x1e3a3a}),220)]},
 };
 const LYD={interstitium:.12,lymphcap:.3,collecting:.35,subcap:.8,cortsinus:1,medsinus:.9,efferent:.8,cisterna:.45,thoracic:.45,venangle:.45};
+/* cells: a wet membrane catches a bright edge where it turns away from you (fresnel), and a clear-coat highlight; fog still swallows distant ones */
+function cellMat(o){const m=new THREE.MeshPhysicalMaterial(Object.assign({roughness:.34,metalness:0,clearcoat:.65,clearcoatRoughness:.22},o.p));const rim=o.rim||[1,.55,.48],k=o.k||.32;
+ m.onBeforeCompile=sh=>{sh.fragmentShader=sh.fragmentShader.replace('#include <fog_fragment>',`{float fr=pow(1.-abs(dot(normal,normalize(vViewPosition))),2.6);gl_FragColor.rgb+=vec3(${rim.join(',')})*fr*${k.toFixed(3)};${o.glass?'gl_FragColor.a=clamp(gl_FragColor.a+fr*.55,0.,1.);':''}}
+#include <fog_fragment>`);};m.customProgramCacheKey=()=>'cell'+rim.join('_')+k+(o.glass?'g':'');return m;}
 const CELLS={
  rbc:{n:1000,ahead:90,behind:40,rmax:.92,speedK:1,clear:.72,size:.6,
-  meshes:[new THREE.InstancedMesh(rbcGeometry(),new THREE.MeshStandardMaterial({roughness:.38,metalness:0,emissive:0x1a0000}),1000)]},
+  meshes:[new THREE.InstancedMesh(rbcGeometry(),cellMat({p:{emissive:0x140000,sheen:.6,sheenRoughness:.5,sheenColor:new THREE.Color(.9,.35,.3)}}),1000)]},
  platelet:{n:200,ahead:70,behind:30,rmax:.92,speedK:1,clear:.3,size:.2,
-  meshes:[new THREE.InstancedMesh(at(blob(.2,.06,6,9,18,12),0,0,0).scale(1,.38,1),new THREE.MeshStandardMaterial({color:0xd8cda6,roughness:.6,emissive:0x1c1606}),200)]},
+  meshes:[new THREE.InstancedMesh(at(blob(.2,.06,6,9,18,12),0,0,0).scale(1,.38,1),cellMat({p:{color:0xe4dcc8,roughness:.2,emissive:0x16120a,transparent:true,opacity:.62,depthWrite:false},rim:[.95,.95,1],k:.5,glass:1}),200)]},
  wbc:{n:14,ahead:130,behind:50,speedK:.22,clear:1.1,size:1.05,wall:true,
   meshes:[new THREE.InstancedMesh(neuInner,innerMat,14),new THREE.InstancedMesh(blob(1.05,.06,11,1),memMat(0xdcd6e4,.5),14)]},
  lymph:{n:7,ahead:130,behind:50,rmax:.75,speedK:.8,clear:.8,size:.7,
@@ -3168,7 +3172,7 @@ Object.assign(CELLS,CELLS_RN);buildSphincters();buildGlottis();buildSacCap();bui
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
  D.meshes.forEach((m,mi)=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);m.frustumCulled=false;m.renderOrder=mi;scene.add(m);});return D;});
-const VEN=new THREE.Color(.30,.015,.045),ART=new THREE.Color(.95,.07,.07),tmpC=new THREE.Color();
+const VEN=new THREE.Color(.24,.018,.04),ART=new THREE.Color(.66,.055,.05),tmpC=new THREE.Color();
 let playerS=0; // continuous sample index of the probe
 // pulsatile flow: every segment's speed follows the same cardiac clock
 let _avO=0,_sys=0;
