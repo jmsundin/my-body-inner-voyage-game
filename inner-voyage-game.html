@@ -3655,6 +3655,12 @@ const CODEX={
   'Ribosomes are made of RNA and protein. Their RNA is made here and put together with proteins brought in from the cytosol.',
   'RNA polymerase I transcribes the rRNA genes (in tandem repeats on the acrocentric chromosomes) into a 45S precursor, cut into 18S, 5.8S and 28S; 5S comes from Pol III. Small nucleolar RNAs guide modification; subunits leave separately through the pores.',
   'A cell growing hard (e.g. liver regenerating after partial hepatectomy) has big nucleoli. Ribosomopathies such as Diamond–Blackfan anaemia come from faults in ribosome assembly.']},
+ nmemb:{title:'Under the plasma membrane',tag:'The cortex · 5 nm of membrane, 100 nm of actin',src:REF.nano,L:[
+  'The inside of the cell’s skin: a thin oily film with a mesh of protein ropes just under it.',
+  'The membrane is two layers of lipid, 4–5 nm thick, with proteins floating in it: pumps, carriers, receptors. Under it runs a mesh of actin filaments that gives the cell its shape. Pits form in it to swallow things from outside.',
+  'The bilayer is asymmetric: phosphatidylserine and PIP₂ face the cytosol (a negative charge that recruits signalling proteins), phosphatidylcholine and sphingomyelin face out; cholesterol sits between the tails. The cortex is F-actin 50–200 nm deep, cross-linked by filamin and α-actinin and tethered to membrane proteins by ERM proteins and spectrin; it keeps ribosomes and organelles out (the clear ectoplasm of light microscopy). Caveolae (60–80 nm flasks of caveolin and cavin) are rare in hepatocytes, abundant in endothelium, adipocytes and muscle.',
+  'A clathrin-coated pit is ~100–150 nm across and takes about a minute to close: AP-2 reads YxxΦ and dileucine signals, ARH reads the NPxY of the LDL receptor; dynamin pinches the neck. Class 4 FH mutations hit that NPxY. On this face the hepatocyte also shows its metabolic wiring: Na⁺/K⁺-ATPase sets the ion gradients; GLUT2 lets glucose through both ways, so the liver takes glucose up after a meal and releases it in fasting; insulin and glucagon receptors decide which.'],
+  rc:'Sizes here are true (1 unit = 8 nm; you are 13 nm long, smaller than most proteins). The cage is drawn complete and still; a real one grows as the pit deepens. The lipids themselves are too small to draw one by one: the floor is textured, not modelled.'},
  endocyt:{title:'Receptor-mediated endocytosis',tag:'How LDL gets in',src:REF.nano,L:[
   'How a cell swallows a particular molecule after catching it on a receptor.',
   'The receptor grabs its target outside, the patch of membrane folds in, and a bubble carries it inside.',
@@ -4111,7 +4117,8 @@ const REGIONS={
  // nanoscale: inside one hepatocyte (b:'m' membrane-bound space; 'c' cytosol; 'x' mitochondrion; 'k' nucleus)
  ndisse:{n:'Space of Disse · the hepatocyte’s surface',s:'Microvilli of the sinusoidal membrane · LDL, VLDL and albumin crossing · fly into the clathrin-coated pit ahead',b:'m'},
  nccp:{n:'Clathrin-coated pit',s:'The cell’s way in: LDL bound to its receptor, a clathrin cage closing round you, dynamin at the neck',b:'m'},
- nendo:{n:'Early endosome',s:'pH ≈ 6: LDL lets go of its receptor; receptors recycle to the surface · a virus-style escape into the cytosol ahead',b:'m'},
+ nendo:{n:'Early endosome',s:'pH ≈ 6: LDL lets go of its receptor; receptors recycle to the surface · a virus-style escape ahead, onto the inside of the plasma membrane',b:'m'},
+ nmemb:{n:'Under the plasma membrane',s:'The cytosolic face of the cell surface, 1 unit = 8 nm · cortical actin, a clathrin cage closing over a new pit, pumps and receptors · the open cytosol is through the door in the far wall',b:'c'},
  ncyto:{n:'Cytosol',s:'Open space: fly anywhere · glycolysis, glycogen rosettes, free ribosomes, microtubules and motors · K: grab a dynein motor toward the cell centre',b:'c'},
  ncyto2:{n:'Cytosol · toward the cell centre',s:'Between the smooth ER and the mitochondria: glycogen, peroxisomes, lysosomes, lipid droplets · the mitochondrion ahead is the one the route enters',b:'c'},
  nrer:{n:'Rough endoplasmic reticulum',s:'Ribosomes on the cytosolic face threading new albumin through Sec61 into the lumen',b:'c'},
@@ -4508,7 +4515,8 @@ const NCNODES=(()=>{const n=[],B=[7000,100,0];
  seg('ndisse','ncmem',[[-32,0,0],[-26,.6,-.4],[-20,1,.2],[-14,.6,.8],[-8,.2,.4],[-3,0,0]],3,[[20,52],[22,92]]);
  seg('nccp','ncclath',[[0,0,0],[3,0,0],[6,0,0],[8.5,0,0],[10.5,0,0]],[2.8,2.6,2.3,1.5,2.4],[[24,96],[34,100]]);                 // the pit, then the dynamin neck
  seg('nendo','ncendo',[[12.5,0,0],[16,0,0],[19.5,0,0],[23,0,0]],3.4,[[36,102],[56,110]]);
- seg('ncyto','nccyt',[[27,0,0],[38,1.5,2],[50,4,5],[62,7,8],[75,10,9],[88,13,7],[100,15,4],[112,15,0],[124,13,-4]],3.5,[[58,112],[70,140],[60,168]]);
+ seg('nmemb','nccyt',[[24.5,0,6],[25,0,14],[25.5,0,24],[26,0,40],[26.7,0,56],[27.4,0,72],[28,0,88],[28.6,0,100]],3.5,[[57,111],[58,113]]);   // under the plasma membrane: a sheet room, 1 unit = 8 nm, over the membrane the pit is in
+ seg('ncyto','nccyt',[[29.5,0,110],[31,0,120],[37,2,126],[50,5,124],[64,8,112],[78,11,94],[92,13,70],[104,15,44],[113,15,20],[120,14,2],[125,13,-6]],3.5,[[58,112],[70,140],[60,168]]);
  seg('nrer','ncrer',[[132,11,-6],[140.8,9.6,-4.8],[149.6,8.2,-3.6],[158.4,6.8,-2.4],[167.2,5.4,-1.2],[176,4,0]],2.4,[[58,172],[48,200]]);   // collinear: the cisterna is a flat disc
  seg('nser','ncser',[[183,3.5,2],[191,3,4],[199,3,6],[207,3.5,8],[215,4.5,10],[222,5.5,12]],[2.4,2.8,2.8,2.8,2.8,2.8],[[50,204],[82,226]]);
  seg('ncyto2','nccyt',[[229,6.5,14],[241,8,18],[254,9.5,21.5],[266,10,23.5],[276,10,24]],3.5,[[84,228],[88,230]]);
@@ -4519,7 +4527,7 @@ const NCNODES=(()=>{const n=[],B=[7000,100,0];
  seg('nnucleo','ncnuc',[[429,14.5,2.4],[440,12,0],[453,8.5,-3],[467,4.5,-6],[481,.5,-8.5],[495,-3,-10],[509,-5.5,-11],[523,-6.5,-11]],3.5,[[136,156],[124,140],[112,130]]);
  seg('nnucleol','ncnol',[[538,-6.5,-11],[550,-6.5,-11],[562,-6.5,-11],[574,-6.5,-11],[586,-6.5,-11]],3,[[110,128],[98,118]]);
  return n;})();
-const NCROOMREGS=['ndisse','nccp','nendo','ncyto','ncyto2','nrer','nmatrix','ngolgi','nnucleo','nnucleol'];
+const NCROOMREGS=['ndisse','nccp','nendo','nmemb','ncyto','ncyto2','nrer','nmatrix','ngolgi','nnucleo','nnucleol'];
 const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false),PIT=buildWorld('pit',PTNODES,[],false),NANO=buildWorld('nano',NCNODES,[],false);PAN.pan=true;panZone();PIT.pit=true;pitZone();NANO.nano=true;nanoZone();NANO.skipIdx=new Uint8Array(NANO.N);for(let i=0;i<NANO.N;i++)NANO.skipIdx[i]=NCROOMREGS.includes(NANO.REG[i])?1:0;const V2ROOMREGS={lung:['acinus','sac','septum'],renal:['bowman'],lymph:['subcap','cortsinus','medsinus'],nerve:['cortex','soma']};for(const Wd of [LUNG,RENAL,LYMPH,NERVE]){const rs=V2ROOMREGS[Wd.name];Wd.skipIdx=new Uint8Array(Wd.N);for(let i=0;i<Wd.N;i++)Wd.skipIdx[i]=rs.includes(Wd.REG[i])?1:0;}{const R=GUT.RANGE,lj=GUT.nodeIdx[GNODES.map(n=>n[5]).lastIndexOf('jejunum')]-6;GUT.skipIdx=new Uint8Array(GUT.N);for(let i=R.jejunum[0];i<lj;i++)GUT.skipIdx[i]=1;GUT.sheetEnd=lj;HEP.skipIdx=new Uint8Array(HEP.N);for(const r of ['zone1','zone2','zone3'])for(let i=HEP.RANGE[r][0];i<=HEP.RANGE[r][1];i++)HEP.skipIdx[i]=1;}HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
 BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;PAN.fog=0x1e0d12;PIT.fog=0x1a0c14;NANO.fog=0x0c0a16;
 useWorld(BLOOD);
@@ -6294,7 +6302,7 @@ function nanoCalc(){const st=NC.stage,stat=st===2?1:st===1?NC.stat:0,f=NC.fast; 
   atp:'≈ 3–5 mM · ATP/ADP ≈ 10',dpsi:'≈ 150–180 mV (matrix negative)',pcsk9:st===0?'normal':stat?'raised (SREBP-2 makes it too)':'high-normal'};}
 // ---- the gates: membranes are drawn as doors; the real traffic uses pores of 2–10 nm ----
 const NCG={pit:0,neck:0,esc:0,omm:0,imm:0,out:0,npc:0,meshes:[]};
-function buildNanoGates(){const R=NANO.RANGE,Wd=NANO;NCG.pit=R.nccp[0];NCG.neck=Wd.nodeIdx[NCNODES.findIndex(n=>n[5]==='nccp')+3];NCG.esc=R.ncyto[0];NCG.omm=R.ncrista[0];NCG.imm=R.nmatrix[0];NCG.out=R.ngolgi[0];NCG.npc=R.nnpc[0]+2;
+function buildNanoGates(){const R=NANO.RANGE,Wd=NANO;NCG.pit=R.nccp[0];NCG.neck=Wd.nodeIdx[NCNODES.findIndex(n=>n[5]==='nccp')+3];NCG.esc=R.nmemb[0];NCG.omm=R.ncrista[0];NCG.imm=R.nmatrix[0];NCG.out=R.ngolgi[0];NCG.npc=R.nnpc[0]+2;
  const Z=new V3(0,0,1),put=(m,i,k)=>{const c=gv(Wd.P,i,new V3()),t=gv(Wd.T,i,new V3()).normalize();m.position.copy(c);m.quaternion.setFromUnitVectors(Z,t);m.scale.setScalar(Wd.R0[i]*(k||1));Wd.group.add(m);NCG.meshes.push(m);return m;};
  const memb=(col,op)=>{const g=new THREE.Group();g.add(new THREE.Mesh(new THREE.CircleGeometry(1.02,40),new THREE.MeshStandardMaterial({color:col,roughness:.25,transparent:true,opacity:op,side:THREE.DoubleSide,depthWrite:false,emissive:0x141008})));
   g.add(new THREE.Mesh(new THREE.TorusGeometry(1.02,.06,8,40),new THREE.MeshStandardMaterial({color:col,roughness:.3,emissive:0x1a140a})));return g;};
@@ -6311,7 +6319,7 @@ function ncBounce(prevS,prevPos){const t=gv(NANO.T,S.idx,new V3());S.pos.copy(pr
 function ncGates(prevS,prevPos){const cross=g=>{const a=prevS-g,b=S.sF-g;if(Math.abs(a)>40||Math.abs(b)>40)return 0;return a<0&&b>=0?1:a>=0&&b<0?-1:0;};
  let c=cross(NCG.pit);if(c>0&&!done.has('ncpit')){complete('ncpit');addCodex('endocyt');toast(nanoCalc().st===1?'Into a clathrin-coated pit. Each LDL particle here is bound by its apoB-100 to an LDL receptor; the adaptor proteins (ARH, AP2) hold the receptor tails while clathrin builds a cage underneath. In case 09 only about half the receptors work, so fewer particles make it in and the rest stay in the blood.':'Into a clathrin-coated pit. LDL particles bound by their apoB-100 to LDL receptors gather here; adaptor proteins (ARH, AP2) hold the receptor tails while clathrin triskelia build a cage underneath. The whole pit is about 100–150 nm across and pinches off within a minute.','good');}
  c=cross(NCG.neck);if(c>0)toastOnce('ncneck','The neck of the pit. Dynamin wraps it in a helical collar and uses GTP to squeeze until the vesicle pinches off. Then the clathrin coat falls away within seconds.','',20);
- c=cross(NCG.esc);if(c>0&&!done.has('ncesc')){complete('ncesc');addCodex('ldlpart');toast('Out of the endosome into the cytosol. Real LDL never does this: at pH 6 it lets go of its receptor, the receptor goes back to the surface (each one makes over a hundred trips) and the LDL goes on to a lysosome, where acid lipase frees its cholesterol. You took the exit some viruses use.','good');}
+ c=cross(NCG.esc);if(c>0&&!done.has('ncesc')){complete('ncesc');addCodex('ldlpart');toast('Out of the endosome, onto the inside of the plasma membrane. Real LDL never does this: at pH 6 it lets go of its receptor, the receptor goes back to the surface (each one makes over a hundred trips) and the LDL goes on to a lysosome, where acid lipase frees its cholesterol. You took the exit some viruses use.','good');}
  c=cross(NCG.omm);if(c>0&&!done.has('ncmito')){complete('ncmito');addCodex('etcN');toast('Through the outer mitochondrial membrane (proteins come in through TOM, small molecules through porin) and into a crista: a pocket of the inner membrane only 20–30 nm wide. Its walls are packed with the respiratory chain; ATP synthase dimers line the curved rim.','good');}
  c=cross(NCG.imm);if(c>0)toastOnce('ncimm','Through the inner membrane: in life almost nothing crosses it without a dedicated carrier (the ATP/ADP translocase, the pyruvate carrier, carnitine shuttles). That is what lets it hold the proton gradient.','',20);
  c=cross(NCG.out);if(c>0)toastOnce('ncout2','Out through both mitochondrial membranes, toward the Golgi near the nucleus. You are now on the far side of the cell from the blood.','',20);
@@ -6373,7 +6381,7 @@ const ncG={
  rsub:()=>{const a=new THREE.SphereGeometry(.4,10,8);a.scale(1.15,.85,1);return mergeGeos([[a,0xd8a070]]);},
 };
 const ncMesh=(k,n,mat)=>[new THREE.InstancedMesh(ncG[k](),mat,n)];
-const NCMEM=['ndisse','nccp','nendo'],NCCYT=['ncyto','nrer','nser','ngolgi'],NCMIT=['ncrista','nmatrix'],NCNUC=['nnpc','nnucleo','nnucleol'];
+const NCMEM=['ndisse','nccp','nendo','nmemb'],NCCYT=['ncyto','nrer','nser','ngolgi'],NCMIT=['ncrista','nmatrix'],NCNUC=['nnpc','nnucleo','nnucleol'];
 const CELLS_NC={
  ldl:{world:'nano',n:70,ahead:40,behind:18,rmax:.85,speedK:.25,spin:.3,clear:.3,size:.5,confine:1,dens:{ndisse:1,nccp:.7,nendo:.5},meshes:ncMesh('ldl',70,NCV({r:.3,e:0x1a1204}))},
  vldl:{world:'nano',n:20,ahead:40,behind:18,rmax:.8,speedK:.2,spin:.2,clear:.5,size:1,confine:1,dens:{ndisse:.4,ngolgi:.15},meshes:ncMesh('vldl',20,NCV({r:.3,e:0x1a1606,op:.92}))},
@@ -6592,7 +6600,7 @@ const REGUM={
  gut:{_:[4500,0],mouth:[4500,40000],pharynx:[4500,25000],oesoph:[4500,20000],les:[4500,15000],stomach:[4500,90000],antrum:[4500,50000],pylorus:[4500,15000],duodenum:[1000,30000],jejunum:[50,25000],ileum:[1000,22000],ileocaecal:[2000,15000],colon:[4500,50000],rectum:[4500,40000]},
  lung:{_:[1700,0],nose:[1700,20000],pharynx:[1700,15000],larynx:[1700,12000],trachea:[1800,18000],carina:[1800,18000],bronchus:[1700,12000],bronchiole:[200,1000],tbronch:[100,500],acinus:[50,350],sac:[45,400],septum:[2.5,0]},
  hep:{_:[3.3,0],hpvein:[3.3,12000],triad:[3.3,50],inlet:[3.3,20],zone1:[3.3,10],zone2:[3.3,10],zone3:[3.3,10],canal:[.5,1],hering:[1,2],ductule:[3,8],bduct:[12,50],hepduct:[1000,5000],cystic:[900,3000],gb:[2500,30000],gbx:[1000,3000],cbd:[1000,6000],cbdp:[1000,5000],ampulla:[900,4000],oddi:[900,3000]},
- nano:{_:[.03,0],ndisse:[.015,.4],nccp:[.02,.12],nendo:[.04,0],ncyto:[.03,0],ncyto2:[.03,0],nrer:[.03,0],nser:[.03,0],ncrista:[.01,.03],nmatrix:[.03,0],ngolgi:[.03,0],nnpc:[.01,.04],nnucleo:[.03,0],nnucleol:[.03,0]},
+ nano:{_:[.03,0],ndisse:[.015,.4],nccp:[.02,.12],nendo:[.04,0],nmemb:[.008,0],ncyto:[.03,0],ncyto2:[.03,0],nrer:[.03,0],nser:[.03,0],ncrista:[.01,.03],nmatrix:[.03,0],ngolgi:[.03,0],nnpc:[.01,.04],nnucleo:[.03,0],nnucleol:[.03,0]},
  pit:{_:[4,0],sha:[4,200],medem:[4,12],stalkpv:[4,40],adlat:[4,15],admed:[4,15],hypov:[4,60],cavsin:[4,5000],ptgap:[4,0],mcax:[.25,1],herring:[.8,8],ppterm:[.4,2],ppcap:[4,12]},
  pan:{_:[4,0],parter:[4,20],islet:[4,10],iap:[4,7],pacinus:[.4,1.5],icd:[1,5],intral:[5,30],interl:[25,150],mpd:[600,3000],ampulla:[900,4000],oddi:[900,3000]},
  renal:{_:[6,0],afferent:[4,18],glom:[4,8],bowman:[10,0],pct:[5,25],thin:[7,15],tip:[7,15],thinasc:[7,15],tal:[6,20],macula:[6,20],dct:[7,25],ccd:[8,40],mcd:[20,150],calyx:[500,8000]},
@@ -6853,7 +6861,7 @@ function sdEll(x,y,z,b){_voa.set(x,y,z).sub(b.c).applyQuaternion(b.qi);const s=b
 function sdPlate(x,y,z,b){_voa.set(x,y,z).sub(b.c).applyQuaternion(b.qi);const rr=Math.hypot(_voa.x,_voa.z);let d=Math.max(rr-b.R,Math.abs(_voa.y)-b.h);if(b.hole)d=Math.max(d,b.hole-rr);return d;}
 function sdSkin(x,y,z,b){const Wd=b.Wd,P=Wd.P,R=Wd.R0;let bd=1e9,bi=b.i0;for(let i=b.i0;i<=b.i1;i+=4){const dx=P[i*3]-x,dy=P[i*3+1]-y,dz=P[i*3+2]-z,dd=dx*dx+dy*dy+dz*dz;if(dd<bd){bd=dd;bi=i;}}
  let d=1e9;for(let i=Math.max(b.i0,bi-4);i<Math.min(b.i1,bi+4);i++){_voa.set(P[i*3],P[i*3+1],P[i*3+2]);_vob.set(P[i*3+3],P[i*3+4],P[i*3+5]);const c=sdCap(x,y,z,_voa,_vob,R[i]+b.pad);if(c<d)d=c;}return d;}
-function bodyD(b,x,y,z){switch(b.t){case 'sph':return sdSph(x,y,z,b.c,b.r);case 'cap':return sdCap(x,y,z,b.a,b.b,b.r);case 'ell':return sdEll(x,y,z,b);case 'plate':return sdPlate(x,y,z,b);case 'skin':return sdSkin(x,y,z,b);}return 1e9;}
+function bodyD(b,x,y,z){switch(b.t){case 'sph':return sdSph(x,y,z,b.c,b.r);case 'cap':return sdCap(x,y,z,b.a,b.b,b.r);case 'ell':return sdEll(x,y,z,b);case 'plate':return sdPlate(x,y,z,b);case 'skin':return sdSkin(x,y,z,b);case 'sheet':return -sdSheet(b.sh,x,y,z);}return 1e9;}
 // free distance in a room: the shell (inside is free), minus the solid bodies near you, with the pores cut through everything
 function volFree(rm,x,y,z){let d,hit=null;const sh=rm.shell;
  if(sh.t==='sph')d=sh.r-Math.hypot(x-sh.c.x,y-sh.c.y,z-sh.c.z);else if(sh.t==='cap')d=-sdCap(x,y,z,sh.a,sh.b,sh.r);else if(sh.t==='sheet')d=sdSheet(sh,x,y,z);else if(sh.t==='box')d=sdBox(sh,x,y,z);else if(sh.t==='disc')d=sdDisc(sh,x,y,z);else{d=-1e9;const U=sh.parts;for(let k=0;k<U.length;k++){const q=U[k],e=q.r-Math.hypot(x-q.c.x,y-q.c.y,z-q.c.z);if(e>d)d=e;}}
@@ -6893,7 +6901,8 @@ function volSpawn(p,D,rm,sp,mS){const sz=D.size*mS*.5;
  else{const r=sp*Math.cbrt(Math.random());_voa.set(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize();p.pos.copy(S.pos).addScaledVector(_voa,r);if(volFree(rm,p.pos.x,p.pos.y,p.pos.z)<sz+.3)return false;}
  p.vv=p.vv||new V3();p.vv.set(0,0,0);p.age=0;p.live=true;p.vol=rm;p.s=S.sF;p.rf=.5;return true;}
 function volCells(D,dt,time){const rm=VOL.room,sp=(rm.spread||36)*(D.wall?1:D.size<.6?.42:D.size<2.5?.68:1);_seg.subVectors(S.pos,camPos);const segL2=Math.max(_seg.lengthSq(),1e-4);const dn=roomDens(D,rm)*(rm.densK||1)*(D.roomK||1);const mS=propMul(D,S.idx);
- for(let k=0;k<D.a.length;k++){const p=D.a[k];
+ const cap=rm.capByDens?Math.ceil(D.a.length*Math.min(1,dn)):D.a.length;
+ for(let k=0;k<D.a.length;k++){const p=D.a[k];if(k>=cap){if(p.live){p.live=false;hideCell(D,k);}continue;}
   if(!p.live||p.vol!==rm){if(dn<=0||Math.random()>dn*.6||!volSpawn(p,D,rm,sp,mS)){p.live=false;hideCell(D,k);continue;}}
   if(!D.fixed){const j=((D.speedK||0)*9+.3)*dt*8;p.vv.x+=(Math.random()-.5)*j;p.vv.y+=(Math.random()-.5)*j;p.vv.z+=(Math.random()-.5)*j;p.vv.multiplyScalar(Math.exp(-1.6*dt));p.pos.addScaledVector(p.vv,dt);
    if(((k+VOL.frame)&7)===0){const fr=volFree(rm,p.pos.x,p.pos.y,p.pos.z)-D.size*mS*.4;if(fr<0){volGrad(rm,p.pos,_vog);p.pos.addScaledVector(_vog,-fr);const vn=p.vv.dot(_vog);if(vn<0)p.vv.addScaledVector(_vog,-vn*1.5);}}}
@@ -6926,7 +6935,8 @@ function volTick(dt){const rm=VOL.room,on=!!rm;VOL.frame++;
 // --- rooms ---
 function bodyBounds(b){if(b.t==='sph'){b.bc=b.c;b.br=b.r;}else if(b.t==='cap'){b.bc=b.a.clone().lerp(b.b,.5);b.br=b.a.distanceTo(b.b)/2+b.r;}
  else if(b.t==='ell'){b.bc=b.c;b.br=Math.max(b.s.x,b.s.y,b.s.z);b.qi=b.q.clone().invert();}else if(b.t==='plate'){b.bc=b.c;b.br=Math.hypot(b.R,b.h);b.qi=b.q.clone().invert();}
- else if(b.t==='skin'){const P=b.Wd.P,c=new V3();let n=0;for(let i=b.i0;i<=b.i1;i+=2){c.x+=P[i*3];c.y+=P[i*3+1];c.z+=P[i*3+2];n++;}c.multiplyScalar(1/n);let r=0;for(let i=b.i0;i<=b.i1;i+=2)r=Math.max(r,Math.hypot(P[i*3]-c.x,P[i*3+1]-c.y,P[i*3+2]-c.z)+b.Wd.R0[i]+b.pad);b.bc=c;b.br=r;}return b;}
+ else if(b.t==='skin'){const P=b.Wd.P,c=new V3();let n=0;for(let i=b.i0;i<=b.i1;i+=2){c.x+=P[i*3];c.y+=P[i*3+1];c.z+=P[i*3+2];n++;}c.multiplyScalar(1/n);let r=0;for(let i=b.i0;i<=b.i1;i+=2)r=Math.max(r,Math.hypot(P[i*3]-c.x,P[i*3+1]-c.y,P[i*3+2]-c.z)+b.Wd.R0[i]+b.pad);b.bc=c;b.br=r;}
+ else if(b.t==='sheet'){const sh=b.sh,C=sh.C,c=new V3();for(let k=0;k<sh.n;k++){c.x+=C[k*3];c.y+=C[k*3+1];c.z+=C[k*3+2];}c.multiplyScalar(1/sh.n);let r=0;for(let k=0;k<sh.n;k++)r=Math.max(r,Math.hypot(C[k*3]-c.x,C[k*3+1]-c.y,C[k*3+2]-c.z));b.bc=c;b.br=r+Math.hypot(sh.half,sh.H)+2;}return b;}
 function cutAt(Wd,i,len,r,rs,back){const c=gv(Wd.P,i,new V3()),t=gv(Wd.T,i,new V3()).normalize();return {a:c.clone().addScaledVector(t,-(back||len)),b:c.clone().addScaledVector(t,len),r,rs:rs||r,i};}
 function roomThread(rm){const g=new THREE.Group();const mat=new THREE.MeshBasicMaterial({color:0x8fe8ff,transparent:true,opacity:.45,depthWrite:false,blending:THREE.AdditiveBlending});for(const [a,b] of rm.ranges){const pts=[];for(let i=a;i<=b;i+=4)pts.push(gv(rm.Wd.P,i,new V3()));if(pts.length<2)continue;
   const l=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),pts.length*2,.09,5),mat);l.frustumCulled=false;g.add(l);}
@@ -6961,8 +6971,10 @@ void main(){
   col=uCol*(.75+.35*g);col=mix(col,col*.5,bord*.8);col=mix(col,vec3(.55,.18,.2),sp*.25);col+=vec3(.55,.65,.9)*f*.4;a=uOp*(.88+.12*f);}
  else if(uMode<6.5){float c1=rvn(vW*.45),c2=rvn(vW*.45+vec3(5.2));float bord=1.-smoothstep(0.,.05,abs(c1-c2));float nuc=smoothstep(.7,.78,rvn(vW*.9+vec3(9.)));float fe=smoothstep(.7,.76,rvn(vW*7.));
   col=uCol*(.72+.4*g);col=mix(col,col*.5,bord*.8);col=mix(col,vec3(.5,.28,.42),nuc*.75);col=mix(col,vec3(.9,.84,.8),fe*.35);col+=vec3(.8,.6,.5)*f*.12;a=uOp*(.9+.1*f);}
- else{float c1=rvn(vW*.06),c2=rvn(vW*.06+vec3(5.2));float bord=1.-smoothstep(.02,.09,abs(c1-c2));float nuc=smoothstep(.72,.78,rvn(vW*.2+vec3(9.)));float wet=smoothstep(.5,.8,rvn(vW*.7+vec3(0.,uTime*.04,0.)));float ves=smoothstep(.6,.9,rvn(vW*1.6+vec3(2.)));
+ else if(uMode<7.5){float c1=rvn(vW*.06),c2=rvn(vW*.06+vec3(5.2));float bord=1.-smoothstep(.02,.09,abs(c1-c2));float nuc=smoothstep(.72,.78,rvn(vW*.2+vec3(9.)));float wet=smoothstep(.5,.8,rvn(vW*.7+vec3(0.,uTime*.04,0.)));float ves=smoothstep(.6,.9,rvn(vW*1.6+vec3(2.)));
   col=uCol*(.72+.36*g);col=mix(col,col*.3,bord*.9);col=mix(col,vec3(.4,.18,.3),nuc*.8);col=mix(col,col*.8,ves*.35);col+=vec3(.9,.8,.8)*f*.28+vec3(.16,.13,.12)*wet;a=uOp*(.9+.1*f);}
+ else{float hd=rvn(vW*3.1),hd2=rvn(vW*6.3+vec3(7.));float grain=.5+.5*(hd*.6+hd2*.4);float sp=smoothstep(.62,.74,rvn(vW*1.1+vec3(0.,uTime*.02,0.)))*uStud;float ps=smoothstep(.55,.9,rvn(vW*.5+vec3(3.)));
+  col=uCol*(.58+.5*grain);col=mix(col,vec3(.92,.74,.52),ps*.3);col+=vec3(.55,.7,1.)*f*.45+uCol*sp*.5;a=uOp*(.92+.08*f);}
  col+=(uCol*lam*1.1+vec3(.3,.26,.2)*lam*lam)*uLamp;a+=lam*.3*uOp*uLamp;
  float dist=length(uCam-vW);float fg=1.-exp(-uFogD*dist);col=mix(col,uFog,fg);a*=1.-fg*.7;
  gl_FragColor=vec4(col,a);}`;
@@ -6986,7 +6998,7 @@ function canvasTex(w,h,draw){const cv=document.createElement('canvas');cv.width=
    The endosome, the cytosol (with the Golgi), the mitochondrial matrix and the nucleus are rooms; the coated pit, the ER and the crista and
    nuclear-pore channels stay tubes. The furniture is at true scale for 1 unit = 30 nm: mitochondria 0.6 × 1.5–2 µm, peroxisomes 0.5 µm,
    lysosomes 0.3–0.6 µm, lipid droplets ~1 µm, glycogen rosettes 150 nm, microtubules 25 nm wide, the nucleus 7 µm, the cell 25 µm. */
-const ncR=r=>r==='ncyto2'?'ncyto':r;
+const ncR=r=>r==='ncyto2'||r==='nmemb'?'ncyto':r;
 const NCR={};
 const NCTEX={
  mito:()=>canvasTex(256,256,(c,w,h)=>{c.fillStyle='#e8906e';c.fillRect(0,0,w,h);for(let y=0;y<h;y+=14){c.fillStyle='rgba(120,40,30,.35)';c.fillRect(0,y+4+Math.sin(y*.3)*2,w,5);c.fillStyle='rgba(255,210,180,.18)';c.fillRect(0,y,w,2);}
@@ -7001,12 +7013,12 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  const G=Wd.group,PM=(o)=>new THREE.MeshPhysicalMaterial(Object.assign({roughness:.42,clearcoat:.35,clearcoatRoughness:.4},o)),SM=(o)=>new THREE.MeshStandardMaterial(o);
  // --- doorways: each one is cut through the shell and the furniture, and discarded by the membrane shader ---
  const r0=i=>Wd.R0[i];
- const cPit=cutAt(Wd,R.nccp[0],6,r0(R.nccp[0])+.2,r0(R.nccp[0])+1.4),cNeck=cutAt(Wd,R.nendo[0],5,r0(R.nendo[0]-1)+.2,r0(R.nendo[0]-1)+1),cEsc=cutAt(Wd,R.ncyto[0],5,2.4,3);
+ const cPit=cutAt(Wd,R.nccp[0],6,r0(R.nccp[0])+.2,r0(R.nccp[0])+1.4),cNeck=cutAt(Wd,R.nendo[0],5,r0(R.nendo[0]-1)+.2,r0(R.nendo[0]-1)+1),cEsc=cutAt(Wd,R.nmemb[0],5,2.4,3),cCor=cutAt(Wd,R.ncyto[0],6,3,3.4,6);   // cEsc: endosome → under the membrane; cCor: the cortex box → the open cytosol
  const cRer=cutAt(Wd,R.nrer[0],5,2.4,2.7),cSer=cutAt(Wd,R.ncyto2[0],6,r0(R.ncyto2[0]-1)+.2,r0(R.ncyto2[0]-1)+1);
  const cOmm=cutAt(Wd,R.ncrista[0],5,2.2,2.6),cImm=cutAt(Wd,R.nmatrix[0],5,2.4,3),cOut=cutAt(Wd,R.ngolgi[0],6,3.2,3.6);
  const npcI=Math.round((R.nnpc[0]+R.nnpc[1])/2),cNpc=cutAt(Wd,npcI,11,r0(npcI)+.2,r0(npcI)+1.3,(npcI-R.nnpc[0])*Wd.DS+6);   // long enough to open both ends of the pore channel
  // --- the endosome: a vesicle 0.4 µm across; you are inside it, then it is furniture in the cytosol ---
- const e0=pt(R.nendo[0]),e1=pt(R.ncyto[0]),eC=e0.clone().lerp(e1,.5),eR=e0.distanceTo(e1)/2+.25;
+ const e0=pt(R.nendo[0]),e1=pt(R.nmemb[0]),eC=e0.clone().lerp(e1,.5),eR=e0.distanceTo(e1)/2+.25;
  const endoMesh=new THREE.Mesh(new THREE.SphereGeometry(eR,48,32),roomMat(0xd8a0b8,.75,[cNeck,cEsc]));endoMesh.position.copy(eC);G.add(endoMesh);
  NCR.endo=addRoom(Wd,{id:'nendo',regs:['nendo'],shell:{t:'sph',c:eC,r:eR},cuts:[cNeck,cEsc],spread:9,densK:1.6,fog:0x16101a,fogD:.03,env:'membenv',shellName:'Endosome membrane',shellSub:'a bilayer with LDL receptors letting go of their cargo, V-ATPase pumping protons in, Rab5 on the outside',
   onEnter(){toastOnce('volHint','Open space. You are out of the tube: fly anywhere, the organelles are solid. The dashed thread shows the route on (I toggles it; autopilot F follows it).','',600);}});
@@ -7028,11 +7040,12 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  skinMesh(Wd,R.nser[0],R.nser[1],.5,PM({color:0xd8c8a8,roughness:.3,clearcoat:.6,emissive:0x16120a}));
  skinMesh(Wd,R.nnpc[0],R.nnpc[1],.6,PM({color:0xa8c8e8,roughness:.4,emissive:0x0a1828}));
  // the furniture: placed by rejection sampling, clear of the route, the tubes, the nucleus and each other
+ const memPts=[];for(let i=R.nmemb[0];i<=R.nmemb[1];i+=6)memPts.push(pt(i));
  const pathPts=[];for(const r of ['ncyto','ncyto2','ngolgi'])for(let i=R[r][0];i<=R[r][1];i+=4)pathPts.push(pt(i));
  const skinPts=[];for(const r of ['nccp','nrer','nser','nnpc'])for(let i=R[r][0];i<=R[r][1];i+=4)skinPts.push([pt(i),Wd.R0[i]]);
  const serPts=skinPts.filter(([q])=>{let i=R.nser[0];return q.distanceTo(pt(i))<60||q.distanceTo(pt(R.nser[1]))<60;}).map(x=>x[0]);
  const placed=[];
- const clearOf=(p,m)=>{if(p.distanceTo(cC)>cR-m-2)return false;for(const q of pathPts)if(q.distanceTo(p)<m+6)return false;for(const [q,r] of skinPts)if(q.distanceTo(p)<m+r+2.5)return false;
+ const clearOf=(p,m)=>{if(p.distanceTo(cC)>cR-m-2)return false;for(const q of pathPts)if(q.distanceTo(p)<m+6)return false;for(const q of memPts)if(q.distanceTo(p)<m+60)return false;for(const [q,r] of skinPts)if(q.distanceTo(p)<m+r+2.5)return false;
   if(p.distanceTo(nC)<nR+m+1.5)return false;if(sdCap(p.x,p.y,p.z,mA,mB,mBR)<m+2)return false;if(p.distanceTo(eC)<eR+m+2)return false;
   for(const [q,r] of placed)if(q.distanceTo(p)<(r+m)*.92)return false;return true;};
  const randIn=(m,near)=>{for(let k=0;k<40;k++){let p;if(near&&rng()<.6){const q=near[Math.floor(rng()*near.length)];p=new V3(rng()-.5,rng()-.5,rng()-.5).normalize().multiplyScalar(8+rng()*45).add(q);}
@@ -7046,6 +7059,7 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  inst(new THREE.CapsuleGeometry(1,3,5,12),mitoMat,mitos,(b,p,q,s)=>{p.copy(b.a).lerp(b.b,.5);q.setFromUnitVectors(new V3(0,1,0),b.ax);s.set(b.r,(b.L+2*b.r)/5,b.r);});
  // rough ER stacks: flattened cisternae, ribosomes on the outside
  const rers=[];for(let k=0;k<Math.round(340*K);k++){const sx=34+rng()*22,sy=4.5+rng()*2,sz=22+rng()*16,m=Math.max(sx,sz);const c=randIn(m*.45);if(!c)continue;const q=new THREE.Quaternion().setFromEuler(new THREE.Euler(rng()*6.3,rng()*6.3,rng()*6.3));
+  {const qi=q.clone().invert(),e=new V3();let onPath=false;for(const pp of pathPts){if(pp.distanceTo(c)>m+8)continue;e.copy(pp).sub(c).applyQuaternion(qi);if(Math.hypot(e.x/(sx+7),e.y/(sy+7),e.z/(sz+7))<1){onPath=true;break;}}if(onPath)continue;}
   placed.push([c,sy+4]);rers.push({t:'ell',c,s:new V3(sx,sy,sz),q,name:'Rough ER stack',sub:'flattened cisternae a few hundred nm apart · ribosomes on the cytosolic face threading albumin and clotting factors into the lumen',size:fmtUm(2*m*.03)+' across',codex:'nrer',env:'erenv'});}
  inst(new THREE.SphereGeometry(1,28,18),PM({color:0xffffff,map:NCTEX.rer(),roughness:.55,clearcoat:.15,emissive:0x120a16}),rers,(b,p,q,s)=>{p.copy(b.c);q.copy(b.q);s.copy(b.s);});
  // lipid droplets, peroxisomes, lysosomes
@@ -7061,7 +7075,7 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  inst(new THREE.DodecahedronGeometry(1,0),SM({color:0xd8a0d0,roughness:.65,emissive:0x160a16}),glys,(b,p,q,s)=>{p.copy(b.c);q.setFromEuler(new THREE.Euler(rng()*3,rng()*3,0));s.setScalar(b.r);});
  // the centrosome and its microtubules
  const cs=new V3(7400,160,70);const mts=[];for(let k=0;k<Math.round(64*K);k++){const dir=rdir();const len=90+rng()*230;const a=cs.clone().addScaledVector(dir,5),b=cs.clone().addScaledVector(dir,len);
-  if(b.distanceTo(cC)>cR-4||sdCap(nC.x,nC.y,nC.z,a,b,0)<nR+3)continue;let ok=true;for(const q of pathPts)if(sdCap(q.x,q.y,q.z,a,b,0)<7){ok=false;break;}for(let j=0;j<=8&&ok;j++){const q=a.clone().lerp(b,j/8);if(sdCap(q.x,q.y,q.z,mA,mB,mBR)<2.5||q.distanceTo(eC)<eR+2)ok=false;}if(!ok)continue;
+  if(b.distanceTo(cC)>cR-4||sdCap(nC.x,nC.y,nC.z,a,b,0)<nR+3)continue;let ok=true;for(const q of pathPts)if(sdCap(q.x,q.y,q.z,a,b,0)<7){ok=false;break;}for(const q of memPts)if(ok&&sdCap(q.x,q.y,q.z,a,b,0)<60){ok=false;break;}for(let j=0;j<=8&&ok;j++){const q=a.clone().lerp(b,j/8);if(sdCap(q.x,q.y,q.z,mA,mB,mBR)<2.5||q.distanceTo(eC)<eR+2)ok=false;}if(!ok)continue;
   mts.push({t:'cap',a,b,r:.55,dir,len,name:'Microtubule',sub:'13 protofilaments of tubulin · minus end at the centrosome, plus end toward the membrane · kinesin walks out, dynein walks in',size:'25 nm wide · '+fmtUm(len*.03)+' long',codex:'motors',env:'erenv'});}
  inst(new THREE.CylinderGeometry(1,1,1,7),SM({color:0x8ad0b8,roughness:.5,emissive:0x08140e}),mts,(b,p,q,s)=>{p.copy(b.a).lerp(b.b,.5);q.setFromUnitVectors(new V3(0,1,0),b.dir);s.set(b.r,b.len-5,b.r);});
  const cent=[];for(let k=0;k<2;k++){const ax=k?new V3(1,0,0):new V3(0,0,1),c=cs.clone().addScaledVector(k?new V3(0,0,1):new V3(1,0,0),k?6:-2);const a=c.clone().addScaledVector(ax,-3.5),b=c.clone().addScaledVector(ax,3.5);
@@ -7096,7 +7110,8 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  NCR.nucleus=addRoom(Wd,{id:'nnucleo',regs:['nnucleo','nnucleol'],shell:{t:'sph',c:nC,r:nR},bodies:[nucleolus,...spk],cuts:[cNpc],spread:40,densK:2.2,fog:0x14102a,fogD:.018,env:'nucenv',shellName:'Nuclear envelope · inner face',shellSub:'the inner membrane with the lamina (lamins A/C and B) under it and heterochromatin tethered to it'});
  // the cytosol room itself (after its furniture): the plasma membrane is the shell
  B.push(...mitos,...rers,...lips,...pers,...lyss,...glys,...mts,...cent,...golg);
- NCR.cyto=addRoom(Wd,{id:'ncyto',regs:['ncyto','ncyto2','ngolgi'],shell:{t:'sph',c:cC,r:cR},bodies:B,cuts:[cPit,cEsc,cRer,cSer,cOmm,cOut,cNpc],spread:40,densK:2.4,fog:0x1c1830,fogD:.016,env:'membenv',shellName:'Plasma membrane · cytosolic face',shellSub:'the inside of the cell surface: cortical actin, membrane proteins, the coated pit you came in by'});
+ NCR.cyto=addRoom(Wd,{id:'ncyto',regs:['ncyto','ncyto2','ngolgi'],shell:{t:'sph',c:cC,r:cR},bodies:B,cuts:[cPit,cEsc,cCor,cRer,cSer,cOmm,cOut,cNpc],spread:40,densK:2.4,fog:0x1c1830,fogD:.016,env:'membenv',shellName:'Plasma membrane · cytosolic face',shellSub:'the inside of the cell surface: cortical actin, membrane proteins, the coated pit you came in by'});
+ NCR.cEsc=cEsc;NCR.cCor=cCor;NCR.eC=eC;NCR.eR=eR;
  const cytoMesh=new THREE.Mesh(new THREE.SphereGeometry(cR,96,64),roomMat(0xe8cf98,.6,[cPit]));cytoMesh.position.copy(cC);G.add(cytoMesh);
  NCR.cyto.extra={cC,cR,nC,nR,eC,eR,mA,mB,mBR,xA,xB,xR,noC,noR,cs,counts:{mito:mitos.length,rer:rers.length,lip:lips.length,perox:pers.length,lyso:lyss.length,gly:glys.length,mt:mts.length,chrom:chrom}};}
 /* ===== Step 2 of "beyond the tunnel" (6 Nov 2026): rooms in the other worlds =====
@@ -7473,7 +7488,7 @@ function shEpiTex(){const t=canvasTex(256,256,(c,w,h)=>{c.fillStyle='#e2a090';c.
  for(let k=0;k<260;k++){const x=rng()*w,y=rng()*h,r=8+rng()*6;c.fillStyle=`rgba(${212+rng()*30|0},${138+rng()*30|0},${128+rng()*26|0},.92)`;c.beginPath();c.arc(x,y,r,0,7);c.fill();c.strokeStyle='rgba(118,48,50,.38)';c.lineWidth=1.3;c.stroke();}
  for(let k=0;k<64;k++){const x=rng()*w,y=rng()*h;c.fillStyle='rgba(206,228,240,.6)';c.beginPath();c.arc(x,y,3,0,7);c.fill();}});t.repeat.set(2,5);return t;}
 // --- the four sheets ---
-function buildSheets(){buildGutSheet();buildDisseBox();buildRerDisc();buildHepSlab();buildSeptumSheet();}
+function buildSheets(){buildGutSheet();buildDisseBox();buildRerDisc();buildHepSlab();buildSeptumSheet();buildMembSheet();}
 /* Jejunum: the villus forest. 1 unit = 50 µm, so a villus is 11–16 units tall and you fly at 15, just over the tips. The route runs out
    behind the gut, turns and comes back; the floor is a heightfield of mucosa with crypt mouths; the funnel at the far end is a tube again. */
 function buildGutSheet(){const Wd=GUT,R=Wd.RANGE;if(!R.jejunum)return;const K=MOBILE?.5:1,i0=R.jejunum[0],i1=Wd.sheetEnd||R.jejunum[1];
@@ -7565,19 +7580,9 @@ function buildSeptumSheet(){const Wd=LUNG,R=Wd.RANGE,LR=V2.lung;if(!R.septum||!R
  const sh=shPrep({t:'sheet',Wd,i0,i1,h0:7,H:44,half:30});
  // the last alveolus and the atrium behind it stay free space in this room too, so the handover from the sac is seamless
  sh.bowls=LR.parts.filter(q=>q.c.distanceTo(pt(b1))<11).map(q=>({a:q.c,b:q.c.clone().addScaledVector(_shY,.01),r:q.r}));
- const cIn=LR.cSep,DSs=Wd.DS,n=sh.n,sLen=(n-1)*DSs,U=new V3(),Vv=new V3();
- const at=(s,v,lift,out)=>{const k=Math.max(0,Math.min(n-1,Math.round(s/DSs)));shV(sh.C,k,out);shV(sh.V,k,Vv);shV(sh.U,k,U);return out.addScaledVector(Vv,v).addScaledVector(U,lift);};
- // --- the capillary honeycomb: a triangular lattice of posts, its dual (the triangle centroids, jittered) joined where triangles share an edge ---
- const a=MOBILE?13:9.5,pts=[],rows=[];
- for(let j=0;;j++){const s=8+j*a*.866;if(s>sLen-8)break;const row=[];for(let i=0;;i++){const v=-sh.half+3+(j&1?a/2:0)+i*a;if(v>sh.half-3)break;row.push(pts.length);pts.push({s,v});}rows.push(row);}
- const tris=[],em=new Map();
- const addT=(p,q,r)=>{if(p===undefined||q===undefined||r===undefined)return;const t=tris.length;tris.push({s:(pts[p].s+pts[q].s+pts[r].s)/3+(rng()-.5)*a*.3,v:(pts[p].v+pts[q].v+pts[r].v)/3+(rng()-.5)*a*.3,out:[]});
-  for(const [x,y] of [[p,q],[q,r],[r,p]]){const key=x<y?x*4096+y:y*4096+x;const l=em.get(key);if(l)l.push(t);else em.set(key,[t]);}};
- for(let j=0;j<rows.length-1;j++){const A=rows[j],B=rows[j+1];for(let i=0;i<Math.max(A.length,B.length);i++){if(j&1){addT(A[i],A[i+1],B[i+1]);addT(A[i],B[i+1],B[i]);}else{addT(A[i],A[i+1],B[i]);addT(A[i+1],B[i+1],B[i]);}}}
- const segs=[],Tm=new V3();
- em.forEach(l=>{if(l.length!==2)return;const t0=tris[l[0]],t1=tris[l[1]];const pa=at(t0.s,t0.v,.55,new V3()),pb=at(t1.s,t1.v,.55,new V3());shV(sh.T,Math.max(0,Math.min(n-1,Math.round((t0.s+t1.s)/2/DSs))),Tm);
-  let A=l[0],B=l[1],a0=pa,b0=pb;if(pb.clone().sub(pa).dot(Tm)<0){A=l[1];B=l[0];a0=pb;b0=pa;}   // blood runs toward the venular (far) end
-  const d=b0.clone().sub(a0),L=d.length();if(L<1)return;d.multiplyScalar(1/L);const sg={a:a0,b:b0,r:1.6,L,d,from:A,to:B};tris[A].out.push(sg);segs.push(sg);});
+ const cIn=LR.cSep;
+ // --- the capillary honeycomb: the dual of a jittered triangular lattice of posts (shHoneycomb), lifted .55 over the floor; blood runs toward the venular (far) end ---
+ const HC=shHoneycomb(sh,{a:MOBILE?13:9.5,rng,r:1.6,lift:.55}),{pts,tris,segs,at,sLen}=HC,U=HC.up;
  const capBodies=segs.map(sg=>({t:'cap',a:sg.a,b:sg.b,r:sg.r,name:'Alveolar capillary',sub:'one segment of the honeycomb: endothelium on a basement membrane it shares with the type I cell above · red cells pass single file, deformed to parachutes · the plasma gap round them is where the oxygen crosses',size:'Ø ≈ 8 µm · segment ≈ 10–15 µm',codex:'septum'}));
  // the ridges are the same film as the floor, bulging over the blood: translucent, so the red cells show through as beads
  capInst(segs,new THREE.MeshPhysicalMaterial({color:0xdca09a,transparent:true,opacity:.5,roughness:.5,clearcoat:.25,clearcoatRoughness:.5,specularIntensity:.3,emissive:0x2a1216,depthWrite:false}),10);
@@ -7600,6 +7605,99 @@ function buildSeptumSheet(){const Wd=LUNG,R=Wd.RANGE,LR=V2.lung;if(!R.septum||!R
  const rm=addRoom(Wd,{id:'lsep',regs:['septum'],shell:sh,bodies:t2.concat(capBodies),cuts:[cIn],spread:22,densK:1.2,nearR:40,camBack:3.2,fog:0x2a1c20,fogD:.028,lightCol:0xffe4d8,hemiCol:0xe0b0b0,groundCol:0x3a1c20,env:'barrier',shellName:'Alveolar surface · type I cell',shellSub:'a film of cytoplasm 0.1–0.3 µm thick over the capillaries, under a monolayer of surfactant · one type I cell covers ~5,000 µm² · the thin side of the blood–gas barrier',
   tick(dt){flow(dt);if(S.idx>=i0+4)toastOnce('shSep','The septum, face on: you have shrunk 18× (1 unit = 2.5 µm) and a red cell is now bigger than you. Under a film of type I cell the capillaries run as a honeycomb; red cells queue through them single file (slowed about 40×). E on a capillary or a type II cell; the crossing into the blood is at the far edge (F follows the thread).','',900);}});
  rm.segs=segs;rm.cells=cells;rm.pores=pores;rm.t2=t2;rm.i0=i0;rm.lattice=pts.length;SH.all.push(rm);SH.sep=rm;}
+/* Nano: under the plasma membrane (step 4c). 1 unit = 8 nm here, 3.75× closer than in the cytosol: the route leaves the endosome through a
+   window onto the cortex, the 100–200 nm of actin-rich cytoplasm under the cell surface, about 700 × 480 nm of it. The floor is the inner
+   leaflet of the bilayer (phosphatidylserine and PIP2 face you); pumps, carriers and receptors stand out of it; cortical actin runs above it in
+   two layers, the lower one tethered to the membrane by ERM proteins; a clathrin cage is closing over a new pit (the way you came in, seen from
+   inside); two caveolae; a microtubule overhead with a kinesin on it. The way on is the door in the far wall, into the open cytosol. */
+// a honeycomb on a sheet: the dual of a jittered triangular lattice of posts, each cell ≈ a wide (the septum's capillaries, the cortical actin).
+// lift is a number or a function of (s,v); segments point along the route (the septum's blood runs that way). Consumes two rng() per triangle.
+function shHoneycomb(sh,o){const rng=o.rng,a=o.a,DSs=sh.Wd.DS,n=sh.n,sLen=(n-1)*DSs,U=new V3(),Vv=new V3(),lf=typeof o.lift==='function'?o.lift:()=>o.lift;
+ const at=(s,v,lift,out)=>{const k=Math.max(0,Math.min(n-1,Math.round(s/DSs)));shV(sh.C,k,out);shV(sh.V,k,Vv);shV(sh.U,k,U);return out.addScaledVector(Vv,v).addScaledVector(U,lift);};
+ const pts=[],rows=[],pad=o.pad===undefined?8:o.pad,vPad=o.vPad===undefined?3:o.vPad,jit=o.jit===undefined?.3:o.jit;
+ for(let j=0;;j++){const s=pad+j*a*.866;if(s>sLen-pad)break;const row=[];for(let i=0;;i++){const v=-sh.half+vPad+(j&1?a/2:0)+i*a;if(v>sh.half-vPad)break;row.push(pts.length);pts.push({s,v});}rows.push(row);}
+ const tris=[],em=new Map();
+ const addT=(p,q,r)=>{if(p===undefined||q===undefined||r===undefined)return;const t=tris.length;tris.push({s:(pts[p].s+pts[q].s+pts[r].s)/3+(rng()-.5)*a*jit,v:(pts[p].v+pts[q].v+pts[r].v)/3+(rng()-.5)*a*jit,out:[]});
+  for(const [x,y] of [[p,q],[q,r],[r,p]]){const key=x<y?x*4096+y:y*4096+x;const l=em.get(key);if(l)l.push(t);else em.set(key,[t]);}};
+ for(let j=0;j<rows.length-1;j++){const A=rows[j],B=rows[j+1];for(let i=0;i<Math.max(A.length,B.length);i++){if(j&1){addT(A[i],A[i+1],B[i+1]);addT(A[i],B[i+1],B[i]);}else{addT(A[i],A[i+1],B[i]);addT(A[i+1],B[i+1],B[i]);}}}
+ const segs=[],Tm=new V3();
+ em.forEach(l=>{if(l.length!==2)return;const t0=tris[l[0]],t1=tris[l[1]];const pa=at(t0.s,t0.v,lf(t0.s,t0.v),new V3()),pb=at(t1.s,t1.v,lf(t1.s,t1.v),new V3());shV(sh.T,Math.max(0,Math.min(n-1,Math.round((t0.s+t1.s)/2/DSs))),Tm);
+  let A=l[0],B=l[1],a0=pa,b0=pb;if(pb.clone().sub(pa).dot(Tm)<0){A=l[1];B=l[0];a0=pb;b0=pa;}
+  const d=b0.clone().sub(a0),L=d.length();if(L<1)return;d.multiplyScalar(1/L);const sg={a:a0,b:b0,r:o.r,L,d,from:A,to:B};tris[A].out.push(sg);segs.push(sg);});
+ return {pts,tris,segs,at,sLen,rows,up:U};}
+// the ship's "up" for the roll levelling: world up, or the floor normal of a sheet room that asks for it (the membrane floor is a wall of the cell)
+const _vup=new V3();function volUp(){const rm=S.vol;if(rm&&rm.shell.t==='sheet'&&rm.shell.lvl){const sh=rm.shell,k=shNearest(sh,S.pos.x,S.pos.y,S.pos.z);return shV(sh.U,k,_vup);}return _vup.set(0,1,0);}
+function buildMembSheet(){const Wd=NANO,R=Wd.RANGE;if(!R.nmemb||!R.nendo||!NCR.cyto||!NCR.eC||!NCR.cCor)return;const T=v2Tools(Wd,53),{rng,pt,tg,PM,SM,inst,sphInst,capInst,rdir}=T;
+ // the cortex keeps ribosomes and organelles out (the clear ectoplasm of light microscopy): few loose molecules here, and their number follows the density (capByDens)
+ for(const [k,v] of Object.entries({ribo:.025,enz:.06,gkN:.03,glcN:.2,atpN:.2,nadhN:.06,lacN:.06}))if(CELLS_NC[k]&&CELLS_NC[k].dens)CELLS_NC[k].dens.nmemb=v;
+ const eC=NCR.eC,eR=NCR.eR;let i0=R.nmemb[0];while(i0<R.nmemb[1]-40&&pt(i0).distanceTo(eC)<eR+1)i0++;const i1=R.nmemb[1];
+ const sh=shPrep({t:'sheet',Wd,i0,i1,h0:9,H:30,half:30,up:new V3(1,0,0)});sh.lvl=true;
+ sh.bowls=[{a:eC,b:eC.clone().addScaledVector(_shY,.01),r:eR}];   // the endosome stays free space in this room too, so the handover from it is seamless
+ const cEsc=NCR.cEsc,cCor=NCR.cCor,DSs=Wd.DS,n=sh.n,sLen=(n-1)*DSs,U=new V3(),Vv=new V3();
+ const at=(s,v,lift,out)=>{const k=Math.max(0,Math.min(n-1,Math.round(s/DSs)));shV(sh.C,k,out);shV(sh.V,k,Vv);shV(sh.U,k,U);return out.addScaledVector(Vv,v).addScaledVector(U,lift);};
+ const bodies=[],membMat=()=>roomMat(0xe8cf98,.95,[],1,{mode:8,lamp:.6});
+ // --- fixed places on the floor the rest keeps clear of: the forming pit (to the right of the route), two caveolae ---
+ const sD=sLen*.5,vD=12,domeR=9,cageR=11.2;const dc=at(sD,vD,0,new V3()),dUp=U.clone();
+ const cavs=[[sLen*.3,17],[sLen*.78,-16]].map(([s,v])=>({s,v,r:4.2}));
+ const clearSpot=(s,v,m)=>{if(Math.hypot(s-sD,v-vD)<cageR+m)return false;for(const c of cavs)if(Math.hypot(s-c.s,v-c.v)<c.r+m)return false;if(Math.abs(v)<4.5+m&&(s<11||s>sLen-11))return false;return true;};
+ // --- cortical actin: a dense honeycomb mesh just over the membrane (mesh ≈ 60–110 nm), a sparser layer above the route ---
+ const hgt=(s,v)=>2.2+2.6*(.5+.5*Math.sin(s*.41+v*.57)+.3*Math.sin(s*.13-v*.29));
+ const A1=shHoneycomb(sh,{a:MOBILE?10:7,rng,r:.45,lift:hgt,pad:5,vPad:2}),A2=shHoneycomb(sh,{a:MOBILE?20:14,rng,r:.45,lift:(s,v)=>13.5+1.5*Math.sin(s*.23+v*.31),pad:8,vPad:4,jit:.4});
+ const okSeg=(H,m)=>H.segs.filter(sg=>{const t0=H.tris[sg.from],t1=H.tris[sg.to];return clearSpot(t0.s,t0.v,m)&&clearSpot(t1.s,t1.v,m);});
+ const act=okSeg(A1,1.5).concat(okSeg(A2,0));
+ capInst(act,SM({color:0xe8b070,roughness:.55,emissive:0x1a1208}),6);
+ for(const sg of act)bodies.push({t:'cap',a:sg.a,b:sg.b,r:sg.r,name:'Cortical actin filament',sub:'F-actin, 7 nm thick, cross-linked by filamin and α-actinin into a mesh 50–200 nm wide · tethered to the membrane by ERM proteins and spectrin · it gives the surface its shape and stiffness, and it has to be cleared where a pit forms',size:'Ø 7 nm · mesh ≈ 60–110 nm',codex:'nmemb',env:'membenv'});
+ // ERM tethers (ezrin, radixin, moesin): short rods from the membrane up to the lower mesh
+ const erm=[];A1.tris.forEach((t,k)=>{if(k%5||!clearSpot(t.s,t.v,1.5))return;const a=at(t.s,t.v,.2,new V3()),b=at(t.s,t.v,hgt(t.s,t.v),new V3());erm.push({a,b,r:.28});});
+ capInst(erm,SM({color:0xd89090,roughness:.6,emissive:0x1a0c0c}),5);
+ // --- membrane proteins standing out of the inner leaflet; some are named and can be inspected (soft: they do not block you) ---
+ const kinds=[
+  {name:'Na⁺/K⁺-ATPase',col:0x4fb8a8,r:1,n:MOBILE?36:80,named:16,sub:'α and β subunits spanning the bilayer · three Na⁺ out, two K⁺ in per ATP · about a third of a resting cell’s ATP goes here · digoxin blocks it from outside',size:'≈ 10 nm · 110 + 55 kDa',codex:'nmemb'},
+  {name:'GLUT2 transporter',col:0x5a88d8,r:.75,n:MOBILE?40:90,named:14,sub:'twelve transmembrane helices · facilitated diffusion of glucose both ways: after a meal glucose floods in, in fasting the glucose the cell has made leaves',size:'≈ 5 nm · 55 kDa',codex:'nmemb'},
+  {name:'LDL receptor',col:0xe0b050,r:.7,n:MOBILE?30:70,named:14,sub:'seen from inside: its cytoplasmic tail, 50 residues ending in the NPxY signal that ARH reads to pull it into a coated pit · class 4 FH mutations break that signal, so the receptor binds LDL but never enters a pit',size:'tail ≈ 5 nm · 115 kDa',codex:'ldlr'},
+  {name:'Insulin receptor',col:0x9a6ad8,r:1.1,n:MOBILE?24:50,named:12,sub:'a tyrosine kinase dimer · insulin outside makes it phosphorylate itself and IRS proteins in here: glycogen synthesis on, gluconeogenesis off',size:'≈ 12 nm · 320 kDa',codex:'nmemb'},
+  {name:'Glucagon receptor',col:0xe08858,r:.8,n:MOBILE?30:60,named:12,sub:'a G-protein-coupled receptor: glucagon outside, Gs and adenylyl cyclase in here · cAMP, PKA, glycogen breakdown and gluconeogenesis',size:'≈ 5 nm · 55 kDa',codex:'nmemb'},
+  {name:'',col:0xd8c0a0,r:.6,n:MOBILE?60:130,named:0}];
+ let studs=0;for(const K of kinds){const list=[];for(let k=0,tries=0;k<K.n&&tries<K.n*6;tries++){const s=4+rng()*(sLen-8),v=(rng()-.5)*2*(sh.half-2);if(!clearSpot(s,v,.8))continue;const c=at(s,v,.25,new V3()),r=K.r*(.8+rng()*.4),u=U.clone();
+   if(k<K.named)bodies.push({t:'sph',c,r:Math.max(r,.9),soft:true,name:K.name,sub:K.sub,size:K.size,codex:K.codex,env:'membenv'});list.push({c,r,u});k++;}
+  inst(new THREE.IcosahedronGeometry(1,1),PM({color:K.col,roughness:.5,clearcoat:.2,emissive:new THREE.Color(K.col).multiplyScalar(.12).getHex()}),list,(b,p,q,s)=>{p.copy(b.c);q.setFromUnitVectors(_v2Y,b.u);s.set(b.r,b.r*1.4,b.r);});studs+=list.length;}
+ // --- the clathrin-coated pit from the cytosolic side: a dome of membrane under a cage (the dual of an icosphere, pentagons and hexagons; ~40 triskelia show) ---
+ const domeQ=new THREE.Quaternion().setFromUnitVectors(_v2Y,dUp);
+ {const dm=new THREE.Mesh(new THREE.SphereGeometry(domeR,36,20,0,Math.PI*2,0,Math.PI/2),membMat());dm.position.copy(dc);dm.quaternion.copy(domeQ);dm.frustumCulled=false;Wd.group.add(dm);}
+ const ico=new THREE.IcosahedronGeometry(1,1),ip=ico.attributes.position.array,nf=ip.length/9,cen=[],fe=new Map(),key=(x,y,z)=>Math.round(x*1e3)+','+Math.round(y*1e3)+','+Math.round(z*1e3);
+ for(let f=0;f<nf;f++){const c=new V3(),vk=[];for(let j=0;j<3;j++){const o=f*9+j*3;c.x+=ip[o];c.y+=ip[o+1];c.z+=ip[o+2];vk.push(key(ip[o],ip[o+1],ip[o+2]));}cen.push(c.multiplyScalar(1/3).normalize());
+  for(let j=0;j<3;j++){const a=vk[j],b=vk[(j+1)%3],kk=a<b?a+'|'+b:b+'|'+a;const l=fe.get(kk);if(l)l.push(f);else fe.set(kk,[f]);}}
+ const toW=(d,rad)=>dc.clone().add(d.clone().applyQuaternion(domeQ).multiplyScalar(rad));
+ const legs=[],hubs=[];fe.forEach(l=>{if(l.length!==2)return;const a=cen[l[0]],b=cen[l[1]];if(a.y<.02||b.y<.02)return;legs.push({a:toW(a,cageR),b:toW(b,cageR),r:.36});});
+ cen.forEach(c=>{if(c.y>=.02)hubs.push({c:toW(c,cageR),r:.55});});
+ const clMat=SM({color:0xc8d0f0,roughness:.4,emissive:0x182040});capInst(legs,clMat,6);sphInst(hubs,clMat,new THREE.IcosahedronGeometry(1,1));
+ const aps=[],tails=[];for(let k=0;k<22;k++){const d=rdir();if(d.y<.15)continue;aps.push({c:toW(d,10.1),r:.7});}for(let k=0;k<30;k++){const d=rdir();if(d.y<.1)continue;tails.push({c:toW(d,domeR+.3),r:.45});}
+ sphInst(aps,PM({color:0x9ac0e8,roughness:.5,emissive:0x101828}),new THREE.IcosahedronGeometry(1,1));sphInst(tails,PM({color:0xe0b050,roughness:.5,emissive:0x1c1404}),new THREE.IcosahedronGeometry(1,1));
+ bodies.push({t:'sph',c:dc,r:cageR+.5,name:'Clathrin-coated pit · forming',sub:'seen from the cytosolic side: a dome of membrane pulled in under a cage of clathrin triskelia (three legs each, ~47 nm) · AP-2 and ARH between cage and membrane hold LDL receptor tails by their NPxY signal · the actin round it has been cleared · dynamin will pinch the neck',size:'≈ 150 nm across · closes in about a minute',codex:'nccp',env:'membenv'});
+ // --- two caveolae: 60–80 nm flasks striped with caveolin and cavin (few in hepatocytes) ---
+ for(const cv of cavs){const c=at(cv.s,cv.v,3.2,new V3()),u=U.clone(),q=new THREE.Quaternion().setFromUnitVectors(_v2Y,u);
+  const m=new THREE.Mesh(new THREE.SphereGeometry(cv.r,24,16),membMat());m.position.copy(c);m.quaternion.copy(q);Wd.group.add(m);
+  const nk=new THREE.Mesh(new THREE.CylinderGeometry(2.1,2.7,3.2,20,1,true),membMat());nk.position.copy(c).addScaledVector(u,-1.6);nk.quaternion.copy(q);Wd.group.add(nk);
+  for(let j=0;j<3;j++){const rg=new THREE.Mesh(new THREE.TorusGeometry(Math.sqrt(Math.max(.5,cv.r*cv.r-Math.pow((j-.4)*1.4,2)))+.25,.2,6,36),SM({color:0xd0a8c8,roughness:.5,emissive:0x1a1018}));rg.position.copy(c).addScaledVector(u,(j-.4)*1.4);rg.quaternion.copy(q);rg.rotateX(Math.PI/2);Wd.group.add(rg);}
+  bodies.push({t:'sph',c,r:cv.r+.4,soft:true,name:'Caveola',sub:'a 60–80 nm flask of membrane, striped on this side with caveolin and cavin · rich in cholesterol and sphingolipids · endocytosis without clathrin, and a reserve of membrane for stretch · hepatocytes have few; endothelium, fat and muscle are full of them',size:'≈ 65 nm across',codex:'nmemb',env:'membenv'});}
+ // --- a microtubule overhead, plus end toward the membrane, with a kinesin carrying a vesicle out to the surface ---
+ const mA=at(14,-5,18,new V3()),mB=at(sLen-6,6,18.6,new V3()),mDir=mB.clone().sub(mA).normalize();
+ capInst([{a:mA,b:mB,r:1.5}],SM({color:0x8ad0b8,roughness:.5,emissive:0x08140e}),9);
+ bodies.push({t:'cap',a:mA,b:mB,r:1.5,name:'Microtubule',sub:'13 protofilaments of tubulin, 25 nm across · its plus end grows out toward the membrane and is caught there by +TIP proteins · kinesin walks out along it, dynein back toward the centrosome (K rides one)',size:'25 nm wide',codex:'motors',env:'erenv'});
+ {at(sLen*.62,0,0,new V3());const u=U.clone(),on=mA.clone().lerp(mB,.62),hub=on.clone().addScaledVector(u,1.5),ves=hub.clone().addScaledVector(u,4.8);
+  const km=SM({color:0x78c8ff,roughness:.4,emissive:0x0c1c30});sphInst([{c:hub.clone().addScaledVector(mDir,-.5),r:.55},{c:hub.clone().addScaledVector(mDir,.5),r:.55}],km);capInst([{a:hub,b:ves.clone().addScaledVector(u,-2.6),r:.22}],km,5);
+  const vm=new THREE.Mesh(new THREE.SphereGeometry(3,24,16),PM({color:0xf0d8a8,roughness:.35,clearcoat:.5,transparent:true,opacity:.9,emissive:0x1a1408}));vm.position.copy(ves);Wd.group.add(vm);
+  bodies.push({t:'sph',c:ves,r:3.3,soft:true,name:'Kinesin-1 with a vesicle',sub:'two motor heads stepping 8 nm per ATP along the microtubule toward its plus end, a 50 nm vesicle on the tail: the way out to the surface for new membrane proteins and for VLDL',size:'kinesin ≈ 80 nm long · step 8 nm',codex:'motors',env:'erenv'});}
+ // --- the skins: the inner leaflet (shader look 8) below; a faint haze for the cytosol above and to the sides; the window and the door are holes in the end walls ---
+ const floorMat=roomMat(0xe8cf98,.95,[cEsc,cCor],1,{mode:8,lamp:.6}),hazeMat=roomMat(0x7a6ab0,.14,[],0,{lamp:.2}),wallMat=roomMat(0x7a6ab0,.3,[cEsc,cCor],0,{lamp:.25});
+ shStrip(sh,0,8,floorMat,2,8);shStrip(sh,sh.H,8,hazeMat,3,4);shSide(sh,-1,8,hazeMat,3);shSide(sh,1,8,hazeMat,3);shEnd(sh,0,8,0,wallMat);shEnd(sh,1,8,0,wallMat);
+ // a faint ring marks the door in the far wall (the window has the membrane disc from buildNanoGates)
+ {const dr=new THREE.Mesh(new THREE.TorusGeometry(3.4,.14,8,40),SM({color:0xb8a8ff,emissive:0x302860,transparent:true,opacity:.7,depthWrite:false}));dr.position.copy(pt(R.ncyto[0]));dr.quaternion.setFromUnitVectors(new V3(0,0,1),tg(R.ncyto[0]));Wd.group.add(dr);}
+ const rm=addRoom(Wd,{id:'nmemb',regs:['nmemb'],shell:sh,bodies,cuts:[cEsc,cCor],spread:24,densK:.8,capByDens:true,nearR:28,camBack:3,fog:0x1c1830,fogD:.035,lightCol:0xd8d0ff,hemiCol:0x9a90c8,groundCol:0x2a2030,env:'membenv',shellName:'Plasma membrane · inner leaflet',shellSub:'the cytosolic face of the bilayer, 4–5 nm thick: phosphatidylserine and PIP₂ on this side (so it is negatively charged), phosphatidylcholine and sphingomyelin outside, cholesterol between the tails · 1 unit = 8 nm',
+  tick(dt){if(S.idx>=i0+4)toastOnce('shMemb','Under the plasma membrane: 1 unit is 8 nm now and you are 13 nm long, smaller than most of the proteins here. The floor is the inner leaflet of the bilayer; the mesh over it is cortical actin; to the right a clathrin cage is closing over a new pit (the way you came in, seen from inside). E on anything; the open cytosol is through the door in the far wall (F follows the thread).','',900);}});
+ rm.actin=act.length;rm.erm=erm.length;rm.studs=studs;rm.legs=legs.length;rm.hubs=hubs.length;rm.i0=i0;rm.dome={c:dc,r:cageR};SH.all.push(rm);SH.memb=rm;
+ // from the cytosol the cortex is a solid block (3.75× life size out there), with its far door open
+ NCR.cyto.bodies.push(bodyBounds({t:'sheet',sh,name:'Cell cortex · under the plasma membrane',sub:'the 100–200 nm of actin-rich cytoplasm just under the cell surface, shown here 3.75× larger than the cytosol round it (1 unit = 8 nm inside) · the way in is the door at its far end, or the window from the endosome',size:'≈ 0.7 × 0.5 µm of membrane',codex:'nmemb',env:'membenv'}));}
 
 /* ===== Real molecular shapes (step 6): low-polygon surfaces computed from Protein Data Bank entries by tools/pdb_shapes.py and served as
    assets/pdb/shapes.json. When the file is there (the game served from a web address) each listed machine swaps its hand-made shape for the
@@ -9022,7 +9120,7 @@ Object.assign(DECKKW,{sha:['superior hypophyseal'],medem:['median eminence','cir
  pitanat:['pituitary','sella turcica','diaphragma sellae'],pitdev:['rathke','craniopharyngioma','prop1','pit1','empty sella'],portalsys:['hypophyseal portal','portal system'],pitcells:['chromophobe','acidophil','basophil','folliculostellate'],hpaaxis:['crh','acth','cortisol','hpa axis','adrenal insufficiency'],hptaxis:['trh','tsh','central hypothyroidism','secondary hypothyroidism'],hpgaxis:['gnrh','kisspeptin','kallmann','hypothalamic amenorrhea','hypothalamic amenorrhoea','hypogonadotropic'],ghaxis:['growth hormone','igf-1','somatomedin','ghrelin','laron'],prlctl:['prolactin','hyperprolactinemia','hyperprolactinaemia','galactorrhea','galactorrhoea','tuberoinfundibular'],feedback:['negative feedback','feedback loop'],adhrel:['osmoreceptor','osmolality','vasopressin release','thirst'],oxytocin:['oxytocin','milk let-down','ferguson'],
  prolactinoma:['prolactinoma','microprolactinoma','macroprolactinoma'],nfpa:['nonfunctioning','non-functioning','stalk effect','pituitary adenoma','incidentaloma'],hypopit:['hypopituitarism','sheehan','apoplexy','hypophysitis','panhypopituitarism'],acromegaly:['acromegaly','gigantism','pegvisomant'],cushingdz:['cushing disease','cushing\'s disease','dexamethasone suppression','petrosal'],avpdef:['diabetes insipidus','central di','avp deficiency','desmopressin','water deprivation'],siadh:['siadh','hyponatremia','hyponatraemia','tolvaptan','osmotic demyelination'],visfield:['bitemporal','hemianopia','optic chiasm','quadrantanopia'],cabergoline:['cabergoline','bromocriptine','dopamine agonist'],tss:['transsphenoidal'],case08:['amenorrhea','amenorrhoea','galactorrhea','galactorrhoea'],
  rbcT:['pituitary infarction'],pltT:['apoplexy'],wbcT:['hypophysitis','ipilimumab','checkpoint inhibitor'],crh:['corticotropin-releasing','crh'],trh:['thyrotropin-releasing','trh'],gnrh:['gnrh','leuprolide','leuprorelin','degarelix'],ghrh:['ghrh','tesamorelin'],srif:['somatostatin','octreotide','lanreotide'],dopa:['dopamine','d2 receptor','antipsychotic'],ghT:['growth hormone'],prlT:['prolactin','macroprolactin'],acthT:['acth','pomc','msh'],tshT:['tsh','thyrotropin'],lhT:['luteinizing','luteinising','lh surge'],fshT:['follicle-stimulating','fsh','inhibin'],adhg:['neurophysin'],mitoT:['axonal transport'],avp:['vasopressin','adh','v2 receptor','aquaporin'],oxyT:['oxytocin']});
-Object.assign(DECKKW,{coronary:['coronary','lad ','circumflex','right coronary','rca '],archbr:['brachiocephalic','aortic arch','subclavian','common carotid'],appendix:['appendi','mcburney'],motorunit:['motor unit','henneman','size principle','fasciculation','reinnervat'],follicle:['follicle','germinal cent','b cell zone','b-cell zone'],paracortex:['paracortex','t cell zone','t-cell zone'],hev:['high endothelial','hev'],medcord:['medullary cord','medullary sinus','plasma cell'],pyramidal:['pyramidal','betz','layer v','cortical layer'],nissl:['nissl','chromatolysis'],ncyto2:['cytosol','cytoplasm'],mitoN:['mitochondri','mtdna','melas','merrf','leigh'],perox:['peroxisom','zellweger','adrenoleukodystrophy','refsum'],lyso:['lysosom','gaucher','fabry','niemann','tay-sachs','pompe','i-cell'],lipidd:['lipid droplet','steatosis','fatty liver','perilipin'],centro:['centrosome','centriole','microtubule','kinesin','dynein','vincristine','paclitaxel','colchicine'],ndisse:['space of disse','sinusoid','stellate'],nccp:['clathrin','coated pit','dynamin'],nendo:['endosome','endocytosis'],ncyto:['cytosol','cytoplasm'],nrer:['rough endoplasmic','rer','signal recognition','signal peptide'],nser:['smooth endoplasmic','ser','cytochrome p450','cyp450'],ncrista:['cristae','inner mitochondrial'],nmatrix:['mitochondrial matrix'],ngolgi:['golgi','mannose-6-phosphate','i-cell'],nnpc:['nuclear pore','nuclear localization'],nnucleo:['nucleus','transcription'],nnucleol:['nucleolus','rrna'],
+Object.assign(DECKKW,{coronary:['coronary','lad ','circumflex','right coronary','rca '],archbr:['brachiocephalic','aortic arch','subclavian','common carotid'],appendix:['appendi','mcburney'],motorunit:['motor unit','henneman','size principle','fasciculation','reinnervat'],follicle:['follicle','germinal cent','b cell zone','b-cell zone'],paracortex:['paracortex','t cell zone','t-cell zone'],hev:['high endothelial','hev'],medcord:['medullary cord','medullary sinus','plasma cell'],pyramidal:['pyramidal','betz','layer v','cortical layer'],nissl:['nissl','chromatolysis'],ncyto2:['cytosol','cytoplasm'],mitoN:['mitochondri','mtdna','melas','merrf','leigh'],perox:['peroxisom','zellweger','adrenoleukodystrophy','refsum'],lyso:['lysosom','gaucher','fabry','niemann','tay-sachs','pompe','i-cell'],lipidd:['lipid droplet','steatosis','fatty liver','perilipin'],centro:['centrosome','centriole','microtubule','kinesin','dynein','vincristine','paclitaxel','colchicine'],ndisse:['space of disse','sinusoid','stellate'],nccp:['clathrin','coated pit','dynamin'],nendo:['endosome','endocytosis'],nmemb:['plasma membrane','inner leaflet','cortical actin','phosphatidylserine','pip2','caveol','adaptor protein','ap-2','ap2 ','arh ','na+/k+','sodium-potassium','sodium pump','glut2','insulin receptor','glucagon receptor'],ncyto:['cytosol','cytoplasm'],nrer:['rough endoplasmic','rer','signal recognition','signal peptide'],nser:['smooth endoplasmic','ser','cytochrome p450','cyp450'],ncrista:['cristae','inner mitochondrial'],nmatrix:['mitochondrial matrix'],ngolgi:['golgi','mannose-6-phosphate','i-cell'],nnpc:['nuclear pore','nuclear localization'],nnucleo:['nucleus','transcription'],nnucleol:['nucleolus','rrna'],
  nanocell:['hepatocyte'],endocyt:['receptor-mediated endocytosis','endocytosis'],ldlpart:['ldl','low-density lipoprotein','apob-100','apo b-100'],ldlr:['ldl receptor','pcsk9','evolocumab','alirocumab','inclisiran'],cholsense:['srebp','hmg-coa reductase'],statin:['statin','ezetimibe','hmg-coa reductase inhibitor'],fh:['familial hypercholesterolemia','familial hypercholesterolaemia','xanthoma','corneal arcus'],case09:['familial hypercholesterolemia','tendon xanthoma'],
  glycolysis:['glycolysis','phosphofructokinase','pyruvate kinase'],gluconeo:['gluconeogenesis','pepck','fructose-1,6-bisphosphatase'],glycogenN:['glycogen','von gierke','pompe','cori','mcardle','glycogen storage'],glucokinase:['glucokinase','hexokinase','mody'],etcN:['electron transport','oxidative phosphorylation'],atpsyn:['atp synthase'],tcacyc:['tca cycle','citric acid cycle','krebs'],pdhN:['pyruvate dehydrogenase','thiamine'],betaox:['beta-oxidation','β-oxidation','ketone','carnitine','mcad'],ureacyc:['urea cycle','ornithine transcarbamylase','hyperammonemia','hyperammonaemia'],mtdnaN:['mitochondrial dna','mitochondrial inheritance','heteroplasmy'],ribosome:['ribosome'],motors:['kinesin','dynein','microtubule'],proteasome:['proteasome','ubiquitin'],npcN:['nuclear pore','importin'],chromatin:['histone','chromatin','nucleosome','acetylation'],mrnaN:['splicing','spliceosome','mrna processing','poly-a'],cytoscale:['molecular size']});
 Object.assign(DECKKW,{afferent:['afferent','arteriole','autoregulation','juxtaglomerular','renin','renal blood flow','rbf','prostaglandin','nsaid','ace inhibitor'],glom:['glomerul','filtration','gfr','starling','filtration fraction','inulin','creatinine clearance'],bowman:['bowman','filtrate','ultrafiltrate'],pct:['proximal','pct','sglt','brush border','isosmotic','bicarbonate reabsorption','carbonic anhydrase','acetazolamide','fanconi','pah','secretion'],thin:['descending limb','thin limb','aquaporin-1','aqp1','countercurrent'],tip:['papilla','medulla','osmolality','1200'],thinasc:['ascending limb','thin ascending'],tal:['thick ascending','nkcc2','loop diuretic','furosemide','bartter','romk','single effect','diluting segment'],macula:['macula densa','tubuloglomerular','juxtaglomerular','renin','adenosine'],dct:['distal convoluted','dct','ncc','thiazide','gitelman','pth','calcium reabsorption'],ccd:['collecting duct','principal cell','intercalated','enac','aldosterone','amiloride','spironolactone','liddle','rta'],mcd:['collecting duct','adh','vasopressin','aquaporin-2','aqp2','urea','concentrat'],calyx:['calyx','pelvis','ureter','urothelium','transitional','hydronephrosis'],
@@ -9090,7 +9188,7 @@ function scan(){
  const ping=document.createElement('div');ping.className='ping';document.body.appendChild(ping);setTimeout(()=>ping.remove(),800);sfx('scan');
  if(target){inspect(target,true);return;}
  if(envT){inspectAny(envT);return;}
- let reg=W===NANO?ncR(REG[S.idx]):REG[S.idx];if(reg==='aortic'&&!C.stenosis)reg='aorticN';
+ let reg=W===NANO&&REG[S.idx]!=='nmemb'?ncR(REG[S.idx]):REG[S.idx];if(reg==='aortic'&&!C.stenosis)reg='aorticN';
  addCodex(reg);
 }
 
@@ -9116,7 +9214,7 @@ const TOPICS=[
  ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle','pyramidal','nissl','motorunit']],
  ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc','teeth','tongue','tonsils','palate','appendix']],
  ['lung','Lungs & the pneumonia case',['nose','pharynx','larynx','trachea','carina','bronchus','bronchiole','tbronch','acinus','sac','airwaytree','deadspace','alveolus','surfactant','barrier','septum','vq','hpv','pulmcirc','co2drive','breathsounds','escalator','cough','westzones','pneumonia','case04','scalelung','mucus','dustL','dustM','dustS','gas','amac','neutA','fibrin','rbcA','turbinate','ciliated','bronchiolewall','vocalfold']],
- ['nano','Inside one cell & the FH case',['nanocell','mitoN','perox','lyso','lipidd','centro','ndisse','nccp','nendo','ncyto','nrer','nser','ncrista','nmatrix','ngolgi','nnpc','nnucleo','nnucleol','endocyt','ldlpart','ldlr','cholsense','statin','fh','case09','glycolysis','gluconeo','glycogenN','glucokinase','etcN','atpsyn','tcacyc','pdhN','betaox','ureacyc','mtdnaN','ribosome','motors','proteasome','npcN','chromatin','mrnaN','cytoscale']],
+ ['nano','Inside one cell & the FH case',['nanocell','mitoN','perox','lyso','lipidd','centro','ndisse','nccp','nendo','nmemb','ncyto','nrer','nser','ncrista','nmatrix','ngolgi','nnpc','nnucleo','nnucleol','endocyt','ldlpart','ldlr','cholsense','statin','fh','case09','glycolysis','gluconeo','glycogenN','glucokinase','etcN','atpsyn','tcacyc','pdhN','betaox','ureacyc','mtdnaN','ribosome','motors','proteasome','npcN','chromatin','mrnaN','cytoscale']],
  ['pit','Pituitary & the prolactinoma case',['sha','medem','stalkpv','adlat','admed','hypov','cavsin','mcax','herring','ppterm','ppcap','pitanat','pitdev','portalsys','pitcells','hpaaxis','hptaxis','hpgaxis','ghaxis','prlctl','feedback','adhrel','oxytocin','prolactinoma','nfpa','hypopit','acromegaly','cushingdz','avpdef','siadh','visfield','cabergoline','tss','case08','rbcT','pltT','wbcT','crh','trh','gnrh','ghrh','srif','dopa','ghT','prlT','acthT','tshT','lhT','fshT','adhg','mitoT','avp','oxyT']],
  ['pan','Pancreas & the gallstone pancreatitis case',['parter','islet','iap','pacinus','icd','intral','interl','mpd','isletcells','betacell','insulinsyn','incretin','firstpass','acinarcell','trypsinact','secretin','cftrP','pancanat','pancdev','acutepanc','gallpanc','pancsev','ercp','chronicpanc','pancca','pnet','dm1','dm2','case07','rbcP','pltP','wbcP','monoP','glucP','ins','cpep','iapp','gcg','sst','lipB','zymo','tgen','lip','amy','spink','tryA','hco3P','bileP']],
  ['hep','Liver & the paracetamol case',['hpvein','triad','inlet','zone1','zone2','zone3','canal','hering','ductule','bduct','hepduct','cystic','gb','cbd','cbdp','ampulla','oddi','lobule','dualsupply','lsec','disse','zonation','ureacycle','bilirubin','jaundice','cck','apap','nac','kings','portalhtn','gallstones','case06','rbcH','pltH','wbcH','ubil','nh3','ureaH','glucH','lps','apapM','napqi','gsh','kupffer','stellate','pitc','micH','bili','cholv','crystal','hco3','tryp','cholangio','gbmucosa','oddisph','bileacids']],
@@ -11446,7 +11544,7 @@ function stepShip(dt,time){
  if(assist>0){fwd.set(0,0,-1).applyQuaternion(S.q);tq.setFromUnitVectors(fwd,_t);const id=new THREE.Quaternion();id.slerp(tq,Math.min(1,assist*dt));S.q.premultiply(id);}
  // auto-level roll toward world up (no gravity inside, but keeps the horizon sane)
  fwd.set(0,0,-1).applyQuaternion(S.q);up.set(0,1,0).applyQuaternion(S.q);
- if(Math.abs(fwd.y)<.9){const wu=new V3(0,1,0).addScaledVector(fwd,-fwd.y).normalize();const ang=Math.atan2(new V3().crossVectors(up,wu).dot(fwd),up.dot(wu));tq.setFromAxisAngle(fwd,ang*Math.min(1,dt*2));S.q.premultiply(tq);}
+ {const u0=volUp(),fu=fwd.dot(u0);if(Math.abs(fu)<.9){const wu=new V3().copy(u0).addScaledVector(fwd,-fu).normalize();const ang=Math.atan2(new V3().crossVectors(up,wu).dot(fwd),up.dot(wu));tq.setFromAxisAngle(fwd,ang*Math.min(1,dt*2));S.q.premultiply(tq);}}
  S.q.normalize();
  fwd.set(0,0,-1).applyQuaternion(S.q);up.set(0,1,0).applyQuaternion(S.q);right.set(1,0,0).applyQuaternion(S.q);
  // thrust
@@ -13165,7 +13263,7 @@ async function ivBoot(){
 }
 
 ivBoot();
-window.__IV={get W(){return W;},VOL,V2,SB,SH,CMP,PDBS,LUNG,BLOOD,enterLung,exitLung,volEnv,get warping(){return warping;},pdbLoad,pdbApply,pdbGeo,pdbCredit,CELLS_NC,PV,previewCell,cmpToggle,cmpOpenKey,cmpSlides,cmpKeys,cmpField,cmpView,cmpYou,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={get W(){return W;},VOL,V2,SB,SH,CMP,PDBS,LUNG,BLOOD,enterLung,exitLung,volEnv,volUp,get warping(){return warping;},pdbLoad,pdbApply,pdbGeo,pdbCredit,CELLS_NC,PV,previewCell,cmpToggle,cmpOpenKey,cmpSlides,cmpKeys,cmpField,cmpView,cmpYou,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
