@@ -249,6 +249,26 @@ body.brainOn .hud:not(#toasts),body.brainOn #labels,body.brainOn #slabels,body.b
 #slideView img{max-width:min(96vw,1400px);max-height:62vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 40px #000}#slideView .info{max-width:min(96vw,820px);color:#f4e6e0;font-size:14px;line-height:1.45;overflow-y:auto;max-height:30vh}
 #slideView h3{margin:0 0 2px;font-size:16px}#slideView .meta{opacity:.7;font-size:12px;margin-bottom:6px}#slideView ul{margin:4px 0 6px 18px;padding:0}#slideView .cr{font-size:11.5px;color:#f4e6e0;opacity:.85;max-width:min(96vw,820px);text-align:center;margin-top:-4px}
 #slideView .nav{position:absolute;top:10px;right:12px;display:flex;gap:8px}#slideView .nav button{background:#ffffff18;color:#fff;border:0;border-radius:6px;padding:6px 10px;font-size:14px;cursor:pointer}
+/* compare with the real thing: the matching slide docked beside the view, and the scale ladder */
+#cmp{left:14px;top:14px;bottom:34px;width:min(430px,calc(100vw - 440px));padding:10px 12px 12px;overflow:auto;pointer-events:auto;transform:translateX(-480px);transition:transform .3s;z-index:6;display:flex;flex-direction:column;gap:6px}
+#cmp.open{transform:none}
+body:not(.mobile).cmpOn #obj,body:not(.mobile).cmpOn #body{visibility:hidden}
+#cmp .ch{display:flex;align-items:center;gap:4px;flex:none}#cmp .ch .eyebrow{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.1em}
+#cmp .ch button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:2px 6px;font:600 10px var(--mono);cursor:pointer;line-height:1.3}#cmp .ch button.on{border-color:rgba(62,230,216,.6);color:var(--cyan)}#cmp .ch button:hover{color:var(--fg)}
+#cmp .im{position:relative;border-radius:8px;overflow:hidden;background:#000;flex:none}
+#cmp .im img{display:block;width:100%;max-height:min(42vh,330px);object-fit:cover;cursor:zoom-in}
+#cmp .no{padding:26px 14px;font-size:12.5px;line-height:1.5;color:var(--muted);text-align:center;background:radial-gradient(circle at 50% 40%,#2a1016,#120508 80%)}#cmp .no a{color:var(--amber)}
+#cmp .mk{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:3px;padding:6px}
+#cmp .chip{max-width:100%;padding:2px 7px;border-radius:6px;background:rgba(10,4,6,.74);border:1px solid rgba(255,181,71,.55);color:#ffe2b8;font-size:10.5px;line-height:1.3}#cmp .chip i{font-style:normal;color:var(--amber);font-family:var(--mono);margin-right:5px}
+#cmp .pin{position:absolute;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:50%;background:rgba(255,181,71,.25);border:1.5px solid var(--amber);color:#ffe2b8;font:700 9px var(--mono);display:flex;align-items:center;justify-content:center}
+#cmp .ct{font-size:12.5px;line-height:1.45}#cmp .ct b{color:#ffd79a}#cmp .ct .m{color:var(--muted);font-size:11px;font-family:var(--mono)}
+#cmp .cr{font-size:10.5px;color:var(--faint);font-family:var(--mono);line-height:1.4}#cmp .cr a{color:inherit}
+#cmpLad{width:100%;height:112px;display:block;flex:none;margin-top:2px}
+#cmp .vs{font-size:12.5px;line-height:1.45;border-left:3px solid var(--cyan);padding-left:9px}#cmp .vs b{color:var(--cyan)}
+#cmpBtn{display:block;width:100%;margin-top:5px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:3px 4px;font:10px var(--mono);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#cmpBtn:hover{border-color:var(--cyan);color:var(--cyan)}
+body.mobile #cmpBtn{display:none}
+body.mobile #cmp{top:auto;left:0;right:0;bottom:0;width:auto;max-height:66vh;border-radius:18px 18px 0 0;transform:translateY(110%);padding:10px 12px;gap:5px}body.mobile #cmp.open{transform:none}
+body.mobile #cmp .im img{max-height:24vh}body.mobile #cmpLad{height:100px}body.mobile #cmp .ct,body.mobile #cmp .vs{font-size:12px}
 #brainRounds{left:16px;top:118px;width:min(360px,calc(100vw - 32px));max-height:calc(100vh - 210px);overflow:auto}#brainRounds h3{margin:4px 0 6px;font-size:17px}#brainRounds .small{font-size:12.5px;line-height:1.45;margin:6px 0}#brainRounds .ask{color:var(--cyan)}#brainRounds .fb{color:#ffe2b8}
 .bmis{display:flex;flex-direction:column;gap:5px;margin-top:6px}.bmis button{display:flex;align-items:center;gap:8px;text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:7px 9px;font:12.5px var(--sans);cursor:pointer}.bmis button:hover{border-color:var(--cyan)}
 .bmis .bt{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);min-width:54px}.bmis .bs{margin-left:auto;color:#ffd060;white-space:nowrap}.brow{display:flex;flex-wrap:wrap;gap:6px}.brow .btn{margin-top:6px}
@@ -359,9 +379,9 @@ body.mobile #ivDlg{bottom:auto;top:96px}
   <div class="stethHead"><span id="stethWhere">Listening…</span><span>release <span class="kbd">H</span> to exit</span></div>
 </div>
 
-<div id="body" class="hud panel" title="M hides the map · click it for the gross-anatomy atlas (N)"><div class="eyebrow" id="bodyTitle" style="text-align:center">Body · circulation + lymph</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div><div id="magWhere"></div></div>
+<div id="body" class="hud panel" title="M hides the map · click it for the gross-anatomy atlas (N)"><div class="eyebrow" id="bodyTitle" style="text-align:center">Body · circulation + lymph</div><canvas id="bodyC" width="320" height="488"></canvas><div id="bodyWhere"></div><div id="magWhere"></div><button id="cmpBtn" title="The nearest real micrograph beside the view, with a scale ladder (/)">🔬 compare with a real slide · /</button></div>
 <div id="route" class="hud panel"><canvas id="routeC" width="1520" height="68"></canvas></div>
-<div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>Q</kbd> zoom out · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>Tab</kbd> systems · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
+<div id="hint" class="hud"><kbd>WASD</kbd> move · <kbd>Drag</kbd> or <kbd>←↑↓→</kbd> steer · <kbd>Hover</kbd> a cell for its name, <kbd>Click</kbd> for details · <kbd>Space</kbd>/<kbd>C</kbd> up/down · <kbd>Shift</kbd> boost · <kbd>E</kbd> scan · <kbd>G</kbd> bedside exam · <kbd>H</kbd> listen inside · <kbd>F</kbd> autopilot · <kbd>K</kbd> leave the blood (lymph / brain) · <kbd>Y</kbd> study a valve · <kbd>M</kbd> map · <kbd>N</kbd> atlas · <kbd>/</kbd> compare slide · <kbd>Q</kbd> zoom out · <kbd>J</kbd> journal · <kbd>T</kbd> study · <kbd>Tab</kbd> systems · <kbd>R</kbd> rounds · <kbd>?</kbd> help</div>
 <button id="stethBtn" title="Hold for Stethoscope Mode">🩺</button>
 
 <aside id="card" class="hud panel">
@@ -380,6 +400,14 @@ body.mobile #ivDlg{bottom:auto;top:96px}
 </aside>
 
 <div id="slideView" role="dialog" aria-label="Slide"><div class="nav"><button id="slPrev" aria-label="Previous">‹</button><button id="slNext" aria-label="Next">›</button><button id="slX" aria-label="Close">✕</button></div><img id="slImg" alt=""><div class="cr" id="slCr"></div><div class="info" id="slInfo"></div></div>
+<aside id="cmp" class="hud panel" role="dialog" aria-label="Compare with the real thing">
+ <div class="ch"><span class="eyebrow">Compare with the real thing</span><button id="cmpLb" class="on" title="Our labels over the slide, on or off">labels</button><button id="cmpPn" class="on" title="On: the slide changes as you fly. Off: this slide stays">follow</button><button id="cmpPv" title="Previous slide">‹</button><button id="cmpNx" title="Next slide">›</button><button id="cmpX" title="Close (/)">✕</button></div>
+ <div class="im"><img id="cmpI" alt=""><div class="mk" id="cmpMk"></div><div class="no" id="cmpNo" style="display:none"></div></div>
+ <div class="ct" id="cmpCt"></div>
+ <div class="cr" id="cmpCr"></div>
+ <canvas id="cmpLad" width="860" height="224"></canvas>
+ <div class="vs" id="cmpVs"></div>
+</aside>
 <!-- start -->
 <div class="modal show" id="mStart"><div class="sheet">
   <div class="eyebrow">My Body · Inner Voyage · playable MVP</div>
@@ -405,7 +433,7 @@ body.mobile #ivDlg{bottom:auto;top:96px}
         <span class="kbd">V</span><span>compare with a normal aortic valve</span>
         <span class="kbd">Y</span><span>near a valve: study it up close: orbit, slow motion, labelled parts</span>
         <span class="kbd">K</span><span>in a muscle capillary: follow the plasma into the lymphatics · in the aortic arch: take the carotid to the brain</span>
-        <span class="kbd">J R</span><span>journal · Rounds quiz · <span class="kbd">L</span> depth · <span class="kbd">M</span> body map · <span class="kbd">N</span> atlas</span>
+        <span class="kbd">J R</span><span>journal · Rounds quiz · <span class="kbd">L</span> depth · <span class="kbd">M</span> body map · <span class="kbd">N</span> atlas · <span class="kbd">/</span> compare with a real slide</span>
       </div>
     </div>
   </div>
@@ -8479,8 +8507,8 @@ function slTitle(i){const t=i.condition==='normal'?'Normal '+i.tissue:i.conditio
 function slidesFor(key){if(!SLIDES.list)return[];return (SLIDEMAP[key]||[]).map(id=>SLIDES.byId[id]).filter(Boolean);}
 function slideWho(i){return slEsc((i.author||'').replace(/^Dr\.? /,'').split(/[,(]/)[0].trim().slice(0,40))+' · <a href="'+slEsc(i.license_url||i.source_url)+'" target="_blank" rel="noopener">'+slEsc(i.license)+'</a>';}
 function renderSlides(key){const el=$('cardSlides');el.innerHTML='';const L=slidesFor(key);if(!L.length)return;
- el.innerHTML='<div class="sh">Real slides · '+L.length+'<a href="assets/gallery.html" target="_blank" rel="noopener">all ↗</a></div><div class="row">'+L.map((i,k)=>`<figure><img loading="lazy" src="assets/${slEsc(i.thumb||i.file)}" alt="${slEsc(i.condition+' · '+i.tissue)}" data-k="${k}"><figcaption><b>${slEsc(slTitle(i))}</b>${slideWho(i)}</figcaption></figure>`).join('')+'</div>';
- el.querySelectorAll('img').forEach(im=>{im.onclick=()=>slideOpen(L,+im.dataset.k);im.onerror=()=>{const f=im.closest('figure');if(f)f.remove();};});}
+ el.innerHTML='<div class="sh">Real slides · '+L.length+'<a href="#" class="cmpk" title="Beside the live view, with the scale ladder">compare ⧉</a><a href="assets/gallery.html" target="_blank" rel="noopener">all ↗</a></div><div class="row">'+L.map((i,k)=>`<figure><img loading="lazy" src="assets/${slEsc(i.thumb||i.file)}" alt="${slEsc(i.condition+' · '+i.tissue)}" data-k="${k}"><figcaption><b>${slEsc(slTitle(i))}</b>${slideWho(i)}</figcaption></figure>`).join('')+'</div>';
+ el.querySelectorAll('img').forEach(im=>{im.onclick=()=>slideOpen(L,+im.dataset.k);im.onerror=()=>{const f=im.closest('figure');if(f)f.remove();};});const ck=el.querySelector('.cmpk');if(ck)ck.onclick=ev=>{ev.preventDefault();cmpOpenKey(key);};}
 function slideShow(){const i=SLIDES.cur[SLIDES.i];if(!i)return;$('slImg').src='assets/'+i.file;$('slImg').alt=i.condition+' · '+i.tissue;
  $('slInfo').innerHTML=`<h3>${slEsc(slTitle(i))}</h3><div class="meta">${slEsc(i.tissue)} · ${slEsc(i.stain)}${i.magnification?' · '+slEsc(i.magnification):''} · ${SLIDES.i+1} of ${SLIDES.cur.length}</div><div>${slEsc(i.caption)}</div>`+
   (i.look_for&&i.look_for.length?`<b>Look for</b><ul>${i.look_for.map(t=>'<li>'+slEsc(t)+'</li>').join('')}</ul>`:'')+
@@ -8490,13 +8518,87 @@ function slideOpen(L,k){SLIDES.cur=L;SLIDES.i=k;slideShow();$('slideView').class
 function slideClose(){$('slideView').classList.remove('show');}
 $('slX').onclick=slideClose;$('slPrev').onclick=()=>{SLIDES.i=(SLIDES.i+SLIDES.cur.length-1)%SLIDES.cur.length;slideShow();};$('slNext').onclick=()=>{SLIDES.i=(SLIDES.i+1)%SLIDES.cur.length;slideShow();};
 $('slideView').addEventListener('click',e=>{if(e.target.id==='slideView')slideClose();});
+/* ===== Compare with the real thing (step 5): the matching micrograph docked beside the live view, with our labels over it,
+   and a scale ladder from a water molecule to a coffee bean on which "you" move as you fly. The slides are the Wikimedia set in
+   assets/images.json (credits shown); the ladder needs nothing but REGUM, so it works offline and in every world. ===== */
+const CMP={on:false,follow:true,labels:true,list:[],i:0,sig:'',t:0,loaded:false};
+// which slide keys fit where you are, in order: the room you are in, the wall you would be looking at, the region, the world's case, then the world's staples
+const CMPROOM={gvilli:'villus',lsac:'sac',rbow:'bowman',lnode:'cortex',ncortex:'neuron',nsoma:'soma'};
+const CMPCASE={gut:'case03',lung:'case04',renal:'case05'};
+const CMPWORLD={blood:['rbc','wbc','artwall'],lymph:['cortex','macro'],nerve:['neuron','myelin','brain'],gut:['villus','colon','gbact'],lung:['alveolus','bronchus','pneumonia'],renal:['glom','pct','calyx']};
+const CMPW={blood:'blood',lymph:'lymph',nerve:'nerve',gut:'gi',lung:'lung',renal:'kidney'};   // game world → the manifest's world
+function cmpKeys(){const i=S.idx,r=REG[i],ks=[];if(S.vol&&CMPROOM[S.vol.id])ks.push(CMPROOM[S.vol.id]);const e=envKeyAt(i);if(e)ks.push(e);if(!(W===NERVE&&r==='cortex'))ks.push(r);if(CMPCASE[W.name])ks.push(CMPCASE[W.name]);for(const k of CMPWORLD[W.name]||[])ks.push(k);return ks;}   // the nerve's 'cortex' region is not the lymph node's cortex key
+function cmpSlides(){const seen=new Set(),L=[],O=[],w=CMPW[W.name];for(const k of cmpKeys())for(const s of slidesFor(k))if(!seen.has(s.id)){seen.add(s.id);(s.world===w?L:O).push(s);}return L.concat(O);}   // this world's slides in key order (the lists are curated, the closest match first), other worlds' after
+// the ladder: sizes in µm, singular, plural (Alberts; Lehninger; OpenStax A&P; the Utah "Cell Size and Scale" ladder ends at a coffee bean)
+const LADDER=[[.00028,'water molecule','water molecules'],[.0009,'glucose','glucose molecules'],[.0055,'haemoglobin','haemoglobin molecules'],[.027,'ribosome','ribosomes'],[.1,'flu virus','flu viruses'],[1,'mitochondrion','mitochondria'],[7.5,'red cell','red cells'],[25,'hepatocyte','hepatocytes'],[200,'alveolus','alveoli'],[700,'villus','villi'],[10000,'coffee bean','coffee beans']];
+const LAD0=-4,LAD1=Math.log10(3e4);   // 0.1 nm to 3 cm
+// the width a light micrograph at a stated magnification usually shows: field number 20 mm over the objective (a 40× objective ≈ 0.5 mm). None for electron micrographs or for "low/high" wording
+function cmpField(s){if(!s||!s.magnification||/sem|electron/i.test(s.id+' '+(s.stain||'')))return null;const m=/([\d,]+)\s*x\b/i.exec(s.magnification);if(!m)return null;const n=parseInt(m[1].replace(/,/g,''),10);if(!n||n>2000)return null;const obj=/objective/i.test(s.magnification)?n:n/10;return {obj,um:20000/obj};}
+function cmpYou(){return 1.6*umAt(W,S.idx);}   // the probe is 1.6 units long
+function cmpView(){const back=steth?2.2:S.vol?(S.vol.camBack||3.4):2.7;return 2*back*Math.tan(camera.fov*Math.PI/360)*camera.aspect*umAt(W,S.idx);}   // what the screen spans at the ship's distance
+function cmpSide(u){const rc=u/7.5;if(rc>=1.6&&rc<=400)return Math.round(rc)+' red cells side by side';let b=null;for(const r of LADDER)if(r[0]<=u/1.5)b=r;if(!b)return '';const n=Math.round(u/b[0]);return n+' '+(n===1?b[1]:b[2])+' side by side';}
+function cmpLadder(you,F){const cv=$('cmpLad'),w=cv.clientWidth||400,h=cv.clientHeight||112,dpr=Math.min(2,devicePixelRatio||1),pw=Math.round(w*dpr),ph=Math.round(h*dpr);
+ if(cv.width!==pw||cv.height!==ph){cv.width=pw;cv.height=ph;}
+ const c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+ const x0=8,x1=w-8,X=u=>x0+(x1-x0)*(Math.log10(Math.max(1e-4,Math.min(3e4,u)))-LAD0)/(LAD1-LAD0),yb=Math.round(h*.5)+.5;
+ c.lineWidth=1;c.textAlign='center';c.textBaseline='alphabetic';
+ // rungs on three rows above the bar, so the labels never touch
+ LADDER.forEach((r,k)=>{const x=Math.round(X(r[0]))+.5,ty=12+(k%3)*12;c.strokeStyle='rgba(255,255,255,.2)';c.beginPath();c.moveTo(x,ty+3);c.lineTo(x,yb);c.stroke();});
+ c.font='10px system-ui,sans-serif';
+ LADDER.forEach((r,k)=>{const x=X(r[0]),ty=12+(k%3)*12,tw=c.measureText(r[1]).width,tx=Math.max(x0+tw/2,Math.min(x1-tw/2,x));c.fillStyle='rgba(30,12,16,.92)';c.fillRect(tx-tw/2-2,ty-9,tw+4,11);c.fillStyle='rgba(255,255,255,.66)';c.fillText(r[1],tx,ty);});
+ // the bar with its decades
+ c.strokeStyle='rgba(255,255,255,.3)';c.beginPath();c.moveTo(x0,yb);c.lineTo(x1,yb);c.stroke();
+ c.font='8.5px ui-monospace,Menlo,Consolas,monospace';c.fillStyle='rgba(255,255,255,.38)';
+ for(let d=-3;d<=4;d++){const u=Math.pow(10,d),x=Math.round(X(u))+.5;c.beginPath();c.moveTo(x,yb-3);c.lineTo(x,yb+3);c.stroke();c.fillText(fmtUm(u).replace(' ',''),X(u),yb+12);}
+ // you, and the slide's field where it can be estimated
+ const mark=(u,col,txt,ty)=>{const x=X(u);c.fillStyle=col;c.beginPath();c.moveTo(x,yb+1);c.lineTo(x-5,yb+8);c.lineTo(x+5,yb+8);c.closePath();c.fill();c.font='600 10.5px system-ui,sans-serif';const tw=c.measureText(txt).width,tx=Math.max(x0+tw/2,Math.min(x1-tw/2,x));c.fillText(txt,tx,ty);};
+ mark(you,'#3ee6d8','you · '+fmtUm(you)+' long',yb+27);
+ if(F)mark(F.um,'#ffb547','slide field ≈ '+fmtUm(F.um),yb+41);
+}
+function cmpScale(){const s=CMP.list[CMP.i],um=umAt(W,S.idx),you=cmpYou(),view=cmpView(),F=cmpField(s);
+ let t=`<b>Here</b> 1 unit ≈ ${fmtUm(um)} · you are ${fmtUm(you)} long · the screen spans about ${fmtUm(view)}`;const sd=cmpSide(view);if(sd)t+=', '+sd;t+='.';
+ if(s){t+=` <b>On the slide</b> ${slEsc(s.tissue)} · ${slEsc(s.stain)}`;const mg=(s.magnification||'').replace(/\s*\(as stated on (source|image)\)/,'');if(mg)t+=' · '+slEsc(mg);
+  if(F){const k=F.um/view;t+=`. A ${Math.round(F.obj)}× objective usually shows about ${fmtUm(F.um)} across: `+(k>1.3?`${fmtX(k)}× wider than your screen here`:k<1/1.3?`${fmtX(1/k)}× narrower than your screen here`:'about as wide as your screen here');}
+  t+='.';}
+ $('cmpVs').innerHTML=t;cmpLadder(you,F);}
+function cmpNoText(){const r=REG[S.idx],here=REGIONS[r]?REGIONS[r].n:r;
+ if(location.protocol==='file:')return 'Real slides load only when the game is served from a web address (they live on the site, not in this file). The scale ladder below still works.';
+ if(!SLIDES.list)return CMP.loaded?'The slide set could not be loaded. The scale ladder below still works.':'Loading the slides…';
+ return `No micrograph in the asset set yet for <b>${slEsc(here)}</b>${W===NANO?' (electron micrographs of the cell interior are the next slides to add)':''}. The scale ladder below still works. <a href="assets/gallery.html" target="_blank" rel="noopener">All slides ↗</a>`;}
+// our labels over the slide: pins where the manifest gives positions (marks: x, y as fractions, t), otherwise the "look for" list as numbered chips
+function cmpMarks(s){const mk=$('cmpMk');if(!CMP.labels||!s){mk.innerHTML='';return;}
+ if(s.marks&&s.marks.length){mk.innerHTML=s.marks.map((m,k)=>`<div class="pin" style="left:${(m.x*100).toFixed(1)}%;top:${(m.y*100).toFixed(1)}%">${k+1}</div>`).join('')+s.marks.map((m,k)=>`<div class="chip"><i>${k+1}</i>${slEsc(m.t)}</div>`).join('');return;}
+ mk.innerHTML=(s.look_for||[]).slice(0,4).map((t,k)=>`<div class="chip"><i>${k+1}</i>${slEsc(t)}</div>`).join('');}
+function cmpShow(){const s=CMP.list[CMP.i],im=$('cmpI'),no=$('cmpNo');$('cmpPv').style.visibility=$('cmpNx').style.visibility=CMP.list.length>1?'visible':'hidden';
+ if(!s){im.style.display='none';no.style.display='block';no.innerHTML=cmpNoText();$('cmpMk').innerHTML='';$('cmpCt').innerHTML='';$('cmpCr').innerHTML='';cmpScale();return;}
+ no.style.display='none';im.style.display='block';if(im.dataset.id!==s.id){im.src='assets/'+s.file;im.dataset.id=s.id;}im.alt=s.condition+' · '+s.tissue;
+ $('cmpCt').innerHTML=`<b>${slEsc(slTitle(s))}</b> <span class="m">${CMP.i+1} of ${CMP.list.length}${CMP.follow?' · follows you':' · pinned'}</span><br>${slEsc(s.caption)}`;
+ $('cmpCr').innerHTML=`Image: ${slEsc(s.credit)} · <a href="${slEsc(s.license_url)}" target="_blank" rel="noopener">${slEsc(s.license)}</a> · <a href="${slEsc(s.source_url)}" target="_blank" rel="noopener">source</a> · resized; caption and labels ours`;
+ cmpMarks(s);cmpScale();}
+function cmpTick(dt){if(!CMP.on)return;CMP.t-=dt;if(CMP.t>0)return;CMP.t=.3;
+ const sig=W.name+'|'+(S.vol?S.vol.id:'')+'|'+REG[S.idx]+'|'+(envKeyAt(S.idx)||'');
+ if(sig!==CMP.sig){CMP.sig=sig;if(CMP.follow){const L=SLIDES.list?cmpSlides():[];if(L.length!==CMP.list.length||L.some((s,k)=>s!==CMP.list[k])){CMP.list=L;CMP.i=0;}cmpShow();return;}}
+ cmpScale();}
+function cmpToggle(force,keep){const on=force===undefined?!CMP.on:!!force;if(on===CMP.on&&!keep)return;CMP.on=on;document.body.classList.toggle('cmpOn',on);$('cmp').classList.toggle('open',on);
+ if(!on)return;if(MOBILE)$('card').classList.remove('open');
+ if(!keep){CMP.follow=true;CMP.list=[];CMP.i=0;}$('cmpPn').classList.toggle('on',CMP.follow);$('cmpLb').classList.toggle('on',CMP.labels);CMP.sig='';CMP.t=0;
+ if(!SLIDES.list&&!CMP.loaded)slidesLoad().then(()=>{CMP.loaded=true;if(CMP.on){CMP.sig='';CMP.t=0;cmpTick(1);}});
+ cmpTick(1);if(!keep&&!CMP.list.length)cmpShow();
+ toastOnce('cmpOpen','Compare: the nearest real slide follows you as you fly · ‹ › for more · click the slide to enlarge · / closes','',900);}
+function cmpOpenKey(key){const L=slidesFor(key);if(!L.length)return;CMP.list=L;CMP.i=0;CMP.follow=false;cmpToggle(true,true);cmpShow();}
+function cmpStep(d){if(CMP.list.length<2)return;CMP.i=(CMP.i+d+CMP.list.length)%CMP.list.length;CMP.follow=false;$('cmpPn').classList.remove('on');cmpShow();}
+$('cmpX').onclick=()=>cmpToggle(false);$('cmpPv').onclick=()=>cmpStep(-1);$('cmpNx').onclick=()=>cmpStep(1);
+$('cmpLb').onclick=()=>{CMP.labels=!CMP.labels;$('cmpLb').classList.toggle('on',CMP.labels);cmpMarks(CMP.list[CMP.i]);};
+$('cmpPn').onclick=()=>{CMP.follow=!CMP.follow;$('cmpPn').classList.toggle('on',CMP.follow);if(CMP.follow){CMP.sig='';CMP.t=0;cmpTick(1);}else cmpShow();};
+$('cmpI').onclick=()=>{if(CMP.list.length)slideOpen(CMP.list,CMP.i);};
+$('cmpBtn').onclick=e=>{e.stopPropagation();cmpToggle();};
 addEventListener('keydown',e=>{if(!$('slideView').classList.contains('show'))return;if(e.key==='Escape')slideClose();else if(e.key==='ArrowRight')$('slNext').click();else if(e.key==='ArrowLeft')$('slPrev').click();e.stopImmediatePropagation();e.preventDefault();},true);
 function openCard(key,first){
  const c=CODEX[key];if(!c)return;cardKey=key;cardLevel=depth;if($('cardModel').classList.contains('big'))pvBig(false);$('cardCell').style.display='none';$('cardModel').style.display='none';PV.on=false;
  $('cardKind').textContent=first?'Codex · new entry':'Codex';
  $('cardTitle').textContent=c.title;$('cardTag').textContent=c.tag;$('cardSrc').innerHTML=provHTML(key,MOBILE)||('Ref: '+c.src+' · draft, pending clinical review');
  const dn=DECK.loaded?deckCardsFor(key).length:0;$('cardDeck').innerHTML=dn?`<button class="mini" id="cardDeckBtn">Your deck · ${dn} card${dn>1?'s':''} here ▸</button>`:'';if(dn)$('cardDeckBtn').onclick=()=>deckStudyKey(key);
- renderCardBody();$('card').classList.add('open');
+ renderCardBody();$('card').classList.add('open');if(MOBILE&&CMP.on)cmpToggle(false);
  if(SLIDES.list)renderSlides(key);else{$('cardSlides').innerHTML='';slidesLoad().then(()=>{if(cardKey===key)renderSlides(key);});}
 }
 function renderCardBody(){
@@ -10234,7 +10336,7 @@ if(MOBILE){
    }}};
  canvas.addEventListener('touchend',endT,{passive:false});canvas.addEventListener('touchcancel',endT,{passive:false});
  // key buttons
- const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyV','⇅','case'],['KeyO','O₂','oxygen'],['KeyZ','💨','cough'],['KeyU','⇵','posture'],['KeyQ','🔭','zoom out'],['KeyP','❚❚','pause'],['F1','?','help']];
+ const BTNS=[['KeyE','⌖','scan'],['KeyF','⟲','auto'],['KeyG','🩺','exam'],['KeyK','⇄','K'],['KeyY','◎','valve'],['Tab','☰','systems'],['KeyT','▤','cards'],['KeyN','⚕','atlas'],['Slash','🔬','slide'],['KeyJ','☷','codex'],['KeyR','✎','rounds'],['KeyV','⇅','case'],['KeyO','O₂','oxygen'],['KeyZ','💨','cough'],['KeyU','⇵','posture'],['KeyQ','🔭','zoom out'],['KeyP','❚❚','pause'],['F1','?','help']];
  $('touchBar').innerHTML=BTNS.map(([c,ic,l])=>`<button data-code="${c}"><span>${ic}</span><small>${l}</small></button>`).join('');
  $('touchBar').querySelectorAll('button').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();unlock();const code=b.dataset.code;
   if(code==='KeyG'&&!started)return;
@@ -10258,7 +10360,7 @@ function onKey(e){
   if(k==='KeyB'){study.blood=!study.blood;setCellsVis(study.blood);return;}
   if(k==='KeyO'){study.side*=-1;return;}
  }
- if(k==='Escape'){closeModals();$('card').classList.remove('open');return;}
+ if(k==='Escape'){closeModals();$('card').classList.remove('open');cmpToggle(false);return;}
  if(k==='Tab'&&started){if($('mSystems').classList.contains('show'))closeModals();else{closeModals();openSystems();}return;}
  if(exam&&k==='KeyB'){toggleBell();return;}
  if(!started||anyModal())return;
@@ -10303,6 +10405,7 @@ function onKey(e){
  else if(k==='KeyR')openQuiz();
  else if(k==='KeyL'){depth=(depth+1)%4;toast('Depth: '+LEVEL_NAMES[depth]);if(cardKey){cardLevel=depth;renderCardBody();}}
  else if(k==='KeyP'){paused=!paused;toast(paused?'Paused (P)':'Resumed');}
+ else if(e.key==='/'||(k==='Slash'&&!e.shiftKey))cmpToggle();
  else if(e.key==='?'||k==='F1'){e.preventDefault&&e.preventDefault();show('mHelp');}
 }
 function toggleBell(){bell=!bell;$('chest').textContent=$('exChest').textContent=bell?'BELL':'DIAPHRAGM';toast(bell?'Bell: low-pitched sounds (S3, S4, rumbles)':'Diaphragm: high-pitched sounds (S1, S2, AS murmur)');}
@@ -12796,7 +12899,7 @@ function update(dt){
   hudT-=dt;
   if(hudT<=0){hudT=.1;
    drawECG();if(steth)drawPCG();drawRoute();if($('mAtlas').classList.contains('show'))updateAtlasMe();if(!$('body').classList.contains('hide'))drawBody();
-   vitalsTick();if(W===BLOOD){
+   vitalsTick();cmpTick(.1);if(W===BLOOD){
    $('vHR').textContent=Math.round(C.hr)+' bpm';
    const sbp=C.stenosis?(C.exercise?lerp(112,94,clamp((C.hr-72)/46,0,1)):112):(C.exercise?lerp(124,158,clamp((C.hr-72)/46,0,1)):124);
    const dbp=C.stenosis?(C.exercise?70:80):(C.exercise?76:78);
@@ -12976,7 +13079,7 @@ async function ivBoot(){
 }
 
 ivBoot();
-window.__IV={get W(){return W;},VOL,V2,SB,SH,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={get W(){return W;},VOL,V2,SB,SH,CMP,cmpToggle,cmpOpenKey,cmpSlides,cmpKeys,cmpField,cmpView,cmpYou,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
