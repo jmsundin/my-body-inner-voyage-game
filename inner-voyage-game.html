@@ -3773,6 +3773,37 @@ const CODEX={
   'A pair of barrel-shaped centrioles in a cloud of pericentriolar material nucleates microtubules: hollow tubes 25 nm wide made of 13 protofilaments of α/β-tubulin, minus ends here, plus ends growing and shrinking toward the membrane. Kinesins walk toward the plus end, dynein toward the minus end.',
   'Microtubules are dynamically unstable: a GTP-tubulin cap lets them grow, and they fall apart when it is lost. In hepatocytes they organise the secretion of VLDL and albumin, traffic to the bile canaliculus and the positioning of organelles; the centrosome duplicates once per S phase and builds the mitotic spindle. Vinca alkaloids block polymerisation, taxanes freeze microtubules, colchicine disrupts neutrophil microtubules.',
   'Microtubule drugs cause peripheral neuropathy because axonal transport depends on microtubules (vincristine, paclitaxel). Primary ciliary dyskinesia is a defect of the microtubule axoneme of cilia and sperm; centrosome amplification is common in cancers and drives chromosomal instability. The Mallory-Denk bodies of alcoholic liver disease are keratin and ubiquitin aggregates that form when the hepatocyte cytoskeleton is disrupted.']},
+ // ---- furniture of the lymph node and the nervous system rooms (6 Nov 2026; Junqueira 16e, Abbas Cellular and Molecular Immunology 10e, Kandel 6e, Robbins & Cotran 10e; our own words) ----
+ follicle:{title:'Lymphoid follicle',tag:'B-cell zone · germinal centre when responding · 100–300 µm',src:REF.lymph,L:[
+  'Round nests of B cells in the outer part of the node. When they meet their antigen they swell into a germinal centre, a training camp where the best antibodies are selected.',
+  'A primary follicle is resting naive B cells on a mesh of follicular dendritic cells. After antigen arrives a secondary follicle grows a germinal centre with a dark zone (dividing B cells) and a light zone (selection by follicular dendritic cells and T follicular helper cells), inside a mantle of the old naive cells.',
+  'In the dark zone centroblasts proliferate and mutate their antibody genes (somatic hypermutation by AID); in the light zone centrocytes compete for antigen held on FDCs as immune complexes and for help from T follicular helper cells (CD4⁺, CXCR5⁺, PD-1⁺, IL-21): higher-affinity clones survive, switch class to IgG, IgA or IgE and leave as plasma cells or memory B cells. CD40–CD40L is required, so hyper-IgM syndrome has no germinal centres. Reactive follicular hyperplasia enlarges and multiplies them.',
+  'Follicular lymphoma is a germinal-centre B-cell tumour: t(14;18) puts BCL2 under the immunoglobulin heavy-chain promoter, so the centrocytes cannot die; the follicles crowd the node without a mantle or polarity and stain BCL2-positive (a reactive germinal centre is BCL2-negative). Burkitt lymphoma is also germinal-centre derived (MYC, t(8;14), a starry sky of tingible-body macrophages). HIV gives early follicular hyperplasia and later involution; Castleman disease shows regressed follicles with onion-skin mantles.']},
+ paracortex:{title:'Paracortex (T-cell zone)',tag:'Between the follicles and the medulla · high endothelial venules · dendritic cells',src:REF.lymph,L:[
+  'The middle zone of the node, where T cells wait. Dendritic cells arrive from the tissue carrying pieces of microbes and show them to the T cells here.',
+  'Mostly CD4⁺ and CD8⁺ T cells with interdigitating dendritic cells; high endothelial venules bring naive lymphocytes in from the blood. It enlarges in viral infections and in reactions to drugs such as phenytoin, and is empty in DiGeorge syndrome.',
+  'Naive T cells enter through the HEVs, crawl along the fibroblastic reticular cell network guided by CCL19 and CCL21 (CCR7) and scan the dendritic cells; on finding their peptide–MHC with co-stimulation (CD28–B7) they proliferate (IL-2) and differentiate, then leave by the efferent lymph once S1P receptor 1 is back on their surface (fingolimod traps them here). FRC conduits carry small antigens straight from the subcapsular sinus to the dendritic cells.',
+  'Paracortical hyperplasia with immunoblasts is the picture of infectious mononucleosis, other viral lymphadenitis and drug reactions; dermatopathic lymphadenopathy fills it with pigment-laden macrophages and Langerhans cells. Peripheral T-cell and angioimmunoblastic lymphomas arise here, and the Reed–Sternberg cell of Hodgkin lymphoma sits in a rosette of T cells. The lymphopenia of fingolimod and the lymphocyte trapping of sepsis both act on the paracortical exit signal.']},
+ hev:{title:'High endothelial venule',tag:'Post-capillary venule · plump endothelium · the lymphocyte’s door into the node',src:REF.lymph,L:[
+  'Special small veins with plump, cushion-like lining cells. They are the doorway through which lymphocytes leave the blood and enter the node.',
+  'Post-capillary venules in the paracortex with tall cuboidal endothelium; naive lymphocytes recirculate through them (blood → node → efferent lymph → blood), thousands per second through a single node.',
+  'Multistep adhesion: L-selectin on the lymphocyte binds peripheral node addressin (sulfated sialyl-Lewis^x on GlyCAM-1 and CD34) and the cell rolls; CCL21 on the HEV surface activates CCR7, LFA-1 switches to high affinity and binds ICAM-1, and the cell arrests and squeezes between the endothelial cells. Gut-homing cells use α4β7 and MAdCAM-1 instead (Peyer’s patches).',
+  'HEVs are induced in chronic inflammation (tertiary lymphoid structures in rheumatoid synovium, Hashimoto thyroiditis and some tumours, where they predict a response to immunotherapy). Natalizumab blocks α4 integrins, vedolizumab α4β7 specifically; leukocyte adhesion deficiency type II is a fucosylation defect, so selectin ligands are missing and leukocytes cannot roll.']},
+ medcord:{title:'Medullary cords & sinuses',tag:'Plasma cells · sinus macrophages · toward the hilum',src:REF.lymph,L:[
+  'Ropes of tissue in the centre of the node, full of plasma cells that pour antibody into the lymph as it drains out.',
+  'Cords of plasma cells, macrophages and lymphocytes between wide medullary sinuses; the sinuses lead to the efferent lymphatic at the hilum. Sinus macrophages take out what the cortex did not.',
+  'Plasmablasts made in the germinal centre migrate here and secrete IgG, IgA or IgM for days; long-lived plasma cells move on to the bone marrow. Sinus histiocytosis (macrophages distending the sinuses) is a common reactive change, especially in nodes draining a cancer.',
+  'Plasma-cell-rich cords are seen in syphilis, rheumatoid arthritis and the plasma cell variant of Castleman disease (IL-6 driven); Rosai–Dorfman disease fills the sinuses with S100-positive histiocytes showing emperipolesis; metastatic carcinoma usually arrives in the subcapsular sinus first and spreads on into the medullary sinuses.']},
+ pyramidal:{title:'Pyramidal neuron',tag:'The projection neuron of the cortex · apical dendrite · Betz cells in layer V',src:REF.neuro,L:[
+  'The main nerve cell of the cortex, shaped like a pyramid with one long branch pointing up to the surface and a thin cable, the axon, leaving from the bottom.',
+  'Pyramidal neurons use glutamate and send their axons long distances: layer V cells to the brainstem and spinal cord (the corticospinal tract starts here, from the Betz cells of the motor cortex), layer III cells to other cortical areas, layer VI cells to the thalamus. The apical dendrite climbs to layer I; spines on the dendrites receive most of the cell’s ~10,000 synapses.',
+  'Excitatory inputs on the spines produce EPSPs that are integrated at the axon initial segment (a high density of Na⁺ channels held by ankyrin-G); inputs on the apical tuft can trigger dendritic Ca²⁺ spikes that make the cell fire a burst. Fast-spiking parvalbumin basket cells inhibit the soma and somatostatin Martinotti cells the dendrites, and that balance sets the cortical rhythms. Betz cells (layer V of area 4, up to 100 µm) have the fastest-conducting axons in the tract.',
+  'Pyramidal neurons are lost selectively in Alzheimer disease (tangles in layers III and V of association cortex, neuritic plaques) and in motor neuron disease together with the lower motor neurons (TDP-43 inclusions, Betz cell loss). Spine loss underlies the intellectual disability of fragile X syndrome; hypoxia hits layers III and V first (laminar necrosis); seizures spread through recurrent excitation between pyramidal cells.']},
+ nissl:{title:'Nissl bodies',tag:'Rough ER of the neuron · absent from the axon hillock · chromatolysis after injury',src:REF.neuro,L:[
+  'Dark speckles in nerve cell bodies on a stained slide. They are the cell’s protein factories, piled high because a neuron has an enormous cell to maintain.',
+  'Stacks of rough endoplasmic reticulum with free ribosomes between, stained by basic dyes (cresyl violet, thionine). They fill the soma and the dendrites but not the axon hillock or the axon, which is one way to tell the axon from the dendrites.',
+  'They make the membrane proteins, neuropeptides and enzymes that fast axonal transport (kinesin, 200–400 mm a day) carries down the axon. After an axon is cut the cell body swells, the nucleus moves to the edge and the Nissl bodies disperse (central chromatolysis), the visible sign of the regeneration programme (ATF3, GAP-43) that starts within days.',
+  'Chromatolysis is seen in anterior horn cells after root avulsion and in poliomyelitis; in motor neuron disease the surviving neurons show TDP-43 cytoplasmic inclusions and Bunina bodies instead. Ischaemic “red neurons” have lost their Nissl staining and shrunk; thiamine deficiency and vincristine toxicity disturb Nissl substance too.']},
  endothelium:{title:'Endothelium',tag:'Vessel lining · one cell thick · structure',src:REF.vessels,L:[
   'The smooth inner skin of every blood vessel: a single layer of flat cells, like tiles, that the blood slides over.',
   'Endothelial cells are long and thin, lined up with the flow. They stop blood from clotting on the wall and control what passes through.',
@@ -3964,12 +3995,12 @@ const REGIONS={
  bronchus:{n:'Right bronchi',s:'Main → intermedius → lower lobe → segmental · plates, not rings',b:'n'},
  bronchiole:{n:'Bronchioles',s:'Generations 5–16 · no cartilage, no glands · the flow is dying',b:'n'},
  tbronch:{n:'Terminal & respiratory bronchioles',s:'Generations 17–19 · first alveoli · diffusion takes over',b:'n'},
- acinus:{n:'Alveolar ducts',s:'Generations 20–22 · a capillary sheet in every wall',b:'n'},
- sac:{n:'Alveolar sac',s:'Generation 23 · dock at a septum (E) · leave with the blood',b:'n'},
+ acinus:{n:'Alveolar ducts',s:'Generations 20–22 · open space: alveoli open off the duct all round, a capillary sheet in every wall',b:'n'},
+ sac:{n:'Alveolar sac',s:'Generation 23 · open space: fly into any alveolus · dock at a septum (E) · leave with the blood',b:'n'},
  // one juxtamedullary nephron (b:'a' in the arteriole and glomerulus: arterial blood; 'n' once filtered)
  afferent:{n:'Afferent arteriole',s:'Autoregulated · the tap that sets GFR',b:'a'},
  glom:{n:'Glomerulus',s:'Capillary at 60 mmHg · 20% of the plasma leaves through the wall (K)',b:'a'},
- bowman:{n:'Bowman’s space',s:'Filtrate: plasma minus protein · 125 mL/min for all nephrons',b:'n'},
+ bowman:{n:'Bowman’s space',s:'Open space round the tuft · filtrate: plasma minus protein · 125 mL/min for all nephrons',b:'n'},
  pct:{n:'Proximal convoluted tubule',s:'Brush border · 65% of everything goes back · all the glucose',b:'n'},
  thin:{n:'Thin descending limb',s:'Water out, salt stays · the fluid concentrates as you descend',b:'n'},
  tip:{n:'Papillary tip of the loop',s:'1200 mOsm · the bottom of the gradient',b:'n'},
@@ -4056,7 +4087,7 @@ const REGIONS={
  interstitium:{n:'Interstitial space',s:'Tissue fluid between muscle fibres · K: back into the capillary',b:'l'},
  lymphcap:{n:'Lymphatic capillary',s:'Blind-ended · overlapping flap junctions let fluid in',b:'l'},
  collecting:{n:'Collecting lymphatic',s:'Valves open when the segment behind you squeezes',b:'l'},
- subcap:{n:'Lymph node · subcapsular sinus',s:'Afferent lymph enters the node',b:'l'},
+ subcap:{n:'Lymph node · subcapsular sinus',s:'Afferent lymph enters the node · open space under the capsule',b:'l'},
  cortsinus:{n:'Lymph node · cortex',s:'B-cell follicles bulge in · walls packed with lymphocytes',b:'l'},
  medsinus:{n:'Lymph node · medullary sinuses',s:'Macrophages filter what is left',b:'l'},
  efferent:{n:'Efferent lymphatic',s:'Leaving the node',b:'l'},
@@ -4067,13 +4098,13 @@ const REGIONS={
  // nervous system
  braincap:{n:'Brain capillary',s:'Sealed by tight junctions · K: cross the blood-brain barrier',b:'n'},
  bbb:{n:'Blood-brain barrier',s:'Press K to cross it',b:'n'},
- cortex:{n:'Motor cortex',s:'Grey matter: pyramidal neurons, glia, synapses · the axon leads on',b:'n'},
+ cortex:{n:'Motor cortex',s:'Grey matter, open: fly between the pyramidal cells, glia and capillaries · the axon leads on',b:'n'},
  axon:{n:'Corticospinal axon',s:'Internal capsule · nodes of Ranvier · wait for an action potential',b:'n'},
  decuss:{n:'Pyramidal decussation',s:'Medulla: the fibre crosses the midline',b:'n'},
  cord:{n:'Spinal cord · lateral corticospinal tract',s:'White matter, heading for the lumbar enlargement',b:'n'},
  bouton:{n:'Terminal bouton',s:'Synaptic vesicles docked at the active zone · cleft ahead',b:'n'},
  cleft:{n:'Synaptic cleft',s:'20 nm',b:'n'},
- soma:{n:'Lower motor neuron',s:'Anterior horn cell: nucleus, Nissl bodies, dendrites',b:'n'},
+ soma:{n:'Lower motor neuron',s:'Inside the anterior horn cell: nucleus, Nissl bodies, mitochondria · the axon hillock ahead',b:'n'},
  pnerve:{n:'Peripheral nerve fibre',s:'Ventral root → femoral nerve · Schwann cell myelin',b:'n'},
  nmj:{n:'Neuromuscular junction',s:'Acetylcholine → end plate → the muscle fires',b:'n'},
 };
@@ -4267,7 +4298,7 @@ const RNODES=(()=>{const n=[],add=(x,y,z,r,k,g,d)=>n.push([x,y,z,r,k,g,d===undef
  const helix=(cx,cz,rad,th0,dth,y0,y1,r,k,g,step)=>{const m=Math.ceil(Math.abs(dth)/step);for(let j=1;j<=m;j++){const f=j/m,t=th0+dth*f;add(cx+rad*Math.cos(t),lerp(y0,y1,f),cz+rad*Math.sin(t),r,k,g);}};
  add(2986,108.5,3,2.3,'afferent','afferent',0);add(2992,106.6,2.6,2.2,'afferent','afferent',0);add(2996.5,105.4,2.3,2.1,'afferent','afferent',0);   // interlobular artery → afferent arteriole, arriving tangent to the tuft
  for(let k=0;k<=9;k++){const a=k/8*Math.PI*2*1.1;add(3000+Math.sin(a)*5,100+Math.cos(a)*5,2-k*.75,2.2,'glom','glom',0);}                      // the tuft: one wide capillary loop (turn radius > 2 tube radii), stepping back so it never meets itself
- add(3008,101,-8,3.6,'bowman','bowman',0);add(3010,98,-9.5,3.4,'bowman','bowman',0);
+ add(3006,100.5,-6.5,3.4,'bowman','bowman',0);add(3008.5,98,-8.5,3,'bowman','bowman',0);
  add(3010.5,95,-11,2.4,'pct','pct');                                                                                                           // urinary pole
  helix(3016,-12,6,Math.PI,Math.PI*3.5,94,80,2.4,'pct','pct',Math.PI/4);                                                                       // proximal convolutions: 1¾ open turns behind the glomerulus
  add(3016,76,-4,1.9,'pct','pct');add(3016,70,-2,1.3,'thin','thin');for(let j=1;j<=6;j++)add(3016+Math.sin(j)*.4,70-j*10.5,0,1.1,'thin','thin'); // straight part, then the thin descending limb into the medulla
@@ -4430,7 +4461,7 @@ const NCNODES=(()=>{const n=[],B=[7000,100,0];
  seg('nnucleol','ncnol',[[538,-6.5,-11],[550,-6.5,-11],[562,-6.5,-11],[574,-6.5,-11],[586,-6.5,-11]],3,[[110,128],[98,118]]);
  return n;})();
 const NCROOMREGS=['nendo','ncyto','ncyto2','nmatrix','ngolgi','nnucleo','nnucleol'];
-const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false),PIT=buildWorld('pit',PTNODES,[],false),NANO=buildWorld('nano',NCNODES,[],false);PAN.pan=true;panZone();PIT.pit=true;pitZone();NANO.nano=true;nanoZone();NANO.skipIdx=new Uint8Array(NANO.N);for(let i=0;i<NANO.N;i++)NANO.skipIdx[i]=NCROOMREGS.includes(NANO.REG[i])?1:0;HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
+const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false),PIT=buildWorld('pit',PTNODES,[],false),NANO=buildWorld('nano',NCNODES,[],false);PAN.pan=true;panZone();PIT.pit=true;pitZone();NANO.nano=true;nanoZone();NANO.skipIdx=new Uint8Array(NANO.N);for(let i=0;i<NANO.N;i++)NANO.skipIdx[i]=NCROOMREGS.includes(NANO.REG[i])?1:0;const V2ROOMREGS={lung:['acinus','sac'],renal:['bowman'],lymph:['subcap','cortsinus','medsinus'],nerve:['cortex','soma']};for(const Wd of [LUNG,RENAL,LYMPH,NERVE]){const rs=V2ROOMREGS[Wd.name];Wd.skipIdx=new Uint8Array(Wd.N);for(let i=0;i<Wd.N;i++)Wd.skipIdx[i]=rs.includes(Wd.REG[i])?1:0;}HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
 BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;PAN.fog=0x1e0d12;PIT.fog=0x1a0c14;NANO.fog=0x0c0a16;
 useWorld(BLOOD);
 const heartC=new V3();[2,4,13,15].forEach(k=>heartC.add(new V3(NODES[k][0],NODES[k][1],NODES[k][2])));heartC.multiplyScalar(.25);
@@ -6451,7 +6482,7 @@ function openNcPath(kind){if(!started)return;closeModals();ncBigKind=kind||ncPat
  <p class="small" style="margin:8px 0 0">Line width and the moving dots show flux in this cell right now; dots running backwards mean a reversible step has reversed. U switches fed and fasted${W===NANO?'; V loads case 09':''}. Numbers are textbook approximations.</p>`;
  sh.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);sh.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>openNcPath(b.dataset.k));show('mNcPath');
  cancelAnimationFrame(ncBigRaf);const cv=$('ncBigCv'),c=cv.getContext('2d');const loop=()=>{if(!$('mNcPath').classList.contains('show'))return;ncPathDraw(c,cv.width,cv.height,ncBigKind,true);ncBigRaf=requestAnimationFrame(loop);};loop();}
-Object.assign(CELLS,CELLS_NC);buildSphincters();buildGlottis();buildSacCap();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();buildHepGates();buildPanGates();buildPitGates();buildNanoGates();
+Object.assign(CELLS,CELLS_NC);buildSphincters();buildGlottis();buildSacCap(RENAL,wallMatCapR,[0,0,0,0]);buildRenalDoor();buildHepGates();buildPanGates();buildPitGates();buildNanoGates();
 delete CELLS.mito.dens.cortex;delete CELLS.vesicle.dens.cortex;delete CELLS.microglia.dens.soma;delete CELLS.microglia.dens.bouton;CELLS.schwann.dens.pnerve=0;CELLS.mito.dens.bouton=.15;CELLS.mito.dens.nmj=.25;
 const ALL=Object.keys(CELLS).map(k=>{const D=CELLS[k];if(MOBILE){D.n=Math.round(D.n*.55);D.meshes.forEach(m=>m.count=D.n);}D.kind=D.kind||k;D.world=D.world||'blood';D.on=D.world==='blood';D.a=[];
  for(let i=0;i<D.n;i++)D.a.push({s:0,ang:0,rf:0,rf0:0,vr:0,va:0,age:1,rot:Math.random()*6,spin:Math.random()*6,tw:Math.random()*6,ax:new V3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(),pos:new V3(),live:false});
@@ -6630,14 +6661,14 @@ const FLAPS=[];
   m.position.copy(gv(P,iF,new V3())).addScaledVector(u,R0[iF]*.97);w.group.add(m);FLAPS.push({m,u,t,side,q});}
  // B-cell follicles bulging in from the cortex; high endothelial venules as dark red ridges
  const folGeo=blob(3.2,.025,30,7,48,32),folMat=new THREE.MeshStandardMaterial({color:0xb9a4cf,roughness:.8,emissive:0x140c1c});
- for(let q=0;q<7;q++){const i=q<2?pick('subcap',.35+.4*q):pick('cortsinus',.08+.17*(q-2));
+ for(let q=0;q<0;q++){const i=q<2?pick('subcap',.35+.4*q):pick('cortsinus',.08+.17*(q-2));
   const m=new THREE.Mesh(folGeo,folMat);wallPt(i,q*2.3+.4,1+1.75/R0[i],m.position);m.rotation.set(q,q*2,0);w.group.add(m);}
  const hevMat=new THREE.MeshStandardMaterial({color:0x9c3b48,roughness:.6,emissive:0x1a0408});
- for(let q=0;q<3;q++){const i=pick('cortsinus',.2+.3*q);const m=new THREE.Mesh(blob(1,.08,9,q+20,16,12),hevMat);m.scale.set(1,1,6);
+ for(let q=0;q<0;q++){const i=pick('cortsinus',.2+.3*q);const m=new THREE.Mesh(blob(1,.08,9,q+20,16,12),hevMat);m.scale.set(1,1,6);
   wallPt(i,q*2.1+1.3,1+.4/R0[i],m.position);const t=gv(T,i,new V3());m.quaternion.setFromUnitVectors(new V3(0,0,1),t.applyAxisAngle(gv(NR,i,new V3()),.6));w.group.add(m);}
  // reticular fibre meshwork crossing the sinuses
  const seg=[],[sa]=RANGE.subcap,[,sb]=RANGE.medsinus;
- for(let k=0;k<200;k++){const i=Math.floor(sa+Math.random()*(sb-sa)),j=w.wrapI(i+Math.floor((Math.random()-.5)*10));
+ for(let k=0;k<0;k++){const i=Math.floor(sa+Math.random()*(sb-sa)),j=w.wrapI(i+Math.floor((Math.random()-.5)*10));
   const a=wallPt(i,Math.random()*6.28,.98,new V3()),b=wallPt(j,Math.random()*6.28,.98,new V3());seg.push(a.x,a.y,a.z,b.x,b.y,b.z);}
  const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(seg,3));
  w.group.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xefe4c8,transparent:true,opacity:.26,fog:true})));
@@ -6661,11 +6692,11 @@ const NSYN=[];
  const wallPt=(i,ang,rf,out)=>{gv(P,i,out);gv(NR,i,_n);gv(BN,i,_b);return out.addScaledVector(_n,Math.cos(ang)*R0[i]*rf).addScaledVector(_b,Math.sin(ang)*R0[i]*rf);};
  // cortex: synapses (a bouton pressed against a dendritic spine) that flicker as they fire; one capillary crossing the neuropil
  const [ca,cb]=RANGE.cortex,synB=new THREE.MeshStandardMaterial({color:0xd8c8c0,roughness:.5,emissive:0x1a1210}),synS=new THREE.MeshStandardMaterial({color:0xb79a9c,roughness:.6});
- for(let k=0;k<40;k++){const i=Math.floor(ca+4+Math.random()*(cb-ca-8)),ang=Math.random()*6.28;const g=new THREE.Group();
+ for(let k=0;k<0;k++){const i=Math.floor(ca+4+Math.random()*(cb-ca-8)),ang=Math.random()*6.28;const g=new THREE.Group();
   const b=new THREE.Mesh(new THREE.SphereGeometry(.32,10,8),synB.clone());const sp=new THREE.Mesh(new THREE.SphereGeometry(.2,8,6),synS);sp.position.set(.42,0,0);
   const neck=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,.5,6),synS);neck.position.set(.75,0,0);neck.rotation.z=Math.PI/2;g.add(b,sp,neck);
   wallPt(i,ang,.93,g.position);g.rotation.set(Math.random()*6,Math.random()*6,0);w.group.add(g);NSYN.push({m:b,ph:Math.random()*6});}
- {const i=Math.floor((ca+cb)/2);const a=wallPt(i,1,1.1,new V3()),b2=wallPt(i,1+Math.PI,1.1,new V3()),m=a.clone().lerp(b2,.5).addScaledVector(gv(T,i,new V3()),R0[i]*.3);
+ if(0){const i=Math.floor((ca+cb)/2);const a=wallPt(i,1,1.1,new V3()),b2=wallPt(i,1+Math.PI,1.1,new V3()),m=a.clone().lerp(b2,.5).addScaledVector(gv(T,i,new V3()),R0[i]*.3);
   const cap=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([a,m,b2]),20,.75,12,false),new THREE.MeshStandardMaterial({color:0xa83038,roughness:.45,emissive:0x200406}));w.group.add(cap);
   for(let k=0;k<4;k++){const f=new THREE.Mesh(new THREE.SphereGeometry(.5,10,8),memMat(0xcfd8e4,.4));f.scale.set(1.4,.5,1.4);f.position.copy(a).lerp(b2,.2+.2*k).addScaledVector(gv(NR,i,new V3()),.7);w.group.add(f);}} // astrocyte end-feet on the vessel
  // axons: microtubule tracks running along the wall; a cream paranodal ring where the myelin ends at each node
@@ -6677,7 +6708,7 @@ const NSYN=[];
   for(let s=Math.ceil(a*DS/NODE_PER)*NODE_PER;s<b*DS;s+=NODE_PER){const i=Math.round(s/DS);if(i<=a+2||i>=b-2)continue;
    [-1.1,1.1].forEach(o=>{const t=new THREE.Mesh(new THREE.TorusGeometry(R0[i]*.78,R0[i]*.12,8,28),paraMat);gv(P,i,t.position).addScaledVector(gv(T,i,_t),o);t.quaternion.setFromUnitVectors(new V3(0,0,1),_t);w.group.add(t);});}});
  // motor neuron soma: a big pale nucleus with a nucleolus, Golgi stacks, and dendrites leaving the far wall
- {const [sa,sb]=RANGE.soma,i=Math.floor(sa+(sb-sa)*.5);const nuc=new THREE.Group();
+ if(0){const [sa,sb]=RANGE.soma,i=Math.floor(sa+(sb-sa)*.5);const nuc=new THREE.Group();
   const nm=new THREE.Mesh(new THREE.SphereGeometry(3.2,28,20),memMat(0xd9cde8,.38));const nl=new THREE.Mesh(new THREE.SphereGeometry(.75,14,10),new THREE.MeshStandardMaterial({color:0x4a3c6a,roughness:.6}));nl.position.set(.9,.6,.4);
   nuc.add(nm,nl);for(let k=0;k<60;k++){const c=new THREE.Mesh(new THREE.SphereGeometry(.12,5,4),new THREE.MeshStandardMaterial({color:0x6a5890}));c.position.set(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize().multiplyScalar(2.9*Math.cbrt(Math.random()));nuc.add(c);} // chromatin
   wallPt(i,2.2,.62,nuc.position);w.group.add(nuc);
@@ -6765,7 +6796,7 @@ function sdSkin(x,y,z,b){const Wd=b.Wd,P=Wd.P,R=Wd.R0;let bd=1e9,bi=b.i0;for(let
 function bodyD(b,x,y,z){switch(b.t){case 'sph':return sdSph(x,y,z,b.c,b.r);case 'cap':return sdCap(x,y,z,b.a,b.b,b.r);case 'ell':return sdEll(x,y,z,b);case 'plate':return sdPlate(x,y,z,b);case 'skin':return sdSkin(x,y,z,b);}return 1e9;}
 // free distance in a room: the shell (inside is free), minus the solid bodies near you, with the pores cut through everything
 function volFree(rm,x,y,z){let d,hit=null;const sh=rm.shell;
- if(sh.t==='sph')d=sh.r-Math.hypot(x-sh.c.x,y-sh.c.y,z-sh.c.z);else d=-sdCap(x,y,z,sh.a,sh.b,sh.r);
+ if(sh.t==='sph')d=sh.r-Math.hypot(x-sh.c.x,y-sh.c.y,z-sh.c.z);else if(sh.t==='cap')d=-sdCap(x,y,z,sh.a,sh.b,sh.r);else{d=-1e9;const U=sh.parts;for(let k=0;k<U.length;k++){const q=U[k],e=q.r-Math.hypot(x-q.c.x,y-q.c.y,z-q.c.z);if(e>d)d=e;}}
  let cut=1e9,cs=1e9;for(let k=0;k<rm.cuts.length;k++){const c=rm.cuts[k];const cd=sdCap(x,y,z,c.a,c.b,c.r);if(cd<cut)cut=cd;const ce=cd-(c.rs-c.r);if(ce<cs)cs=ce;}
  if(cs<0)d=Math.max(d,-cs);
  const nb=VOL.near;for(let k=0;k<nb.length;k++){const b=nb[k];if(b.soft)continue;let bd=bodyD(b,x,y,z);if(cut<0)bd=Math.max(bd,-cut);if(bd<d){d=bd;hit=b;}}
@@ -6788,7 +6819,7 @@ function volLocate(){const V=W.vol;
   i=rm.inside(i);}
  S.idx=i;}
 function volFog(c){FOG.set(c);scene.fog.color.copy(FOG);wallU.uFog.value.copy(FOG);}
-function volEnter(rm){if(VOL.room===rm)return;const prev=VOL.room;VOL.room=rm;S.vol=rm;volNear(rm,S.pos,100);volKill();if(prev&&prev.thread)prev.thread.visible=false;volFog(rm.fog||W.fog);if(rm.onEnter)rm.onEnter(prev);}
+function volEnter(rm){if(VOL.room===rm)return;const prev=VOL.room;VOL.room=rm;S.vol=rm;volNear(rm,S.pos,rm.nearR||100);volKill();if(prev&&prev.thread)prev.thread.visible=false;volFog(rm.fog||W.fog);if(rm.onEnter)rm.onEnter(prev);}
 function volLeave(){if(!VOL.room)return;const rm=VOL.room;if(rm.thread)rm.thread.visible=false;VOL.room=null;S.vol=null;volKill();volFog(W.fog);}
 function volKill(){ALL.forEach(D=>{if(!D.on)return;for(let k=0;k<D.a.length;k++){const p=D.a[k];if(p.live){p.live=false;hideCell(D,k);}}for(const m of D.meshes)m.instanceMatrix.needsUpdate=true;});}
 function volSync(){if(!VOL)return;const V=W&&W.vol;const rm=V?V.byReg[REG[S.idx]]||null:null;if(rm)volEnter(rm);else volLeave();}
@@ -6826,7 +6857,7 @@ function inspectBody(e){const b=e.body;sfx('scan');if(!b.codex)return;addCodex(b
 function inspectAny(e){if(e&&e.body)inspectBody(e);else inspectEnv(e);}
 // --- per frame: light, lens and guide thread ---
 function volTick(dt){const rm=VOL.room,on=!!rm;VOL.frame++;
- if(on&&(time-VOL.nearT>.25||VOL.nearP.distanceTo(S.pos)>8))volNear(rm,S.pos,100);
+ if(on&&(time-VOL.nearT>.25||VOL.nearP.distanceTo(S.pos)>8))volNear(rm,S.pos,rm.nearR||100);
  const li=VOL.light;li.intensity+=((on?.55:0)-li.intensity)*Math.min(1,dt*3);VOL.hemi.intensity+=((on?.5:0)-VOL.hemi.intensity)*Math.min(1,dt*3);if(on){li.position.copy(S.pos).add(_voa.set(30,70,20));li.target.position.copy(S.pos);li.target.updateMatrixWorld();}
  const fv=on?64:70;if(Math.abs(camera.fov-fv)>.05){camera.fov+=(fv-camera.fov)*Math.min(1,dt*2);camera.updateProjectionMatrix();}
  if(on&&rm.thread)rm.thread.visible=VOL.guideOn||S.auto;
@@ -6845,22 +6876,30 @@ function addRoom(Wd,def){const rm=Object.assign({bodies:[],cuts:[],spread:36},de
  if(!Wd.vol)Wd.vol={list:[],byReg:{}};Wd.vol.list.push(rm);for(const r of rm.regs)Wd.vol.byReg[r]=rm;VOL.rooms.push(rm);roomThread(rm);return rm;}
 // --- the membrane shader: a glassy sheet, bright at grazing angles, studded with proteins, with holes where the pores are ---
 const ROOMVS=`varying vec3 vW,vN;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;vN=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*w;}`;
-const ROOMFS=`precision highp float;uniform vec3 uCol,uCam,uFog,uLight;uniform float uFogD,uTime,uOp,uStud;uniform int uNP;uniform vec3 uPP[6];uniform vec3 uPD[6];uniform float uPR[6];uniform float uPL[6];varying vec3 vW,vN;
+const ROOMFS=`precision highp float;uniform vec3 uCol,uCam,uFog,uLight;uniform float uFogD,uTime,uOp,uStud,uMode,uCons,uGrey,uSelf;uniform int uNP,uNS;uniform vec3 uPP[6];uniform vec3 uPD[6];uniform float uPR[6];uniform float uPL[6];uniform vec4 uSph[64];varying vec3 vW,vN;
 float rh3(vec3 p){p=fract(p*0.3183099+.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
 float rvn(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);return mix(mix(mix(rh3(i),rh3(i+vec3(1,0,0)),f.x),mix(rh3(i+vec3(0,1,0)),rh3(i+vec3(1,1,0)),f.x),f.y),mix(mix(rh3(i+vec3(0,0,1)),rh3(i+vec3(1,0,1)),f.x),mix(rh3(i+vec3(0,1,1)),rh3(i+vec3(1,1,1)),f.x),f.y),f.z);}
 void main(){
  for(int k=0;k<6;k++){if(k>=uNP)break;vec3 v=vW-uPP[k];float pr=dot(v,uPD[k]);float pe=length(v-uPD[k]*pr);if(pe<uPR[k]&&abs(pr)<uPL[k])discard;}
+ for(int k=0;k<64;k++){if(k>=uNS)break;if(float(k)==uSelf)continue;vec4 q=uSph[k];if(length(vW-q.xyz)<q.w-.03)discard;}
  vec3 V=normalize(uCam-vW);vec3 Nn=normalize(vN);if(dot(Nn,V)<0.)Nn=-Nn;
  float f=pow(1.-max(dot(Nn,V),0.),2.2);
  float g=.55*rvn(vW*.35+vec3(uTime*.03))+.45*rvn(vW*.9);
- float sp=smoothstep(.6,.72,rvn(vW*2.4+vec3(0.,uTime*.02,0.)))*uStud;
  vec3 Lv=uLight-vW;float dl=length(Lv);float lam=max(dot(Nn,Lv/dl),0.)*clamp(1.-dl/70.,0.,1.);
- vec3 col=uCol*(.5+.55*g)+vec3(.55,.7,1.)*f*.9+uCol*sp*.9+uCol*lam*1.1+vec3(.3,.26,.2)*lam*lam;
- float a=uOp*(.3+.7*f)+sp*.4*uOp+lam*.3*uOp;
+ vec3 col=uCol*(.5+.55*g);float a=uOp*(.3+.7*f);
+ if(uMode<.5){float sp=smoothstep(.6,.72,rvn(vW*2.4+vec3(0.,uTime*.02,0.)))*uStud;col+=vec3(.55,.7,1.)*f*.9+uCol*sp*.9;a+=sp*.4*uOp;}
+ else if(uMode<1.5){float cn=rvn(vW*4.2);float capl=1.-smoothstep(0.,.09,abs(cn-.5));float cel=smoothstep(.74,.8,rvn(vW*2.1+vec3(3.)));
+  vec3 red=vec3(.72,.14,.17)*(.75+.35*sin(uTime*2.6+vW.x*3.+vW.y*2.));col=mix(col,red,capl*.85*(1.-uCons));col=mix(col,vec3(.45,.3,.5),cel*.5);
+  col=mix(col,mix(vec3(.62,.16,.18),vec3(.58,.5,.46),uGrey)*(.8+.3*rvn(vW*6.)),uCons*.75);col+=vec3(.5,.6,.8)*f*.35;a=uOp*(.75+.25*f)+capl*.15;}
+ else if(uMode<2.5){float c1=rvn(vW*1.6),c2=rvn(vW*1.6+vec3(5.2));float bord=1.-smoothstep(0.,.05,abs(c1-c2));float nuc=smoothstep(.72,.8,rvn(vW*2.3+vec3(9.)));
+  col=mix(col,col*.55,bord*.8);col=mix(col,vec3(.42,.3,.5),nuc*.7);col+=vec3(.5,.6,.85)*f*.4;a=uOp*(.8+.2*f);}
+ else{float fb=rvn(vec3(vW.x*.6,vW.y*5.,vW.z*.6))*.6+rvn(vec3(vW.x*1.5,vW.y*12.,vW.z*1.5))*.4;col=uCol*(.55+.6*fb);col+=vec3(.5,.55,.7)*f*.25;a=uOp*(.9+.1*f);}
+ col+=uCol*lam*1.1+vec3(.3,.26,.2)*lam*lam;a+=lam*.3*uOp;
  float dist=length(uCam-vW);float fg=1.-exp(-uFogD*dist);col=mix(col,uFog,fg);a*=1.-fg*.7;
  gl_FragColor=vec4(col,a);}`;
-function roomMat(col,op,cuts,stud){const u={uTime:wallU.uTime,uCam:wallU.uCam,uFog:wallU.uFog,uFogD:wallU.uFogD,uLight:wallU.uLight,uCol:{value:new THREE.Color(col)},uOp:{value:op},uStud:{value:stud===undefined?1:stud},uNP:{value:Math.min(6,cuts.length)},uPP:{value:[]},uPD:{value:[]},uPR:{value:[]},uPL:{value:[]}};
+function roomMat(col,op,cuts,stud,opt){opt=opt||{};const u={uTime:wallU.uTime,uCam:wallU.uCam,uFog:wallU.uFog,uFogD:wallU.uFogD,uLight:wallU.uLight,uCons:wallU.uCons,uGrey:wallU.uGrey,uCol:{value:new THREE.Color(col)},uOp:{value:op},uStud:{value:stud===undefined?1:stud},uMode:{value:opt.mode||0},uSelf:{value:opt.self===undefined?-1:opt.self},uNS:{value:Math.min(64,(opt.sph||[]).length)},uNP:{value:Math.min(6,cuts.length)},uPP:{value:[]},uPD:{value:[]},uPR:{value:[]},uPL:{value:[]},uSph:{value:[]}};
  for(let k=0;k<6;k++){const c=cuts[k];u.uPP.value.push(c?c.a.clone().lerp(c.b,.5):new V3());u.uPD.value.push(c?c.b.clone().sub(c.a).normalize():new V3(0,1,0));u.uPR.value.push(c?c.rs:0);u.uPL.value.push(c?c.a.distanceTo(c.b)/2:0);}
+ for(let k=0;k<64;k++){const q=opt.sph&&opt.sph[k];u.uSph.value.push(q?new THREE.Vector4(q.c.x,q.c.y,q.c.z,q.r):new THREE.Vector4());}
  return new THREE.ShaderMaterial({uniforms:u,transparent:true,depthWrite:false,side:THREE.DoubleSide,vertexShader:ROOMVS,fragmentShader:ROOMFS});}
 // a tube seen from outside: the membrane of an ER tubule, a coated pit, a nuclear pore, built from the route samples
 function skinMesh(Wd,i0,i1,pad,mat,step){const RAD=24;step=step||2;const rows=[];for(let i=i0;i<=i1;i+=step)rows.push(i);if(rows[rows.length-1]!==i1)rows.push(i1);
@@ -6991,7 +7030,173 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  NCR.cyto=addRoom(Wd,{id:'ncyto',regs:['ncyto','ncyto2','ngolgi'],shell:{t:'sph',c:cC,r:cR},bodies:B,cuts:[cPit,cEsc,cRer,cSer,cOmm,cOut,cNpc],spread:40,densK:2.4,fog:0x1c1830,fogD:.016,env:'membenv',shellName:'Plasma membrane · cytosolic face',shellSub:'the inside of the cell surface: cortical actin, membrane proteins, the coated pit you came in by'});
  const cytoMesh=new THREE.Mesh(new THREE.SphereGeometry(cR,96,64),roomMat(0xe8cf98,.6,[cPit]));cytoMesh.position.copy(cC);G.add(cytoMesh);
  NCR.cyto.extra={cC,cR,nC,nR,eC,eR,mA,mB,mBR,xA,xB,xR,noC,noR,cs,counts:{mito:mitos.length,rer:rers.length,lip:lips.length,perox:pers.length,lyso:lyss.length,gly:glys.length,mt:mts.length,chrom:chrom}};}
-buildNanoRooms();
+/* ===== Step 2 of "beyond the tunnel" (6 Nov 2026): rooms in the other worlds =====
+   The alveolar duct and sac (lung), Bowman's space round the glomerular tuft (kidney), the lymph node (lymph), the motor cortex
+   neuropil and the anterior horn cell's soma (nerve). Each is a shell, usually a cluster of overlapping spheres, with solid
+   furniture at true scale for that world's magnification. */
+const V2={};const _v2Y=new V3(0,1,0);
+function v2Tools(Wd,seed){const rng=volRng(seed),G=Wd.group;const pt=i=>gv(Wd.P,i,new V3()),tg=i=>gv(Wd.T,i,new V3()).normalize();
+ const PM=o=>new THREE.MeshPhysicalMaterial(Object.assign({roughness:.45,clearcoat:.3,clearcoatRoughness:.4},o)),SM=o=>new THREE.MeshStandardMaterial(o);
+ const rdir=()=>new V3(rng()-.5,rng()-.5,rng()-.5).normalize();
+ const rq=()=>new THREE.Quaternion().setFromEuler(new THREE.Euler(rng()*6.3,rng()*6.3,rng()*6.3));
+ const inst=(geo,mat,list,place)=>{if(!list.length)return null;const im=new THREE.InstancedMesh(geo,mat,list.length);const m=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new V3(),p=new V3();list.forEach((b,k)=>{place(b,p,q,s);m.compose(p,q,s);im.setMatrixAt(k,m);});im.instanceMatrix.needsUpdate=true;im.frustumCulled=false;G.add(im);return im;};
+ const _d=new V3();
+ const capInst=(list,mat,segs)=>inst(new THREE.CapsuleGeometry(1,2,4,segs||10),mat,list,(b,p,q,s)=>{p.copy(b.a).lerp(b.b,.5);_d.subVectors(b.b,b.a);const L=_d.length();q.setFromUnitVectors(_v2Y,_d.multiplyScalar(1/Math.max(1e-6,L)));s.set(b.r,(L+2*b.r)/4,b.r);});
+ const sphInst=(list,mat,geo)=>inst(geo||new THREE.SphereGeometry(1,20,14),mat,list,(b,p,q,s)=>{p.copy(b.c);q.identity();s.setScalar(b.r);});
+ const ellInst=(list,mat)=>inst(new THREE.SphereGeometry(1,20,14),mat,list,(b,p,q,s)=>{p.copy(b.c);q.copy(b.q);s.copy(b.s);});
+ const chain=(i0,i1,step,rf)=>{const parts=[];for(let i=i0;i<=i1;i+=step)parts.push({c:pt(i),r:rf(i)});if((i1-i0)%step)parts.push({c:pt(i1),r:rf(i1)});return parts;};
+ const unionMesh=(parts,col,op,cuts,stud,mode,seg)=>{const ms=[];parts.forEach((q,k)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(q.r,seg||36,Math.round((seg||36)*.66)),roomMat(col,op,cuts,stud,{mode,sph:parts,self:k}));m.position.copy(q.c);m.frustumCulled=false;G.add(m);ms.push(m);});return ms;};
+ const depthIn=parts=>p=>{let d=-1e9;for(const q of parts){const e=q.r-p.distanceTo(q.c);if(e>d)d=e;}return d;};
+ return {rng,G,pt,tg,PM,SM,rdir,rq,inst,capInst,sphInst,ellInst,chain,unionMesh,depthIn};}
+
+/* --- Lung: the alveolar duct and the sac, 1 unit ≈ 45–50 µm. A string of spheres along the route is the duct and the atrium;
+       alveoli (Ø ≈ 200 µm) bud off it all round and cluster at the blind end. Every wall is a capillary sheet (shader mode 1). --- */
+function buildLungRooms(){const Wd=LUNG,R=Wd.RANGE,T=v2Tools(Wd,11),{rng,pt,tg,PM,rdir,sphInst,chain,unionMesh}=T;
+ const a0=R.acinus[0],b1=R.sac[1];
+ const parts=chain(a0,b1,3,i=>Wd.R0[i]*1.08);
+ const alv=[],nRing=MOBILE?3:5;
+ for(let i=a0+4;i<=b1-2;i+=Math.round(7+rng()*3)){const c=pt(i),t=tg(i),n=gv(Wd.NR,i,new V3()),b=gv(Wd.BN,i,new V3());const ph=rng()*6.28;
+  for(let k=0;k<nRing;k++){const th=ph+k/nRing*6.28+(rng()-.5)*.5,ra=2.1+rng()*.6,d=Wd.R0[i]*1.08+ra*.55;
+   alv.push({c:c.clone().addScaledVector(n,Math.cos(th)*d).addScaledVector(b,Math.sin(th)*d).addScaledVector(t,(rng()-.5)*2),r:ra,alv:true});}}
+ {const c=pt(b1),t=tg(b1),n=gv(Wd.NR,b1,new V3()),b=gv(Wd.BN,b1,new V3());alv.push({c:c.clone().addScaledVector(t,Wd.R0[b1]*.6+1.4),r:2.7,alv:true});
+  for(let k=0;k<4;k++){const th=k/4*6.28+.7,d=Wd.R0[b1]*.95;alv.push({c:c.clone().addScaledVector(n,Math.cos(th)*d).addScaledVector(b,Math.sin(th)*d).addScaledVector(t,1.6),r:2.4,alv:true});}}
+ const all=parts.concat(alv).slice(0,64);
+ const cIn=cutAt(Wd,a0,4,Wd.R0[a0]+.2,Wd.R0[a0]+1.3,5);
+ unionMesh(all,0xf0c8c4,.8,[cIn],0,1,28);
+ // type II pneumocytes in the corners of the alveoli (they make the surfactant); the macrophages come from the cell deck
+ const t2=[];for(const q of alv){for(let k=0;k<(MOBILE?1:2);k++){const p=q.c.clone().addScaledVector(rdir(),q.r-.22);let inside=false;for(const o of all){if(o!==q&&p.distanceTo(o.c)<o.r-.1){inside=true;break;}}if(inside)continue;
+  t2.push({t:'sph',c:p,r:.26,soft:true,name:'Type II pneumocyte',sub:'cuboidal, in a corner of the alveolus · lamellar bodies of surfactant inside · the stem cell of the alveolar epithelium',size:'≈ 10 µm',codex:'surfactant',env:'barrier'});}}
+ sphInst(t2,PM({color:0xe8d8c8,roughness:.5,emissive:0x201410}),new THREE.DodecahedronGeometry(1,1));
+ V2.lung=addRoom(Wd,{id:'lsac',regs:['acinus','sac'],shell:{t:'union',parts:all},bodies:t2,cuts:[cIn],spread:14,densK:1.4,flowK:1,nearR:60,camBack:3,fog:0x2a1c20,fogD:.04,env:'barrier',shellName:'Alveolar septum',shellSub:'type I cells over a capillary sheet · the blood–gas barrier 0.3 µm thin on one side · pores of Kohn between neighbours',
+  onEnter(){toastOnce('volLung','Generation 20: the alveolar duct. The tube is gone: every wall is a ring of alveoli and you can fly into any of them. The sac is at the end of the thread (I shows it; F follows it).','',600);}});
+ V2.lung.extra={alveoli:alv.length,parts:all.length,t2:t2.length};}
+
+/* --- Kidney: Bowman's space, 1 unit ≈ 10 µm here. The capsule is a sphere round the tuft; the capillary you flew is one loop of a ball
+       of 30–50, with podocytes sitting on them. In at the vascular pole with the arteriole, out at the urinary pole into the PCT. --- */
+function buildRenalRooms(){const Wd=RENAL,R=Wd.RANGE,K=MOBILE?.6:1,T=v2Tools(Wd,23),{rng,G,pt,PM,rdir,capInst,sphInst}=T;
+ const cS=new V3(3001,100,-3.5),rS=10.2,tc=new V3(3000,100,-1.4);
+ let iv=R.afferent[0];while(iv<R.glom[0]&&pt(iv).distanceTo(cS)>rS)iv++;
+ const cPole=cutAt(Wd,iv,5,.01,Wd.R0[iv]+1.4,5);                      // a hole in the capsule only: the arteriole itself stays solid
+ const ip=R.pct[0],cUp=cutAt(Wd,ip,4,Wd.R0[ip]+.2,Wd.R0[ip]+1.4,7);   // the urinary pole
+ const B=[{t:'skin',Wd,i0:iv,i1:R.bowman[0]-1,pad:.35,name:'Glomerular capillary · the one you flew',sub:'fenestrated endothelium inside · GBM · podocyte foot processes with slit diaphragms outside',size:'Ø ≈ 8 µm · the whole tuft ≈ 200 µm',codex:'fenestra',env:'fenestra'}];
+ const routePts=[];for(let i=iv;i<=R.bowman[1];i+=2)routePts.push([pt(i),Wd.R0[i],Wd.REG[i]==='bowman']);
+ // the other loops of the tuft: short curved capillaries (Ø 8 µm = 0.8 unit) grown from random seeds, each bending gently, packed round the one you flew
+ const loops=[],rl=.8,used=[];const tmp=new V3();
+ const okPt=(p,self)=>{if(p.distanceTo(cS)>rS-rl-1.2||p.distanceTo(tc)>7.2)return false;for(const [q,r,open] of routePts)if(q.distanceTo(p)<(open?rl+1.1:r+.35+rl*.25))return false;for(const q of used)if(q!==self&&q.distanceTo(p)<rl*1.75)return false;return true;};
+ for(let n=0;n<Math.round(4000*K)&&loops.length<Math.round(90*K);n++){let p=tc.clone().add(rdir().multiplyScalar(6.8*Math.cbrt(rng())));if(!okPt(p))continue;
+  let d=rdir();const axis=rdir(),bend=.35+rng()*.4,pts=[p];
+  for(let j=0;j<8;j++){d.applyAxisAngle(axis,bend).normalize();const q=pts[pts.length-1].clone().addScaledVector(d,1.15);if(!okPt(q))break;pts.push(q);}
+  if(pts.length<3)continue;const segs=[];for(let j=0;j<pts.length-1;j++){segs.push({t:'cap',a:pts[j],b:pts[j+1],r:rl,name:'Glomerular capillary loop',sub:'one of 30–50 in the tuft · podocytes outside, fenestrated endothelium inside, mesangium holding the loops together',size:'Ø ≈ 8 µm',codex:'glom',env:'fenestra'});used.push(pts[j]);}used.push(pts[pts.length-1]);loops.push(segs);}
+ const pods=[];loops.forEach(L=>L.forEach(s=>{if(rng()<.6)return;const p=s.a.clone().lerp(s.b,.5).addScaledVector(rdir(),rl+.5);if(p.distanceTo(cS)>rS-1.4||p.distanceTo(tc)>7)return;for(const [q,r,open] of routePts)if(q.distanceTo(p)<(open?1.7:r+1.0))return;for(const o of pods)if(o.c.distanceTo(p)<1.3)return;
+  pods.push({t:'sph',c:p,r:.6,name:'Podocyte',sub:'the cell body sits in Bowman’s space; primary processes wrap the loop and the foot processes interdigitate on the GBM, 4 nm slits between them',size:'body ≈ 10–15 µm',codex:'fenestra',env:'fenestra'});}));
+ const podTex=canvasTex(128,128,(c,w,h)=>{c.fillStyle='#d8c0c8';c.fillRect(0,0,w,h);c.lineWidth=2;for(let k=0;k<44;k++){c.strokeStyle='rgba(120,70,100,.5)';c.beginPath();const x=rng()*w;c.moveTo(x,0);c.lineTo(x+(rng()-.5)*30,h);c.stroke();}for(let k=0;k<30;k++){c.fillStyle='rgba(200,60,70,.35)';c.beginPath();c.arc(rng()*w,rng()*h,3,0,7);c.fill();}});
+ const loopMat=PM({color:0xffffff,map:podTex,roughness:.5,emissive:0x1a0a10});
+ const allSegs=[].concat(...loops);capInst(allSegs,loopMat,10);
+ sphInst(pods,PM({color:0xe0c8d8,roughness:.45,emissive:0x180c14}),new THREE.IcosahedronGeometry(1,2));
+ // primary processes of the podocytes, reaching from the body to the loop (visual)
+ const proc=[];pods.forEach(b=>{for(let k=0;k<3;k++){const d=rdir();proc.push({a:b.c.clone(),b:b.c.clone().addScaledVector(d,.8+rng()*.7),r:.12});}});capInst(proc,PM({color:0xe0c8d8,roughness:.5,emissive:0x180c14}),6);
+ skinMesh(Wd,iv,R.bowman[0]-1,.35,loopMat);
+ const shellMesh=new THREE.Mesh(new THREE.SphereGeometry(rS,48,32),roomMat(0xe6d6cc,.7,[cPole,cUp],0,{mode:2}));shellMesh.position.copy(cS);shellMesh.frustumCulled=false;G.add(shellMesh);
+ V2.renal=addRoom(Wd,{id:'rbow',regs:['bowman'],shell:{t:'sph',c:cS,r:rS},bodies:B.concat(allSegs,pods),cuts:[cPole,cUp],spread:9,densK:1.5,nearR:40,camBack:2.2,fog:0x2a1a1c,fogD:.05,env:'fenestra',shellName:'Bowman’s capsule · parietal layer',shellSub:'a simple squamous epithelium on a basement membrane · continuous with the podocytes at the vascular pole and with the proximal tubule at the urinary pole',
+  onEnter(){toastOnce('volRenal','Bowman’s space, open round the whole tuft. The capillary you left is one loop of the ball ahead, podocytes sitting on every loop; the urinary pole and the proximal tubule are at the end of the thread (I).','',600);}});
+ V2.renal.extra={loops:loops.length,segs:allSegs.length,pods:pods.length,iv};}
+
+/* --- Lymph: a small node, 1 unit ≈ 7 µm. A bean of spheres along the route; the subcapsular sinus just inside the capsule, follicles
+       bulging in from the cortex, the T-cell paracortex with its high endothelial venules, medullary cords converging on the hilum. --- */
+function buildLymphRooms(){const Wd=LYMPH,R=Wd.RANGE,K=MOBILE?.6:1,T=v2Tools(Wd,37),{rng,G,pt,PM,SM,rdir,rq,capInst,sphInst,ellInst,chain,unionMesh,depthIn}=T;
+ const a0=R.subcap[0],b1=R.medsinus[1];
+ const parts=chain(a0,b1,6,i=>{const f=(i-a0)/(b1-a0);return 17+9*Math.sin(f*Math.PI);});
+ const cIn=cutAt(Wd,a0,5,Wd.R0[a0]+.2,Wd.R0[a0]+1.6,6),ie=R.efferent[0],cOut=cutAt(Wd,ie,5,Wd.R0[ie]+.2,Wd.R0[ie]+1.6,7);
+ unionMesh(parts,0xd8c0a0,.92,[cIn,cOut],0,3,32);
+ const depth=depthIn(parts);
+ const routePts=[];for(let i=a0;i<=b1;i+=2)routePts.push([pt(i),Wd.R0[i]]);
+ const axisF=p=>{let best=a0,bd=1e9;for(let i=a0;i<=b1;i+=4){const d=pt(i).distanceTo(p);if(d<bd){bd=d;best=i;}}return (best-a0)/(b1-a0);};
+ const placed=[];
+ const randAt=(m,dmin,dmax,fmin,fmax)=>{for(let k=0;k<80;k++){const q=parts[Math.floor(rng()*parts.length)],p=q.c.clone().add(rdir().multiplyScalar(q.r*Math.cbrt(rng())));const d=depth(p);if(d<dmin+m||d>dmax+m)continue;const f=axisF(p);if(f<fmin||f>fmax)continue;
+   let ok=true;for(const [c,r] of routePts)if(c.distanceTo(p)<r+m+1.2){ok=false;break;}if(!ok)continue;for(const [c,r] of placed)if(c.distanceTo(p)<(r+m)*.92){ok=false;break;}if(!ok)continue;return p;}return null;};
+ const fol=[];for(let k=0;k<Math.round(16*K);k++){const r=4.5+rng()*3.5,p=randAt(r,3.2,7,0,.72);if(!p)continue;placed.push([p,r]);fol.push({t:'sph',c:p,r,name:'Lymphoid follicle',sub:'B cells round a follicular dendritic cell meshwork · a germinal centre with a dark and a light zone when it is responding · a mantle of naive cells outside',size:fmtUm(2*r*7),codex:'follicle',env:'reticulum'});}
+ const folTex=canvasTex(256,256,(c,w,h)=>{c.fillStyle='#b8a0cc';c.fillRect(0,0,w,h);for(let k=0;k<4000;k++){c.fillStyle='rgba(60,30,90,'+(.25+rng()*.4)+')';c.beginPath();c.arc(rng()*w,rng()*h,1.4+rng()*1.3,0,7);c.fill();}});
+ sphInst(fol,PM({color:0xffffff,map:folTex,roughness:.75,emissive:0x100818}),new THREE.SphereGeometry(1,26,18));
+ const para=[];for(let k=0;k<Math.round(30*K);k++){const r=2.6+rng()*2.2,p=randAt(r,5,12,.15,.75);if(!p)continue;placed.push([p,r*1.3]);para.push({t:'ell',c:p,s:new V3(r*(1+rng()*.5),r,r*(1+rng()*.5)),q:rq(),name:'Paracortex · T-cell zone',sub:'T cells packed round interdigitating dendritic cells, fed by high endothelial venules · fibroblastic reticular cell conduits run through it',size:'cells ≈ 7 µm, ~10 µm apart',codex:'paracortex',env:'reticulum'});}
+ const paraTex=canvasTex(256,256,(c,w,h)=>{c.fillStyle='#c8aabb';c.fillRect(0,0,w,h);for(let k=0;k<2600;k++){c.fillStyle='rgba(70,40,100,'+(.2+rng()*.35)+')';c.beginPath();c.arc(rng()*w,rng()*h,1.6+rng()*1.4,0,7);c.fill();}});
+ ellInst(para,PM({color:0xffffff,map:paraTex,roughness:.8,emissive:0x100a10}));
+ const hev=[];for(let k=0;k<Math.round(9*K);k++){let p=randAt(1.2,6,11,.2,.72);if(!p)continue;const d=rdir();for(let j=0;j<4;j++){const b=p.clone().addScaledVector(d,4+rng()*2).add(rdir().multiplyScalar(1.2));if(depth(b)<2.6)break;let ok=true;for(const [c,r] of routePts)if(sdCap(c.x,c.y,c.z,p,b,1.1)<r+1){ok=false;break;}if(!ok)break;
+   hev.push({t:'cap',a:p,b,r:1.1,name:'High endothelial venule',sub:'where naive lymphocytes leave the blood: L-selectin → CCL21/CCR7 → LFA-1, then a squeeze between the tall endothelial cells',size:'Ø ≈ 15 µm',codex:'hev',env:'reticulum'});p=b;}}
+ capInst(hev,PM({color:0x8c2c3c,roughness:.5,emissive:0x1a0408}));
+ const cords=[],hil=pt(b1);for(let k=0;k<Math.round(18*K);k++){const r=1.8+rng()*1.2;let p=randAt(r,3,14,.5,.95);if(!p)continue;const toH=hil.clone().sub(p).normalize();for(let j=0;j<3;j++){const b=p.clone().addScaledVector(toH,5+rng()*3).add(rdir().multiplyScalar(1.5));if(depth(b)<r+1.5)break;let ok=true;for(const [c,rr] of routePts)if(sdCap(c.x,c.y,c.z,p,b,r)<rr+1){ok=false;break;}if(!ok)break;
+   cords.push({t:'cap',a:p,b,r,name:'Medullary cord',sub:'plasma cells pouring antibody into the sinus lymph · macrophages · the last filter before the efferent vessel',size:'≈ '+fmtUm(2*r*7)+' thick',codex:'medcord',env:'reticulum'});p=b;}}
+ const cordTex=canvasTex(256,256,(c,w,h)=>{c.fillStyle='#c8a898';c.fillRect(0,0,w,h);for(let k=0;k<1500;k++){c.fillStyle=rng()<.3?'rgba(90,50,110,.6)':'rgba(220,190,170,.5)';c.beginPath();c.arc(rng()*w,rng()*h,2+rng()*2.5,0,7);c.fill();}});
+ capInst(cords,PM({color:0xffffff,map:cordTex,roughness:.7,emissive:0x140a08}),12);
+ const trab=[];for(let k=0;k<Math.round(12*K);k++){const q=parts[Math.floor(rng()*parts.length)],d=rdir(),a=q.c.clone().addScaledVector(d,q.r-.2),b=q.c.clone().addScaledVector(d,q.r-6-rng()*6);let ok=true;for(const [c,rr] of routePts)if(sdCap(c.x,c.y,c.z,a,b,.6)<rr+1){ok=false;break;}if(!ok)continue;
+  trab.push({t:'cap',a,b,r:.6,name:'Trabecula',sub:'a collagen septum carrying vessels in from the capsule',size:'≈ 5–10 µm',codex:'reticulum',env:'reticulum'});}
+ capInst(trab,SM({color:0xe0cfb0,roughness:.6,emissive:0x141008}),8);
+ const seg=[],anchors=fol.map(b=>[b.c,b.r]).concat(para.map(b=>[b.c,b.s.x]),cords.map(b=>[b.a,b.r]));
+ for(let k=0;k<Math.round(260*K)&&anchors.length>1;k++){const [c1,r1]=anchors[Math.floor(rng()*anchors.length)],[c2,r2]=anchors[Math.floor(rng()*anchors.length)];if(c1===c2||c1.distanceTo(c2)>22)continue;const d=c2.clone().sub(c1).normalize(),a=c1.clone().addScaledVector(d,r1),b=c2.clone().addScaledVector(d,-r2);seg.push(a.x,a.y,a.z,b.x,b.y,b.z);}
+ const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(seg,3));G.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xefe4c8,transparent:true,opacity:.3,fog:true})));
+ V2.lymph=addRoom(Wd,{id:'lnode',regs:['subcap','cortsinus','medsinus'],shell:{t:'union',parts},bodies:fol.concat(para,hev,cords,trab),cuts:[cIn,cOut],spread:16,densK:1.6,nearR:70,fog:0x2c2212,fogD:.035,env:'reticulum',shellName:'Capsule of the node',shellSub:'dense collagen · the subcapsular sinus just inside it, lined by sinus macrophages that sample everything coming in',
+  onEnter(){toastOnce('volLymph','A lymph node, open from the inside: the subcapsular sinus under the capsule, follicles bulging in from the cortex, the T-cell paracortex, then the medullary cords and the way out at the hilum. The thread (I) leads through the sinuses.','',600);}});
+ Object.entries({lymphL:3,macro:1.6,dc:1.3,bact:1}).forEach(([k,v])=>{if(CELLS[k])CELLS[k].roomK=v;});
+ V2.lymph.extra={fol:fol.length,para:para.length,hev:hev.length,cords:cords.length,trab:trab.length};}
+
+/* --- Nerve: the motor cortex (1 unit ≈ 7 µm) and the anterior horn cell (1 unit ≈ 4.5 µm) --- */
+function buildNerveRooms(){const Wd=NERVE,R=Wd.RANGE,K=MOBILE?.55:1,T=v2Tools(Wd,41),{rng,G,pt,PM,SM,rdir,rq,inst,capInst,sphInst,ellInst,chain,unionMesh,depthIn}=T;
+ {const a0=R.cortex[0],b1=R.cortex[1],parts=chain(a0,b1,6,()=>15);
+  const cIn=cutAt(Wd,a0,4,Wd.R0[a0]+.3,Wd.R0[a0]+1.4,6),ia=R.axon[0],cOut=cutAt(Wd,ia,5,Wd.R0[ia]+.2,Wd.R0[ia]+1.4,7);
+  unionMesh(parts,0x9a8ab0,.1,[cIn,cOut],0,0,20);
+  const depth=depthIn(parts),cl=i=>Math.max(0,Math.min(Wd.N-1,i));
+  const routePts=[];for(let i=a0-6;i<=b1+6;i+=2)routePts.push([pt(cl(i)),Wd.R0[cl(i)]]);
+  const placed=[];const randIn=(m,rc)=>{for(let k=0;k<50;k++){const q=parts[Math.floor(rng()*parts.length)],p=q.c.clone().add(rdir().multiplyScalar((q.r-m-.5)*Math.cbrt(rng())));if(depth(p)<m+.5)continue;let ok=true;for(const [c] of routePts)if(c.distanceTo(p)<m+(rc||4.5)){ok=false;break;}if(!ok)continue;for(const [c,r] of placed)if(c.distanceTo(p)<(r+m)*.9){ok=false;break;}if(!ok)continue;return p;}return null;};
+  const up=_v2Y,somas=[],dend=[],axs=[];const clearCap=(a,b,r,need)=>{for(const [c,rr] of routePts)if(sdCap(c.x,c.y,c.z,a,b,r)<need)return false;return true;};
+  const addCap=(list,a,dir,L,r,o)=>{for(const f of [1,.72,.5,.32]){const b=a.clone().addScaledVector(dir,L*f);if(clearCap(a,b,r,1.6)){list.push(Object.assign({t:'cap',a,b,r},o));return;}}};
+  for(let k=0;k<Math.round(300*K);k++){const big=k<6,sx=big?2.6+rng():.9+rng()*.5,sy=big?4+rng():1.5+rng()*.7,c=randIn(sy);if(!c)continue;placed.push([c,sy]);
+   const q=new THREE.Quaternion().setFromUnitVectors(up,up.clone().add(rdir().multiplyScalar(.35)).normalize());
+   somas.push({t:'ell',c,s:new V3(sx,sy,sx),q,name:big?'Betz cell · layer V':'Pyramidal neuron · cell body',sub:big?'a giant upper motor neuron, 60–100 µm, whose axon runs the whole corticospinal tract to the anterior horn':'nucleus with a nucleolus · Nissl bodies · the apical dendrite climbs toward the pia, the axon leaves from the base',size:big?'≈ '+fmtUm(2*sy*7):'≈ '+fmtUm(2*sx*7)+' × '+fmtUm(2*sy*7),codex:'pyramidal',env:'neuropil'});
+   const apex=c.clone().addScaledVector(up,sy*.9),L=10+rng()*22,dir=up.clone().add(rdir().multiplyScalar(.25)).normalize();
+   addCap(dend,apex,dir,L,big?.45:.22,{name:'Apical dendrite',sub:'thousands of spines, each one a synapse · it climbs to layer I and branches there',size:'Ø ≈ 1.5–3 µm',codex:'pyramidal',env:'neuropil'});
+   for(let j=0;j<2+(big?2:0);j++){const d=rdir();d.y=-Math.abs(d.y)*.6;d.normalize();const a=c.clone().addScaledVector(d,sx*.8);addCap(dend,a,d,4+rng()*5,big?.3:.16,{name:'Basal dendrite',sub:'spines along it · most of the cell’s synapses are on its dendrites',size:'Ø ≈ 1 µm',codex:'pyramidal',env:'neuropil'});}
+   const base=c.clone().addScaledVector(up,-sy*.95),ad=up.clone().multiplyScalar(-1).add(rdir().multiplyScalar(.2)).normalize();addCap(axs,base,ad,6+rng()*8,.1,{soft:true});}
+  const nisslTex=canvasTex(128,128,(c,w,h)=>{c.fillStyle='#e0cfc4';c.fillRect(0,0,w,h);for(let k=0;k<160;k++){c.fillStyle='rgba(90,60,130,'+(.3+rng()*.4)+')';c.beginPath();c.ellipse(rng()*w,rng()*h,3+rng()*4,2+rng()*2,rng()*3,0,7);c.fill();}});
+  ellInst(somas,PM({color:0xffffff,map:nisslTex,roughness:.5,emissive:0x16100e}));
+  capInst(dend,SM({color:0xd4bfb2,roughness:.6,emissive:0x120c0a}),7);capInst(axs,SM({color:0xcfc0b0,roughness:.6}),5);
+  const astr=[],aproc=[];for(let k=0;k<Math.round(110*K);k++){const r=.75+rng()*.3,c=randIn(r);if(!c)continue;placed.push([c,r+1]);astr.push({t:'sph',c,r,name:'Astrocyte',sub:'star-shaped · end-feet on the capillaries · buffers K⁺ and glutamate · part of the blood–brain barrier',size:'body ≈ 10 µm · territory ≈ 50 µm',codex:'astro',env:'neuropil'});
+   for(let j=0;j<5;j++){const d=rdir();aproc.push({a:c.clone().addScaledVector(d,r*.8),b:c.clone().addScaledVector(d,2.5+rng()*2.5),r:.13});}}
+  sphInst(astr,PM({color:0xc8d0e0,roughness:.45,transparent:true,opacity:.9,emissive:0x0c1018}),new THREE.IcosahedronGeometry(1,2));capInst(aproc,SM({color:0xb8c0d4,roughness:.6}),5);
+  const olig=[];for(let k=0;k<Math.round(50*K);k++){const r=.55+rng()*.2,c=randIn(r);if(!c)continue;placed.push([c,r]);olig.push({t:'sph',c,r,name:'Oligodendrocyte',sub:'wraps myelin round up to 50 axons · in grey matter it sits beside the neurons as a satellite cell',size:'≈ 8 µm',codex:'oligo',env:'neuropil'});}
+  sphInst(olig,PM({color:0xd8cce0,roughness:.5,emissive:0x100c14}));
+  const caps=[];let ncap=0;for(let k=0;k<40&&ncap<Math.round(7*K);k++){let p=randIn(1.2,6);if(!p)continue;ncap++;const d=rdir();for(let j=0;j<5;j++){const b=p.clone().addScaledVector(d,6+rng()*4).add(rdir().multiplyScalar(2));if(depth(b)<1.5)break;let ok=true;for(const [c,r] of routePts)if(sdCap(c.x,c.y,c.z,p,b,.95)<r+1.5){ok=false;break;}if(!ok)break;
+   caps.push({t:'cap',a:p,b,r:.95,name:'Cortical capillary',sub:'sealed by tight junctions and wrapped in astrocyte end-feet: the blood–brain barrier · about one per 50 µm of neuropil',size:'Ø ≈ 7 µm',codex:'bbb',env:'bbbendo'});p=b;}}
+  capInst(caps,PM({color:0xa83038,roughness:.45,emissive:0x200406}),10);
+  const syn=[];for(let k=0;k<Math.round(500*K)&&dend.length;k++){const d=dend[Math.floor(rng()*dend.length)],p=d.a.clone().lerp(d.b,rng()).addScaledVector(rdir(),d.r+.18);syn.push({t:'sph',c:p,r:.2,soft:true,name:'Synapse · bouton on a spine',sub:'a presynaptic bouton full of glutamate vesicles pressed against a dendritic spine · about one synapse per µm³ of neuropil',size:'bouton ≈ 1 µm · cleft 20 nm',codex:'synapse',env:'neuropil'});}
+  sphInst(syn,SM({color:0xe8d8d0,roughness:.5,emissive:0x1a1210}),new THREE.SphereGeometry(1,8,6));
+  V2.cortex=addRoom(Wd,{id:'ncortex',regs:['cortex'],shell:{t:'union',parts},bodies:somas.concat(dend,axs,astr,olig,caps,syn),cuts:[cIn,cOut],spread:14,densK:1.2,nearR:45,fog:0x1a1420,fogD:.05,env:'neuropil',shellName:'Grey matter',shellSub:'the neuropil goes on in every direction; this is only the edge of the block that is drawn',
+   onEnter(){toastOnce('volCortex','The motor cortex, open: pyramidal cells with their apical dendrites climbing toward the pia, Betz cells in layer V, astrocytes, capillaries, a synapse on every dendrite. The thread (I) leads down to the axon.','',600);}});
+  V2.cortex.extra={somas:somas.length,dend:dend.length,astr:astr.length,olig:olig.length,caps:caps.length,syn:syn.length};}
+ {const a0=R.soma[0],b1=R.soma[1],c0=pt(a0),c1=pt(b1),ax=c1.clone().sub(c0).normalize(),cS=c0.clone().lerp(c1,.4);
+  const parts=[{c:c0.clone().addScaledVector(ax,-1),r:5.5},{c:c0.clone().lerp(c1,.18),r:8.5},{c:cS,r:11},{c:c0.clone().lerp(c1,.66),r:8.5},{c:c0.clone().lerp(c1,.85),r:6.5},{c:c1.clone().addScaledVector(ax,.5),r:5.5}];
+  const cIn=cutAt(Wd,a0,4,Wd.R0[a0]+.2,Wd.R0[a0]+1.2,5),ip=R.pnerve[0],cOut=cutAt(Wd,ip,5,Wd.R0[ip]+.2,Wd.R0[ip]+1,6);
+  unionMesh(parts,0xd8c0b0,.55,[cIn,cOut],1,0,32);
+  const nC=cS.clone().add(new V3(2.8,2,-2.2)),nR=2.4;
+  const B=[{t:'sph',c:nC,r:nR,name:'Nucleus',sub:'large and pale (open chromatin: this cell is transcribing hard) with one big nucleolus · the hallmark of a motor neuron on a slide',size:'≈ '+fmtUm(2*nR*4.5),codex:'soma',env:'somamem'}];
+  const nucMesh=new THREE.Mesh(new THREE.SphereGeometry(nR,40,28),PM({color:0xe4d8f0,roughness:.3,transparent:true,opacity:.5,clearcoat:.6,emissive:0x16122a}));nucMesh.position.copy(nC);G.add(nucMesh);
+  const nol=new THREE.Mesh(new THREE.SphereGeometry(.6,16,12),SM({color:0x3c2c5c,roughness:.6,emissive:0x100820}));nol.position.copy(nC).add(new V3(.7,.5,.3));G.add(nol);
+  const depth=depthIn(parts),routePts=[];for(let i=a0;i<=b1;i+=2)routePts.push(pt(i));
+  const placed=[[nC,nR]];const randIn=m=>{for(let k=0;k<50;k++){const q=parts[Math.floor(rng()*parts.length)],p=q.c.clone().add(rdir().multiplyScalar((q.r-m-.4)*Math.cbrt(rng())));if(depth(p)<m+.4)continue;let ok=true;for(const c of routePts)if(c.distanceTo(p)<m+1.6){ok=false;break;}if(!ok)continue;for(const [c,r] of placed)if(c.distanceTo(p)<(r+m)*.9){ok=false;break;}if(!ok)continue;return p;}return null;};
+  const nissl=[];for(let k=0;k<Math.round(220*K);k++){const r=.25+rng()*.35,c=randIn(r);if(!c)continue;placed.push([c,r]);nissl.push({t:'ell',c,s:new V3(r*1.6,r*.7,r*1.3),q:rq(),name:'Nissl body',sub:'a stack of rough ER with free ribosomes between: the protein factory of a cell whose axon may be a metre long',size:'≈ '+fmtUm(2*r*1.6*4.5),codex:'nissl',env:'somamem'});}
+  const nisslTex2=canvasTex(128,128,(c,w,h)=>{c.fillStyle='#7a5aa8';c.fillRect(0,0,w,h);for(let k=0;k<600;k++){c.fillStyle='rgba(230,200,240,'+(.3+rng()*.4)+')';c.fillRect(rng()*w,rng()*h,2,2);}for(let y=0;y<h;y+=9){c.fillStyle='rgba(40,20,70,.35)';c.fillRect(0,y,w,3);}});
+  ellInst(nissl,PM({color:0xffffff,map:nisslTex2,roughness:.55,emissive:0x140a1e}));
+  const golgi=[];for(let k=0;k<14&&golgi.length<6;k++){const d=rdir(),c=nC.clone().addScaledVector(d,nR+1.1+rng()*.6);if(depth(c)<1.6)continue;let okg=true;for(const q of routePts)if(q.distanceTo(c)<3){okg=false;break;}if(!okg)continue;golgi.push({t:'plate',c,q:volQuat(d),R:1.1+rng()*.5,h:.08,name:'Golgi stack',sub:'perinuclear · packaging neuropeptides and membrane for the axon',size:'≈ 10 µm across',codex:'ngolgi',env:'somamem'});placed.push([c,1.6]);}
+  inst(new THREE.CylinderGeometry(1,1,1,24),SM({color:0xe0c8a8,roughness:.5,emissive:0x1a1408}),golgi,(b,p,q,s)=>{p.copy(b.c);q.copy(b.q);s.set(b.R,b.h*2,b.R);});
+  const mit=[];for(let k=0;k<Math.round(260*K);k++){const c=randIn(.3);if(!c)continue;const d=rdir(),L=.5+rng()*.5;mit.push({t:'cap',a:c.clone().addScaledVector(d,-L/2),b:c.clone().addScaledVector(d,L/2),r:.13,soft:true,name:'Mitochondrion',sub:'everywhere in the soma, and carried down the axon on kinesin',size:'≈ 1 × 3 µm',codex:'mitoN',env:'somamem'});}
+  capInst(mit,PM({color:0xe8906e,roughness:.4,emissive:0x1a0806}),8);
+  const lipo=[];for(let k=0;k<Math.round(40*K);k++){const c=randIn(.22);if(!c)continue;lipo.push({t:'sph',c,r:.22,soft:true,name:'Lipofuscin granule',sub:'“wear-and-tear” pigment: lysosomal residue that cannot be digested and accumulates with age',size:'≈ 1–2 µm',codex:'lyso',env:'somamem'});}
+  sphInst(lipo,SM({color:0xb08030,roughness:.6,emissive:0x201404}),new THREE.DodecahedronGeometry(1,0));
+  const nf=[];for(let k=0;k<Math.round(70*K);k++){const a=randIn(.1);if(!a)continue;nf.push({a,b:a.clone().lerp(c1,.55+rng()*.4).add(rdir().multiplyScalar(.8)),r:.035});}
+  capInst(nf,SM({color:0xd8ccb8,roughness:.6,transparent:true,opacity:.7}),4);
+  V2.soma=addRoom(Wd,{id:'nsoma',regs:['soma'],shell:{t:'union',parts},bodies:B.concat(nissl,golgi,mit,lipo),cuts:[cIn,cOut],spread:8,densK:1.6,nearR:40,camBack:2.8,fog:0x221a24,fogD:.04,env:'somamem',shellName:'Plasma membrane of the motor neuron',shellSub:'thousands of synapses on the soma and dendrites: glycine and GABA on the soma, glutamate on the dendrites · the axon hillock ahead is where the spike is decided',
+   onEnter(){toastOnce('volSoma','Inside the anterior horn cell: the pale nucleus with its nucleolus, Nissl bodies, mitochondria, lipofuscin. The membrane funnels into the axon hillock at the end of the thread (I); the axon leaves there.','',600);}});
+  V2.soma.extra={nissl:nissl.length,golgi:golgi.length,mit:mit.length,lipo:lipo.length};}
+ Object.entries({neuron:0,astro:0,oligo:0,microglia:.6,schwann:0}).forEach(([k,v])=>{if(CELLS[k])CELLS[k].roomK=v;});}
+buildNanoRooms();buildLungRooms();buildRenalRooms();buildLymphRooms();buildNerveRooms();
 const S={pos:new V3(),vel:new V3(),q:new THREE.Quaternion(),idx:0,sF:0,lastMouse:-9,auto:false,boost:false,bumpT:0,vol:null};
 function placeAt(i){
  S.idx=i;gv(P,i,S.pos);S.vel.set(0,0,0);gv(T,i,_t);
@@ -8071,7 +8276,7 @@ Object.assign(PROV,{sha:['pit','Pituitary blood supply'],medem:['pit','Median em
  prolactinoma:['pit','Prolactinoma'],nfpa:['pit','Non-functioning pituitary adenoma'],hypopit:['pit','Hypopituitarism · Sheehan, apoplexy'],acromegaly:['pit','Acromegaly'],cushingdz:['pit','Cushing disease'],avpdef:['pit','Central diabetes insipidus · AVP deficiency'],siadh:['pit','SIADH'],visfield:['pit','Optic chiasm · bitemporal hemianopia'],cabergoline:['pit','Dopamine agonists'],tss:['pit','Transsphenoidal surgery'],case08:['pit','Case 08 · macroprolactinoma presentation'],
  rbcT:['pit','Pituitary perfusion'],pltT:['pit','Pituitary apoplexy · risk factors'],wbcT:['pit','Hypophysitis'],crh:['pit','CRH'],trh:['pit','TRH'],gnrh:['pit','GnRH · pulsatility'],ghrh:['pit','GHRH'],srif:['pit','Somatostatin'],dopa:['pit','Dopamine · prolactin inhibition'],ghT:['pit','Growth hormone'],prlT:['pit','Prolactin'],acthT:['pit','ACTH · POMC'],tshT:['pit','TSH'],lhT:['pit','LH'],fshT:['pit','FSH'],adhg:['pit','Neurosecretory granules · neurophysin'],mitoT:['pit','Axonal mitochondria'],avp:['pit','Vasopressin · V1, V2 receptors'],oxyT:['pit','Oxytocin']});
 PROV_SYS.nano={code:'BC',sys:'Biochemistry and cell biology · the hepatocyte',tag:'#AK_Step1_v12::#FirstAid::Biochemistry (confirm the cellular, metabolism and lipid subtree paths in Anki)',fa:'First Aid 2025 · Biochemistry (cellular, metabolism, lipid transport) and Cardiovascular (hyperlipidaemia)',outline:'Biochemistry · Cell biology, metabolism, lipoproteins'};
-Object.assign(PROV,{ncyto2:['nano','Cytosol · toward the cell centre'],mitoN:['biochem','Mitochondrion · structure, dynamics, mtDNA disease'],perox:['biochem','Peroxisome · VLCFA oxidation, Zellweger, X-ALD'],lyso:['biochem','Lysosome · acid hydrolases, storage diseases'],lipidd:['biochem','Lipid droplet · steatosis'],centro:['biochem','Centrosome and microtubules · motors, microtubule drugs'],ndisse:['nano','Space of Disse · hepatic sinusoid'],nccp:['nano','Clathrin-coated pits'],nendo:['nano','Endosomes · receptor recycling'],ncyto:['nano','Cytosol · metabolic compartments'],nrer:['nano','Rough ER · protein synthesis'],nser:['nano','Smooth ER · CYP450, G6Pase'],ncrista:['nano','Mitochondrial cristae · ETC'],nmatrix:['nano','Mitochondrial matrix · TCA, β-oxidation, urea cycle'],ngolgi:['nano','Golgi apparatus · protein trafficking'],nnpc:['nano','Nuclear pore complex'],nnucleo:['nano','Nucleus · transcription'],nnucleol:['nano','Nucleolus · rRNA synthesis'],
+Object.assign(PROV,{follicle:['immuno','Lymph node · follicle and germinal centre'],paracortex:['immuno','Lymph node · paracortex (T zone)'],hev:['immuno','High endothelial venule · lymphocyte homing'],medcord:['immuno','Lymph node · medullary cords and sinuses'],pyramidal:['neuro','Pyramidal neuron · cortical layers'],nissl:['neuro','Nissl substance · chromatolysis'],ncyto2:['nano','Cytosol · toward the cell centre'],mitoN:['biochem','Mitochondrion · structure, dynamics, mtDNA disease'],perox:['biochem','Peroxisome · VLCFA oxidation, Zellweger, X-ALD'],lyso:['biochem','Lysosome · acid hydrolases, storage diseases'],lipidd:['biochem','Lipid droplet · steatosis'],centro:['biochem','Centrosome and microtubules · motors, microtubule drugs'],ndisse:['nano','Space of Disse · hepatic sinusoid'],nccp:['nano','Clathrin-coated pits'],nendo:['nano','Endosomes · receptor recycling'],ncyto:['nano','Cytosol · metabolic compartments'],nrer:['nano','Rough ER · protein synthesis'],nser:['nano','Smooth ER · CYP450, G6Pase'],ncrista:['nano','Mitochondrial cristae · ETC'],nmatrix:['nano','Mitochondrial matrix · TCA, β-oxidation, urea cycle'],ngolgi:['nano','Golgi apparatus · protein trafficking'],nnpc:['nano','Nuclear pore complex'],nnucleo:['nano','Nucleus · transcription'],nnucleol:['nano','Nucleolus · rRNA synthesis'],
  nanocell:['nano','Hepatocyte · functions'],endocyt:['nano','Receptor-mediated endocytosis'],ldlpart:['nano','LDL · lipoprotein metabolism'],ldlr:['nano','LDL receptor · PCSK9'],cholsense:['nano','SREBP · cholesterol regulation'],statin:['nano','Lipid-lowering agents · statins, ezetimibe, PCSK9 inhibitors'],fh:['nano','Familial hypercholesterolaemia'],case09:['nano','Case 09 · familial hypercholesterolaemia presentation'],
  glycolysis:['nano','Glycolysis · regulation'],gluconeo:['nano','Gluconeogenesis · fasting state'],glycogenN:['nano','Glycogen metabolism · glycogen storage diseases'],glucokinase:['nano','Glucokinase vs hexokinase'],etcN:['nano','Electron transport chain'],atpsyn:['nano','ATP synthase · oxidative phosphorylation'],tcacyc:['nano','TCA cycle'],pdhN:['nano','Pyruvate dehydrogenase complex · cofactors'],betaox:['nano','Fatty acid oxidation · ketone bodies'],ureacyc:['nano','Urea cycle · hyperammonaemia'],mtdnaN:['nano','Mitochondrial inheritance'],ribosome:['nano','Ribosomes · protein synthesis'],motors:['nano','Microtubules · molecular motors'],proteasome:['nano','Ubiquitin–proteasome system'],npcN:['nano','Nuclear transport'],chromatin:['nano','Chromatin structure · gene regulation'],mrnaN:['nano','mRNA processing · splicing'],cytoscale:['nano','Molecular sizes']});
 PROV_SYS.pan={code:'GI',sys:'Gastrointestinal · pancreas',tag:'#AK_Step1_v12::#FirstAid::Gastrointestinal and ::Endocrine (confirm the pancreas subtree paths in Anki)',fa:'First Aid 2025 · Gastrointestinal (pancreas) and Endocrine (pancreas, diabetes)',outline:'Gastrointestinal System · Pancreas; Endocrine System · Pancreas'};
@@ -8314,7 +8519,7 @@ Object.assign(DECKKW,{sha:['superior hypophyseal'],medem:['median eminence','cir
  pitanat:['pituitary','sella turcica','diaphragma sellae'],pitdev:['rathke','craniopharyngioma','prop1','pit1','empty sella'],portalsys:['hypophyseal portal','portal system'],pitcells:['chromophobe','acidophil','basophil','folliculostellate'],hpaaxis:['crh','acth','cortisol','hpa axis','adrenal insufficiency'],hptaxis:['trh','tsh','central hypothyroidism','secondary hypothyroidism'],hpgaxis:['gnrh','kisspeptin','kallmann','hypothalamic amenorrhea','hypothalamic amenorrhoea','hypogonadotropic'],ghaxis:['growth hormone','igf-1','somatomedin','ghrelin','laron'],prlctl:['prolactin','hyperprolactinemia','hyperprolactinaemia','galactorrhea','galactorrhoea','tuberoinfundibular'],feedback:['negative feedback','feedback loop'],adhrel:['osmoreceptor','osmolality','vasopressin release','thirst'],oxytocin:['oxytocin','milk let-down','ferguson'],
  prolactinoma:['prolactinoma','microprolactinoma','macroprolactinoma'],nfpa:['nonfunctioning','non-functioning','stalk effect','pituitary adenoma','incidentaloma'],hypopit:['hypopituitarism','sheehan','apoplexy','hypophysitis','panhypopituitarism'],acromegaly:['acromegaly','gigantism','pegvisomant'],cushingdz:['cushing disease','cushing\'s disease','dexamethasone suppression','petrosal'],avpdef:['diabetes insipidus','central di','avp deficiency','desmopressin','water deprivation'],siadh:['siadh','hyponatremia','hyponatraemia','tolvaptan','osmotic demyelination'],visfield:['bitemporal','hemianopia','optic chiasm','quadrantanopia'],cabergoline:['cabergoline','bromocriptine','dopamine agonist'],tss:['transsphenoidal'],case08:['amenorrhea','amenorrhoea','galactorrhea','galactorrhoea'],
  rbcT:['pituitary infarction'],pltT:['apoplexy'],wbcT:['hypophysitis','ipilimumab','checkpoint inhibitor'],crh:['corticotropin-releasing','crh'],trh:['thyrotropin-releasing','trh'],gnrh:['gnrh','leuprolide','leuprorelin','degarelix'],ghrh:['ghrh','tesamorelin'],srif:['somatostatin','octreotide','lanreotide'],dopa:['dopamine','d2 receptor','antipsychotic'],ghT:['growth hormone'],prlT:['prolactin','macroprolactin'],acthT:['acth','pomc','msh'],tshT:['tsh','thyrotropin'],lhT:['luteinizing','luteinising','lh surge'],fshT:['follicle-stimulating','fsh','inhibin'],adhg:['neurophysin'],mitoT:['axonal transport'],avp:['vasopressin','adh','v2 receptor','aquaporin'],oxyT:['oxytocin']});
-Object.assign(DECKKW,{ncyto2:['cytosol','cytoplasm'],mitoN:['mitochondri','mtdna','melas','merrf','leigh'],perox:['peroxisom','zellweger','adrenoleukodystrophy','refsum'],lyso:['lysosom','gaucher','fabry','niemann','tay-sachs','pompe','i-cell'],lipidd:['lipid droplet','steatosis','fatty liver','perilipin'],centro:['centrosome','centriole','microtubule','kinesin','dynein','vincristine','paclitaxel','colchicine'],ndisse:['space of disse','sinusoid','stellate'],nccp:['clathrin','coated pit','dynamin'],nendo:['endosome','endocytosis'],ncyto:['cytosol','cytoplasm'],nrer:['rough endoplasmic','rer','signal recognition','signal peptide'],nser:['smooth endoplasmic','ser','cytochrome p450','cyp450'],ncrista:['cristae','inner mitochondrial'],nmatrix:['mitochondrial matrix'],ngolgi:['golgi','mannose-6-phosphate','i-cell'],nnpc:['nuclear pore','nuclear localization'],nnucleo:['nucleus','transcription'],nnucleol:['nucleolus','rrna'],
+Object.assign(DECKKW,{follicle:['follicle','germinal cent','b cell zone','b-cell zone'],paracortex:['paracortex','t cell zone','t-cell zone'],hev:['high endothelial','hev'],medcord:['medullary cord','medullary sinus','plasma cell'],pyramidal:['pyramidal','betz','layer v','cortical layer'],nissl:['nissl','chromatolysis'],ncyto2:['cytosol','cytoplasm'],mitoN:['mitochondri','mtdna','melas','merrf','leigh'],perox:['peroxisom','zellweger','adrenoleukodystrophy','refsum'],lyso:['lysosom','gaucher','fabry','niemann','tay-sachs','pompe','i-cell'],lipidd:['lipid droplet','steatosis','fatty liver','perilipin'],centro:['centrosome','centriole','microtubule','kinesin','dynein','vincristine','paclitaxel','colchicine'],ndisse:['space of disse','sinusoid','stellate'],nccp:['clathrin','coated pit','dynamin'],nendo:['endosome','endocytosis'],ncyto:['cytosol','cytoplasm'],nrer:['rough endoplasmic','rer','signal recognition','signal peptide'],nser:['smooth endoplasmic','ser','cytochrome p450','cyp450'],ncrista:['cristae','inner mitochondrial'],nmatrix:['mitochondrial matrix'],ngolgi:['golgi','mannose-6-phosphate','i-cell'],nnpc:['nuclear pore','nuclear localization'],nnucleo:['nucleus','transcription'],nnucleol:['nucleolus','rrna'],
  nanocell:['hepatocyte'],endocyt:['receptor-mediated endocytosis','endocytosis'],ldlpart:['ldl','low-density lipoprotein','apob-100','apo b-100'],ldlr:['ldl receptor','pcsk9','evolocumab','alirocumab','inclisiran'],cholsense:['srebp','hmg-coa reductase'],statin:['statin','ezetimibe','hmg-coa reductase inhibitor'],fh:['familial hypercholesterolemia','familial hypercholesterolaemia','xanthoma','corneal arcus'],case09:['familial hypercholesterolemia','tendon xanthoma'],
  glycolysis:['glycolysis','phosphofructokinase','pyruvate kinase'],gluconeo:['gluconeogenesis','pepck','fructose-1,6-bisphosphatase'],glycogenN:['glycogen','von gierke','pompe','cori','mcardle','glycogen storage'],glucokinase:['glucokinase','hexokinase','mody'],etcN:['electron transport','oxidative phosphorylation'],atpsyn:['atp synthase'],tcacyc:['tca cycle','citric acid cycle','krebs'],pdhN:['pyruvate dehydrogenase','thiamine'],betaox:['beta-oxidation','β-oxidation','ketone','carnitine','mcad'],ureacyc:['urea cycle','ornithine transcarbamylase','hyperammonemia','hyperammonaemia'],mtdnaN:['mitochondrial dna','mitochondrial inheritance','heteroplasmy'],ribosome:['ribosome'],motors:['kinesin','dynein','microtubule'],proteasome:['proteasome','ubiquitin'],npcN:['nuclear pore','importin'],chromatin:['histone','chromatin','nucleosome','acetylation'],mrnaN:['splicing','spliceosome','mrna processing','poly-a'],cytoscale:['molecular size']});
 Object.assign(DECKKW,{afferent:['afferent','arteriole','autoregulation','juxtaglomerular','renin','renal blood flow','rbf','prostaglandin','nsaid','ace inhibitor'],glom:['glomerul','filtration','gfr','starling','filtration fraction','inulin','creatinine clearance'],bowman:['bowman','filtrate','ultrafiltrate'],pct:['proximal','pct','sglt','brush border','isosmotic','bicarbonate reabsorption','carbonic anhydrase','acetazolamide','fanconi','pah','secretion'],thin:['descending limb','thin limb','aquaporin-1','aqp1','countercurrent'],tip:['papilla','medulla','osmolality','1200'],thinasc:['ascending limb','thin ascending'],tal:['thick ascending','nkcc2','loop diuretic','furosemide','bartter','romk','single effect','diluting segment'],macula:['macula densa','tubuloglomerular','juxtaglomerular','renin','adenosine'],dct:['distal convoluted','dct','ncc','thiazide','gitelman','pth','calcium reabsorption'],ccd:['collecting duct','principal cell','intercalated','enac','aldosterone','amiloride','spironolactone','liddle','rta'],mcd:['collecting duct','adh','vasopressin','aquaporin-2','aqp2','urea','concentrat'],calyx:['calyx','pelvis','ureter','urothelium','transitional','hydronephrosis'],
@@ -8404,8 +8609,8 @@ const TOPICS=[
  ['heart','Heart & the AS case',['ivc','ra','tricuspid','rv','pulmonic','pa','pv','la','mitral','lv','aortic','aorticN','murmur','bedside','exercise']],
  ['vessels','Vessels & gas exchange',['lungcap','asc','arch','desc','syscap','venule','leak']],
  ['cells','Blood cells',['rbc','wbc','platelet','lymph','mono','eos']],
- ['lymph','Lymphatics & immunity',['interstitium','lymphcap','collecting','subcap','cortsinus','medsinus','efferent','cisterna','thoracic','venangle','macro','dc','bact','chylo']],
- ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle']],
+ ['lymph','Lymphatics & immunity',['interstitium','lymphcap','collecting','subcap','cortsinus','medsinus','efferent','cisterna','thoracic','venangle','macro','dc','bact','chylo','follicle','paracortex','hev','medcord']],
+ ['nerve','Nervous system',['carotid','bbb','cortex','neuron','astro','microglia','oligo','axon','ranvier','transport','decuss','synapse','soma','pnerve','schwann','nmj','mito','vesicle','pyramidal','nissl']],
  ['gut','Gut & the coeliac case',['mouth','oesoph','les','stomach','antrum','pylorus','duodenum','jejunum','ileum','ileocaecal','colon','rectum','gutlength','gutsurface','villusfork','acid','slowwave','microbiome','ens','bileacids','coeliac','appendix','case03','villus','gbact','bolus','chyme','micelle','peyer','squamous','gastricmucosa','crypt','colonmucus','sphinctermusc','teeth','tongue','tonsils','palate']],
  ['lung','Lungs & the pneumonia case',['nose','pharynx','larynx','trachea','carina','bronchus','bronchiole','tbronch','acinus','sac','airwaytree','deadspace','alveolus','surfactant','barrier','vq','hpv','pulmcirc','co2drive','breathsounds','escalator','cough','westzones','pneumonia','case04','scalelung','mucus','dustL','dustM','dustS','gas','amac','neutA','fibrin','rbcA','turbinate','ciliated','bronchiolewall','vocalfold']],
  ['nano','Inside one cell & the FH case',['nanocell','mitoN','perox','lyso','lipidd','centro','ndisse','nccp','nendo','ncyto','nrer','nser','ncrista','nmatrix','ngolgi','nnpc','nnucleo','nnucleol','endocyt','ldlpart','ldlr','cholsense','statin','fh','case09','glycolysis','gluconeo','glycogenN','glucokinase','etcN','atpsyn','tcacyc','pdhN','betaox','ureacyc','mtdnaN','ribosome','motors','proteasome','npcN','chromatin','mrnaN','cytoscale']],
@@ -8419,7 +8624,7 @@ const CELLHOME={rbc:'desc',wbc:'venule',platelet:'syscap',lymph:'cortsinus',mono
 Object.assign(CELLHOME,{villus:'jejunum',gbact:'colon',bolus:'oesoph',chyme:'antrum',micelle:'jejunum',peyer:'ileum',gutlength:'jejunum',gutsurface:'jejunum',villusfork:'jejunum',acid:'stomach',slowwave:'antrum',microbiome:'colon',ens:'jejunum',bileacids:'ileum',coeliac:'jejunum',appendix:'colon',case03:'duodenum',squamous:'oesoph',gastricmucosa:'stomach',crypt:'jejunum',colonmucus:'colon',sphinctermusc:'pylorus'});
 Object.assign(CELLHOME,{mucus:'trachea',dustL:'nose',dustM:'bronchus',dustS:'sac',gas:'acinus',amac:'sac',neutA:'sac',fibrin:'sac',rbcA:'sac',airwaytree:'bronchiole',deadspace:'trachea',alveolus:'sac',surfactant:'sac',barrier:'sac',vq:'acinus',hpv:'acinus',pulmcirc:'acinus',co2drive:'larynx',breathsounds:'bronchus',escalator:'bronchiole',cough:'trachea',westzones:'acinus',pneumonia:'sac',case04:'nose',scalelung:'trachea',turbinate:'nose',ciliated:'trachea',bronchiolewall:'bronchiole',vocalfold:'larynx'});
 Object.assign(CELLHOME,{rbcH:'zone1',pltH:'zone1',wbcH:'zone2',ubil:'zone1',nh3:'zone1',ureaH:'zone3',glucH:'zone1',lps:'zone1',apapM:'zone2',napqi:'zone3',gsh:'zone3',kupffer:'zone1',stellate:'zone2',pitc:'zone2',micH:'bduct',bili:'canal',cholv:'canal',crystal:'gb',hco3:'bduct',tryp:'ampulla',lobule:'zone2',dualsupply:'triad',lsec:'zone2',disse:'zone2',zonation:'zone2',ureacycle:'zone1',bilirubin:'canal',jaundice:'canal',cck:'oddi',apap:'zone3',nac:'zone3',kings:'zone3',portalhtn:'hpvein',gallstones:'gb',case06:'hpvein',cholangio:'bduct',gbmucosa:'gb',oddisph:'oddi'});
-Object.assign(CELLHOME,{mitoN:'ncyto2',perox:'ncyto',lyso:'ncyto',lipidd:'ncyto',centro:'ngolgi',ncyto2:'ncyto2',ldl:'ndisse',vldl:'ndisse',albN:'ndisse',clath:'nccp',hplus:'ncrista',glyb:'ncyto',glya:'ncyto',ribo:'ncyto',riboW:'nrer',mtub:'ncyto',kin:'ncyto',prot:'ncyto',gkN:'ncyto',enz:'ncyto',glcN:'ncyto',atpN:'ncyto',nadhN:'nmatrix',lacN:'ncyto',cyp:'nser',atps:'nmatrix',cx1:'nmatrix',cx4:'ncrista',cytc:'ncrista',pdh:'nmatrix',tcaN:'nmatrix',cps1:'nmatrix',mtdna:'nmatrix',acoa:'nmatrix',ketN:'nmatrix',vesC:'ngolgi',imp:'nnpc',ranN:'nnpc',mrnp:'nnpc',nucs:'nnucleo',pol2:'nnucleo',splc:'nnucleo',rsub:'nnucleol',nanocell:'ndisse',endocyt:'nccp',ldlpart:'nendo',ldlr:'nccp',cholsense:'nser',statin:'nser',fh:'ndisse',case09:'ndisse',glycolysis:'ncyto',gluconeo:'ncyto',glycogenN:'ncyto',glucokinase:'ncyto',etcN:'ncrista',atpsyn:'nmatrix',tcacyc:'nmatrix',pdhN:'nmatrix',betaox:'nmatrix',ureacyc:'nmatrix',mtdnaN:'nmatrix',ribosome:'nrer',motors:'ncyto',proteasome:'ncyto',npcN:'nnpc',chromatin:'nnucleo',mrnaN:'nnucleo',cytoscale:'ncyto'});
+Object.assign(CELLHOME,{follicle:'cortsinus',paracortex:'cortsinus',hev:'cortsinus',medcord:'medsinus',pyramidal:'cortex',nissl:'soma',mitoN:'ncyto2',perox:'ncyto',lyso:'ncyto',lipidd:'ncyto',centro:'ngolgi',ncyto2:'ncyto2',ldl:'ndisse',vldl:'ndisse',albN:'ndisse',clath:'nccp',hplus:'ncrista',glyb:'ncyto',glya:'ncyto',ribo:'ncyto',riboW:'nrer',mtub:'ncyto',kin:'ncyto',prot:'ncyto',gkN:'ncyto',enz:'ncyto',glcN:'ncyto',atpN:'ncyto',nadhN:'nmatrix',lacN:'ncyto',cyp:'nser',atps:'nmatrix',cx1:'nmatrix',cx4:'ncrista',cytc:'ncrista',pdh:'nmatrix',tcaN:'nmatrix',cps1:'nmatrix',mtdna:'nmatrix',acoa:'nmatrix',ketN:'nmatrix',vesC:'ngolgi',imp:'nnpc',ranN:'nnpc',mrnp:'nnpc',nucs:'nnucleo',pol2:'nnucleo',splc:'nnucleo',rsub:'nnucleol',nanocell:'ndisse',endocyt:'nccp',ldlpart:'nendo',ldlr:'nccp',cholsense:'nser',statin:'nser',fh:'ndisse',case09:'ndisse',glycolysis:'ncyto',gluconeo:'ncyto',glycogenN:'ncyto',glucokinase:'ncyto',etcN:'ncrista',atpsyn:'nmatrix',tcacyc:'nmatrix',pdhN:'nmatrix',betaox:'nmatrix',ureacyc:'nmatrix',mtdnaN:'nmatrix',ribosome:'nrer',motors:'ncyto',proteasome:'ncyto',npcN:'nnpc',chromatin:'nnucleo',mrnaN:'nnucleo',cytoscale:'ncyto'});
 Object.assign(CELLHOME,{rbcT:'medem',pltT:'medem',wbcT:'stalkpv',crh:'medem',trh:'medem',gnrh:'medem',ghrh:'medem',srif:'medem',dopa:'stalkpv',ghT:'adlat',prlT:'adlat',acthT:'admed',tshT:'admed',lhT:'admed',fshT:'admed',adhg:'mcax',mitoT:'ppterm',avp:'ppcap',oxyT:'ppcap',pitanat:'adlat',pitdev:'adlat',portalsys:'stalkpv',pitcells:'adlat',hpaaxis:'admed',hptaxis:'admed',hpgaxis:'admed',ghaxis:'adlat',prlctl:'adlat',feedback:'admed',adhrel:'ppcap',oxytocin:'ppcap',prolactinoma:'adlat',nfpa:'admed',hypopit:'admed',acromegaly:'adlat',cushingdz:'admed',avpdef:'mcax',siadh:'ppcap',visfield:'medem',cabergoline:'adlat',tss:'cavsin',case08:'sha'});
 Object.assign(CELLHOME,{rbcP:'islet',pltP:'islet',wbcP:'iap',monoP:'iap',glucP:'islet',ins:'iap',cpep:'iap',iapp:'islet',gcg:'islet',sst:'islet',lipB:'iap',zymo:'pacinus',tgen:'icd',lip:'icd',amy:'icd',spink:'pacinus',tryA:'pacinus',hco3P:'intral',bileP:'ampulla',isletcells:'islet',betacell:'islet',insulinsyn:'islet',incretin:'islet',firstpass:'iap',acinarcell:'pacinus',trypsinact:'oddi',secretin:'icd',cftrP:'icd',pancanat:'mpd',pancdev:'mpd',acutepanc:'pacinus',gallpanc:'ampulla',pancsev:'pacinus',ercp:'oddi',chronicpanc:'intral',pancca:'interl',pnet:'islet',dm1:'islet',dm2:'islet',case07:'parter'});
 Object.assign(CELLHOME,{h2o:'pct',na:'tal',gluc:'pct',urea:'mcd',kpot:'ccd',ket:'pct',rbcR:'glom',alb:'glom',mdensa:'macula',gfr:'glom',filtbarrier:'glom',autoreg:'afferent',countercurrent:'thin',vasarecta:'tip',adh:'ccd',raas:'afferent',tm:'pct',acidbase:'ccd',potassium:'ccd',diuretics:'tal',nephronscale:'pct',case05:'afferent',dka:'pct',fenestra:'glom',brushborder:'pct',thinwall:'thin',talcell:'tal',cdcell:'ccd',urothelium:'calyx'});
@@ -10757,7 +10962,7 @@ function stepShip(dt,time){
  }
  S.vel.addScaledVector(acc,(boost?55:26)*dt);
  // blood drags you along
- const fl=(S.vol?0:1)*FLOW[S.idx]*valveSlow[S.idx]*flowMul(S.idx)*(C.exercise?1.5:1),surge=0;
+ const fl=(S.vol?(S.vol.flowK||0):1)*FLOW[S.idx]*valveSlow[S.idx]*flowMul(S.idx)*(C.exercise?1.5:1),surge=0;
  const tbS=turbNow(S.idx);if(tbS>.05&&!steth){S.vel.x+=(Math.random()-.5)*40*tbS*dt;S.vel.y+=(Math.random()-.5)*40*tbS*dt;S.vel.z+=(Math.random()-.5)*40*tbS*dt;if(tbS>.4&&Math.random()<dt*3)S.bumpT=Math.max(S.bumpT,.08);}
  flowV.copy(_t).multiplyScalar(fl+surge);
  // no input: back thrusters hold the ship against the current, so you can stop and look
@@ -10805,7 +11010,7 @@ function updateCamera(dt){
  if(window.__camLock)return;
  if(study){studyCam();return;}
  fwd.set(0,0,-1).applyQuaternion(S.q);up.set(0,1,0).applyQuaternion(S.q);
- const back=steth?2.2:S.vol?3.4:2.7;
+ const back=steth?2.2:S.vol?(S.vol.camBack||3.4):2.7;
  const want=new V3().copy(S.pos).addScaledVector(fwd,-back).addScaledVector(up,steth?.5:1.1);
  // keep camera inside the vessel
  const ci=nearestIdx(want,S.idx);gv(P,ci,_c);gv(T,ci,_t);d.subVectors(want,_c);d.addScaledVector(_t,-d.dot(_t));
@@ -12455,7 +12660,7 @@ async function ivBoot(){
 }
 
 ivBoot();
-window.__IV={get W(){return W;},VOL,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={get W(){return W;},VOL,V2,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
