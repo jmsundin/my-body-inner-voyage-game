@@ -7539,6 +7539,30 @@ function buildHepSlab(){const Wd=HEP,R=Wd.RANGE;if(!R.zone1||!R.zone3)return;con
   onEnter(){toastOnce('shSin','The sinusoid is a slit between two plates of hepatocytes, one cell thick, and it joins its neighbours sideways. The blood still carries you toward the central vein; the walls above and below are the fenestrated endothelium, the hepatocytes right behind.','',900);}});
  SH.all.push(rm);SH.hep=rm;}
 
+/* ===== Real molecular shapes (step 6): low-polygon surfaces computed from Protein Data Bank entries by tools/pdb_shapes.py and served as
+   assets/pdb/shapes.json. When the file is there (the game served from a web address) each listed machine swaps its hand-made shape for the
+   real one: the drifting props, the ones docked on membranes and the codex card's turntable all draw from the same geometry. Without the
+   file nothing changes. Sizes stay governed by PROPUM (true size per µm-per-unit); the shape only supplies the form and its colours. ===== */
+const PDBS={data:null,used:{},p:null};
+function pdbGeo(sh){const bytes=s=>{const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;};
+ const pq=new Int16Array(bytes(sh.pos).buffer),ix=sh.idx32?new Uint32Array(bytes(sh.idx).buffer):new Uint16Array(bytes(sh.idx).buffer),gp=bytes(sh.grp);
+ const n=pq.length/3,pos=new Float32Array(n*3),col=new Float32Array(n*3),k=.5/32767;   // longest axis spans one unit, like the hand-made shapes
+ const pal=[0,1,2].map(g=>new THREE.Color(parseInt((sh.colors&&sh.colors[g])||'c0c0c0',16)));
+ for(let i=0;i<n*3;i++)pos[i]=pq[i]*k;
+ for(let i=0;i<n;i++){const c=pal[gp[i]]||pal[0];col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));g.setIndex(new THREE.BufferAttribute(ix,1));g.computeVertexNormals();return g;}
+function pdbApply(){const d=PDBS.data;if(!d||!d.shapes)return 0;let n=0;
+ for(const k in d.shapes){const D=CELLS_NC[k],sh=d.shapes[k];if(!D||!D.meshes||!D.meshes[0]||!sh||!sh.pos)continue;
+  try{const g=pdbGeo(sh);if(D.wall){g.computeBoundingBox();g.translate(0,-g.boundingBox.min.y,0);}   // membrane-bound machines stand on the membrane, +y into the room
+   const m=D.meshes[0],old=m.geometry;m.geometry=g;if(old&&old!==g)old.dispose();D.dim0=undefined;PDBS.used[k]=sh;n++;}
+  catch(e){console.warn('pdb shape',k,e);}}
+ if(PV&&PV.on&&PV.kind&&PDBS.used[PV.kind]&&CELLS_NC[PV.kind])previewCell(CELLS_NC[PV.kind]);   // a card already open on one of them redraws
+ return n;}
+function pdbLoad(){if(PDBS.p)return PDBS.p;if(location.protocol==='file:')return PDBS.p=Promise.resolve(null);
+ return PDBS.p=fetch('assets/pdb/shapes.json').then(r=>r.ok?r.json():null).then(d=>{if(d&&d.shapes){PDBS.data=d;pdbApply();}return d;}).catch(()=>null);}
+function pdbCredit(kind){const sh=PDBS.used[kind];if(!sh)return '';return ' · shape from PDB '+sh.pdb+(sh.cite?' ('+String(sh.cite).split(',')[0]+')':'');}
+pdbLoad();
+
 buildNanoRooms();buildLungRooms();buildRenalRooms();buildLymphRooms();buildNerveRooms();buildBranches();buildSheets();
 const S={pos:new V3(),vel:new V3(),q:new THREE.Quaternion(),idx:0,sF:0,lastMouse:-9,auto:false,boost:false,bumpT:0,vol:null};
 function placeAt(i){
@@ -8980,11 +9004,11 @@ function previewCell(D,V){const PVm=PV;const vw=V||PVm;
    vw.rot+=(e.clientX-vw.lx)*.012;const dy=e.clientY-vw.ly;if((vw.zoom||1)>1.3&&!e.shiftKey)vw.panY-=dy/Math.max(80,cv.clientHeight)*2.86/((vw.base||1)*(vw.zoom||1));else vw.tilt=clamp(vw.tilt+dy*.012,-1.4,1.4);vw.lx=e.clientX;vw.ly=e.clientY;});
   const up=e=>{vw.pts.delete(e.pointerId);if(vw.pts.size<2)vw.pinch=null;if(!vw.pts.size)vw.drag=false;};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
   cv.addEventListener('wheel',e=>{e.preventDefault();vw.zoom=clamp((vw.zoom||1)*(e.deltaY>0?.9:1.11),.5,8);},{passive:false});}
- vw.g.clear();vw.objs=[];vw.anim=ENVANIM[D.kind]||null;
+ vw.kind=D.kind;vw.g.clear();vw.objs=[];vw.anim=ENVANIM[D.kind]||null;
  D.meshes.forEach((m,mi)=>{let mat=m.material;if(D.kind==='rbc'){mat=mat.clone();mat.color.set(0xb3121a);}
   const mesh=m.isObject3D?m:new THREE.Mesh(m.geometry,mat);if(!mesh.isSprite)mesh.renderOrder=mi;vw.g.add(mesh);vw.objs.push(mesh);});
  const br=Math.max(...D.meshes.map(m=>{m.geometry.computeBoundingSphere();return m.geometry.boundingSphere.radius;}));vw.g.scale.setScalar(1.15/br);vw.base=1.15/br;vw.zoom=(D.view&&D.view.zoom)||1;vw.panY=(D.view&&D.view.y)||0;vw.rot=0;vw.tilt=D.kind==='rbc'||D.kind==='platelet'?.6:.3;vw.on=true;
- if(vw===PVm){$('cellSize').textContent=CELLSIZE[D.kind]||'';$('cardModel').style.display='block';}
+ if(vw===PVm){$('cellSize').textContent=(CELLSIZE[D.kind]||'')+pdbCredit(D.kind);$('cardModel').style.display='block';}
  else{const host=$('srsModel');if(host&&!host.contains(vw.cv))host.appendChild(vw.cv);}
 }
 function renderPreview(dt){
@@ -13079,7 +13103,7 @@ async function ivBoot(){
 }
 
 ivBoot();
-window.__IV={get W(){return W;},VOL,V2,SB,SH,CMP,cmpToggle,cmpOpenKey,cmpSlides,cmpKeys,cmpField,cmpView,cmpYou,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={get W(){return W;},VOL,V2,SB,SH,CMP,PDBS,pdbLoad,pdbApply,pdbGeo,pdbCredit,CELLS_NC,PV,previewCell,cmpToggle,cmpOpenKey,cmpSlides,cmpKeys,cmpField,cmpView,cmpYou,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
