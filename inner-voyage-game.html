@@ -4268,7 +4268,9 @@ const GNODES=(()=>{const n=[],add=(x,y,z,r,k,g)=>n.push([x,y,z,r,k,g]);
  add(984,41,-9,1.9,'gsph','pylorus');
  add(978,38,-8,3.2,'duodenum','duodenum');add(972,28,-7,3.2,'duodenum','duodenum');add(974,16,-6,3.2,'duodenum','duodenum');add(984,10,-4,3.1,'duodenum','duodenum');
  let y=4;const coil=(r,reg,turns,yStep,x0,amp)=>{for(let t=0;t<turns;t++){const dir=t%2?-1:1;add(x0+dir*amp,y,(t%3-1)*10,r,reg,reg);y-=yStep*.5;add(x0+dir*amp*.3,y,t%2?8:-8,r,reg,reg);y-=yStep*.5;}};
- coil(3,'jejunum',5,9,1000,20);coil(2.7,'ileum',5,9,996,18);
+ add(985,8,-18,7,'duodenum','duodenum');   // the funnel into the villus plain
+ [[980,5,-36,10],[976,4,-70,10],[975,4,-105,10],[979,3,-135,10],[990,3,-156,10],[1012,3,-156,10],[1024,3,-135,10],[1028,3,-105,10],[1030,3,-75,10],[1036,1,-54,10],[1046,-3,-42,8]].forEach(q=>add(q[0],q[1],q[2],q[3],'jejunum','jejunum'));   // the jejunum as a landscape: out, round and back (sheet room)
+ y=-41;coil(2.7,'ileum',5,9,996,18);
  add(978,-92,4,2.6,'ileum','ileum');add(966,-96,6,2.6,'ileum','ileum');
  add(960,-98,6,2.2,'gsph','ileocaecal');
  add(954,-100,4,6.5,'colon','colon');for(let j=1;j<=5;j++)add(952,-100+j*22,2,5.2,'colon','colon');
@@ -4471,8 +4473,8 @@ const NCNODES=(()=>{const n=[],B=[7000,100,0];
  seg('nccp','ncclath',[[0,0,0],[3,0,0],[6,0,0],[8.5,0,0],[10.5,0,0]],[2.8,2.6,2.3,1.5,2.4],[[24,96],[34,100]]);                 // the pit, then the dynamin neck
  seg('nendo','ncendo',[[12.5,0,0],[16,0,0],[19.5,0,0],[23,0,0]],3.4,[[36,102],[56,110]]);
  seg('ncyto','nccyt',[[27,0,0],[38,1.5,2],[50,4,5],[62,7,8],[75,10,9],[88,13,7],[100,15,4],[112,15,0],[124,13,-4]],3.5,[[58,112],[70,140],[60,168]]);
- seg('nrer','ncrer',[[132,11,-6],[141,9,-6],[150,7,-5],[159,6,-3.5],[168,5,-2],[176,4,0]],3,[[58,172],[48,200]]);
- seg('nser','ncser',[[183,3.5,2],[191,3,4],[199,3,6],[207,3.5,8],[215,4.5,10],[222,5.5,12]],2.8,[[50,204],[82,226]]);
+ seg('nrer','ncrer',[[132,11,-6],[140.8,9.6,-4.8],[149.6,8.2,-3.6],[158.4,6.8,-2.4],[167.2,5.4,-1.2],[176,4,0]],2.4,[[58,172],[48,200]]);   // collinear: the cisterna is a flat disc
+ seg('nser','ncser',[[183,3.5,2],[191,3,4],[199,3,6],[207,3.5,8],[215,4.5,10],[222,5.5,12]],[2.4,2.8,2.8,2.8,2.8,2.8],[[50,204],[82,226]]);
  seg('ncyto2','nccyt',[[229,6.5,14],[241,8,18],[254,9.5,21.5],[266,10,23.5],[276,10,24]],3.5,[[84,228],[88,230]]);
  seg('ncrista','nccri',[[284,10,24],[288,10,24],[292,10,24],[296,10,24],[300,10,24],[304,10,24]],j=>1.45+.12*Math.sin(j*2.2),[[90,230],[104,226],[114,234]]);
  seg('nmatrix','ncmat',[[311,10,24],[317,10,24],[323,10,24],[329,10,24],[335,10,24],[341,10,24],[347,10,24]],3,[[116,236],[134,240]]);
@@ -4481,8 +4483,8 @@ const NCNODES=(()=>{const n=[],B=[7000,100,0];
  seg('nnucleo','ncnuc',[[429,14.5,2.4],[440,12,0],[453,8.5,-3],[467,4.5,-6],[481,.5,-8.5],[495,-3,-10],[509,-5.5,-11],[523,-6.5,-11]],3.5,[[136,156],[124,140],[112,130]]);
  seg('nnucleol','ncnol',[[538,-6.5,-11],[550,-6.5,-11],[562,-6.5,-11],[574,-6.5,-11],[586,-6.5,-11]],3,[[110,128],[98,118]]);
  return n;})();
-const NCROOMREGS=['nendo','ncyto','ncyto2','nmatrix','ngolgi','nnucleo','nnucleol'];
-const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false),PIT=buildWorld('pit',PTNODES,[],false),NANO=buildWorld('nano',NCNODES,[],false);PAN.pan=true;panZone();PIT.pit=true;pitZone();NANO.nano=true;nanoZone();NANO.skipIdx=new Uint8Array(NANO.N);for(let i=0;i<NANO.N;i++)NANO.skipIdx[i]=NCROOMREGS.includes(NANO.REG[i])?1:0;const V2ROOMREGS={lung:['acinus','sac'],renal:['bowman'],lymph:['subcap','cortsinus','medsinus'],nerve:['cortex','soma']};for(const Wd of [LUNG,RENAL,LYMPH,NERVE]){const rs=V2ROOMREGS[Wd.name];Wd.skipIdx=new Uint8Array(Wd.N);for(let i=0;i<Wd.N;i++)Wd.skipIdx[i]=rs.includes(Wd.REG[i])?1:0;}HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
+const NCROOMREGS=['ndisse','nccp','nendo','ncyto','ncyto2','nrer','nmatrix','ngolgi','nnucleo','nnucleol'];
+const BLOOD=buildWorld('blood',NODES,BVALVES,true),LYMPH=buildWorld('lymph',LNODES,LVALVES,false),NERVE=buildWorld('nerve',NNODES,[],false),GUT=buildWorld('gut',GNODES,[],false),LUNG=buildWorld('lung',PNODES,[],false),RENAL=buildWorld('renal',RNODES,[],false),HEP=buildWorld('hep',HNODES,[],false),PAN=buildWorld('pan',PCNODES,[],false),PIT=buildWorld('pit',PTNODES,[],false),NANO=buildWorld('nano',NCNODES,[],false);PAN.pan=true;panZone();PIT.pit=true;pitZone();NANO.nano=true;nanoZone();NANO.skipIdx=new Uint8Array(NANO.N);for(let i=0;i<NANO.N;i++)NANO.skipIdx[i]=NCROOMREGS.includes(NANO.REG[i])?1:0;const V2ROOMREGS={lung:['acinus','sac'],renal:['bowman'],lymph:['subcap','cortsinus','medsinus'],nerve:['cortex','soma']};for(const Wd of [LUNG,RENAL,LYMPH,NERVE]){const rs=V2ROOMREGS[Wd.name];Wd.skipIdx=new Uint8Array(Wd.N);for(let i=0;i<Wd.N;i++)Wd.skipIdx[i]=rs.includes(Wd.REG[i])?1:0;}{const R=GUT.RANGE,lj=GUT.nodeIdx[GNODES.map(n=>n[5]).lastIndexOf('jejunum')]-6;GUT.skipIdx=new Uint8Array(GUT.N);for(let i=R.jejunum[0];i<lj;i++)GUT.skipIdx[i]=1;GUT.sheetEnd=lj;HEP.skipIdx=new Uint8Array(HEP.N);for(const r of ['zone1','zone2','zone3'])for(let i=HEP.RANGE[r][0];i<=HEP.RANGE[r][1];i++)HEP.skipIdx[i]=1;}HEP.hep=true;hpZone();hpCaps();GUT.gut=true;LUNG.lung=true;RENAL.renal=true;rnDepth();
 BLOOD.fog=0x1c0407;LYMPH.fog=0x211b0d;NERVE.fog=0x120e18;GUT.fog=0x1a0c08;LUNG.fog=0x171114;RENAL.fog=0x1a0e10;HEP.fog=0x1c0c0a;PAN.fog=0x1e0d12;PIT.fog=0x1a0c14;NANO.fog=0x0c0a16;
 useWorld(BLOOD);
 const heartC=new V3();[2,4,13,15].forEach(k=>heartC.add(new V3(NODES[k][0],NODES[k][1],NODES[k][2])));heartC.multiplyScalar(.25);
@@ -6551,10 +6553,10 @@ const REGUM={
  blood:{_:[7,0],ivc:[7,25000],ra:[7,40000],tricuspid:[7,30000],rv:[7,40000],pulmonic:[7,22000],pa:[7,25000],lungcap:[7,7],pv:[7,15000],la:[7,40000],mitral:[7,30000],lv:[7,45000],aortic:[7,22000],asc:[7,30000],arch:[7,27000],desc:[7,22000],syscap:[7,7],venule:[7,20]},
  lymph:{_:[7,0],interstitium:[7,0],lymphcap:[7,40],collecting:[7,200],subcap:[7,30],cortsinus:[7,30],medsinus:[7,40],efferent:[7,300],cisterna:[7,8000],thoracic:[7,5000],venangle:[7,10000]},
  nerve:{_:[7,0],braincap:[7,6],bbb:[7,0],cortex:[7,0],axon:[2.5,12],decuss:[2.5,12],cord:[2.5,12],bouton:[.3,1.5],cleft:[.3,.03],soma:[4.5,60],pnerve:[2.5,12],nmj:[.5,3]},
- gut:{_:[4500,0],mouth:[4500,40000],pharynx:[4500,25000],oesoph:[4500,20000],les:[4500,15000],stomach:[4500,90000],antrum:[4500,50000],pylorus:[4500,15000],duodenum:[1000,30000],jejunum:[1000,25000],ileum:[1000,22000],ileocaecal:[2000,15000],colon:[4500,50000],rectum:[4500,40000]},
+ gut:{_:[4500,0],mouth:[4500,40000],pharynx:[4500,25000],oesoph:[4500,20000],les:[4500,15000],stomach:[4500,90000],antrum:[4500,50000],pylorus:[4500,15000],duodenum:[1000,30000],jejunum:[50,25000],ileum:[1000,22000],ileocaecal:[2000,15000],colon:[4500,50000],rectum:[4500,40000]},
  lung:{_:[1700,0],nose:[1700,20000],pharynx:[1700,15000],larynx:[1700,12000],trachea:[1800,18000],carina:[1800,18000],bronchus:[1700,12000],bronchiole:[200,1000],tbronch:[100,500],acinus:[50,350],sac:[45,400]},
  hep:{_:[3.3,0],hpvein:[3.3,12000],triad:[3.3,50],inlet:[3.3,20],zone1:[3.3,10],zone2:[3.3,10],zone3:[3.3,10],canal:[.5,1],hering:[1,2],ductule:[3,8],bduct:[12,50],hepduct:[1000,5000],cystic:[900,3000],gb:[2500,30000],gbx:[1000,3000],cbd:[1000,6000],cbdp:[1000,5000],ampulla:[900,4000],oddi:[900,3000]},
- nano:{_:[.03,0],ndisse:[.05,.3],nccp:[.02,.12],nendo:[.04,0],ncyto:[.03,0],ncyto2:[.03,0],nrer:[.03,0],nser:[.03,0],ncrista:[.01,.03],nmatrix:[.03,0],ngolgi:[.03,0],nnpc:[.01,.04],nnucleo:[.03,0],nnucleol:[.03,0]},
+ nano:{_:[.03,0],ndisse:[.015,.4],nccp:[.02,.12],nendo:[.04,0],ncyto:[.03,0],ncyto2:[.03,0],nrer:[.03,0],nser:[.03,0],ncrista:[.01,.03],nmatrix:[.03,0],ngolgi:[.03,0],nnpc:[.01,.04],nnucleo:[.03,0],nnucleol:[.03,0]},
  pit:{_:[4,0],sha:[4,200],medem:[4,12],stalkpv:[4,40],adlat:[4,15],admed:[4,15],hypov:[4,60],cavsin:[4,5000],ptgap:[4,0],mcax:[.25,1],herring:[.8,8],ppterm:[.4,2],ppcap:[4,12]},
  pan:{_:[4,0],parter:[4,20],islet:[4,10],iap:[4,7],pacinus:[.4,1.5],icd:[1,5],intral:[5,30],interl:[25,150],mpd:[600,3000],ampulla:[900,4000],oddi:[900,3000]},
  renal:{_:[6,0],afferent:[4,18],glom:[4,8],bowman:[10,0],pct:[5,25],thin:[7,15],tip:[7,15],thinasc:[7,15],tal:[6,20],macula:[6,20],dct:[7,25],ccd:[8,40],mcd:[20,150],calyx:[500,8000]},
@@ -6818,7 +6820,8 @@ function sdSkin(x,y,z,b){const Wd=b.Wd,P=Wd.P,R=Wd.R0;let bd=1e9,bi=b.i0;for(let
 function bodyD(b,x,y,z){switch(b.t){case 'sph':return sdSph(x,y,z,b.c,b.r);case 'cap':return sdCap(x,y,z,b.a,b.b,b.r);case 'ell':return sdEll(x,y,z,b);case 'plate':return sdPlate(x,y,z,b);case 'skin':return sdSkin(x,y,z,b);}return 1e9;}
 // free distance in a room: the shell (inside is free), minus the solid bodies near you, with the pores cut through everything
 function volFree(rm,x,y,z){let d,hit=null;const sh=rm.shell;
- if(sh.t==='sph')d=sh.r-Math.hypot(x-sh.c.x,y-sh.c.y,z-sh.c.z);else if(sh.t==='cap')d=-sdCap(x,y,z,sh.a,sh.b,sh.r);else{d=-1e9;const U=sh.parts;for(let k=0;k<U.length;k++){const q=U[k],e=q.r-Math.hypot(x-q.c.x,y-q.c.y,z-q.c.z);if(e>d)d=e;}}
+ if(sh.t==='sph')d=sh.r-Math.hypot(x-sh.c.x,y-sh.c.y,z-sh.c.z);else if(sh.t==='cap')d=-sdCap(x,y,z,sh.a,sh.b,sh.r);else if(sh.t==='sheet')d=sdSheet(sh,x,y,z);else if(sh.t==='box')d=sdBox(sh,x,y,z);else if(sh.t==='disc')d=sdDisc(sh,x,y,z);else{d=-1e9;const U=sh.parts;for(let k=0;k<U.length;k++){const q=U[k],e=q.r-Math.hypot(x-q.c.x,y-q.c.y,z-q.c.z);if(e>d)d=e;}}
+ if(sh.bowls)d=shBowls(sh,x,y,z,d);
  let cut=1e9,cs=1e9;for(let k=0;k<rm.cuts.length;k++){const c=rm.cuts[k];const cd=sdCap(x,y,z,c.a,c.b,c.r);if(cd<cut)cut=cd;const ce=cd-(c.rs-c.r);if(ce<cs)cs=ce;}
  if(cs<0)d=Math.max(d,-cs);
  const nb=VOL.near;for(let k=0;k<nb.length;k++){const b=nb[k];if(b.soft)continue;let bd=bodyD(b,x,y,z);if(cut<0)bd=Math.max(bd,-cut);if(bd<d){d=bd;hit=b;}}
@@ -6915,7 +6918,13 @@ void main(){
   col=mix(col,mix(vec3(.62,.16,.18),vec3(.58,.5,.46),uGrey)*(.8+.3*rvn(vW*6.)),uCons*.75);col+=vec3(.5,.6,.8)*f*.35;a=uOp*(.75+.25*f)+capl*.15;}
  else if(uMode<2.5){float c1=rvn(vW*1.6),c2=rvn(vW*1.6+vec3(5.2));float bord=1.-smoothstep(0.,.05,abs(c1-c2));float nuc=smoothstep(.72,.8,rvn(vW*2.3+vec3(9.)));
   col=mix(col,col*.55,bord*.8);col=mix(col,vec3(.42,.3,.5),nuc*.7);col+=vec3(.5,.6,.85)*f*.4;a=uOp*(.8+.2*f);}
- else{float fb=rvn(vec3(vW.x*.6,vW.y*5.,vW.z*.6))*.6+rvn(vec3(vW.x*1.5,vW.y*12.,vW.z*1.5))*.4;col=uCol*(.55+.6*fb);col+=vec3(.5,.55,.7)*f*.25;a=uOp*(.9+.1*f);}
+ else if(uMode<3.5){float fb=rvn(vec3(vW.x*.6,vW.y*5.,vW.z*.6))*.6+rvn(vec3(vW.x*1.5,vW.y*12.,vW.z*1.5))*.4;col=uCol*(.55+.6*fb);col+=vec3(.5,.55,.7)*f*.25;a=uOp*(.9+.1*f);}
+ else if(uMode<4.5){float c1=rvn(vW*1.1),c2=rvn(vW*1.1+vec3(5.2));float bord=1.-smoothstep(0.,.06,abs(c1-c2));float cr=smoothstep(.73,.79,rvn(vW*.42+vec3(2.)));float gob=smoothstep(.8,.86,rvn(vW*2.6+vec3(7.)));
+  col=uCol*(.7+.4*g);col=mix(col,col*.6,bord*.7);col=mix(col,vec3(.2,.07,.09),cr*.92);col=mix(col,vec3(.78,.86,.9),gob*.5);col+=vec3(.7,.6,.6)*f*.18;a=uOp*(.92+.08*f);}
+ else if(uMode<5.5){float sp=smoothstep(.45,.6,rvn(vW*.035+vec3(1.)));float fe=smoothstep(.62,.66,rvn(vW*.2+vec3(3.)))*sp;if(fe>.5)discard;float c1=rvn(vW*.06),c2=rvn(vW*.06+vec3(5.2));float bord=1.-smoothstep(0.,.03,abs(c1-c2));
+  col=uCol*(.75+.35*g);col=mix(col,col*.5,bord*.8);col=mix(col,vec3(.55,.18,.2),sp*.25);col+=vec3(.55,.65,.9)*f*.4;a=uOp*(.88+.12*f);}
+ else{float c1=rvn(vW*.45),c2=rvn(vW*.45+vec3(5.2));float bord=1.-smoothstep(0.,.05,abs(c1-c2));float nuc=smoothstep(.7,.78,rvn(vW*.9+vec3(9.)));float fe=smoothstep(.7,.76,rvn(vW*7.));
+  col=uCol*(.72+.4*g);col=mix(col,col*.5,bord*.8);col=mix(col,vec3(.5,.28,.42),nuc*.75);col=mix(col,vec3(.9,.84,.8),fe*.35);col+=vec3(.8,.6,.5)*f*.12;a=uOp*(.9+.1*f);}
  col+=uCol*lam*1.1+vec3(.3,.26,.2)*lam*lam;a+=lam*.3*uOp;
  float dist=length(uCam-vW);float fg=1.-exp(-uFogD*dist);col=mix(col,uFog,fg);a*=1.-fg*.7;
  gl_FragColor=vec4(col,a);}`;
@@ -6955,7 +6964,7 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  // --- doorways: each one is cut through the shell and the furniture, and discarded by the membrane shader ---
  const r0=i=>Wd.R0[i];
  const cPit=cutAt(Wd,R.nccp[0],6,r0(R.nccp[0])+.2,r0(R.nccp[0])+1.4),cNeck=cutAt(Wd,R.nendo[0],5,r0(R.nendo[0]-1)+.2,r0(R.nendo[0]-1)+1),cEsc=cutAt(Wd,R.ncyto[0],5,2.4,3);
- const cRer=cutAt(Wd,R.nrer[0],6,r0(R.nrer[0])+.2,r0(R.nrer[0])+1),cSer=cutAt(Wd,R.ncyto2[0],6,r0(R.ncyto2[0]-1)+.2,r0(R.ncyto2[0]-1)+1);
+ const cRer=cutAt(Wd,R.nrer[0],5,2.4,2.7),cSer=cutAt(Wd,R.ncyto2[0],6,r0(R.ncyto2[0]-1)+.2,r0(R.ncyto2[0]-1)+1);
  const cOmm=cutAt(Wd,R.ncrista[0],5,2.2,2.6),cImm=cutAt(Wd,R.nmatrix[0],5,2.4,3),cOut=cutAt(Wd,R.ngolgi[0],6,3.2,3.6);
  const npcI=Math.round((R.nnpc[0]+R.nnpc[1])/2),cNpc=cutAt(Wd,npcI,11,r0(npcI)+.2,r0(npcI)+1.3,(npcI-R.nnpc[0])*Wd.DS+6);   // long enough to open both ends of the pore channel
  // --- the endosome: a vesicle 0.4 µm across; you are inside it, then it is furniture in the cytosol ---
@@ -6977,7 +6986,7 @@ function buildNanoRooms(){const Wd=NANO,R=Wd.RANGE,P=Wd.P,rng=volRng(9),K=MOBILE
  B.push({t:'skin',Wd,i0:R.nser[0],i1:R.nser[1],pad:.5,name:'Smooth ER tubule',sub:'no ribosomes · CYP450s, glucose-6-phosphatase and HMG-CoA reductase in its membrane',size:'≈ 60 nm wide',codex:'nser',env:'erenv'});
  B.push({t:'skin',Wd,i0:R.nnpc[0],i1:R.nnpc[1],pad:.6,name:'Nuclear pore complex',sub:'an eightfold ring through both membranes of the envelope · 30 kinds of nucleoporin',size:'≈ 120 nm across',codex:'npcN',env:'nucenv'});
  skinMesh(Wd,R.nccp[0],R.nccp[1],.5,PM({color:0xc8d0f0,transparent:true,opacity:.9,emissive:0x101420}));
- skinMesh(Wd,R.nrer[0],R.nrer[1],.5,PM({color:0xffffff,map:NCTEX.rer(),roughness:.55,clearcoat:.15,emissive:0x140a18}));
+ NCR.rerSkin=skinMesh(Wd,R.nrer[0],R.nrer[1],.5,PM({color:0xffffff,map:NCTEX.rer(),roughness:.55,clearcoat:.15,emissive:0x140a18}));
  skinMesh(Wd,R.nser[0],R.nser[1],.5,PM({color:0xd8c8a8,roughness:.3,clearcoat:.6,emissive:0x16120a}));
  skinMesh(Wd,R.nnpc[0],R.nnpc[1],.6,PM({color:0xa8c8e8,roughness:.4,emissive:0x0a1828}));
  // the furniture: placed by rejection sampling, clear of the route, the tubes, the nucleus and each other
@@ -7345,8 +7354,6 @@ function buildBranches(){
  B(HEP,[
   {reg:'triad',f:.5,tilt:.3,rbf:.5,Lf:2.5,bend:.5,name:'Hepatic arteriole',sub:'the triad’s arterial branch joins before the sinusoid',
    text:'Arterial blood joins the portal blood before the sinusoids: a quarter to a third of the liver’s flow, but half of its oxygen. The bile ducts are fed only by the arterial side, so a hepatic artery that clots after a transplant strictures the ducts.'},
-  {reg:'zone2',f:.5,tilt:.4,rbf:.8,Lf:3,bend:.6,name:'Anastomosing sinusoid',sub:'sinusoids cross-connect between the plates',
-   text:'Sinusoids are a mesh, not parallel pipes: they cross-connect between the plates of hepatocytes, so blood from one triad mixes with its neighbours’ on the way to the central vein.'},
   {reg:'bduct',f:.5,tilt:-.5,rbf:.6,Lf:3,bend:.5,name:'Joining bile ductule',sub:'canaliculi → canals of Hering → ductules',
    text:'Bile from another lobule joins. Ductules merge into interlobular ducts, then segmental and lobar ducts, mirroring the arteries and portal veins they travel with.'}]);
  B(PAN,[
@@ -7362,7 +7369,149 @@ function buildBranches(){
   {reg:'hypov',f:.5,tilt:-.4,rbf:.6,Lf:3,bend:.5,name:'Joining venous channel',sub:'anterior lobe drainage to the cavernous sinus',
    text:'Blood leaves the anterior lobe into the cavernous sinuses either side of the gland, carrying the pituitary hormones; a large adenoma can grow into that sinus and the nerves that run through it.'}]);
 }
-buildNanoRooms();buildLungRooms();buildRenalRooms();buildLymphRooms();buildNerveRooms();buildBranches();
+/* ===== Step 4 of "beyond the tunnel" (6 Nov 2026): surface mode =====
+   Sheets: landscapes you fly over, or slits you fly between, instead of tubes you fly through. Three more shell kinds for
+   addRoom, all signed distances like the others: 'sheet' (a ribbon that follows the route: the floor h0 below it, a ceiling
+   H above the floor, half a lateral half-width; bowls = tube-shaped free space unioned in where a tube leaves the sheet),
+   'box' (axis-aligned, with bowls) and 'disc' (a flat cylinder in its own frame). Built here: the jejunal villus forest
+   (gut), the space of Disse and the RER cisterna (nano), one liver sinusoid as a slit between two hepatocyte plates (hep). */
+const SH={all:[]};
+const _sha=new V3(),_shb=new V3(),_shc=new V3(),_shd=new V3(),_shY=new V3(0,1,0);
+// --- frames along the route for a ribbon: C = the floor point under sample i, T along, U up (world up made perpendicular to T), V across ---
+function shPrep(sh){const Wd=sh.Wd,n=sh.i1-sh.i0+1;sh.n=n;const C=new Float32Array(n*3),T=new Float32Array(n*3),U=new Float32Array(n*3),V=new Float32Array(n*3),up=sh.up||_shY;
+ for(let k=0;k<n;k++){const i=sh.i0+k;gv(Wd.P,i,_shc);gv(Wd.T,i,_sha).normalize();_shb.copy(up).addScaledVector(_sha,-up.dot(_sha));if(_shb.lengthSq()<.01)gv(Wd.NR,i,_shb);_shb.normalize();_shd.crossVectors(_sha,_shb).normalize();
+  _shc.addScaledVector(_shb,-sh.h0);C[k*3]=_shc.x;C[k*3+1]=_shc.y;C[k*3+2]=_shc.z;T[k*3]=_sha.x;T[k*3+1]=_sha.y;T[k*3+2]=_sha.z;U[k*3]=_shb.x;U[k*3+1]=_shb.y;U[k*3+2]=_shb.z;V[k*3]=_shd.x;V[k*3+1]=_shd.y;V[k*3+2]=_shd.z;}
+ sh.C=C;sh.T=T;sh.U=U;sh.V=V;sh.step=Math.max(1,Math.round(n/48));return sh;}
+const shV=(A,k,out)=>out.set(A[k*3],A[k*3+1],A[k*3+2]);
+// nearest frame to a point: a coarse pass over the whole ribbon, then the neighbours (no cache, so it is right anywhere, not just near the ship)
+function shNearest(sh,x,y,z){const C=sh.C,n=sh.n,st=sh.step;let bi=0,bd=1e9;for(let k=0;k<n;k+=st){const dx=C[k*3]-x,dy=C[k*3+1]-y,dz=C[k*3+2]-z,dd=dx*dx+dy*dy+dz*dz;if(dd<bd){bd=dd;bi=k;}}
+ {const e=n-1,dx=C[e*3]-x,dy=C[e*3+1]-y,dz=C[e*3+2]-z,dd=dx*dx+dy*dy+dz*dz;if(dd<bd){bd=dd;bi=e;}}
+ let bj=bi;for(let k=Math.max(0,bi-st);k<=Math.min(n-1,bi+st);k++){const dx=C[k*3]-x,dy=C[k*3+1]-y,dz=C[k*3+2]-z,dd=dx*dx+dy*dy+dz*dz;if(dd<bd){bd=dd;bj=k;}}return bj;}
+function sdSheet(sh,x,y,z){const k=shNearest(sh,x,y,z),C=sh.C,T=sh.T,U=sh.U,V=sh.V,n=sh.n;const px=x-C[k*3],py=y-C[k*3+1],pz=z-C[k*3+2];
+ const dn=px*U[k*3]+py*U[k*3+1]+pz*U[k*3+2],dv=px*V[k*3]+py*V[k*3+1]+pz*V[k*3+2];
+ let d=Math.min(dn,sh.H-dn,sh.half-Math.abs(dv));
+ // the two ends: a wall one unit beyond the first and the last frame (the doorway cut opens it where the tube comes in)
+ if(k<30){const q=(x-C[0])*T[0]+(y-C[1])*T[1]+(z-C[2])*T[2]+1;if(q<d)d=q;}
+ if(k>n-31){const e=(n-1)*3,q=1-((x-C[e])*T[e]+(y-C[e+1])*T[e+1]+(z-C[e+2])*T[e+2]);if(q<d)d=q;}
+ return d;}
+function sdBox(sh,x,y,z){const h=sh.half;return Math.min(h[0]-Math.abs(x-sh.c.x),h[1]-Math.abs(y-sh.c.y),h[2]-Math.abs(z-sh.c.z));}
+function sdDisc(sh,x,y,z){_sha.set(x,y,z).sub(sh.c).applyQuaternion(sh.qi);return Math.min(sh.h-Math.abs(_sha.y),sh.R-Math.hypot(_sha.x,_sha.z));}
+function shBowls(sh,x,y,z,d){const B=sh.bowls;for(let k=0;k<B.length;k++){const q=B[k],e=-sdCap(x,y,z,q.a,q.b,q.r);if(e>d)d=e;}return d;}
+// tube-shaped free space along the route samples i0..i1 (the funnel that leaves a sheet, the coated pit that dimples a box)
+function shTubeBowls(Wd,i0,i1,rf,step){const out=[];step=step||2;for(let i=i0;i<i1;i+=step){const j=Math.min(i1,i+step);out.push({a:gv(Wd.P,i,new V3()),b:gv(Wd.P,j,new V3()),r:rf(i)});}return out;}
+// --- meshes ---
+function shMesh(sh,pos,uv,idx,mat){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();g.computeBoundingSphere();const m=new THREE.Mesh(g,mat);m.frustumCulled=false;sh.Wd.group.add(m);return m;}
+// a strip that follows the ribbon at height lift above the floor, half+pad wide (floor: lift 0; ceiling: lift H)
+function shStrip(sh,lift,pad,mat,step){step=step||2;const n=sh.n,rows=[];for(let k=0;k<n;k+=step)rows.push(k);if(rows[rows.length-1]!==n-1)rows.push(n-1);
+ const pos=new Float32Array(rows.length*6),uv=new Float32Array(rows.length*4);let o=0,s=0;const w=sh.half+pad;
+ rows.forEach((k,ri)=>{if(ri>0){const p=rows[ri-1];s+=Math.hypot(sh.C[k*3]-sh.C[p*3],sh.C[k*3+1]-sh.C[p*3+1],sh.C[k*3+2]-sh.C[p*3+2]);}
+  for(let e=-1;e<=1;e+=2){pos[o*3]=sh.C[k*3]+sh.U[k*3]*lift+sh.V[k*3]*w*e;pos[o*3+1]=sh.C[k*3+1]+sh.U[k*3+1]*lift+sh.V[k*3+1]*w*e;pos[o*3+2]=sh.C[k*3+2]+sh.U[k*3+2]*lift+sh.V[k*3+2]*w*e;uv[o*2]=e*w;uv[o*2+1]=s;o++;}});
+ const idx=[];for(let r=0;r<rows.length-1;r++){const a=r*2;idx.push(a,a+1,a+2,a+2,a+1,a+3);}
+ return shMesh(sh,pos,uv,idx,mat);}
+// a vertical band along one side of the ribbon (side ±1), from -pad below the floor to H+pad
+function shSide(sh,side,pad,mat,step){step=step||2;const n=sh.n,rows=[];for(let k=0;k<n;k+=step)rows.push(k);if(rows[rows.length-1]!==n-1)rows.push(n-1);
+ const pos=new Float32Array(rows.length*6),uv=new Float32Array(rows.length*4);let o=0,s=0;const w=sh.half*side;
+ rows.forEach((k,ri)=>{if(ri>0){const p=rows[ri-1];s+=Math.hypot(sh.C[k*3]-sh.C[p*3],sh.C[k*3+1]-sh.C[p*3+1],sh.C[k*3+2]-sh.C[p*3+2]);}
+  for(const h of [-pad,sh.H+pad]){pos[o*3]=sh.C[k*3]+sh.U[k*3]*h+sh.V[k*3]*w;pos[o*3+1]=sh.C[k*3+1]+sh.U[k*3+1]*h+sh.V[k*3+1]*w;pos[o*3+2]=sh.C[k*3+2]+sh.U[k*3+2]*h+sh.V[k*3+2]*w;uv[o*2]=h;uv[o*2+1]=s;o++;}});
+ const idx=[];for(let r=0;r<rows.length-1;r++){const a=r*2;idx.push(a,a+1,a+2,a+2,a+1,a+3);}
+ return shMesh(sh,pos,uv,idx,mat);}
+// the wall across one end of the ribbon (which: 0 start, 1 end), one unit beyond the last frame, as the signed distance has it
+function shEnd(sh,which,pad,hgt,mat){const k=which?sh.n-1:0,sg=which?1:-1,w=sh.half+pad,h=(hgt||sh.H)+pad;const c=shV(sh.C,k,new V3()),t=shV(sh.T,k,new V3()),u=shV(sh.U,k,new V3()),v=shV(sh.V,k,new V3());c.addScaledVector(t,sg);
+ const pos=new Float32Array(12),uv=new Float32Array(8);let o=0;for(const [a,b] of [[-1,-pad],[1,-pad],[-1,h],[1,h]]){_sha.copy(c).addScaledVector(v,a*w).addScaledVector(u,b);pos[o*3]=_sha.x;pos[o*3+1]=_sha.y;pos[o*3+2]=_sha.z;uv[o*2]=a*w;uv[o*2+1]=b;o++;}
+ return shMesh(sh,pos,uv,[0,1,2,2,1,3],mat);}
+// a floor as a heightfield over the ribbon's footprint (for a route that doubles back, where a strip would fold over itself)
+function shGrid(sh,pad,cell,mat,lift){lift=lift||0;const C=sh.C,U=sh.U,n=sh.n;let x0=1e9,x1=-1e9,z0=1e9,z1=-1e9;for(let k=0;k<n;k++){x0=Math.min(x0,C[k*3]);x1=Math.max(x1,C[k*3]);z0=Math.min(z0,C[k*3+2]);z1=Math.max(z1,C[k*3+2]);}
+ const w=sh.half+pad;x0-=w;x1+=w;z0-=w;z1+=w;const nx=Math.ceil((x1-x0)/cell)+1,nz=Math.ceil((z1-z0)/cell)+1;const pos=new Float32Array(nx*nz*3),uv=new Float32Array(nx*nz*2);let o=0;
+ for(let a=0;a<nz;a++)for(let b=0;b<nx;b++){const x=x0+b*cell,z=z0+a*cell;let bi=0,bd=1e9;for(let k=0;k<n;k+=2){const dx=C[k*3]-x,dz=C[k*3+2]-z,dd=dx*dx+dz*dz;if(dd<bd){bd=dd;bi=k;}}
+  const uy=Math.max(.2,U[bi*3+1]);const dy=Math.max(-6,Math.min(6,-(U[bi*3]*(x-C[bi*3])+U[bi*3+2]*(z-C[bi*3+2]))/uy));pos[o*3]=x;pos[o*3+1]=C[bi*3+1]+dy+lift;pos[o*3+2]=z;uv[o*2]=x;uv[o*2+1]=z;o++;}
+ const idx=[];for(let a=0;a<nz-1;a++)for(let b=0;b<nx-1;b++){const q=a*nx+b;idx.push(q,q+nx,q+1,q+1,q+nx,q+nx+1);}
+ return shMesh(sh,pos,uv,idx,mat);}
+// a finer villus than the wall deck's: 16 segments, bulbous tip (profile radius .15, height .95, like villusGeo)
+function shVillusGeo(){const pr=[];for(let k=0;k<=12;k++){const t=k/12;pr.push(new THREE.Vector2(.15*(1-.15*t)*(k===12?0:1)*(1-Math.pow(Math.max(0,t-.78)/.22,2)*.82),-.15+t*.95));}const g=new THREE.LatheGeometry(pr,16);g.computeVertexNormals();return g;}
+// enterocyte cobblestones with goblet cells, for the villus surface
+function shEpiTex(){const t=canvasTex(256,256,(c,w,h)=>{c.fillStyle='#e2a090';c.fillRect(0,0,w,h);const rng=volRng(77);
+ for(let k=0;k<260;k++){const x=rng()*w,y=rng()*h,r=8+rng()*6;c.fillStyle=`rgba(${212+rng()*30|0},${138+rng()*30|0},${128+rng()*26|0},.92)`;c.beginPath();c.arc(x,y,r,0,7);c.fill();c.strokeStyle='rgba(118,48,50,.38)';c.lineWidth=1.3;c.stroke();}
+ for(let k=0;k<64;k++){const x=rng()*w,y=rng()*h;c.fillStyle='rgba(206,228,240,.6)';c.beginPath();c.arc(x,y,3,0,7);c.fill();}});t.repeat.set(2,5);return t;}
+// --- the four sheets ---
+function buildSheets(){buildGutSheet();buildDisseBox();buildRerDisc();buildHepSlab();}
+/* Jejunum: the villus forest. 1 unit = 50 µm, so a villus is 11–16 units tall and you fly at 15, just over the tips. The route runs out
+   behind the gut, turns and comes back; the floor is a heightfield of mucosa with crypt mouths; the funnel at the far end is a tube again. */
+function buildGutSheet(){const Wd=GUT,R=Wd.RANGE;if(!R.jejunum)return;const K=MOBILE?.5:1,i0=R.jejunum[0],i1=Wd.sheetEnd||R.jejunum[1];
+ const sh=shPrep({t:'sheet',Wd,i0,i1,h0:15,H:60,half:26});
+ sh.bowls=shTubeBowls(Wd,Math.max(i0,i1-3),Math.min(Wd.N-1,R.jejunum[1]+3),i=>Wd.R0[i]*.86,2);
+ const cIn=cutAt(Wd,i0,3,Wd.R0[i0]+.3,Wd.R0[i0]+.3),cOut=cutAt(Wd,i1,3,Wd.R0[i1]*.86,Wd.R0[i1]*.86);
+ const floorMat=roomMat(0xd89a8c,.96,[cIn,cOut],1,{mode:4});
+ shGrid(sh,10,MOBILE?4:2.5,floorMat);shGrid(sh,10,MOBILE?6:4,roomMat(0xc88a80,.9,[],1,{mode:4}),sh.H);shEnd(sh,0,8,0,floorMat);shEnd(sh,1,8,0,floorMat);
+ // the villi: capsules you collide with, drawn as instanced lathes; the corridor under the route is kept clear
+ const rng=volRng(31),sp=MOBILE?6.4:4.6,kStep=Math.max(2,Math.round(sp/Wd.DS)),villi=[],T=new V3(),U=new V3(),V=new V3();
+ for(let k=8;k<sh.n-9;k+=kStep){shV(sh.T,k,T);shV(sh.U,k,U);shV(sh.V,k,V);
+  for(let dv=-sh.half+2;dv<=sh.half-2;dv+=sp){const v=dv+(rng()-.5)*2.2,du=(rng()-.5)*2.4;if(Math.abs(v)<3.6)continue;
+   const base=shV(sh.C,k,new V3()).addScaledVector(V,v).addScaledVector(T,du);const dir=U.clone().addScaledVector(V,(rng()-.5)*.3).addScaledVector(T,(rng()-.5)*.3).normalize();
+   const len=11+rng()*5,r=1.15+rng()*.45;const body={t:'cap',a:base.clone().addScaledVector(dir,-.4),b:base.clone().addScaledVector(dir,len*.84-r),r,name:'Villus',sub:'a finger of mucosa 0.5–1 mm tall: enterocytes with a brush border, goblet cells, a lacteal and a capillary net inside',size:'≈ 0.1 mm across · 0.5–1 mm tall',codex:'villus'};
+   villi.push({base,dir,len,r,body});}}
+ const geo=shVillusGeo(),vMat=new THREE.MeshPhysicalMaterial({map:shEpiTex(),roughness:.38,clearcoat:.5,clearcoatRoughness:.3,emissive:0x2a100c});
+ const im=new THREE.InstancedMesh(geo,vMat,villi.length);im.frustumCulled=false;Wd.group.add(im);
+ const setVilli=sy=>{const m=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new V3();villi.forEach((vl,k)=>{const L=Math.max(2,vl.len*sy);q.setFromUnitVectors(_shY,vl.dir);s.set(vl.r/.15,L/.95,vl.r/.15);m.compose(vl.base,q,s);im.setMatrixAt(k,m);vl.body.b.copy(vl.base).addScaledVector(vl.dir,Math.max(vl.r*.5,L*.84-vl.r));bodyBounds(vl.body);});im.instanceMatrix.needsUpdate=true;};
+ setVilli(1);
+ if(CELLS.villus)CELLS.villus.roomK=0;if(CELLS.chyme)CELLS.chyme.roomK=.15;if(CELLS.gbact)CELLS.gbact.roomK=.5;
+ const rm=addRoom(Wd,{id:'gvilli',regs:['jejunum'],shell:sh,bodies:villi.map(v=>v.body),cuts:[cIn,cOut],spread:26,densK:1,nearR:34,camBack:3.6,fog:0x2c1416,fogD:.03,env:'crypt',shellName:'Jejunal mucosa · between the villi',shellSub:'the crypts of Lieberkühn open here between the villus bases: stem cells at the bottom, Paneth cells, a 3–5 day climb to the tip',sy:1,
+  onEnter(){toastOnce('shVilli','The villus forest. The tube has opened into a landscape: dive down among the villi (each 0.5–1 mm tall), E on one to inspect it, V still cycles the coeliac Marsh stages on these villi. The way on is the funnel at the far end.','',900);},
+  tick(){const m=MARSH[GI.marsh];let sy=m.sy;if(m.k==='gf')sy=GI.regrow;if(Math.abs(sy-rm.sy)>.02){rm.sy=sy;setVilli(sy);}}});
+ rm.villi=villi;rm.setVilli=setVilli;SH.all.push(rm);SH.gut=rm;}
+/* Nano: the space of Disse as a slit between the fenestrated endothelium (behind you) and the hepatocyte's basolateral membrane
+   (ahead), 1 unit = 15 nm here. Microvilli reach out from the hepatocyte; the coated pit is a dimple in its membrane. */
+function buildDisseBox(){const Wd=NANO,R=Wd.RANGE;if(!R.ndisse||!R.nccp)return;const K=MOBILE?.5:1,T=v2Tools(Wd,41),{rng,pt,PM,capInst}=T;
+ const B=pt(R.nccp[0]),x0=B.x;const c=new V3(x0-16,B.y,B.z);
+ const sh={t:'box',c,half:[16,40,40],bowls:shTubeBowls(Wd,R.nccp[0],Math.min(Wd.N-1,R.nendo[0]+2),i=>Wd.R0[i]+.1,2)};
+ const cPit=cutAt(Wd,R.nccp[0],3,Wd.R0[R.nccp[0]]+.3,Wd.R0[R.nccp[0]]+.3);
+ const G=Wd.group;
+ // the hepatocyte's membrane: the front face, with the pit cut out
+ const front=new THREE.Mesh(new THREE.PlaneGeometry(100,100),roomMat(0xd8a890,.86,[cPit],1,{mode:0}));front.rotation.y=-Math.PI/2;front.position.set(x0,B.y,B.z);front.frustumCulled=false;G.add(front);
+ // the endothelium: the back face, a sieve plate with real holes, and the blood a little behind it
+ const back=new THREE.Mesh(new THREE.PlaneGeometry(100,100),roomMat(0xc89898,.92,[],1,{mode:5}));back.rotation.y=Math.PI/2;back.position.set(x0-32,B.y,B.z);back.frustumCulled=false;G.add(back);
+ const blood=new THREE.Mesh(new THREE.PlaneGeometry(120,120),new THREE.MeshBasicMaterial({color:0x7a1418}));blood.rotation.y=Math.PI/2;blood.position.set(x0-34,B.y,B.z);blood.frustumCulled=false;G.add(blood);
+ // the inside of the pit: the same membrane dimpling in (the clathrin cage is on the other side, in the cytosol)
+ skinMesh(Wd,R.nccp[0],Math.min(Wd.N-1,R.nendo[0]+1),.12,roomMat(0xd8a890,.8,[],1,{mode:0}),1);
+ // microvilli from the hepatocyte, reticulin fibrils near the endothelium; the corridor along the route stays clear
+ const bodies=[],mv=[],fib=[];const ay=B.y+.5,az=B.z+.3;
+ for(let y=-44;y<=44;y+=MOBILE?10:7.5)for(let z=-44;z<=44;z+=MOBILE?10:7.5){const yy=y+(rng()-.5)*4,zz=z+(rng()-.5)*4;if(Math.hypot(yy-(ay-B.y),zz-(az-B.z))<8)continue;
+  const a=new V3(x0,B.y+yy,B.z+zz),dir=new V3(-1,(rng()-.5)*.5,(rng()-.5)*.5).normalize(),L=16+rng()*8,r=2.1+rng()*.6;const b={t:'cap',a:a.clone().addScaledVector(dir,-.5),b:a.clone().addScaledVector(dir,L),r,name:'Hepatocyte microvillus',sub:'the basolateral membrane folded into fingers that reach across the space of Disse: ten times the surface for uptake',size:'≈ 0.1 µm across · 0.3–0.5 µm long',codex:'ndisse',env:'membenv'};bodies.push(b);mv.push(b);}
+ for(let k=0;k<8;k++){const vert=rng()<.5,off=(8+rng()*30)*(rng()<.5?-1:1),x=x0-27-rng()*3;const a=vert?new V3(x,B.y-50,B.z+off):new V3(x,B.y+off,B.z-50),b=vert?new V3(x+(rng()-.5)*2,B.y+50,B.z+off+(rng()-.5)*6):new V3(x+(rng()-.5)*2,B.y+off+(rng()-.5)*6,B.z+50);
+  const f={t:'cap',a,b,r:.42,name:'Reticulin fibril',sub:'type III collagen in the space of Disse: the scaffold the hepatocyte plates hang on; stellate cells make much more of it in fibrosis',size:'≈ 15 nm across',codex:'ndisse',env:'membenv'};bodies.push(f);fib.push(f);}
+ capInst(mv,PM({color:0xd8a890,roughness:.5,clearcoat:.3,emissive:0x1a0c08}),10);capInst(fib,PM({color:0xe8e0d0,roughness:.6,emissive:0x101010}),6);
+ const rm=addRoom(Wd,{id:'ndisse',regs:['ndisse','nccp'],shell:sh,bodies,cuts:[],spread:22,densK:.5,nearR:70,camBack:2.6,fog:0x1a1012,fogD:.03,env:'ndisse',shellName:'Space of Disse · hepatocyte membrane',shellSub:'the basolateral face of the hepatocyte, 0.5 µm from the endothelium: receptors for LDL, transferrin, albumin-bound drugs; microvilli everywhere',
+  onEnter(){toastOnce('shDisse','The space of Disse: a slit, not a tube. Behind you the sinusoid’s endothelium with its fenestrae (LDL came through them); ahead the hepatocyte’s membrane with its microvilli. The coated pit is the dimple straight ahead.','',900);}});
+ SH.all.push(rm);SH.disse=rm;}
+/* Nano: the rough ER as a flat cisterna 1.5 µm across, 150 nm thick, instead of a tube: a disc you fly inside, with ribosomes on
+   both outer faces. The cytosol sees the same disc as a solid plate (replacing the old tube skin). */
+function buildRerDisc(){const Wd=NANO,R=Wd.RANGE;if(!R.nrer||!NCR.cyto)return;const K=MOBILE?.5:1,T=v2Tools(Wd,43),{rng,pt,tg,PM,sphInst}=T;
+ const i0=R.nrer[0],i1=R.nrer[1],a=pt(i0),b=pt(i1),c=a.clone().lerp(b,.5),t=b.clone().sub(a).normalize(),u=_shY.clone().addScaledVector(t,-_shY.dot(t)).normalize();
+ const Rd=a.distanceTo(b)/2+1.5,h=2.5,q=new THREE.Quaternion().setFromUnitVectors(_shY,u);
+ const sh={t:'disc',c,q,qi:q.clone().invert(),R:Rd,h};
+ const cIn=cutAt(Wd,i0,3,2.4,2.5),cOut=cutAt(Wd,i1,3,2.4,2.5);
+ const mat=roomMat(0xb48ec4,.84,[cIn,cOut],1,{mode:0});const disc=new THREE.Mesh(new THREE.CylinderGeometry(Rd,Rd,2*h,72,1,false),mat);disc.position.copy(c);disc.quaternion.copy(q);disc.frustumCulled=false;Wd.group.add(disc);
+ const ribs=[];for(let k=0;k<Math.round(460*K);k++){const rr=Math.sqrt(rng())*(Rd-.8),th=rng()*6.283,up=rng()<.5?1:-1;const p=new V3(Math.cos(th)*rr,up*(h+.5),Math.sin(th)*rr).applyQuaternion(q).add(c);ribs.push({c:p,r:.5});}
+ sphInst(ribs,PM({color:0xc08a5a,roughness:.55,emissive:0x1a0c04}),new THREE.SphereGeometry(1,10,7));
+ // the cytosol: the plate replaces the tube skin as furniture, the old skin mesh is hidden
+ const cy=NCR.cyto;cy.bodies=cy.bodies.filter(x=>!(x.t==='skin'&&x.i0===i0));
+ const plate={t:'plate',c,q,R:Rd,h:h+.5,name:'Rough endoplasmic reticulum',sub:'a flat cisterna seen from the cytosol: ribosomes on both faces threading new proteins into the lumen',size:'≈ 1.5 µm across · lumen ≈ 150 nm',codex:'nrer',env:'erenv'};bodyBounds(plate);cy.bodies.push(plate);
+ if(NCR.rerSkin)NCR.rerSkin.visible=false;
+ if(CELLS_NC.riboW)CELLS_NC.riboW.roomK=0;if(CELLS_NC.ribo&&CELLS_NC.ribo.dens)CELLS_NC.ribo.dens.nrer=0;
+ const rm=addRoom(Wd,{id:'nrer',regs:['nrer'],shell:sh,bodies:[],cuts:[cIn,cOut],spread:11,densK:1.3,nearR:60,camBack:2.2,fog:0x1a1220,fogD:.05,env:'nrer',shellName:'ER membrane · luminal face',shellSub:'the inside of the cisterna: BiP and PDI folding new chains, calnexin checking glycans, calcium at 100× the cytosol’s',
+  onEnter(){toastOnce('shRer','Inside a cisterna of the rough ER: a flat sac 150 nm thick and a micrometre or two across, not a tube. The ribosomes are on the far side of this membrane; here the new proteins are folded and checked. The way on to the smooth ER is the hole at the far rim.','',900);}});
+ SH.all.push(rm);SH.rer=rm;}
+/* Liver: the sinusoid as a slit between two hepatocyte plates (1 unit ≈ 3.3 µm): the floor and the ceiling are fenestrated endothelium
+   with the hepatocytes showing through; the plates close it at the sides (it is 130 µm across here; the real mesh of sinusoids anastomoses sideways). */
+function buildHepSlab(){const Wd=HEP,R=Wd.RANGE;if(!R.zone1||!R.zone3)return;const i0=R.zone1[0],i1=R.zone3[1];
+ const sh=shPrep({t:'sheet',Wd,i0,i1,h0:1.6,H:3.2,half:40});
+ const cIn=cutAt(Wd,i0,3,Wd.R0[i0]+.25,Wd.R0[i0]+.25),cOut=cutAt(Wd,i1,3,Math.min(1.4,Wd.R0[i1]+.25),Math.min(1.4,Wd.R0[i1]+.25));
+ const mat=roomMat(0xc88074,.96,[cIn,cOut],1,{mode:6});
+ shStrip(sh,0,2,mat,2);shStrip(sh,sh.H,2,mat,2);shSide(sh,-1,2,mat,2);shSide(sh,1,2,mat,2);shEnd(sh,0,2,0,mat);shEnd(sh,1,2,0,mat);
+ const rm=addRoom(Wd,{id:'hsin',regs:['zone1','zone2','zone3'],shell:sh,bodies:[],cuts:[cIn,cOut],spread:12,densK:1.2,flowK:1,nearR:40,camBack:2.4,fog:0x2a1416,fogD:.06,env:'disse',shellName:'Sinusoidal endothelium',shellSub:'a sieve of fenestrae 100 nm wide, no basement membrane; the hepatocyte plate and the space of Disse are just behind it, Kupffer cells sit on it',
+  onEnter(){toastOnce('shSin','The sinusoid is a slit between two plates of hepatocytes, one cell thick, and it joins its neighbours sideways. The blood still carries you toward the central vein; the walls above and below are the fenestrated endothelium, the hepatocytes right behind.','',900);}});
+ SH.all.push(rm);SH.hep=rm;}
+
+buildNanoRooms();buildLungRooms();buildRenalRooms();buildLymphRooms();buildNerveRooms();buildBranches();buildSheets();
 const S={pos:new V3(),vel:new V3(),q:new THREE.Quaternion(),idx:0,sF:0,lastMouse:-9,auto:false,boost:false,bumpT:0,vol:null};
 function placeAt(i){
  S.idx=i;gv(P,i,S.pos);S.vel.set(0,0,0);gv(T,i,_t);
@@ -12827,7 +12976,7 @@ async function ivBoot(){
 }
 
 ivBoot();
-window.__IV={get W(){return W;},VOL,V2,SB,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
+window.__IV={get W(){return W;},VOL,V2,SB,SH,addBranch,NCR,volFree,volSync,volEnter,volLeave,NANO,NC,NCG,nanoCalc,ncFlux,enterNano,exitNano,ncToggle,ncFast,ncStat,openExamNC,openNcPath,ncDetour,ncShrink,NCNODES,ivSnapshot,ivRestore,ivJourneys,ivContinue,ivTick,get IVSave(){return IVSave;},get IVStory(){return IVStory;},PIT,PT,PTG,pitCalc,enterPit,exitPit,ptToggle,ptNight,ptCab,openExamPT,ptDetour,ptFlow,PTNODES,PAN,PC,PG,panCalc,enterPan,exitPan,pcToggle,pcMeal,pcErcp,openExamPC,openPanFork,pcDetour,pcFlow,PCNODES,HEP,HP,HG,hepCalc,enterHep,exitHep,hpToggle,hpMeal,hpNac,openExamHP,openHepFork,hpDetour,hpFlow,HNODES,REGUM,PROPUM,umAt,propSize,propMul,scaleTxt,magTxt,CELLS,bfToggle,bfStart,bfStop,bfWhere,bfSDF,bfGlass,BRAIN,openBrain,bView,AF,afFrame,TXU,afStart,afStop,afK,afE,afF,afPlaceKey,afToggle,afIntro,afWhere,THX,TXT,TXH,TXMIS,TXREG,TXSEG,TXCT,txStart,txMisClick,txPick,openThx,txClose,txApply,txCTSet,txCTToggle,txLandmark,txProcClick,txIdealP,txCTCompute,txRouteCT,txMisCT,txTagAns,thxKey,txWhere,txLungD,txHeartD,txInfo,txRounds,txEndMis,txAnimTo,txSkinP,BG,BGMIS,bgStart,bgClick,bgCells,bgCellExit,bgRounds,bgSurf,bPick,bView,BRAIN,SLIDES,SLIDEMAP,slidesLoad,renderSlides,slideOpen,PV,pvBig,CRY,headlight,ship,MOUTH,buildMouth,mouthClamp,tongueY,palateY,mouthEnv,moLin,BRAIN,openBrain,bClose,bView,bPick,bInfo,brainKey,bApply,bWhere,NERVE,addCodex,flyToKey,RENAL,RN,renalCalc,enterRenal,rnToggle,rnHydration,rnLasix,openExamRN,exitRenal,rnTubular,rnInterst,rnRemaining,openRenalFork,GDOOR,rnFlow,LUNG,LU,BR,GLOT,enterLung,luToggle,o2Trial,gasCalc,cough,posture,openExamLU,exitLung,genAt,genDiam,genArea,airVel,playBreath,GUT,GI,SPH,gSlow,gWave,enterGut,openFork,gutToggle,openExamGI,MARSH,DECK,deckImport,deckMatchNote,openDeck,deckParseTSV,sqliteOpen,unzip,deckCardsFor,deckStudyKey,renderDeck,PROV,PROV_SYS,provOf,provHTML,provSummary,findEnv,findTarget,envKeyAt,inspectEnv,ENV,get envT(){return envT},vitalsTick,unlocked,scanned,done,get SRS(){return SRS},srsDeck,openStudy,checkPredict,PREDICT,get study2(){return study2},ALL,camera,setPaused:v=>paused=v,scene,update,placeAt,keys,S,C,complete,done,scanned,openQuiz,setSteth,orifice,openExam,switchWorld,BLOOD,LYMPH,NERVE,detour,
  get W(){return W;},get study(){return study;},get RANGE(){return RANGE;},get SAT(){return SAT;},get REG(){return REG;},get N(){return N;},get nodeIdx(){return nodeIdx;},get VALVES(){return VALVES;},get ptHealth(){return ptHealth;}}; // debug hook
 })();
 
